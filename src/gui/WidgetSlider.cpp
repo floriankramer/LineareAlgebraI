@@ -1,0 +1,54 @@
+/*
+ * WidgetSlider.cpp
+ *
+ *  Created on: Oct 27, 2015
+ *      Author: dwarf
+ */
+
+#include <WidgetSlider.h>
+#include "Mouse.h"
+
+namespace gui {
+
+WidgetSlider::WidgetSlider() : Widget(), value(0) {
+	setWidth(0.5);
+	setHeight(0.1);
+	setListenToMouse(true);
+
+}
+
+WidgetSlider::~WidgetSlider() {
+
+}
+
+void WidgetSlider::render(float upateFactor){
+	float halfheight = getHeight() / 2;
+	renderer.drawLine(0, halfheight, getWidth(), halfheight, 0.01);
+	renderer.drawRect(value * getWidth() - 0.01, halfheight - 0.01, 0.02, 0.02, 0); //value * getWidth()
+}
+
+void WidgetSlider::onFocusChanged(){
+	guiLogger.log("slider focus: " + std::to_string(isFocused()));
+}
+
+void WidgetSlider::handleMouseButtonEvent(int button, float x, float y, bool pressed){
+	if(button == 1 && pressed){
+		value = x / getWidth();
+	}
+}
+
+void WidgetSlider::handleMouseMotionEvent(float x, float y){
+	if(isMouseButtonDown(1)){
+		value = x / getWidth();
+	}
+}
+
+void WidgetSlider::setValue(float v){
+	value = v;
+}
+
+float WidgetSlider::getValue(){
+	return value;
+}
+
+} /* namespace gui */
