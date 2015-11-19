@@ -242,9 +242,18 @@ void AudioFile::read(){
 		}
 	}
 	else if(format == OGG_VORBIS){
-		dataRead = ov_read(ogg, dataBuffer, bufferSize, 0, 2, 1, 0);
-		while(dataRead < bufferSize){ // read as many vorbis packets as we need to fill the buffer
-			dataRead += ov_read(ogg, dataBuffer + dataRead, bufferSize - dataRead, 0, 2, 1, 0);
+		//dataRead = ov_read(ogg, dataBuffer, bufferSize, 0, 2, 1, 0);
+		int errorCount = 0;
+		int read = 1;
+		dataRead = 0;
+		while(read != 0 && errorCount < 7 && dataRead < bufferSize){ // read as many vorbis packets as we need to fill the buffer
+			read = ov_read(ogg, dataBuffer + dataRead, bufferSize - dataRead, 0, 2, 1, 0);
+			if(read < 0){
+				errorCount ++;
+			}
+			else{
+				dataRead += read;
+			}
 		}
 	}
 }
