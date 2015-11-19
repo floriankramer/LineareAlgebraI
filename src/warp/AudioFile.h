@@ -10,6 +10,8 @@
 
 #include <string>
 #include <fstream>
+#include <cstdio>
+#include <vorbis/vorbisfile.h>
 
 namespace audio{
 
@@ -39,17 +41,21 @@ public:
 	uint32_t getDataSize();
 	uint32_t getBufferSize();
 	bool hasReachedEnd();
+	void printFileInfo();
 private:
 	std::string filePath;
 	AudioFileFormat format;
 	AudioFileMode mode;
 	std::ifstream file;
+	FILE * cfile;
 	uint32_t channelCount, sampleRate, bitCount;
 	char *dataBuffer;
 	bool loaded;
 	uint32_t dataSize;
 	uint32_t bufferSize;
 	unsigned int dataRead;
+	OggVorbis_File *ogg;
+
 
 };
 

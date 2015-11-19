@@ -93,7 +93,7 @@ void *run(void* args){
 
 	audio::init();
 	audio::loadSound("sfx/out_of_reach.wav", "out_of_reach");
-	audio::loadSound("sfx/temp/click.wav", "click");
+	audio::loadSound("sfx/temp/click.ogg", "click");
 	audio::loadSound("sfx/temp/death.wav", "death");
 	audio::loadSound("sfx/temp/stone_slide.wav", "stone_slide");
 	//audio::loadSound("sfx/temp/pippin_the_hunchback.wav", "pippin");
