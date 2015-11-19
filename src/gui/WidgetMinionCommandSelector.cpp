@@ -99,15 +99,15 @@ void WidgetMinionCommandSelector::handleMouseButtonEvent(int button, float x, fl
 		float height = getHeight();
 		if(pressed){
 			for(int i = 0; i < numCommands; i++){
-				if(game::physics::pointInRect(x - getLeft(), y - getBottom(), 0.08 + i * iconSpace - iconSize / 2, height - iconTopOffset - iconSize / 2, iconSize, iconSize)){
+				if(game::physics::pointInRect(x, y, 0.08 + i * iconSpace - iconSize / 2, height - iconTopOffset - iconSize / 2, iconSize, iconSize)){
 					grabbedCommand = i;
-					grabbedX = x - getLeft() - iconSize / 2;
-					grabbedY = y - getBottom() - iconSize / 2;
+					grabbedX = x - iconSize / 2;
+					grabbedY = y - iconSize / 2;
 					return;
 				}
 			}
 			for(int i = 0; i < game::getCommandDepth(); i++){
-				if(game::physics::pointInRect(x - getLeft(), y - getBottom(), 0.05 + i * rectSpace, height - 0.12, rectSize, rectSize)){
+				if(game::physics::pointInRect(x, y, 0.05 + i * rectSpace, height - 0.12, rectSize, rectSize)){
 					commands[i] = -1;
 					return;
 				}
@@ -116,7 +116,7 @@ void WidgetMinionCommandSelector::handleMouseButtonEvent(int button, float x, fl
 		else{
 			if(grabbedCommand != -1){
 				for(int i = 0; i < game::getCommandDepth(); i++){
-					if(game::physics::pointInRect(x - getLeft(), y - getBottom(), 0.05 + i * rectSpace, height - 0.12, rectSize, rectSize)){
+					if(game::physics::pointInRect(x, y, 0.05 + i * rectSpace, height - 0.12, rectSize, rectSize)){
 						commands[i] = grabbedCommand;
 						if(minion != NULL){
 							minion->setCommand(i, grabbedCommand);
@@ -132,8 +132,8 @@ void WidgetMinionCommandSelector::handleMouseButtonEvent(int button, float x, fl
 
 void WidgetMinionCommandSelector::handleMouseMotionEvent(float x, float y){
 	if(grabbedCommand != -1){
-		grabbedX = x - getLeft() - iconSize / 2;
-		grabbedY = y - getBottom() - iconSize / 2;
+		grabbedX = x - iconSize / 2;
+		grabbedY = y - iconSize / 2;
 	}
 }
 

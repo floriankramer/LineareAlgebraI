@@ -176,9 +176,7 @@ void Widget::handleInput(){
 				 */
 
 				if(w->isListeningToMouse() && w->isFocusable()){
-					float dX = 0;
-					float dY = 0;
-					w->handleMouseButtonEvent(event.button.button, s[0] - dX, s[1] - dY, false);
+					w->handleMouseButtonEvent(event.button.button, s[0] - w->left, s[1] - w->bottom, false);
 					break;
 				}
 			}

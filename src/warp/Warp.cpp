@@ -453,20 +453,14 @@ void checkForGLError(std::string location){
 }
 
 void setScissorArea(float x, float y, float width, float height){
-	int *f1 = screenToPixelSpace(x, y); //TODO check y orientation returned vs y orientation used by glScissor (up / down)
-	int *f2 = screenToPixelSpace(x + width, y + height);
-
-	warpLogger.log(f1[0]);
-	warpLogger.log(f1[1]);
-	warpLogger.log(f2[0]);
-	warpLogger.log(f2[1]);
-
+//	int *f1 = screenToPixelSpace(x, y); //TODO check y orientation returned vs y orientation used by glScissor (up / down)
+//	int *f2 = screenToPixelSpace(x + width, y + height);
 
 	//glScissor(f1[0], f1[1], f2[0] - f1[0], f2[1] - f1[1] + 10);
 //	glScissor(0, 0, 200, 200); TODO save with renderables to be run from the right thread
 
-	delete[] f1;
-	delete[] f2;
+//	delete[] f1;
+//	delete[] f2;
 }
 
 GLint getDefaultVaoId(){

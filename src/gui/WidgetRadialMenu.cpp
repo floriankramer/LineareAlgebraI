@@ -72,6 +72,7 @@ void WidgetRadialMenu::render(float updateFactor){
 	//		posFactor = sin(animValue * 3.1415 / 2);
 	//	}
 
+
 	options.updateAnim(updateFactor);
 
 	if(options.posFactor == 0){
@@ -148,11 +149,11 @@ void WidgetRadialMenu::handleMouseButtonEvent(int i, float, float, bool pressed 
 }
 
 void WidgetRadialMenu::handleMouseMotionEvent(float x, float y){
-	selectionDepth = hypot(x - getX(), y - getY()) > radius ? 1 : 0;
+	selectionDepth = hypot(x - getWidth() / 2, y - getHeight() / 2) > radius ? 1 : 0;
 
 	RadialMenuTree *t;
 
-	float angle = atan2(x - getX(), y - getY());
+	float angle = atan2(x - getWidth() / 2, y - getHeight() / 2);
 	if(angle < 0)
 		angle += (2 * 3.1415);
 	int i = (static_cast<int>(angle / options.sliceSize));
@@ -169,7 +170,7 @@ void WidgetRadialMenu::handleMouseMotionEvent(float x, float y){
 					selected->parent->close();
 			}
 			t->open();
-			float angle2 = atan2(x - (t->x + getX()), y - (t->y + getY()));
+			float angle2 = atan2(x - (t->x + getWidth() / 2), y - (t->y + getHeight() / 2));
 			angle2 -= t->angle;
 			while(angle2 < -3.1415)
 				angle2 += 2 * 3.1415;
