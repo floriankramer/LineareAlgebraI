@@ -98,7 +98,7 @@ void *run(void* args){
 	audio::loadSound("sfx/temp/stone_slide.wav", "stone_slide");
 	//audio::loadSound("sfx/temp/pippin_the_hunchback.wav", "pippin");
 	audio::setMusicQueueLoop(true);
-	audio::queueMusic("sfx/temp/pippin_the_hunchback.wav");
+	audio::queueMusic("sfx/temp/pippin_the_hunchback.ogg");
 //	audio::queueMusic("sfx/temp/moorland_short.wav");
 	//audio::playPlainSound("pippin", 0.5);
 

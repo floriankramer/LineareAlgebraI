@@ -11,11 +11,11 @@
 
 namespace audio{
 
-AudioFile::AudioFile() : filePath(""), format(RAW), mode(BUFFER), channelCount(0), sampleRate(0), bitCount(0), dataBuffer(0), loaded(false), dataSize(0), bufferSize(0), dataRead(0), ogg(0){
+AudioFile::AudioFile() : filePath(""), format(RAW), mode(BUFFER), cfile(NULL), channelCount(0), sampleRate(0), bitCount(0), dataBuffer(0), loaded(false), dataSize(0), bufferSize(0), dataRead(0), ogg(0){
 
 }
 
-AudioFile::AudioFile(std::string src) : filePath(src), mode(BUFFER), channelCount(0), sampleRate(0), bitCount(0), dataBuffer(0), loaded(false), dataSize(0), bufferSize(0), dataRead(0), ogg(0){
+AudioFile::AudioFile(std::string src) : filePath(src), mode(BUFFER), cfile(NULL), channelCount(0), sampleRate(0), bitCount(0), dataBuffer(0), loaded(false), dataSize(0), bufferSize(0), dataRead(0), ogg(0){
 	std::string t = filePath.substr(filePath.size() - 3, filePath.size());
 	if(t == "wav"){
 		format = WAV;
@@ -28,7 +28,7 @@ AudioFile::AudioFile(std::string src) : filePath(src), mode(BUFFER), channelCoun
 	}
 }
 
-AudioFile::AudioFile(std::string src, std::string t) : filePath(src), mode(BUFFER), channelCount(0), sampleRate(0), bitCount(0), dataBuffer(0), loaded(false), dataSize(0),  bufferSize(0), dataRead(0), ogg(0){
+AudioFile::AudioFile(std::string src, std::string t) : filePath(src), mode(BUFFER), cfile(NULL), channelCount(0), sampleRate(0), bitCount(0), dataBuffer(0), loaded(false), dataSize(0),  bufferSize(0), dataRead(0), ogg(0){
 	if(t == "wav"){
 		format = WAV;
 	}
@@ -121,9 +121,9 @@ void AudioFile::open(){
 		u16 |= (buffer[15] << 8) & 0xFF00;
 		bitCount = u16;
 
-//		render::warpLogger.log("channel count: " + std::to_string(channelCount));
-//		render::warpLogger.log("bit count: " + std::to_string(bitCount));
-//		render::warpLogger.log("samplerate: " + std::to_string(sampleRate));
+		//		render::warpLogger.log("channel count: " + std::to_string(channelCount));
+		//		render::warpLogger.log("bit count: " + std::to_string(bitCount));
+		//		render::warpLogger.log("samplerate: " + std::to_string(sampleRate));
 
 		for(unsigned int i = 0; i < blockSize; i++){
 			buffer[i] = 0;
@@ -177,9 +177,8 @@ void AudioFile::open(){
 		render::warpLogger.log("opening audio file: " + filePath);
 		if(cfile != NULL){
 			ogg = new OggVorbis_File();
-			if((error = ov_open_callbacks(cfile, ogg, NULL, 0, OV_CALLBACKS_DEFAULT)) < 0){
+			if((error = ov_open_callbacks(cfile, ogg, NULL, 0, mode == STREAM ? OV_CALLBACKS_STREAMONLY : OV_CALLBACKS_DEFAULT)) < 0){
 				switch(error){
-
 				case OV_EREAD:
 					render::warpLogger.log("ERROR: A read from media returned an error while reading " + filePath);
 					break;
@@ -217,6 +216,10 @@ void AudioFile::open(){
 						}
 						ov_clear(ogg);
 					}
+					else{
+						bufferSize = static_cast<uint32_t>(0.07 * sampleRate * bitCount / 8 * channelCount);
+						dataBuffer = static_cast<char *>(malloc(bufferSize)); // get enough space for 50 ms of music
+					}
 				}
 				else{
 					render::warpLogger.log("ERROR: unable to retrieve ogg file info");
@@ -232,19 +235,42 @@ void AudioFile::open(){
 }
 
 void AudioFile::read(){
-	if(file.is_open()){
-		file.read(dataBuffer, bufferSize);
-		dataRead = file.gcount();
+	if(format == WAV){
+		if(file.is_open()){
+			file.read(dataBuffer, bufferSize);
+			dataRead = file.gcount();
+		}
+	}
+	else if(format == OGG_VORBIS){
+		dataRead = ov_read(ogg, dataBuffer, bufferSize, 0, 2, 1, 0);
+		while(dataRead < bufferSize){ // read as many vorbis packets as we need to fill the buffer
+			dataRead += ov_read(ogg, dataBuffer + dataRead, bufferSize - dataRead, 0, 2, 1, 0);
+		}
 	}
 }
 
 bool AudioFile::hasReachedEnd(){
-	return file.eof();
+	if(format == WAV){
+		return file.eof();
+	}
+	else if(format == OGG_VORBIS){
+		return dataRead == 0;
+	}
+	else{
+		return true;
+	}
 }
 
 void AudioFile::close(){
-	if(file.is_open()){
-		file.close();
+	if(format == WAV){
+		if(file.is_open()){
+			file.close();
+		}
+	}
+	else if(format == OGG_VORBIS){
+		if(ogg != NULL && ov_test_open(ogg)){
+			ov_clear(ogg);
+		}
 	}
 }
 
