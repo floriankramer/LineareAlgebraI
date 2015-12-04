@@ -181,7 +181,8 @@ void WidgetWorld::render(float updateFactor){
 		game::world::renderNodes(getEditMode(), updateFactor);
 
 	game::world::renderBlocks(updateFactor);
-	render::light::render(updateFactor);
+	if(getEditMode() && tool == &light)
+		render::light::render(updateFactor);
 	if(!getEditMode())
 		game::world::renderNodes(getEditMode(), updateFactor);
 
@@ -278,7 +279,7 @@ std::string WidgetWorld::setToolParameter(std::string name, std::string value){
 
 void WidgetWorld::handleMouseMotionEvent(float x, float y){
 	if(getEditMode()){
-		float *w = screenToWorldSpace(x, y);
+		float *w = screenToWorldSpace(x + getLeft(), y + getBottom());
 		if(isMouseButtonDown(1) && tool != NULL){
 			tool->step(w[0], w[1], 1);
 		}

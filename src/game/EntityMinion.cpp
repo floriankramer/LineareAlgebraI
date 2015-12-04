@@ -76,12 +76,12 @@ void EntityMinion::renderBasics(float updateFactor){
 			render::drawRect(getXCenter(), getYCenter() + getWidth(), 0.1f, 0.1f, 0, colorIdle);
 		}
 
-		if(canSeeLight()){
-			render::drawRect(getXCenter(), getYCenter() + getWidth() * .5, 0.5f, 0.5f, 0, colorIdle);
-			float *f = getSeenLight();
-			render::drawLine(getXCenter(), getYCenter(), f[0], f[1], 0.1);
-			delete[] f;
-		}
+//		if( canSeeLight()){ TODO add debug rendering modes
+//			render::drawRect(getXCenter(), getYCenter() + getWidth() * .5, 0.5f, 0.5f, 0, colorIdle);
+//			float *f = getSeenLight();
+//			render::drawLine(getXCenter(), getYCenter(), f[0], f[1], 0.1);
+//			delete[] f;
+//		}
 
 		render::drawRectOutline(getX() + 0.85 * commandPos, getY() + getHeight(), 0.75, 0.75, 0, 0.05);
 

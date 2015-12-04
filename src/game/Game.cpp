@@ -33,6 +33,9 @@
 
 #include <fstream>
 
+//TODO remove
+#include "LightHandler.h"
+
 namespace game{
 
 Logger gameLogger("Game");
@@ -160,12 +163,17 @@ void *run(void* args){
 	return 0;
 }
 
+
+
 void synchronizeRenderables(){
 	physicsThread.wait();
 
 	render::resetRenderables();
 
+
+
 	masterWidget->render(render::getUpdateFactor());
+	render::light::debugGame();
 
 	while(!renderThread.isWaiting() && shouldRun){
 		SDL_Delay(1);

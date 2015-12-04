@@ -126,6 +126,7 @@ void * run(void * atr){
 	checkForGLError("vao initialization");
 	font::init();
 	checkForGLError("font initialization");
+	light::init();
 
 	createDefaultVao();
 
@@ -172,6 +173,9 @@ void * run(void * atr){
 			fbo::init();
 			fbo::recreateFBOs = false;
 		}
+		if(light::isShouldRebuildShadowMap()){
+			light::rebuildShadowMapInternal();
+		}
 
 		loadNewTextures();
 		font::loadNewFonts();
@@ -211,8 +215,164 @@ void * run(void * atr){
 	return NULL;
 }
 
-void doRenderUpdate(){
+#include "Mouse.h"
 
+void doRenderUpdate(){
+	/* DEBUG CODE for Collision handler line intersection testing
+	 * fbo::setFBOTarget(fbo::DISPLAY);
+	glClearColor(0, 0, 0, 1);
+	glDisable(GL_TEXTURE_2D);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	int x, y;
+	SDL_GetMouseState(&x, &y);
+	float * m = pixelToScreenSpace(x, y);
+	m[0] /= options::getAspectRatio();
+
+	glColor4f(1, 1, 1, 1);
+
+	glBegin(GL_TRIANGLES);
+	glVertex2f(m[0] - 0.05, m[1] - 0.05);
+	glVertex2f(m[0] + 0.05, m[1] - 0.05);
+	glVertex2f(m[0] + 0.05, m[1] + 0.05);
+
+	glVertex2f(m[0] - 0.05, m[1] - 0.05);
+	glVertex2f(m[0] + 0.05, m[1] + 0.05);
+	glVertex2f(m[0] - 0.05, m[1] + 0.05);
+	glEnd();
+
+	glBegin(GL_LINES);
+	glVertex2f(-0.5, -0.3);
+	glVertex2f(0.1, 0.4);
+
+	glVertex2f(0.567, -.4124);
+	glVertex2f(m[0], m[1]);
+	glEnd();
+
+
+
+
+
+
+
+	if(game::physics::linesIntersect(-0.5, 0.1, -0.3, 0.4, 0.567, m[0], -.4124, m[1])){
+		glColor4f(0, 0, 1, 1);
+		glBegin(GL_TRIANGLES);
+		glVertex2f(m[0] - 0.015, m[1] - 0.015);
+		glVertex2f(m[0] + 0.015, m[1] - 0.015);
+		glVertex2f(m[0] + 0.015, m[1] + 0.015);
+
+		glVertex2f(m[0] - 0.015, m[1] - 0.015);
+		glVertex2f(m[0] + 0.015, m[1] + 0.015);
+		glVertex2f(m[0] - 0.015, m[1] + 0.015);
+		glEnd();
+	}
+
+	float *d = game::physics::getLineIntersection(-0.5, 0.1, -0.3, 0.4, 0.567, m[0], -.4124, m[1]);
+	if(!isnan(d[0])){
+		glColor4f(0, 0, 1, 1);
+		glBegin(GL_TRIANGLES);
+		glVertex2f(d[0] - 0.01, d[1] - 0.01);
+		glVertex2f(d[0] + 0.01, d[1] - 0.01);
+		glVertex2f(d[0] + 0.01, d[1] + 0.01);
+
+		glVertex2f(d[0] - 0.01, d[1] - 0.01);
+		glVertex2f(d[0] + 0.01, d[1] + 0.01);
+		glVertex2f(d[0] - 0.01, d[1] + 0.01);
+		glEnd();
+	}
+
+
+	if(game::physics::lineIntersectsRect(-0.5, 0.1, -0.3, 0.4, m[0] - 0.05, m[1] - 0.05, m[0] + 0.05, m[1] + 0.05)){
+		glColor4f(0, 1, 0, 1);
+		glBegin(GL_TRIANGLES);
+		glVertex2f(m[0] - 0.01, m[1] - 0.01);
+		glVertex2f(m[0] + 0.01, m[1] - 0.01);
+		glVertex2f(m[0] + 0.01, m[1] + 0.01);
+
+		glVertex2f(m[0] - 0.01, m[1] - 0.01);
+		glVertex2f(m[0] + 0.01, m[1] + 0.01);
+		glVertex2f(m[0] - 0.01, m[1] + 0.01);
+		glEnd();
+	}
+
+	float *f = game::physics::getLineRectIntersection(-0.5, 0.1, -0.3, 0.4, m[0] - 0.05, m[1] - 0.05, m[0] + 0.05, m[1] + 0.05 );
+	if(!isnan(f[0])){
+		glColor4f(0, 1, 0, 1);
+		glBegin(GL_TRIANGLES);
+		glVertex2f(f[0] - 0.015, f[1] - 0.015);
+		glVertex2f(f[0] + 0.015, f[1] - 0.015);
+		glVertex2f(f[0] + 0.015, f[1] + 0.015);
+
+		glVertex2f(f[0] - 0.015, f[1] - 0.015);
+		glVertex2f(f[0] + 0.015, f[1] + 0.015);
+		glVertex2f(f[0] - 0.015, f[1] + 0.015);
+		glEnd();
+	}
+
+	//bottom
+	f = game::physics::getLineIntersection(-0.5, 0.1, -0.3, 0.4, m[0] - 0.05, m[0] + 0.05, m[1] - 0.05, m[1] - 0.05);
+	if(!isnan(f[0])){
+		glColor4f(0.5, 0.5, 0, 1);
+		glBegin(GL_TRIANGLES);
+		glVertex2f(f[0] - 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] + 0.01);
+
+		glVertex2f(f[0] - 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] + 0.01);
+		glVertex2f(f[0] - 0.01, f[1] + 0.01);
+		glEnd();
+	}
+
+	//left
+	f = game::physics::getLineIntersection(-0.5, 0.1, -0.3, 0.4, m[0] - 0.05, m[0] - 0.05, m[1] - 0.05, m[1] + 0.05);
+	if(!isnan(f[0])){
+		glColor4f(0.5, 0, 0.5, 1);
+		glBegin(GL_TRIANGLES);
+		glVertex2f(f[0] - 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] + 0.01);
+
+		glVertex2f(f[0] - 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] + 0.01);
+		glVertex2f(f[0] - 0.01, f[1] + 0.01);
+		glEnd();
+	}
+
+	//top
+	f = game::physics::getLineIntersection(-0.5, 0.1, -0.3, 0.4, m[0] - 0.05, m[0] + 0.05, m[1] + 0.05, m[1] + 0.05);
+	if(!isnan(f[0])){
+		glColor4f(0, 0, 0.5, 1);
+		glBegin(GL_TRIANGLES);
+		glVertex2f(f[0] - 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] + 0.01);
+
+		glVertex2f(f[0] - 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] + 0.01);
+		glVertex2f(f[0] - 0.01, f[1] + 0.01);
+		glEnd();
+	}
+
+	//right
+	f = game::physics::getLineIntersection(-0.5, 0.1, -0.3, 0.4, m[0] + 0.05, m[0] + 0.05, m[1] - 0.05, m[1] + 0.05);
+	if(!isnan(f[0])){
+		glColor4f(0.5, 0.2, 0.5, 1);
+		glBegin(GL_TRIANGLES);
+		glVertex2f(f[0] - 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] + 0.01);
+
+		glVertex2f(f[0] - 0.01, f[1] - 0.01);
+		glVertex2f(f[0] + 0.01, f[1] + 0.01);
+		glVertex2f(f[0] - 0.01, f[1] + 0.01);
+		glEnd();
+	}
+
+
+	delete[] m;
+
+	return;*/
 
 	if(light::isLightsEnabled())
 		fbo::setFBOTarget(fbo::COLOR);
@@ -251,7 +411,7 @@ void doRenderUpdate(){
 
 		int o = 0;
 		int i;
-		for(i = 0; i <= (light::getLightNumber() - 1) / options::getMaxLights() ; i++){
+		for(i = 0; i <= (light::getLightNumber() - 1) / options::getMaxLights(); i++){
 			o += render::light::uploadLightData(shader::getLightShader(), o);
 
 
@@ -298,7 +458,7 @@ void doRenderUpdate(){
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-
+	light::debug();
 
 }
 
@@ -394,8 +554,8 @@ void loadNewTextures(){
 		//glTexImage2D(GL_TEXTURE_2D, 0, mode, t.data->w, t.data->h, 0, mode, GL_UNSIGNED_BYTE, t.data->pixels);
 		glTexImage2D(GL_TEXTURE_2D, 0, mode, t->data->getWidth(), t->data->getHeight(), 0, mode, GL_UNSIGNED_BYTE, t->data->getPixel());
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //GL_NEAREST
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //GL_NEAREST
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -453,14 +613,14 @@ void checkForGLError(std::string location){
 }
 
 void setScissorArea(float x, float y, float width, float height){
-//	int *f1 = screenToPixelSpace(x, y); //TODO check y orientation returned vs y orientation used by glScissor (up / down)
-//	int *f2 = screenToPixelSpace(x + width, y + height);
+	//	int *f1 = screenToPixelSpace(x, y); //TODO check y orientation returned vs y orientation used by glScissor (up / down)
+	//	int *f2 = screenToPixelSpace(x + width, y + height);
 
 	//glScissor(f1[0], f1[1], f2[0] - f1[0], f2[1] - f1[1] + 10);
-//	glScissor(0, 0, 200, 200); TODO save with renderables to be run from the right thread
+	//	glScissor(0, 0, 200, 200); TODO save with renderables to be run from the right thread
 
-//	delete[] f1;
-//	delete[] f2;
+	//	delete[] f1;
+	//	delete[] f2;
 }
 
 GLint getDefaultVaoId(){

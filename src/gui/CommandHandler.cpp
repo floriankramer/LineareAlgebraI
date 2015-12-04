@@ -32,7 +32,7 @@ std::vector<std::string> parts;
 std::string delimiter(" ");
 std::vector<std::string> autocompleteBuffer;
 
-std::string commands[] = {"setSpeed", "setFullscreen", "loadFont", "setResolution", "loadWorld", "setLightEnabled", "setEditMode", "newWorld", "saveWorld", "setPlayerPosition", "setCameraPosition", "setTool", "setPaused", "loadResourceFile", "loadBlock", "showFPS", "setFPS", "reloadWorld", "clearWorlds", "setToolParameter", "saveCampaign", "loadCampaign", "setCommandDepth"};
+std::string commands[] = {"setSpeed", "setFullscreen", "loadFont", "setResolution", "loadWorld", "setLightEnabled", "setEditMode", "newWorld", "saveWorld", "setPlayerPosition", "setCameraPosition", "setTool", "setPaused", "loadResourceFile", "loadBlock", "showFPS", "setFPS", "reloadWorld", "clearWorlds", "setToolParameter", "saveCampaign", "loadCampaign", "setCommandDepth", "rebuildShadowMap"};
 
 bool startsWith(std::string base, std::string start){
 	if(base.size() > start.size()){
@@ -363,6 +363,9 @@ std::string handleCommand(std::string command){
 		else{
 			answer = "usage: setCommandDepth [depth]";
 		}
+	}
+	else if(parts[0] == "rebuildShadowMap"){
+		render::light::rebuildShadowMap();
 	}
 	parts.clear();
 

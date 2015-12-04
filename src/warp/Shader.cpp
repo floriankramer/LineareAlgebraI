@@ -37,25 +37,8 @@ Shader::Shader(std::string src) {
 	}
 
 	std::string falloff = std::to_string(render::light::lightFalloffFactor);
-	unsigned int pos = 0;
-	unsigned int constLength = std::string("LIGHT_FALLOFF_FACTOR").length();
-	try{
-		while((pos = fragmentCode.find("LIGHT_FALLOFF_FACTOR", pos + 1)) != static_cast<unsigned int>(std::string::npos)){
-			fragmentCode.replace(pos, constLength, falloff);
-		}
-	}
-	catch(std::out_of_range &e){
-		warpLogger.log(std::string("EXCEPTION out of range: ") + e.what());
-	}
-	try{
-		while((pos = vertexCode.find("LIGHT_FALLOFF_FACTOR", pos + 1)) != static_cast<unsigned int>(std::string::npos)){
-			vertexCode.replace(pos, constLength, falloff);
-		}
-	}
-	catch(std::out_of_range &e){
-		warpLogger.log(std::string("EXCEPTION out of range: ") + e.what());
-	}
-
+	replace("LIGHT_FALLOFF_FACTOR", falloff, &vertexCode, &fragmentCode);
+	replace("NUM_MAX_SHADOWS", std::to_string(light::getNumShadows()), &vertexCode, &fragmentCode);
 
 	GLint result = GL_FALSE;
 	int logLength;
@@ -118,6 +101,27 @@ Shader::Shader(std::string src) {
 Shader::~Shader() {
 	glDeleteProgram(programId);
 	checkForGLError("shader deletion");
+}
+
+void Shader::replace(std::string expr, std::string replacement, std::string *vertexCode, std::string *fragmentCode){
+	unsigned int pos = 0;
+	unsigned int constLength = std::string(expr).length();
+	try{
+		while((pos = fragmentCode->find(expr, pos + 1)) != static_cast<unsigned int>(std::string::npos)){
+			fragmentCode->replace(pos, constLength, replacement);
+		}
+	}
+	catch(std::out_of_range &e){
+		warpLogger.log(std::string("EXCEPTION out of range: ") + e.what());
+	}
+	try{
+		while((pos = vertexCode->find("LIGHT_FALLOFF_FACTOR", pos + 1)) != static_cast<unsigned int>(std::string::npos)){
+			vertexCode->replace(pos, constLength, replacement);
+		}
+	}
+	catch(std::out_of_range &e){
+		warpLogger.log(std::string("EXCEPTION out of range: ") + e.what());
+	}
 }
 
 GLuint Shader::getProgramId(){

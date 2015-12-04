@@ -20,6 +20,7 @@ struct Light{
 
 	GLint uniformLocPos = -1;
 	GLint uniformLocStrength;
+	GLint uniformLocId;
 };
 
 
@@ -33,6 +34,14 @@ Light *getLight(int i);
 void clearLights();
 void removeLight(int);
 void render(float updateFactor);
+void init();
+void rebuildShadowMapInternal();
+void rebuildShadowMap();
+bool isShouldRebuildShadowMap();
+int getNumShadows();
+
+void debugGame();
+void debug();
 
 extern const float lightFalloffFactor;
 

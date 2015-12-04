@@ -22,6 +22,7 @@ public:
 	GLuint getProjectionMatrixLocation();
 	GLuint getModelViewMatrixLocation();
 private:
+	void replace(std::string expr, std::string replacement, std::string *vertexCode, std::string *fragmentCode);
 	GLuint programId;
 	GLuint fragmentId;
 	GLuint vertexId;

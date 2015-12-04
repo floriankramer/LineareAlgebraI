@@ -434,6 +434,7 @@ World* loadWorld(std::string location, int offsetX, int offsetY, bool updatePlay
 		return w;
 	}
 
+	render::light::rebuildShadowMap();
 
 	gameLogger.log("loaded level: " + location);
 	lastWorld = location;
@@ -957,7 +958,7 @@ bool World::inBounds(int x, int y){
 }
 
 int World::getBlockType(int x, int y){
-	if(x - localOffsetX >= 0 && x - localOffsetX < width && y - localOffsetY >= 0 && y - localOffsetY < height){
+	if(inBounds(x, y)){
 		return blocks[x - localOffsetX][y - localOffsetY][0];
 	}
 	return -1;
