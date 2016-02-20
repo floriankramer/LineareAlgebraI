@@ -15,46 +15,24 @@
 
 namespace gui {
 
-struct WidgetRenderer{
+class Widget;
 
-	void drawSprite(float x, float y, float width, float height, float rotation, std::string texture){
-		render::drawSprite(x + left + width / 2, y + bottom + height / 2, width, height, rotation, texture);
-	}
+class WidgetRenderer{
 
-	void drawSpriteCentered(float x, float y, float width, float height, float rotation, std::string texture){
-		render::drawSprite(x + left, y + bottom, width, height, rotation, texture);
-	}
+public:
+	WidgetRenderer(Widget *owner);
+	virtual ~WidgetRenderer();
 
-	void drawLine(float x, float y, float x2, float y2, float thickness, render::Color c = render::white){
-		render::drawLine(left + x, bottom + y, left + x2,  bottom + y2, thickness, c);
-	}
+	void drawSprite(float x, float y, float width, float height, float rotation, std::string texture);
+	void drawSpriteCentered(float x, float y, float width, float height, float rotation, std::string texture);
+	void drawLine(float x, float y, float x2, float y2, float thickness, render::Color c = render::white);
+	void drawRect(float x, float y, float width, float height, float rot, render::Color c = render::white);
+	void drawCurve(float x1, float y1, float x2, float y2, float dx1, float dy1, float dx2, float dy2, float thickness, render::Color c = render::white);
+	void drawRectOutline(float x, float y, float width, float height, float rot, float thickness, render::Color c = render::white);
+	void drawString(float x, float y, float lineheight, std::string string, render::Color c = render::white);
+private:
+	Widget *owner;
 
-	void drawRect(float x, float y, float width, float height, float rot, render::Color c = render::white){
-		render::drawRect(x + left + width / 2, y + bottom + height / 2, width, height, rot, c);
-	}
-
-	void drawCurve(float x1, float y1, float x2, float y2, float dx1, float dy1, float dx2, float dy2, float thickness, render::Color c = render::white){
-		render::drawCurve(x1, y1, x2, y2, dx1, dy1, dx2, dy2, thickness, c);
-	}
-
-	void drawRectOutline(float x, float y, float width, float height, float rot, float thickness, render::Color c = render::white){
-		render::drawRectOutline(x + left + width / 2, y + bottom + height / 2, width, height, rot, thickness, c);
-	}
-
-	void drawString(float x, float y, float lineheight, std::string string, render::Color c = render::white){
-		render::drawString(x + left, y + bottom, lineheight, string, c);
-	}
-
-	float getWidth(){
-		return right - left;
-	}
-
-	float getHeight(){
-		return top - bottom;
-	}
-
-
-	float left, bottom, right, top;
 };
 
 
@@ -73,8 +51,6 @@ public:
 	float getPaddingX();
 	void setWidth(float);
 	void setLocation(float, float);
-	float getY();
-	float getX();
 	float getHeight();
 	float getWidth();
 	void getWidgetsAt(float, float, std::vector<Widget*> *);
@@ -89,19 +65,27 @@ public:
 	virtual void handleTextEvent(std::string s);
 
 	virtual void render(float updateFactor);
+	void renderConsole(float updateFactor);
 	void handleInput();
 	void addWidget(Widget*);
 	void removeWidget(Widget*);
 	bool isFocused();
 	void setHasFocus(bool);
-	float getLeft();
-	float getRight();
-	float getTop();
-	float getBottom();
 	bool hasChild(Widget *w);
-	std::vector<Widget*>* getParents();
+	Widget* getParent();
+	void setParent(Widget *w);
 	std::vector<Widget*>* getChildren();
 	bool isFocusable();
+
+	float getRight();
+	float getBottom();
+	float getCenterX();
+	float getCenterY();
+	float getLeft();
+	float getTop();
+
+	float getAbsoluteLeft();
+	float getAbsoluteTop();
 
 	void handleEditModeChange();
 
@@ -119,16 +103,16 @@ public:
 protected:
 	void setFocusable(bool f);
 
-	WidgetRenderer renderer;
+	WidgetRenderer *renderer;
 
 private:
 
 
 
 
-	float x, y, width, height, paddingX, paddingY, left, right, top, bottom;
+	float x, y, width, height, paddingX, paddingY;
 	std::vector<Widget*> children;
-	std::vector<Widget*> parents;
+	Widget* parent;
 	bool listenToKeys, listenToMouse, hasFocus, focusable;
 };
 

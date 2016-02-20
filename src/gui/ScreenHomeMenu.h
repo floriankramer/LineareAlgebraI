@@ -5,8 +5,8 @@
  *      Author: dwarf
  */
 
-#ifndef WIDGETHOMESCREENMENU_H_
-#define WIDGETHOMESCREENMENU_H_
+#ifndef SCREENHOMEMENU_H_
+#define SCREENHOMEMENU_H_
 
 #include "Widget.h"
 #include "WidgetButton.h"
@@ -28,4 +28,4 @@ private:
 
 } /* namespace gui */
 
-#endif /* WIDGETHOMESCREENMENU_H_ */
+#endif /* SCREENHOMEMENU_H_ */

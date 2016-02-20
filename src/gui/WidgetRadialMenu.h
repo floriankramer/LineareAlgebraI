@@ -8,28 +8,43 @@
 #ifndef GUI_WIDGETRADIALMENU_H_
 #define GUI_WIDGETRADIALMENU_H_
 
-#include <Widget.h>
+#include "Widget.h"
 #include <string>
 #include <vector>
 #include <cmath>
-#include <Renderable.h>
+#include "Renderable.h"
 
 namespace gui {
 
+/* RadialmenuTree stores data describing the items in the RadialMenu. 
+ * Furthermore it provides simple Functions to modify the tree and
+ * query its properties. The animation data is stored in here as well.
+ */
 struct RadialMenuTree{
 
 	std::vector<RadialMenuTree> children;
 	std::string name;
 	RadialMenuTree *parent;
+	// stores the angle in radian that a single, toplevel fork of the tree uses
 	float sliceSize;
 
+	// ???
 	std::string textureName;
 	float textureWidth, textureHeight;
 
 	float x, y;
+
+	// value between 0 and 1 determining the progress of the animation
 	float animValue;
+
+	// Determines how far out the leaves should be in relation to their maximum distance to the root
+	// lies between 0 and 1
 	float posFactor;
+
+	// Determins opening or closing animation. Is 1 for opening, 2 for closing
 	int animState;
+
+	// ???
 	float angle;
 
 	RadialMenuTree(std::string name){
@@ -39,10 +54,10 @@ struct RadialMenuTree{
 		sliceSize = 1;
 		animValue = 0;
 		posFactor = 0;
-		animState = 0;
-		angle = 0;
+		animState = 0;	
 		textureWidth = 1;
 		textureHeight = 1;
+		angle = 0;
 	}
 
 	RadialMenuTree(){
@@ -53,9 +68,9 @@ struct RadialMenuTree{
 		animValue = 0;
 		posFactor = 0;
 		animState = 0;
-		angle = 0;
 		textureWidth = 1;
 		textureHeight = 1;
+		angle = 0;
 	}
 
 	int getShallowSize(){
@@ -76,12 +91,10 @@ struct RadialMenuTree{
 
 	void open(){
 		animState = 1;
-//		animValue = 0;
 	}
 
 	void close(){
 		animState = 2;
-//		animValue = 1;
 	}
 
 	void updateAnim(float updateFactor){

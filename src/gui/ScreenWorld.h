@@ -8,13 +8,13 @@
 #ifndef GUI_WIDGETWORLD_H_
 #define GUI_WIDGETWORLD_H_
 
+#include <ScreenConsole.h>
+#include <ScreenEditorPanel.h>
 #include "Widget.h"
-#include "WidgetConsole.h"
 #include "Tool.h"
 #include <string>
 #include "WidgetRadialMenu.h"
 #include "WidgetButton.h"
-#include "WidgetEditorPanel.h"
 
 namespace gui {
 

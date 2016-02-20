@@ -33,7 +33,7 @@
 #include "os.h"
 #include "OptionsHandler.h"
 #include "CoordinateConverter.h"
-
+#include "GUIOptions.h"
 
 #include "Game.h"
 #include "main.h"
@@ -110,7 +110,7 @@ void * run(void * atr){
 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
-	glEnable(GL_SCISSOR_TEST);
+
 
 	glClearColor(0, 0, 0, 1);
 
@@ -214,166 +214,7 @@ void * run(void * atr){
 	SDL_Quit();
 	return NULL;
 }
-
-#include "Mouse.h"
-
 void doRenderUpdate(){
-	/* DEBUG CODE for Collision handler line intersection testing
-	 * fbo::setFBOTarget(fbo::DISPLAY);
-	glClearColor(0, 0, 0, 1);
-	glDisable(GL_TEXTURE_2D);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	int x, y;
-	SDL_GetMouseState(&x, &y);
-	float * m = pixelToScreenSpace(x, y);
-	m[0] /= options::getAspectRatio();
-
-	glColor4f(1, 1, 1, 1);
-
-	glBegin(GL_TRIANGLES);
-	glVertex2f(m[0] - 0.05, m[1] - 0.05);
-	glVertex2f(m[0] + 0.05, m[1] - 0.05);
-	glVertex2f(m[0] + 0.05, m[1] + 0.05);
-
-	glVertex2f(m[0] - 0.05, m[1] - 0.05);
-	glVertex2f(m[0] + 0.05, m[1] + 0.05);
-	glVertex2f(m[0] - 0.05, m[1] + 0.05);
-	glEnd();
-
-	glBegin(GL_LINES);
-	glVertex2f(-0.5, -0.3);
-	glVertex2f(0.1, 0.4);
-
-	glVertex2f(0.567, -.4124);
-	glVertex2f(m[0], m[1]);
-	glEnd();
-
-
-
-
-
-
-
-	if(game::physics::linesIntersect(-0.5, 0.1, -0.3, 0.4, 0.567, m[0], -.4124, m[1])){
-		glColor4f(0, 0, 1, 1);
-		glBegin(GL_TRIANGLES);
-		glVertex2f(m[0] - 0.015, m[1] - 0.015);
-		glVertex2f(m[0] + 0.015, m[1] - 0.015);
-		glVertex2f(m[0] + 0.015, m[1] + 0.015);
-
-		glVertex2f(m[0] - 0.015, m[1] - 0.015);
-		glVertex2f(m[0] + 0.015, m[1] + 0.015);
-		glVertex2f(m[0] - 0.015, m[1] + 0.015);
-		glEnd();
-	}
-
-	float *d = game::physics::getLineIntersection(-0.5, 0.1, -0.3, 0.4, 0.567, m[0], -.4124, m[1]);
-	if(!isnan(d[0])){
-		glColor4f(0, 0, 1, 1);
-		glBegin(GL_TRIANGLES);
-		glVertex2f(d[0] - 0.01, d[1] - 0.01);
-		glVertex2f(d[0] + 0.01, d[1] - 0.01);
-		glVertex2f(d[0] + 0.01, d[1] + 0.01);
-
-		glVertex2f(d[0] - 0.01, d[1] - 0.01);
-		glVertex2f(d[0] + 0.01, d[1] + 0.01);
-		glVertex2f(d[0] - 0.01, d[1] + 0.01);
-		glEnd();
-	}
-
-
-	if(game::physics::lineIntersectsRect(-0.5, 0.1, -0.3, 0.4, m[0] - 0.05, m[1] - 0.05, m[0] + 0.05, m[1] + 0.05)){
-		glColor4f(0, 1, 0, 1);
-		glBegin(GL_TRIANGLES);
-		glVertex2f(m[0] - 0.01, m[1] - 0.01);
-		glVertex2f(m[0] + 0.01, m[1] - 0.01);
-		glVertex2f(m[0] + 0.01, m[1] + 0.01);
-
-		glVertex2f(m[0] - 0.01, m[1] - 0.01);
-		glVertex2f(m[0] + 0.01, m[1] + 0.01);
-		glVertex2f(m[0] - 0.01, m[1] + 0.01);
-		glEnd();
-	}
-
-	float *f = game::physics::getLineRectIntersection(-0.5, 0.1, -0.3, 0.4, m[0] - 0.05, m[1] - 0.05, m[0] + 0.05, m[1] + 0.05 );
-	if(!isnan(f[0])){
-		glColor4f(0, 1, 0, 1);
-		glBegin(GL_TRIANGLES);
-		glVertex2f(f[0] - 0.015, f[1] - 0.015);
-		glVertex2f(f[0] + 0.015, f[1] - 0.015);
-		glVertex2f(f[0] + 0.015, f[1] + 0.015);
-
-		glVertex2f(f[0] - 0.015, f[1] - 0.015);
-		glVertex2f(f[0] + 0.015, f[1] + 0.015);
-		glVertex2f(f[0] - 0.015, f[1] + 0.015);
-		glEnd();
-	}
-
-	//bottom
-	f = game::physics::getLineIntersection(-0.5, 0.1, -0.3, 0.4, m[0] - 0.05, m[0] + 0.05, m[1] - 0.05, m[1] - 0.05);
-	if(!isnan(f[0])){
-		glColor4f(0.5, 0.5, 0, 1);
-		glBegin(GL_TRIANGLES);
-		glVertex2f(f[0] - 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] + 0.01);
-
-		glVertex2f(f[0] - 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] + 0.01);
-		glVertex2f(f[0] - 0.01, f[1] + 0.01);
-		glEnd();
-	}
-
-	//left
-	f = game::physics::getLineIntersection(-0.5, 0.1, -0.3, 0.4, m[0] - 0.05, m[0] - 0.05, m[1] - 0.05, m[1] + 0.05);
-	if(!isnan(f[0])){
-		glColor4f(0.5, 0, 0.5, 1);
-		glBegin(GL_TRIANGLES);
-		glVertex2f(f[0] - 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] + 0.01);
-
-		glVertex2f(f[0] - 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] + 0.01);
-		glVertex2f(f[0] - 0.01, f[1] + 0.01);
-		glEnd();
-	}
-
-	//top
-	f = game::physics::getLineIntersection(-0.5, 0.1, -0.3, 0.4, m[0] - 0.05, m[0] + 0.05, m[1] + 0.05, m[1] + 0.05);
-	if(!isnan(f[0])){
-		glColor4f(0, 0, 0.5, 1);
-		glBegin(GL_TRIANGLES);
-		glVertex2f(f[0] - 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] + 0.01);
-
-		glVertex2f(f[0] - 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] + 0.01);
-		glVertex2f(f[0] - 0.01, f[1] + 0.01);
-		glEnd();
-	}
-
-	//right
-	f = game::physics::getLineIntersection(-0.5, 0.1, -0.3, 0.4, m[0] + 0.05, m[0] + 0.05, m[1] - 0.05, m[1] + 0.05);
-	if(!isnan(f[0])){
-		glColor4f(0.5, 0.2, 0.5, 1);
-		glBegin(GL_TRIANGLES);
-		glVertex2f(f[0] - 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] + 0.01);
-
-		glVertex2f(f[0] - 0.01, f[1] - 0.01);
-		glVertex2f(f[0] + 0.01, f[1] + 0.01);
-		glVertex2f(f[0] - 0.01, f[1] + 0.01);
-		glEnd();
-	}
-
-
-	delete[] m;
-
-	return;*/
-
 	if(light::isLightsEnabled())
 		fbo::setFBOTarget(fbo::COLOR);
 	else
@@ -382,6 +223,7 @@ void doRenderUpdate(){
 	shader::setCurrentShader(shader::getMainShader());
 
 	matrix::setupProjectionMatrix(options::getVirtualWidth() * 2 * options::getZoom(), options::getVirtualHeight() * 2 * options::getZoom());
+//	matrix::setupProjectionMatrix(options::getAspectRatio() * 20, 20, options::getAspectRatio() * 40, 40);
 
 	float cameraAlignedX = (int)(cameraX / pixelWidth) * pixelWidth;
 	float cameraAlignedY = (int)(cameraY / pixelHeight) * pixelHeight;
@@ -435,13 +277,17 @@ void doRenderUpdate(){
 	shader::setCurrentShader(shader::getMainShader());
 	matrix::setCameraPosition(0, 0);
 	matrix::loadIdentity();
-	matrix::setupProjectionMatrix(options::getAspectRatio() * 2, 2);
+//	matrix::setupProjectionMatrix(options::getAspectRatio() * 2, 2);
+	matrix::setupProjectionMatrix(-1, 1, gui::options::getScreenSpaceWidth(), -gui::options::getScreenSpaceHeight());
+	glEnable(GL_SCISSOR_TEST);
 	for(Renderable *r : *hudRenderables){
 		r->render();
 	}
+	glDisable(GL_SCISSOR_TEST);
 
 	fbo::setFBOTarget(fbo::DISPLAY);
 	shader::setCurrentShader(shader::getPostProcessingShader());
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
@@ -457,6 +303,7 @@ void doRenderUpdate(){
 
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
+
 
 	light::debug();
 
@@ -537,7 +384,7 @@ void loadNewTextures(){
 	for(unsigned int i = 0; i < preTextures.size(); i++){
 
 		PreTexture *t = &preTextures.at(i);
-		warpLogger.log(std::string("loading texture: ") + t->name + " with size: " + std::to_string(t->textureWidth) + " " + std::to_string(t->textureHeight));
+//		warpLogger.log(std::string("loading texture: ") + t->name + " with size: " + std::to_string(t->textureWidth) + " " + std::to_string(t->textureHeight));
 		int mode = GL_RGB;
 		if(t->data->getDepth() == 4){
 			mode = GL_RGBA;
@@ -564,7 +411,7 @@ void loadNewTextures(){
 		delete t->data;
 
 		//SDL_FreeSurface(t.data);
-		warpLogger.log("loaded texture");
+//		warpLogger.log("loaded texture");
 		Texture texture;
 		texture.id = id;
 		texture.vao = createVAO((t->srcWidth + 0.0) / t->textureWidth, (t->srcHeight + 0.0) / t->textureHeight);
@@ -610,17 +457,6 @@ void checkForGLError(std::string location){
 	if (errorValue != GL_NO_ERROR) {
 		warpLogger.log(std::string("GL Error at ") + location + ": " + glErrorToString(errorValue));
 	}
-}
-
-void setScissorArea(float x, float y, float width, float height){
-	//	int *f1 = screenToPixelSpace(x, y); //TODO check y orientation returned vs y orientation used by glScissor (up / down)
-	//	int *f2 = screenToPixelSpace(x + width, y + height);
-
-	//glScissor(f1[0], f1[1], f2[0] - f1[0], f2[1] - f1[1] + 10);
-	//	glScissor(0, 0, 200, 200); TODO save with renderables to be run from the right thread
-
-	//	delete[] f1;
-	//	delete[] f2;
 }
 
 GLint getDefaultVaoId(){

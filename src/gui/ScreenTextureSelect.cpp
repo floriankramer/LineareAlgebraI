@@ -5,7 +5,7 @@
  *      Author: dwarf
  */
 
-#include <WidgetTextureSelect.h>
+#include <ScreenTextureSelect.h>
 #include "Renderer.h"
 #include "BlockTextureMap.h"
 #include <string>
@@ -34,8 +34,8 @@ WidgetTextureSelect::~WidgetTextureSelect() {
 void WidgetTextureSelect::render(float updateFactor){
 	if(getEditMode()){
 
-
-		render::drawRect(getX(), getY(), getWidth(), getHeight(), 0, colorBackgroundTexture);
+		//TODO update rendering method
+		renderer->drawRect(0, 0, getWidth(), getHeight(), 0, colorBackgroundTexture);
 		int i = 0;
 		int maxWidth = (getWidth() - 0.12) / 0.11;
 		for(auto a : blockTextureMap){ //find a faster way to iterate throug all loaded blocks

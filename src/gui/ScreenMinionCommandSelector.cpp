@@ -5,7 +5,7 @@
  *      Author: dwarf
  */
 
-#include <WidgetMinionCommandSelector.h>
+#include <ScreenMinionCommandSelector.h>
 #include "Renderer.h"
 #include "CollisionHandler.h"
 #include "SDL2/SDL_keycode.h"
@@ -19,13 +19,13 @@ render::Color colorBox(0, 0, 0);
 
 std::string commandIcons[] = {"minionMoveR", "minionMoveL", "minionJump", "minionActivate", "minionStop", "minionSpecial"};
 
-const float rectSize = 0.09, rectSpace = 0.12;
-const float iconSize = 0.075, iconSpace = 0.1, iconTopOffset = 0.2;
+const float rectSize = 0.9, rectSpace = 1.2;
+const float iconSize = 0.75, iconSpace = 1, iconTopOffset = 1.4;
 const float iconCentralShift = (rectSize - iconSize) / 2;
 
 WidgetMinionCommandSelector::WidgetMinionCommandSelector() : Widget() {
-	setWidth(0.6);
-	setHeight(0.25);
+	setWidth(6);
+	setHeight(2.5);
 	setListenToMouse(true);
 	setListenToKeys(true);
 	grabbedCommand = -1;
@@ -53,17 +53,16 @@ void WidgetMinionCommandSelector::setCurrentMinion(game::EntityMinion *e){
 
 void WidgetMinionCommandSelector::onFocusChanged(){
 	if(!isFocused())
-		if(getParents()->size() > 0){
-			Widget *p = getParents()->at(0);
-			p->removeWidget(this);
+		if(getParent() != NULL){
+			getParent()->removeWidget(this);
 		}
 }
 
 
 void WidgetMinionCommandSelector::render(float updateFactor){
-	renderer.drawRect(0, 0, getWidth(), getHeight(), 0, backgroundColor);
-	float height = getHeight();
+	renderer->drawRect(0, 0, getWidth(), getHeight(), 0, backgroundColor);
 
+	//update respawn animations for commands
 	for(int i = 0; i < numCommands; i++){
 		if(animPos[i] < 1){
 			animPos[i] += updateFactor * 4;
@@ -73,50 +72,53 @@ void WidgetMinionCommandSelector::render(float updateFactor){
 		}
 	}
 
+	//draw upper line of commands
 	for(int i = 0; i < game::getCommandDepth(); i++){
-		renderer.drawRectOutline(0.05 + i * rectSpace, height - 0.12, rectSize, rectSize, 0, 0.005, colorBox);
+		renderer->drawRectOutline(i * rectSpace, 0, rectSize, rectSize, 0, 0.05, colorBox);
 		if(commands[i] != -1){
-			renderer.drawSprite(0.05 + i * rectSpace + iconCentralShift, height - 0.12 + iconCentralShift, iconSize, iconSize, 0, commandIcons[commands[i]]);
+			renderer->drawSprite(i * rectSpace + iconCentralShift, iconCentralShift, iconSize, iconSize, 0, commandIcons[commands[i]]);
 		}
 	}
 
+	//draw lower line of available commands
 	for(int i = 0; i < numCommands; i++){
-		if(i != grabbedCommand){
-			//renderer.drawSprite(0.05 + i * iconSpace, height - iconTopOffset, iconSize, iconSize, 0, commandIcons[i]);
-			renderer.drawSpriteCentered(0.08 + i * iconSpace, height - iconTopOffset, iconSize * posFactors[i], iconSize * posFactors[i], 0, commandIcons[i]);
+		if(i != grabbedCommand){	
+			renderer->drawSprite(i * iconSpace, iconTopOffset, iconSize * posFactors[i], iconSize * posFactors[i], 0, commandIcons[i]);
 		}
 
 
 	}
 
 	if(grabbedCommand != -1)
-		renderer.drawSprite(grabbedX, grabbedY, iconSize, iconSize, 0, commandIcons[grabbedCommand]);
+		renderer->drawSprite(grabbedX, grabbedY, iconSize, iconSize, 0, commandIcons[grabbedCommand]);
 
 }
 
 void WidgetMinionCommandSelector::handleMouseButtonEvent(int button, float x, float y, bool pressed){
-	if(button == 1){
-		float height = getHeight();
+	if(button == 1){	
 		if(pressed){
-			for(int i = 0; i < numCommands; i++){
-				if(game::physics::pointInRect(x, y, 0.08 + i * iconSpace - iconSize / 2, height - iconTopOffset - iconSize / 2, iconSize, iconSize)){
+			for(int i = 0; i < numCommands; i++){ //check for command pickup in lower line
+				if(game::physics::pointInRect(x, y, i * iconSpace, iconTopOffset, iconSize, iconSize)){
 					grabbedCommand = i;
 					grabbedX = x - iconSize / 2;
 					grabbedY = y - iconSize / 2;
 					return;
 				}
 			}
-			for(int i = 0; i < game::getCommandDepth(); i++){
-				if(game::physics::pointInRect(x, y, 0.05 + i * rectSpace, height - 0.12, rectSize, rectSize)){
+			for(int i = 0; i < game::getCommandDepth(); i++){ //check for command deletion in upper line
+				if(game::physics::pointInRect(x, y, i * rectSpace, 0 , rectSize, rectSize)){
 					commands[i] = -1;
+					if(minion != NULL){
+						minion->setCommand(i, -1);
+					}
 					return;
 				}
 			}
 		}
 		else{
 			if(grabbedCommand != -1){
-				for(int i = 0; i < game::getCommandDepth(); i++){
-					if(game::physics::pointInRect(x, y, 0.05 + i * rectSpace, height - 0.12, rectSize, rectSize)){
+				for(int i = 0; i < game::getCommandDepth(); i++){ //check for command setting in upper line
+					if(game::physics::pointInRect(x, y, i * rectSpace, 0, rectSize, rectSize)){
 						commands[i] = grabbedCommand;
 						if(minion != NULL){
 							minion->setCommand(i, grabbedCommand);
@@ -151,11 +153,10 @@ void WidgetMinionCommandSelector::handleKeyEvent(int k, int mod, bool pressed){
 			t = 2;
 		}
 
-		if(t != -1){
-			float height = getHeight();
+		if(t != -1){	
 			float *f = getMousePosition();
 			for(int i = 0; i < numCommands; i++){
-				if(game::physics::pointInRect(f[0] - getLeft(), f[1] - getBottom(), 0.08 + i * iconSpace - iconSize / 2, height - iconTopOffset - iconSize / 2, iconSize, iconSize)){
+				if(game::physics::pointInRect(f[0] - getAbsoluteLeft(), f[1] - getAbsoluteTop(), i * iconSpace, iconTopOffset, iconSize, iconSize)){
 					commands[t] = i;
 					if(minion != NULL){
 						minion->setCommand(t, i);

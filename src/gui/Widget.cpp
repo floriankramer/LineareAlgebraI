@@ -5,6 +5,7 @@
  *      Author: dwarf
  */
 
+#include <ScreenConsole.h>
 #include "Widget.h"
 #include "SDL2/SDL.h"
 #include "GraphicsOptions.h"
@@ -12,7 +13,6 @@
 #include "Game.h"
 #include "Keyboard.h"
 #include "Mouse.h"
-#include "WidgetConsole.h"
 #include "CollisionHandler.h"
 #include <algorithm>
 #include <iostream>
@@ -39,11 +39,12 @@ bool getEditMode(){
 	return editMode;
 }
 
-Widget::Widget(): x(0), y(0), width(0), height(0), paddingX(0), paddingY(0), left(0), right(0), top(0), bottom(0), listenToKeys(false), listenToMouse(false), hasFocus(false), focusable(true){
-
+Widget::Widget(): x(0), y(0), width(0), height(0), paddingX(0), paddingY(0), parent(NULL), listenToKeys(false), listenToMouse(false), hasFocus(false), focusable(true){
+	renderer = new WidgetRenderer(this);
 }
 
 Widget::~Widget() {
+	delete renderer;
 }
 
 void Widget::handleInput(){
@@ -88,7 +89,6 @@ void Widget::handleInput(){
 			break;
 
 		case SDL_MOUSEMOTION:
-
 			s = pixelToScreenSpace(event.motion.x, event.motion.y);
 
 			updateMousePosition(s[0], s[1]);
@@ -101,10 +101,10 @@ void Widget::handleInput(){
 				w = widgets->back();
 				widgets->pop_back();
 				if(w->isListeningToMouse()){
-					w->handleMouseMotionEvent(s[0] - w->left, s[1] - w->bottom);
+					w->handleMouseMotionEvent(s[0] - w->getAbsoluteLeft(), s[1] - w->getAbsoluteTop());
 					for(Widget *w1 : w->children){
 						if(!w1->isFocusable()){
-							w1->handleMouseMotionEvent(s[0] - w1->left, s[1] - w1->bottom);
+							w1->handleMouseMotionEvent(s[0] - w1->getAbsoluteLeft(), s[1] - w1->getAbsoluteTop());
 						}
 					}
 				}
@@ -117,12 +117,51 @@ void Widget::handleInput(){
 		case SDL_MOUSEBUTTONDOWN:
 			updateMouseButton(event.button.button, true);
 
+			s = pixelToScreenSpace(event.button.x, event.button.y);
+
+			widgets = new std::vector<Widget*>();
+			getWidgetsAt(s[0], s[1], widgets);
+			if(consoleActive && game::physics::pointInRect(s[0], s[1], console.getAbsoluteLeft(), console.getAbsoluteTop(), console.getWidth(), console.getHeight())){
+				widgets->push_back(&console);
+			}
+		
+			while(widgets->size() > 0){
+				//Widget *w = widgets->at(i);
+				Widget *w = widgets->back();
+				widgets->pop_back();
+				/**
+				 * if the widget is listening to mouse events and focusable, let it handle the event, transforming the global event coordinates in local coordinates
+				 * if the widget is also listening to keys, make it the currently focused widget
+				 */
+				if(w->isListeningToMouse() && w->isFocusable()){
+					if(w->isListeningToKeys()){
+						setFocus(w);
+						//						if(focused != NULL)
+						//							focused->hasFocus = false;
+						//						focused = w;
+						//						focused->hasFocus = true;
+					}
+					w->handleMouseButtonEvent(event.button.button, s[0] - w->getAbsoluteLeft(), s[1] - w->getAbsoluteTop(), true);
+					for(Widget *h : w->children){
+						if(!h->isFocusable()){
+							h->handleMouseButtonEvent(event.button.button, s[0] - h->getAbsoluteLeft(), s[1] - h->getAbsoluteTop(), true);
+						}
+					}
+
+					break;
+				}
+			}
+			delete widgets;
+			delete[] s;
+			break;
+		case SDL_MOUSEBUTTONUP:
+			updateMouseButton(event.button.button, false);
 
 			s = pixelToScreenSpace(event.button.x, event.button.y);
 
 			widgets = new std::vector<Widget*>();
 			getWidgetsAt(s[0], s[1], widgets);
-			if(consoleActive && game::physics::pointInRect(s[0], s[1], console.getLeft(), console.getBottom(), console.getWidth(), console.getHeight())){
+			if(consoleActive && game::physics::pointInRect(s[0], s[1], console.getAbsoluteLeft(), console.getAbsoluteTop(), console.getWidth(), console.getHeight())){
 				widgets->push_back(&console);
 			}
 			while(widgets->size() > 0){
@@ -141,42 +180,13 @@ void Widget::handleInput(){
 						//						focused = w;
 						//						focused->hasFocus = true;
 					}
-					w->handleMouseButtonEvent(event.button.button, s[0] - w->left, s[1] - w->bottom, true);
+					w->handleMouseButtonEvent(event.button.button, s[0] - w->getAbsoluteLeft(), s[1] - w->getAbsoluteTop(), false);
 					for(Widget *h : w->children){
 						if(!h->isFocusable()){
-							h->handleMouseButtonEvent(event.button.button, s[0] - h->left, s[1] - h->bottom, true);
+							h->handleMouseButtonEvent(event.button.button, s[0] - h->getAbsoluteLeft(), s[1] - h->getAbsoluteTop(), false);
 						}
 					}
 
-					break;
-				}
-			}
-			delete widgets;
-			delete[] s;
-			break;
-		case SDL_MOUSEBUTTONUP:
-			updateMouseButton(event.button.button, false);
-
-			s = pixelToScreenSpace(event.button.x, event.button.y);
-
-			//			x = (event.button.x * 2.0 / render::getDisplayWidth()) - 1;
-			//			y = -((event.button.y * 2.0 / render::getDisplayHeight()) - 1);
-
-
-			widgets = new std::vector<Widget*>();
-			getWidgetsAt(s[0], s[1], widgets);
-			if(consoleActive && game::physics::pointInRect(s[0], s[1], console.getLeft(), console.getBottom(), console.getWidth(), console.getHeight())){
-				widgets->push_back(&console);
-			}
-			for(int i = widgets->size() - 1; i >=0; i--){
-				Widget *w = widgets->at(i);
-				/**
-				 * if the widget is listening to mouse events, let it handle the event, transforming the global event coordinates in local coordinates
-				 * if the widget is also listening to keys, make it the currently focused widget
-				 */
-
-				if(w->isListeningToMouse() && w->isFocusable()){
-					w->handleMouseButtonEvent(event.button.button, s[0] - w->left, s[1] - w->bottom, false);
 					break;
 				}
 			}
@@ -247,12 +257,17 @@ void Widget::handleInput(){
 		}
 
 		void Widget::render(float updateFactor){
-			render::setRenderTarget(render::HUD);
+			render::setRenderTarget(render::HUD); //TODO unnecessary repeated setting of render Target
 			for(Widget *w : children){
-				render::setScissorArea(w->left, w->bottom, w->width, w->height);
+				render::setScissorArea(w->getAbsoluteLeft(), w->getAbsoluteTop() + w->getHeight(), w->getWidth(), w->getHeight());
 				w->render(updateFactor);
 			}
+		}
+
+		void Widget::renderConsole(float updateFactor){
+			render::setRenderTarget(render::HUD);
 			if(consoleActive){
+				render::setScissorArea(console.getAbsoluteLeft(), console.getAbsoluteTop() + console.getHeight(), console.getWidth(), console.getHeight());
 				console.render(updateFactor);
 			}
 		}
@@ -287,8 +302,10 @@ void Widget::handleInput(){
 
 		void Widget::getWidgetsAt(float x, float y, std::vector<Widget*> *widgets){
 			widgets->push_back(this);
+			x -= getLeft();
+			y -= getTop();
 			for(Widget *w : children){
-				if(w->getLeft() <= x && w->getBottom() <= y && w->getRight() >= x && w->getTop() >= y){
+				if(w->getLeft() <= x && w->getTop() <= y && w->getRight() >= x && w->getBottom() >= y){
 					w->getWidgetsAt(x, y, widgets);
 				}
 			}
@@ -299,64 +316,42 @@ void Widget::handleInput(){
 		}
 
 		float Widget::getWidth(){
-			if(width > 0){
-				return width + paddingX;
-			}
-			else{
-				float mW = 0;
-				for(Widget *c : children){
-					if(c->getX() + c->getWidth() > mW){
-						mW = c->getX() + c->getWidth();
-					}
-				}
-				return mW + paddingX;
-			}
+			//			if(width > 0){
+			return width + paddingX;
+			//			}
+			//			else{ TODO overthink the need of this. Shouldn't be necessary in a well built ui
+			//				float mW = 0;
+			//				for(Widget *c : children){
+			//					if(c->getX() + c->getWidth() > mW){
+			//						mW = c->getX() + c->getWidth();
+			//					}
+			//				}
+			//				return mW + paddingX;
+			//			}
 		}
 
 		float Widget::getHeight(){
-			if(height > 0){
-				return height + paddingY;
-			}
-			else{
-				float mH = 0;
-				for(Widget *c : children){
-					if(c->getX() + c->getHeight() > mH){
-						mH = c->getY() + c->getHeight();
-					}
-				}
-				return mH + paddingY;
-			}
-		}
-
-		float Widget::getX(){
-			return x;
-		}
-
-		float Widget::getY(){
-			return y;
+			//			if(height > 0){
+			return height + paddingY;
+			//			}
+			//			else{
+			//				float mH = 0;
+			//				for(Widget *c : children){
+			//					if(c->getX() + c->getHeight() > mH){
+			//						mH = c->getY() + c->getHeight();
+			//					}
+			//				}
+			//				return mH + paddingY;
+			//			}
 		}
 
 		void Widget::setLocation(float x, float y){
 			this->x = x;
 			this->y = y;
-			bottom = getY() - height / 2;
-			top = getY() + height / 2;
-			left = getX() - width / 2;
-			right = getX() + width / 2;
-
-			renderer.bottom = bottom + paddingY;
-			renderer.top = top - paddingY;
-			renderer.left = left - paddingX;
-			renderer.right = right + paddingY;
-
 		}
 
 		void Widget::setWidth(float width){
 			this->width = width;
-			left = getX() - width / 2;
-			right = getX() + width / 2;
-			renderer.left = left - paddingX;
-			renderer.right = right + paddingY;
 		}
 
 		float Widget::getPaddingX() {
@@ -365,8 +360,6 @@ void Widget::handleInput(){
 
 		void Widget::setPaddingX(float paddingX) {
 			this->paddingX = paddingX;
-			renderer.left = left - paddingX;
-			renderer.right = right + paddingY;
 		}
 
 		float Widget::getPaddingY() {
@@ -375,16 +368,10 @@ void Widget::handleInput(){
 
 		void Widget::setPaddingY(float paddingY) {
 			this->paddingY = paddingY;
-			renderer.bottom = bottom + paddingY;
-			renderer.top = top - paddingY;
 		}
 
 		void Widget::setHeight(float height) {
 			this->height = height;
-			bottom = getY() - height / 2;
-			top = getY() + height / 2;
-			renderer.bottom = bottom + paddingY;
-			renderer.top = top - paddingY;
 		}
 
 		bool Widget::isListeningToKeys() {
@@ -413,7 +400,7 @@ void Widget::handleInput(){
 
 		void Widget::addWidget(Widget *w){
 			children.push_back(w);
-			w->getParents()->push_back(this);
+			w->setParent(this);
 			w->onAdd(this);
 		}
 
@@ -421,12 +408,7 @@ void Widget::handleInput(){
 			for(unsigned int i = 0; i < children.size(); i++){
 				if(children.at(i) == w){
 					children.erase(children.begin() + i);
-					return;
-				}
-			}
-			for(unsigned int i = 0; i < w->getParents()->size(); i++){
-				if(w->getParents()->at(i) == this){
-					w->getParents()->erase(w->getParents()->begin() + i);
+					children[i]->setParent(NULL);
 					return;
 				}
 			}
@@ -459,19 +441,6 @@ void Widget::handleInput(){
 			return false;
 		}
 
-		float Widget::getLeft(){
-			return left;
-		}
-		float Widget::getRight(){
-			return right;
-		}
-		float Widget::getTop(){
-			return top;
-		}
-		float Widget::getBottom(){
-			return bottom;
-		}
-
 		void Widget::setHasFocus(bool focused){
 			this->hasFocus = focused;
 		}
@@ -480,8 +449,12 @@ void Widget::handleInput(){
 			return hasFocus;
 		}
 
-		std::vector<Widget*>* Widget::getParents(){
-			return &parents;
+		Widget* Widget::getParent(){
+			return parent;
+		}
+
+		void Widget::setParent(Widget *w){
+			parent = w;
 		}
 
 		std::vector<Widget*>* Widget::getChildren(){
@@ -529,7 +502,92 @@ void Widget::handleInput(){
 			return consoleActive;
 		}
 
+		float Widget::getRight(){
+			return x + width;
+		}
+
+		float Widget::getBottom(){
+			return y + height;
+		}
+
+		float Widget::getCenterX(){
+			return x + width / 2;
+		}
+
+		float Widget::getCenterY(){
+			return y + height / 2;
+		}
+
+		float Widget::getLeft(){
+			return x;
+		}
+
+		float Widget::getTop(){
+			return y;
+		}
+
+		/**
+		 * @return returns the position of the left edge in relation to the root widget
+		 */
+		float Widget::getAbsoluteLeft(){
+			if(parent != NULL){
+				return parent->getAbsoluteLeft() + x;
+			}
+			else{
+				return x;
+			}
+		}
+
+		/**
+		 * @return returns the position of the top edge in relation to the root widget
+		 */
+		float Widget::getAbsoluteTop(){
+			if(parent != NULL){
+				return parent->getAbsoluteTop() + y;
+			}
+			else{
+				return y;
+			}
+		}
 
 
+		//Definition of the Renderer Helper class. Might pu this into its own files
 
-	} /* namespace game */
+		WidgetRenderer::WidgetRenderer(Widget *owner): owner(owner){
+		}
+
+		WidgetRenderer::~WidgetRenderer(){
+
+		}
+
+		void WidgetRenderer::drawSprite(float x, float y, float width, float height, float rotation, std::string texture){
+			//render::drawSprite(x + left + width / 2, y + bottom + height / 2, width, height, rotation, texture);
+			render::drawSprite(owner->getAbsoluteLeft() + x + width / 2, owner->getAbsoluteTop() + y + height / 2, width, -height, rotation, texture);
+		}
+
+		void WidgetRenderer::drawSpriteCentered(float x, float y, float width, float height, float rotation, std::string texture){
+			render::drawSprite(owner->getAbsoluteLeft() + x, owner->getAbsoluteTop() + y, width, -height, rotation, texture);
+		}
+
+		void WidgetRenderer::drawLine(float x, float y, float x2, float y2, float thickness, render::Color c ){
+			render::drawLine(owner->getAbsoluteLeft() + x, owner->getAbsoluteTop() + y, owner->getAbsoluteLeft() + x2,  owner->getAbsoluteTop() + y2, thickness, c);
+		}
+
+		void WidgetRenderer::drawRect(float x, float y, float width, float height, float rot, render::Color c ){
+			render::drawRect(owner->getAbsoluteLeft() + x + width / 2, owner->getAbsoluteTop() + y + height / 2, width, -height, rot, c);
+		}
+
+		void WidgetRenderer::drawCurve(float x1, float y1, float x2, float y2, float dx1, float dy1, float dx2, float dy2, float thickness, render::Color c){
+			render::drawCurve(owner->getAbsoluteLeft() + x1, owner->getAbsoluteTop() + y1, owner->getAbsoluteLeft() + x2, owner->getAbsoluteTop() + y2, dx1, dy1, dx2, dy2, thickness, c);
+		}
+
+		void WidgetRenderer::drawRectOutline(float x, float y, float width, float height, float rot, float thickness, render::Color c){
+			render::drawRectOutline(owner->getAbsoluteLeft() + x + width / 2, owner->getAbsoluteTop() + y + height / 2, width, -height, rot, thickness, c);
+		}
+
+		void WidgetRenderer::drawString(float x, float y, float lineheight, std::string string, render::Color c){
+			render::drawString(owner->getAbsoluteLeft() + x, owner->getAbsoluteTop() + y + lineheight / 2, lineheight, string, c);
+		}
+
+
+	} /* namespace gui */

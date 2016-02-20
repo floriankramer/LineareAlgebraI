@@ -37,7 +37,6 @@ namespace render{
 	VAOData* createVAO(float minU, float minV, float maxU, float maxV);
 	VAOData* createVAO(float maxU, float maxV);
 	void resetRenderables();
-	void setScissorArea(float x, float y, float width, float height);
 
 	float getUpdateFactor();
 

@@ -20,8 +20,8 @@ WidgetButton::WidgetButton(std::string text) : Widget(){
 	this->text = text;
 	setListenToMouse(true);
 	pressed = false;
-	setWidth(0.4);
-	setHeight(0.1);
+	setWidth(6);
+	setHeight(1);
 }
 
 WidgetButton::~WidgetButton(){
@@ -41,14 +41,14 @@ void WidgetButton::handleMouseButtonEvent(int button, float x, float y, bool pre
 	}
 }
 
-void WidgetButton::render(float updateFactor){
+void WidgetButton::render(float updateFactor){	
 	if(pressed){
-		renderer.drawRect(0, 0, getWidth(), getHeight(), 0, colorButtonBackgroundPressed);
+		renderer->drawRect(0, 0, getWidth(), getHeight(), 0, colorButtonBackgroundPressed);
 	}
 	else{
-		renderer.drawRect(0, 0, getWidth(), getHeight(), 0, colorButtonBackground);
+		renderer->drawRect(0, 0, getWidth(), getHeight(), 0, colorButtonBackground);
 	}
-	renderer.drawString(0.05, getHeight() / 2, 0.05, text, colorButtonFont);
+	renderer->drawString(0.5, 0, 0.9, text, colorButtonFont);
 }
 
 void WidgetButton::setListener(ButtonListener *l){

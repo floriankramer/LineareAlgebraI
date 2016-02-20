@@ -5,7 +5,8 @@
  *      Author: dwarf
  */
 
-#include "WidgetWorld.h"
+#include "ScreenTextureSelect.h"
+#include "ScreenWorld.h"
 #include "Renderer.h"
 #include "GraphicsOptions.h"
 #include "World.h"
@@ -18,8 +19,7 @@
 #include "Mouse.h"
 #include "LightHandler.h"
 
-#include "WidgetTextureSelect.h"
-#include "WidgetMinionCommandSelector.h"
+#include "ScreenMinionCommandSelector.h"
 
 #include "CoordinateConverter.h"
 #include "CommandHandler.h"
@@ -35,6 +35,7 @@
 #include <string>
 
 #include "EntityBox.h"
+#include "GUIOptions.h"
 
 namespace gui {
 
@@ -108,8 +109,8 @@ void WidgetWorld::setupMinonCommandRadialMenu(){
 }
 
 WidgetWorld::WidgetWorld() : Widget(), buttonReloadWorld("reset"){
-	this->setWidth(2 * render::options::getAspectRatio());
-	this->setHeight(2);
+	this->setWidth(options::getScreenSpaceWidth());
+	this->setHeight(options::getScreenSpaceHeight());
 	this->setListenToMouse(true);
 	this->setListenToKeys(true);
 	this->setLocation(0, 0);
@@ -229,10 +230,10 @@ void WidgetWorld::render(float updateFactor){
 }
 
 void WidgetWorld::handleMouseButtonEvent(int k, float x, float y, bool pressed){
-	playerController.handleMouse(k, x + getLeft(), y + getBottom(), pressed, tool, this);
+	playerController.handleMouse(k, x, y, pressed, tool, this);
 	if(k == 2 && pressed){ //TODO remove
 		game::EntityBox *b = new game::EntityBox(2, 2);
-		float *f = screenToWorldSpace(x, y);
+		float *f = screenToWorldSpace(x, y);	
 		b->setPositionCenter(f[0], f[1]);
 		game::world::spawnEntity(b);
 		delete[] f;
@@ -279,7 +280,7 @@ std::string WidgetWorld::setToolParameter(std::string name, std::string value){
 
 void WidgetWorld::handleMouseMotionEvent(float x, float y){
 	if(getEditMode()){
-		float *w = screenToWorldSpace(x + getLeft(), y + getBottom());
+		float *w = screenToWorldSpace(x, y);
 		if(isMouseButtonDown(1) && tool != NULL){
 			tool->step(w[0], w[1], 1);
 		}
@@ -305,7 +306,7 @@ void WidgetWorld::handleKeyEvent(int k, int mod, bool pressed){
 			if(pressed){
 				if(!hasChild(&toolSelectMenu)){
 					float *f = getMousePosition();
-					toolSelectMenu.setLocation(f[0], f[1]);
+					toolSelectMenu.setLocation(f[0] - toolSelectMenu.getWidth() / 2, f[1] - toolSelectMenu.getHeight() / 2);
 					this->addWidget(&toolSelectMenu);
 				}
 			}
@@ -354,9 +355,9 @@ void WidgetWorld::onEditModeChanged(bool b){
 
 void WidgetWorld::renderHud(){
 	for(int i = 0; i < 3; i++){
-		render::drawRectOutline(-render::options::getAspectRatio() + 0.1f, -0.9f + 0.15f * i, 0.1f, 0.1f, 0, 0.005f);
+		renderer->drawRectOutline(0.5, 18.5 - 1.5 * i, 1, 1, 0, 0.05);
 		if(i < 3 - game::getMinionCount()){
-			render::drawSprite(-render::options::getAspectRatio() + 0.1f, -0.9f + 0.15f * i, 0.09f, 0.09f, 0, "minion_default");
+			renderer->drawSprite(0.5, 18.5 + 1.5 * i, 0.9, 0.9, 0, "minion_default");
 		}
 	}
 	//float x = 0.9;
@@ -372,7 +373,7 @@ void WidgetWorld::renderHud(){
 
 	if(getEditMode()){
 		//		render::drawString(-render::options::getAspectRatio() + 0.05, 0.9, 0.05, std::string("Tool: ") + std::string(tool->getName()));
-		render::drawString(render::options::getAspectRatio() - 0.5, 0.9, 0.05, std::string("Tool: ") + std::string(tool->getName()));
+		renderer->drawString(1, 2, 0.5, std::string("Tool: ") + std::string(tool->getName()));
 	}
 }
 

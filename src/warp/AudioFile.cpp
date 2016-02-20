@@ -58,7 +58,7 @@ void AudioFile::open(){
 	if(format == WAV){
 
 		file.open(filePath.c_str(), std::ios::binary | std::ios::in);
-		render::warpLogger.log("opening audio file: " + filePath);
+//		render::warpLogger.log("opening audio file: " + filePath);
 
 		char buffer[1024];
 		for(int i = 0; i < 1024; i++){

@@ -45,12 +45,12 @@ void WidgetTextField::render(float updateFactor){
 	if(isFocused()){
 		blinkState = (blinkState + 1) % 60;
 	}
-	renderer.drawRect(0, 0, getWidth(), getHeight(), 0, colorTextBackground);
-	//	renderer.drawString(0.05, getHeight() / 2, 0.05, text, colorTextFont);
+	renderer->drawRect(0, 0, getWidth(), getHeight(), 0, colorTextBackground);
+	//	renderer->drawString(0.05, getHeight() / 2, 0.05, text, colorTextFont);
 	if(blinkState / 30 == 1 && isFocused()){
-		renderer.drawString(0.05, getHeight() / 2, 0.05, text.substr(0, cursorPos) + "_", colorTextFont);
+		renderer->drawString(0.1, 0, 0.9 * getHeight(), text.substr(0, cursorPos) + "_", colorTextFont);
 	}
-	renderer.drawString(0.05, getHeight() / 2, 0.05, text, colorTextFont);
+	renderer->drawString(0.1, 0, 0.9 * getHeight(), text, colorTextFont);
 }
 
 void WidgetTextField::handleKeyEvent(int k, int mod,  bool pressed){

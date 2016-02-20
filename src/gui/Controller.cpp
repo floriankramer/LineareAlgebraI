@@ -6,6 +6,7 @@
  */
 
 #include <Controller.h>
+#include <ScreenMinionCommandSelector.h>
 #include "SDL2/SDL_keycode.h"
 #include "SDL2/SDL_mouse.h"
 #include "Vec2f.h"
@@ -18,7 +19,6 @@
 #include "CoordinateConverter.h"
 #include <cmath>
 #include "AudioPlayer.h"
-#include "WidgetMinionCommandSelector.h"
 #include "Renderer.h"
 
 #include "EntityMinion.h"
@@ -245,7 +245,7 @@ void Controller::handleMouse(int key, float x, float y, bool pressed, Tool *curr
 				}
 				if(pressed && !w->hasChild(&commandSelector)){
 					if(m != NULL && hypot(game::getPlayer()->getXCenter() - m->getXCenter(), game::getPlayer()->getYCenter() - m->getYCenter()) < 5){
-						commandSelector.setLocation(x, y);
+						commandSelector.setLocation(x - commandSelector.getWidth() / 2, y - commandSelector.getHeight() / 2);
 						game::setSelectedMinion(m);
 						w->addWidget(&commandSelector);
 						setFocus(&commandSelector);

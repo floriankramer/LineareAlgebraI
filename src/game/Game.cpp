@@ -171,7 +171,7 @@ void synchronizeRenderables(){
 	render::resetRenderables();
 
 
-
+	masterWidget->renderConsole(render::getUpdateFactor());
 	masterWidget->render(render::getUpdateFactor());
 	render::light::debugGame();
 

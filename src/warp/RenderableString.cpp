@@ -49,8 +49,8 @@ void RenderableString::render(){
 			float width = v->width / v->height * textHeight;
 			i += width;
 			matrix::loadIdentity();
-			matrix::quickTranslate(i + x, y + font::getOffset(c) * textHeight);
-			matrix::scale(width, textHeight);
+			matrix::quickTranslate(i + x, y - font::getOffset(c) * textHeight);
+			matrix::scale(width, -textHeight);
 
 			matrix::uploadModelViewMatrix();
 
@@ -67,7 +67,7 @@ void RenderableString::render(){
 			i += width;
 			matrix::loadIdentity();
 			matrix::quickTranslate(i + x, y);
-			matrix::scale(width, textHeight);
+			matrix::scale(width, -textHeight);
 
 			matrix::uploadModelViewMatrix();
 

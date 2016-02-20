@@ -11,8 +11,8 @@
 namespace gui {
 
 WidgetSlider::WidgetSlider() : Widget(), value(0) {
-	setWidth(0.5);
-	setHeight(0.1);
+	setWidth(5);
+	setHeight(1);
 	setListenToMouse(true);
 
 }
@@ -23,8 +23,8 @@ WidgetSlider::~WidgetSlider() {
 
 void WidgetSlider::render(float upateFactor){
 	float halfheight = getHeight() / 2;
-	renderer.drawLine(0, halfheight, getWidth(), halfheight, 0.01);
-	renderer.drawRect(value * getWidth() - 0.01, halfheight - 0.01, 0.02, 0.02, 0); //value * getWidth()
+	renderer->drawLine(0, halfheight, getWidth(), halfheight, 0.1);
+	renderer->drawRect(value * getWidth() - 0.1, halfheight - 0.1, 0.2, 0.2, 0); //value * getWidth()
 }
 
 void WidgetSlider::onFocusChanged(){

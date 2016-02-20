@@ -17,8 +17,8 @@
 #endif
 
 #include "Widget.h"
-#include "WidgetWorld.h"
-#include "WidgetHomescreen.h"
+#include <ScreenWorld.h>
+#include <ScreenHome.h>
 namespace game{
 
 extern Logger gameLogger;

@@ -156,7 +156,7 @@ void loadSound(std::string path, std::string name){
 		if(buffers.find(name) == buffers.end()){
 			AudioFile f(path);
 			f.open(); //load audio data
-			f.printFileInfo();
+//			f.printFileInfo();
 			unsigned int id;
 			alGetError();
 			alGenBuffers(1, &id);

@@ -5,7 +5,7 @@
  *      Author: dwarf
  */
 
-#include <WidgetEditorPanel.h>
+#include <ScreenEditorPanel.h>
 
 namespace gui {
 
@@ -18,7 +18,7 @@ WidgetEditorPanel::~WidgetEditorPanel() {
 }
 
 void WidgetEditorPanel::render(float updateFactor){
-	renderer.drawRect(0, 0, getWidth(), getHeight(), 0);
+	renderer->drawRect(0, 0, getWidth(), getHeight(), 0);
 }
 
 } /* namespace gui */

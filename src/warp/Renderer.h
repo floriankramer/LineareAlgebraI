@@ -48,6 +48,7 @@ void drawRectOutline(float x, float y, float width, float height, float rot, flo
 void drawString(float x, float y, float lineheight, std::string string, Color c = white);
 void drawCurve(float x1, float y1, float x2, float y2, float dx1, float dy1, float dx2, float dy2, float thickness, Color c = white);
 void drawCircle(float x1, float x2, float radius, Color c = white);
+void setScissorArea(float x, float y, float width, float height);
 void setRenderTarget(RenderTarget t);
 
 RenderableSprite *createRenderableSprite(float x, float y, float width, float height, float rotation, std::string texture);

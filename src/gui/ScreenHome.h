@@ -8,11 +8,11 @@
 #ifndef GUI_WIDGETHOMESCREEN_H_
 #define GUI_WIDGETHOMESCREEN_H_
 
+#include <ScreenHomeMenu.h>
+#include <ScreenOptions.h>
+#include <ScreenWorldSelection.h>
 #include <Widget.h>
 #include "WidgetButton.h"
-#include "WidgetHomescreenMenu.h"
-#include "WidgetWorldSelection.h"
-#include "WidgetOptions.h"
 #include <string>
 
 namespace gui {

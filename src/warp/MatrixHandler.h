@@ -15,6 +15,7 @@ namespace render{
 namespace matrix{
 
 void setupProjectionMatrix(float width, float height);
+void setupProjectionMatrix(float dx, float dy, float sx, float sy);
 void loadIdentity();
 /**
  * this function ignores all previous changes to the matrix, and only works properly if it is used directly after

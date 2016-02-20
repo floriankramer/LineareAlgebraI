@@ -11,15 +11,22 @@
 #include "GraphicsOptions.h"
 #include "Warp.h"
 
+// The user has to free the returned array
 float *screenToWorldSpace(float x, float y);
 
+// The user has to free the returned array
 float *worldToScreenSpace(float x, float y);
 
+// The user has to free the returned array
 float *pixelToScreenSpace(int x, int y);
 
+// The user has to free the returned array
 int *screenToPixelSpace(float x, float y);
 
+// The user has to free the returned array
 float *alignWorldToBlockSpace(float x, float y);
 
+// The user has to free the returned array
+int *screenToScissorSpace(float x, float y);
 
 #endif /* COORDINATECONVERTER_H_ */

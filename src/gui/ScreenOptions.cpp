@@ -5,7 +5,7 @@
  *      Author: dwarf
  */
 
-#include <WidgetOptions.h>
+#include <ScreenOptions.h>
 #include "GraphicsOptions.h"
 #include "Game.h"
 #include "CommandHandler.h"
@@ -16,26 +16,24 @@ namespace gui {
 
 render::Color optionsBackgroundColor(0.5, 0.5, 0.5, 0.7);
 
-WidgetOptions::WidgetOptions() : Widget(), buttonBack("cancel"), buttonApply("apply"), toggleFullscreen("fullscreen", false), textResolution() {
-	this->setWidth(1.8 * render::options::getAspectRatio());
-	this->setHeight(1.8);
-	setLocation(0, 0);
+const unsigned int optElemOffset = 7;
 
-	buttonBack.setLocation(0.5, -0.8);
+WidgetOptions::WidgetOptions() : Widget(), buttonBack("cancel"), buttonApply("apply"), toggleFullscreen("fullscreen", false), textResolution() {
+	buttonBack.setLocation(1, 16);
 	buttonBack.setListener(this);
 
-	buttonApply.setLocation(-0.5, -0.8);
+	buttonApply.setLocation(8, 16);
 	buttonApply.setListener(this);
 
-	toggleFullscreen.setLocation(-.3, .5);
+	toggleFullscreen.setLocation(optElemOffset, 1);
 	toggleFullscreen.setListener(this);
 
-	textResolution.setLocation(-.2, .35);
-	textResolution.setWidth(.4);
-	textResolution.setHeight(.1);
+	textResolution.setLocation(optElemOffset, 2);
+	textResolution.setWidth(4);
+	textResolution.setHeight(1);
 
-	masterVolume.setLocation(0, .1);
-	musicVolume.setLocation(0, -.1);
+	masterVolume.setLocation(optElemOffset, 4);
+	musicVolume.setLocation(optElemOffset, 5);
 
 	addWidget(&buttonBack);
 	addWidget(&buttonApply);
@@ -74,14 +72,14 @@ void WidgetOptions::onToggled(std::string name, bool state){
 }
 
 void WidgetOptions::render(float updateFactor){
-	render::drawRect(0, 0, getWidth(), getHeight(), 0, optionsBackgroundColor);
+	renderer->drawRect(0, 0, getWidth(), getHeight(), 0, optionsBackgroundColor);
 
-	render::drawString(-.9, .7, .07, "Graphics:");
-	render::drawString(-.9, .5, .07, "Fullscreen:");
-	render::drawString(-.9, .35, .07, "Resolution:");
-	render::drawString(-.9, .2, .07, "Audio:");
-	render::drawString(-.9, .1, .07, "Master Volume:");
-	render::drawString(-.9, -.1, .07, "Music Volume:");
+	renderer->drawString(0.3, 0, .7, "Graphics:");
+	renderer->drawString(0.7, 1, .7, "Fullscreen:");
+	renderer->drawString(0.7, 2, .7, "Resolution:");
+	renderer->drawString(0.3, 3, .7, "Audio:");
+	renderer->drawString(0.7, 4, .7, "Master Volume:");
+	renderer->drawString(0.7, 5, .7, "Music Volume:");
 
 
 	Widget::render(updateFactor);

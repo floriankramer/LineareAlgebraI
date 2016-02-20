@@ -8,9 +8,9 @@
 #ifndef GUI_CONTROLLER_H_
 #define GUI_CONTROLLER_H_
 
+#include <ScreenWorld.h>
 #include "EntityPlayer.h"
 #include "Tool.h"
-#include "WidgetWorld.h"
 namespace gui {
 
 class Controller {

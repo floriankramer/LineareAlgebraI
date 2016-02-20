@@ -13,6 +13,7 @@
 #include "RenderableRect.h"
 #include "RenderableString.h"
 #include "RenderableCurve.h"
+#include "RenderableScissor.h"
 #include "FBOHandler.h"
 #include <iostream>
 #include <cmath>
@@ -67,6 +68,10 @@ void drawString(float x, float y, float lineheight, std::string string, Color c)
 
 void setRenderTarget(RenderTarget t){
 	target = t;
+}
+
+void setScissorArea(float x, float y, float width, float height){
+	addRenderable(new RenderableScissor(x, y, width, height), target);
 }
 
 RenderableSprite *createRenderableSprite(float x, float y, float width, float height, float rotation, std::string texture){

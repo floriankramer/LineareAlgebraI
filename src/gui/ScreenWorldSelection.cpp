@@ -5,20 +5,18 @@
  *      Author: dwarf
  */
 
-#include <WidgetWorldSelection.h>
 #include "CommandHandler.h"
 #include "Game.h"
 #include "AudioPlayer.h"
 #include <os.h>
 
 #include <dirent.h>
+#include <ScreenWorldSelection.h>
 
 
 namespace gui {
 
 WidgetWorldSelection::WidgetWorldSelection() : Widget() {
-
-
 
 	DIR *dir;
 	struct dirent *ent;
@@ -41,22 +39,19 @@ WidgetWorldSelection::WidgetWorldSelection() : Widget() {
 	buttons.push_back(new WidgetButton("back"));
 
 
-	this->setWidth(0.4);
-	this->setHeight((buttons.size()) * 0.2);
-
-	setLocation(0, 0);
+	this->setWidth(6);
+	this->setHeight((buttons.size()) * 2);
 
 	int i  = 0;
 	for(WidgetButton *b : buttons){
-		b->setLocation(0, (buttons.size() - i - 1) * 0.2 - (buttons.size() - 1) * 0.1 );
-		b->setWidth(0.4);
-		b->setHeight(0.1);
+		b->setLocation(0, i * 2);
+		b->setWidth(6);
+		b->setHeight(1);
 		b->setListener(this);
 		addWidget(b);
 		i++;
 	}
 	guiLogger.log("found " + std::to_string(buttons.size()) + " campaigns");
-
 }
 
 WidgetWorldSelection::~WidgetWorldSelection() {

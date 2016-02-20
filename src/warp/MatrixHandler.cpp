@@ -29,6 +29,14 @@ void setupProjectionMatrix(float width, float height){
 	uploadProjectionMatrix();
 }
 
+void setupProjectionMatrix(float dx, float dy, float sx, float sy){
+	projectionMatrix.setIdentity();
+	projectionMatrix.translate(dx, dy);
+	projectionMatrix.scale(2 / sx, 2 / sy);
+
+	uploadProjectionMatrix();
+}
+
 void uploadProjectionMatrix(){
 	glUniformMatrix3fv(shader::getCurrentShader()->getProjectionMatrixLocation(), 1, GL_FALSE, projectionMatrix.values[0]);
 }

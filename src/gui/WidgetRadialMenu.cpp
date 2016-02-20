@@ -20,9 +20,9 @@ render::Color colorText(0.7, 0.7, 0.7, 0.7);
 render::Color colorTextHighlight;
 
 WidgetRadialMenu::WidgetRadialMenu() : Widget(){
-	radius = 0.2;
-	this->setWidth(radius * 2 + 0.05);
-	this->setHeight(radius * 2 + 0.05);
+	radius = 2;
+	this->setWidth(radius * 2 + 0.5);
+	this->setHeight(radius * 2 + 0.5);
 	this->setListenToMouse(true);
 	this->setListenToKeys(true);
 	this->setLocation(0, 0);
@@ -56,32 +56,15 @@ void WidgetRadialMenu::onRemove(Widget *w){
 
 void WidgetRadialMenu::render(float updateFactor){
 
-	//	if(animState == 1){
-	//		animValue += updateFactor * 3;//(updateFactor / 0.05) * animValue * (1.05 - animValue);
-	//		if(animValue >= 1){
-	//			animValue = 1;
-	//			animState = 0;
-	//		}
-	//		posFactor = sin(animValue * 3.1415 / 2);
-	//	}
-	//	else if(animState == 2){
-	//		animValue -= updateFactor * 4;
-	//		if(animValue <= 0){
-	//			getParents()->at(0)->doRemove(this); //TODO think about adding to multiple widgets at once
-	//		}
-	//		posFactor = sin(animValue * 3.1415 / 2);
-	//	}
-
-
 	options.updateAnim(updateFactor);
 
-	if(options.posFactor == 0){
-		getParents()->at(0)->doRemove(this); //TODO think about adding to multiple widgets at once
+	if(options.posFactor == 0 && getParent() != NULL){
+		getParent()->doRemove(this);
 	}
 
 	if(options.getShallowSize() > 0){
 
-		float x = getX(), y = getY();
+		float x = getWidth() / 2, y = getHeight() / 2;
 		//		options.x = x;
 		//		options.y = y;
 
@@ -92,52 +75,38 @@ void WidgetRadialMenu::render(float updateFactor){
 		while(renderTree.size() > 0){
 			RadialMenuTree *t = renderTree.back();
 			renderTree.pop_back();
-
+			float parentX = x + t->parent->x;
+			float parentY = y + t->parent->y;	
 			if(selected == t || selected->parent == t){
 				if(t->getShallowSize() == 0 || selectionDepth == 0){
-					render::drawLine(x + t->parent->x , y + t->parent->y, x + t->parent->x + t->x * 0.8 * t->parent->posFactor, y + t->parent->y + t->y * 0.8 * t->parent->posFactor, 0.005, colorLine);
+					renderer->drawLine(parentX , parentY, parentX + t->x * 0.8 * t->parent->posFactor, parentY + t->y * 0.8 * t->parent->posFactor, 0.05, colorLine);
 					if(t->textureName.length() > 0){
-						render::drawSprite(x + t->parent->x + t->x * t->parent->posFactor, y + t->parent->y + t->y * t->parent->posFactor, t->textureWidth * 1.1, t->textureHeight * 1.1, 0, t->textureName);
+						renderer->drawSprite(parentX + t->x * t->parent->posFactor - t->textureWidth / 2.0, parentY + t->y * t->parent->posFactor - t->textureHeight / 2, t->textureWidth * 1.1, t->textureHeight * 1.1, 0, t->textureName);
 					}
-					else
-						render::drawString(x + t->parent->x + t->x * t->parent->posFactor, y + t->parent->y + t->y * t->parent->posFactor, 0.05, t->name, colorTextHighlight);
+					else{
+						renderer->drawString(parentX + t->x * t->parent->posFactor, parentY + t->y * t->parent->posFactor, 0.5, t->name, colorTextHighlight);
+					}
 
 				}
 				else{
-					render::drawLine(x + t->parent->x , y + t->parent->y, x + t->parent->x + t->x * t->parent->posFactor, y + t->parent->y + t->y * t->parent->posFactor, 0.005, colorLine);
-				}
-				//				if(selected->parent == t){
+					renderer->drawLine(parentX , parentY, parentX + t->x * t->parent->posFactor, parentY + t->y * t->parent->posFactor, 0.05, colorLine);
+				}	
 				if(t->posFactor > 0){
 					for(unsigned int i = 0; i < t->children.size(); i++){
 						renderTree.push_back(&(t->children[i]));
 					}
-				}
-				//				}
+				}				
 			}
 			else{
-				render::drawLine(x + t->parent->x , y + t->parent->y, x + t->parent->x + t->x * 0.8 * t->parent->posFactor, y + t->parent->y + t->y * 0.8 * t->parent->posFactor, 0.005, colorLine);
+				renderer->drawLine(parentX , parentY, parentX + t->x * 0.8 * t->parent->posFactor, parentY + t->y * 0.8 * t->parent->posFactor, 0.05, colorLine);
 				if(t->textureName.length() > 0){
-					render::drawSprite(x + t->parent->x + t->x * t->parent->posFactor, y + t->parent->y + t->y * t->parent->posFactor, t->textureWidth, t->textureHeight, 0, t->textureName);
+					renderer->drawSprite(parentX + t->x * t->parent->posFactor - t->textureWidth / 2.0, parentY + t->y * t->parent->posFactor - t->textureHeight / 2, t->textureWidth * 1.1, t->textureHeight * 1.1, 0, t->textureName);
 				}
-				else
-					render::drawString(x + t->parent->x + t->x * t->parent->posFactor, y + t->parent->y + t->y * t->parent->posFactor, 0.05, t->name, colorTextHighlight);
-
+				else{
+					renderer->drawString(parentX + t->x * t->parent->posFactor, parentY + t->y * t->parent->posFactor, 0.5, t->name, colorTextHighlight);
+				}
 			}
-
-
-
 		}
-
-		//		float x = getX(), y = getY();
-		//		for(int i = 0; i < numOptions; i++){
-		//			render::drawLine(x, y, x + positions[i * 2] * 0.8 * posFactor, y + positions[i * 2 + 1] * 0.8 * posFactor, 0.005, colorLine);
-		//			if(selected == i){
-		//				render::drawString(x + positions[i * 2] * posFactor, y + positions[i * 2 + 1] * posFactor, 0.06, options[i], colorText);
-		//			}
-		//			else{
-		//				render::drawString(x + positions[i * 2] * posFactor, y + positions[i * 2 + 1] * posFactor, 0.05, options[i], colorText);
-		//			}
-		//		}
 	}
 }
 
@@ -204,7 +173,7 @@ void WidgetRadialMenu::setOptions(RadialMenuTree tree){
 	options = tree;
 	options.rebuildParents();
 
-	radius = 0.2 * (options.getShallowSize() / 6 + 1);
+	radius = this->radius * (options.getShallowSize() / 6 + 1);
 
 	numOptions = options.getShallowSize();
 	options.sliceSize = 2 * 3.1415 / options.getShallowSize();

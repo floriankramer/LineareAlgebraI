@@ -5,7 +5,7 @@
  *      Author: dwarf
  */
 
-#include "WidgetConsole.h"
+#include "ScreenConsole.h"
 #include "Renderer.h"
 #include "GraphicsOptions.h"
 #include "CommandHandler.h"
@@ -23,13 +23,13 @@ render::Color colorFont(1, 1, 1);
 //std::map<char, char> shiftMap = {{'1', '!'}, {'2', '@'}, {'3', '#'}, {'4', '$'}, {'5', '%'}, {'6', '^'}, {'7', '&'}, {'8', '*'}, {'9', '('}, {'0', ')'}, {'-', '_'}, {'=', '+'}, {'[', '{'}, {']', '}'}, {';', ':'}, {'\\', '|'}, {',', '<'}, {'.', '>'}, {'/', '?'}};
 
 WidgetConsole::WidgetConsole() : Widget() {
-	this->setWidth(2 * render::options::getAspectRatio());
-	this->setHeight(0.5);
+	this->setWidth(20 * render::options::getAspectRatio());
+	this->setHeight(5);
 	this->setListenToMouse(true);
 	this->setListenToKeys(true);
-	this->setLocation(0, 0.75);
-	left = -render::options::getAspectRatio();
-	bottom = 0.5;
+	this->setLocation(0, 0);
+//	left = 0; TODO check if set automatically
+//	bottom = 5;
 	blinkState = 0;
 	for(int i = 0; i < numLines; i++){
 		lines[i] = std::string("");
@@ -46,14 +46,14 @@ void WidgetConsole::render(float updateFactor){
 	if(isFocused()){
 		blinkState = (blinkState + 1) % 120;
 	}
-	render::drawRect(getX(), getY(), getWidth(), getHeight(), 0, colorConsoleBackground);
+	renderer->drawRect(0, 0, getWidth(), getHeight(), 0, colorConsoleBackground);
 	for(int i = numLines - 1; i >= 1; i--){
-		render::drawString(left + 0.05, bottom + 0.05 + 0.06 * i, 0.05, lines[i], colorFont);
+		renderer->drawString(0.5,  0.5 + 0.6 * i, 0.5, lines[i], colorFont);
 	}
 	if(blinkState / 60){
-		render::drawString(left + 0.05, bottom + 0.05, 0.05, std::string(">") + lines[0].substr(0, cursorPos) + "_", colorFont);
+		renderer->drawString(0.5, 0.5, 0.5, std::string(">") + lines[0].substr(0, cursorPos) + "_", colorFont);
 	}
-	render::drawString(left + 0.05, bottom + 0.05, 0.05, std::string(">") + lines[0]);
+	renderer->drawString(0.5, 0.5, 0.5, std::string(">") + lines[0]);
 }
 
 void WidgetConsole::handleMouseButtonEvent(int, float, float, bool){

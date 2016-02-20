@@ -5,7 +5,7 @@
  *      Author: dwarf
  */
 
-#include "WidgetHomescreenMenu.h"
+#include <ScreenHomeMenu.h>
 #include "CommandHandler.h"
 #include "Game.h"
 #include "Warp.h"
@@ -14,29 +14,28 @@ namespace gui {
 
 WidgetHomescreenMenu::WidgetHomescreenMenu() : Widget(), buttonStart("Start"), buttonEditor("Editor"), buttonOptions("Options"), buttonExit("Exit") {
 
-	this->setWidth(0.4);
-	this->setHeight(0.7);
-	setLocation(0, 0);
+	this->setWidth(6);
+	this->setHeight(10);
 
 
-	buttonStart.setLocation(0, .30);
-	buttonStart.setWidth(0.4);
-	buttonStart.setHeight(.1);
+	buttonStart.setLocation(0, 0);
+	buttonStart.setWidth(6);
+	buttonStart.setHeight(1);
 	buttonStart.setListener(this);
 
-	buttonEditor.setLocation(0, .10);
-	buttonEditor.setWidth(0.4);
-	buttonEditor.setHeight(.1);
+	buttonEditor.setLocation(0, 3);
+	buttonEditor.setWidth(6);
+	buttonEditor.setHeight(1);
 	buttonEditor.setListener(this);
 
-	buttonOptions.setLocation(0, -.10);
-	buttonOptions.setWidth(0.4);
-	buttonOptions.setHeight(.1);
+	buttonOptions.setLocation(0, 6);
+	buttonOptions.setWidth(6);
+	buttonOptions.setHeight(1);
 	buttonOptions.setListener(this);
 
-	buttonExit.setLocation(0, -.30);
-	buttonExit.setWidth(0.4);
-	buttonExit.setHeight(.1);
+	buttonExit.setLocation(0, 9);
+	buttonExit.setWidth(6);
+	buttonExit.setHeight(1);
 	buttonExit.setListener(this);
 
 	addWidget(&buttonStart);

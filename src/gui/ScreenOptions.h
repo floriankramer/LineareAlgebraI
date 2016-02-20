@@ -5,8 +5,8 @@
  *      Author: dwarf
  */
 
-#ifndef WIDGETOPTIONS_H_
-#define WIDGETOPTIONS_H_
+#ifndef SCREENOPTIONS_H_
+#define SCREENOPTIONS_H_
 
 #include <Widget.h>
 #include <WidgetButton.h>
@@ -37,4 +37,4 @@ private:
 
 } /* namespace gui */
 
-#endif /* WIDGETOPTIONS_H_ */
+#endif /* SCREENOPTIONS_H_ */

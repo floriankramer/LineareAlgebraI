@@ -5,8 +5,8 @@
  *      Author: dwarf
  */
 
-#ifndef WIDGETWORLDSELECTION_H_
-#define WIDGETWORLDSELECTION_H_
+#ifndef SCREENWORLDSELECTION_H_
+#define SCREENWORLDSELECTION_H_
 
 #include <Widget.h>
 #include <WidgetButton.h>
@@ -29,4 +29,4 @@ private:
 
 } /* namespace gui */
 
-#endif /* WIDGETWORLDSELECTION_H_ */
+#endif /* SCREENWORLDSELECTION_H_ */

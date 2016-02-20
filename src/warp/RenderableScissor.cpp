@@ -21,11 +21,11 @@ RenderableScissor::~RenderableScissor() {
 }
 
 void RenderableScissor::render(){
-	int *f1 = screenToPixelSpace(x, y); //TODO check y orientation returned vs y orientation used by glScissor (up / down)
-	int *f2 = screenToPixelSpace(x + width, y + height);
+	int *f1 = screenToScissorSpace(x, y); //TODO check y orientation returned vs y orientation used by glScissor (up / down)
+	int *f2 = screenToPixelSpace(width, height);
+	glScissor(f1[0], f1[1], f2[0], f2[1]);
 
-	glScissor(f1[0], f1[1], f2[0] - f1[0], f2[1] - f1[1]);
-
+	
 	delete[] f1;
 	delete[] f2;
 }

@@ -14,8 +14,8 @@ const render::Color widgetToggleFalse(1, 0, 0);
 
 WidgetToggle::WidgetToggle(std::string name, bool initState) : Widget(),state(initState), name(name), listener(NULL) {
 	setListenToMouse(true);
-	setWidth(0.1);
-	setHeight(0.1);
+	setWidth(1);
+	setHeight(1);
 
 }
 
@@ -24,7 +24,7 @@ WidgetToggle::~WidgetToggle() {
 }
 
 void WidgetToggle::render(float updateFactor){
-	renderer.drawRect(0, 0, getWidth(), getHeight(), 0, state ? widgetToggleTrue : widgetToggleFalse);
+	renderer->drawRect(0, 0, getWidth(), getHeight(), 0, state ? widgetToggleTrue : widgetToggleFalse);
 	Widget::render(updateFactor);
 }
 
