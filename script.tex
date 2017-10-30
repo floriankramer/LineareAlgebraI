@@ -338,7 +338,7 @@ Zwei Geraden hei\ss{}en parallel, wenn sie die gleichen Richtungsg\"aume haben.
 
 \subsubsection{Definition 0.15}
 Eine (affine) Ebene ist eine Menge der Form \(a + \R v + \R w\) f\"ur linear unabh\"angige Vektoren \(v, w\).\\
-\textbf{Bemerkung}: Auch hier gilt, das der Raum \(\R v + \R w\) eindeutig bestimmt ist als Menge aller Differenzen von Punkten ind der Ebene.
+\textbf{Bemerkung}: Auch hier gilt, das der Raum \(\R v + \R w\) eindeutig bestimmt ist als Menge aller Differenzen von Punkten in der Ebene.
 
 \subsubsection{Lemma 0.16}
 Zwei nicht-parallele Geraden, die in einer Ebene liegen, schneiden sich.\\
@@ -362,5 +362,59 @@ Nachdem \(g_1, g_2\) nicht parallel sind, sind \(w_1, w_2\) linear unabh\"angig.
 Es seien \(a = (a_1, \dots, a_n), b = (b_1, \dots, b_n)\) zwei Vektoren in \mRn.\\
 
 \subsubsection{Def 0.17}
-Das Skalarprodukt von a und b ist definiert als \((a, b) = \sum_{j=1}^n a_j b_j\)
+Das Skalarprodukt von a und b ist definiert als \((a, b) = \sum_{j=1}^n a_j b_j\).
+
+\subsubsection{Lemma 0.18}
+Das Skalarprodukt zweier Vektoren a und b in \mRn ist eine sogennante symmetrische, positiv definite Bilinearform, das hei\ss{}t.
+\begin{enumerate}
+\item{\((a, b) = (b, a)\) (symmetrisch)}
+\item{\((a + b, c) = (a, c) + (b, c)\) (linear)}
+\item{\(\lb a, b = \lb(a, b)\) (linear)}
+\item{\((a, a) \ge 0\) (positiv definit)}
+\item{\((a, a) = 0\) genau dann, wenn \(a=0\)}
+\end{enumerate}
+f\"ur alle Vektoren \(a, b, c \in \Rn\), alle \(\lb \in \R\).\\
+\textbf{Bemerkung}: aus 1 und 2 folgt \((a, b+c = (a,b) + (a,c)\) und \((a, \lb b) = \lb (a, b)\) (bilinearit\"at).\\
+\textbf{Beweis}: 1, 2, 3 sind klar aus der Definition.\\
+4 und 5 folgen daraus, dass \((a, a) = a_1^2, \dots, a_n^2\).\\
+
+\subsubsection{Def. 0.19 Norm eines Vektors}
+Die Norm (oder L\"ange) von a ist \(\sqrt{(a, a)} = ||a||\).
+
+\subsubsection{Def. 0.20 Winkel zweier Vektoren}
+\begin{enumerate}
+\item {
+Der Winnkel \(\al\) zwischen zwei Vektoren \(a, b \neq 0\) ist definiert durch \(0 \le \al \le \pi\) und \(cos(\al) = \frac{|(a,b)|}{||a||\cdot ||b||}\).}
+\item{
+Zwei Vektoren \(a, b \in \R^n\) hei\ss{}en orthogonal, falls gilt \((a, b) = 0\).
+}
+\end{enumerate}
+
+\subsubsection{Lemma 0.21 Cauchy-Schwarz'sche Ungleichung}
+Es gilt \(|(a, b)| \le ||a||||b||\).\\
+\textbf{Beweis}:\\
+Es gilt f\"ur jedes beliebiges \(\lb \in \R\):\\
+\(0 \le (a + \lb b, a + \lb b) = (a, a) + 2 (\lb a, b) + \lb^2 (b, b)\)\\
+F\"ur \(\lb = -\frac{(a,b)}{(b, b)}\) ergibt sich\\
+\(0 \le (a, a) - 2 \frac{(a, b)^2}{(b, b)} + \frac{(a, b)^2}{(b, b)}\)\\
+F\"ur \(b = 0\) ist die Aussage des Lemmas klar. Angenommen \(b \neq 0\). Es folgt:\\
+\((a,b)^2 \le (a, a)(b,b)\)\\
+\textbf{Bemerkung}: Falls a und b linear unabh\"angig sind so folgt \(|(a,b)| < ||a||||b||\), denn dann ist \(a + \lb b \neq 0\) (f\"ir jedes \(\lb \in \R\)) und die Ungleichung ist strikt (d.h. mit "\(<\)").
+
+\subsubsection{Lemma 0.22 Dreiecksungleichung}
+Es gilt \(||a+b|| \le ||a|| + ||b||\).\\
+\textbf{Beweis:}\\
+\( ||a+b||^2 = (a+b, a+b)= ||a||^2 + 2(a,b) + ||b||^2 \le ||a||^2 + 2 ||a||||b|| + ||b||^2 = (||a|| + ||b||)^2\)
+
+\subsubsection{Korollar 0.23 \(||x-y||\) ist eine Metrik}
+Der \mRn mit dem Abstand \(d(x, y) = ||x - y||\) ist ein sogennanter metrischer Raum. D.h.
+\begin{enumerate}
+\item{
+\(d(x, y) \ge 0\)}
+\item{\(d(x, y) = 0 \Leftrightarrow x = y\)}
+\item{\(d(x, y) = d(y, x)\)}
+\item{\(d(x, z) \le d(x,y) + d(y,z)\)}
+\end{enumerate}
+f\"ur alle x, y, z in \mRn.\\
+Wir nennen d einen Abstand.
 \end{document}
