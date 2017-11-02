@@ -11,6 +11,7 @@
 \title{Lineare Algebra I\\Mitschrieb}
 \author{Florian Kramer}
 
+% ease of use commands
 \newcommand{\lb}{\lambda}
 \newcommand{\mlb}{\(\lb\)}
 \newcommand{\R}{\mathbb{R}}
@@ -26,14 +27,32 @@
 \newcommand{\ve}[1]{{\begin{pmatrix}#1 \end{pmatrix}}}
 \renewcommand{\v}{\ve}
 
-
+% increase line height
 \renewcommand{\baselinestretch}{1.5}
+
+% define table of theorems
+\newcounter{tableoftheoremslinks}
+\newcommand{\tableoftheorems}{\section*{S\"atze und Lemmata}}
+%\newcommand{\addtotheorems}[2]{\stepcounter{tableoftheoremslinks} \label{tableoftheoremslinks} }
+%\newcommand{\addtotheorems}[2]{%
+%\stepcounter{tableoftheoremslinks}% Increase the link counter
+%\label{theoremlink\thetableoftheoremslinks}#2% insert a label and the text
+% \expandafter\edef\expandafter\tableoftheorems\expandafter%append to the %tableoftheorems command
+% {\tableoftheorems % insert the command at its current state
+% \hyperref[theoremlink\thetableoftheoremslinks]{#1}\\% insert a link to the label
+% #2}}% insert the text
+% dummy command 
+\newcommand{\dtheorem}[1]{#1}
+\newcommand{\definition}[1]{#1} 
+\newcounter{test}
+\newcommand{\test}{test}
+\newcommand{\extest}[1]{\stepcounter{test} \label{a\thetest}\expandafter\edef\expandafter\test\expandafter{\test \hyperref[a\thetest]{test\thetest}}}
+
 
 \begin{document}
 \maketitle
 \tableofcontents
 \pagebreak
-
 
 \section{Einf\"uhrung}
 \begin{itemize}
@@ -385,6 +404,7 @@ Die Norm (oder L\"ange) von a ist \(\sqrt{(a, a)} = ||a||\).
 \begin{enumerate}
 \item {
 Der Winnkel \(\al\) zwischen zwei Vektoren \(a, b \neq 0\) ist definiert durch \(0 \le \al \le \pi\) und \(cos(\al) = \frac{|(a,b)|}{||a||\cdot ||b||}\).}
+% TODO chang to \frac{(a,b)}{||a||\cdot ||b||}, so that angle is actually between 0 and pi?
 \item{
 Zwei Vektoren \(a, b \in \R^n\) hei\ss{}en orthogonal, falls gilt \((a, b) = 0\).
 }
@@ -417,4 +437,140 @@ Der \mRn mit dem Abstand \(d(x, y) = ||x - y||\) ist ein sogennanter metrischer 
 \end{enumerate}
 f\"ur alle x, y, z in \mRn.\\
 Wir nennen d einen Abstand.
+
+\section{Grundlegende Objekte}
+
+\subsection{Elementare Aussagenlogik}
+Aussagen (in der Mathematik) sind sprachliche Gebilde, welche entweder wahr (w) oder falsch (f) sind.\\
+Darstellung mittels Wahrheitstabelle:\\
+Beispiele:
+\begin{tabular}{l | l}
+Aussage\\
+\hline
+A: es sind am 2.11.2017 mehr als f\"unf Personen im H\"orsaal Rundbau. & w\\
+\hline
+B = Der Dozent der LA in FR im WS 17/18 hei\ss{}t Peter & f
+\end{tabular}
+
+\subsubsection{Definition 1.1 Logische Operatoren}
+A, B seien Aussagen.
+\begin{enumerate}
+\item{"\(\neg A\)", oder ''nicht A'' ist die Negation von A\\
+\begin{tabular}{l | l}
+A & \(\neg A\)\\
+w & f\\
+f & w
+\end{tabular}
+}
+\item{Junktoren\\
+\(A \lor B\), ''A oder B'' ist wahr, wenn mindestens eine der Aussagen wahr A, B ist.\\
+\(A \land B\), ''A und B'' ist wahr, wenn beide wahr sind.\\
+\begin{tabular}{l | l | l | l}
+A & b & \(A \lor B\) & \(A\land B\)\\
+\hline
+w & w & w & w\\
+f & w & w & f\\
+w & f & w & f\\
+f & f & f & f
+\end{tabular}
+}
+\item{Implikationen\\
+\(A \Rightarrow B\) ist wahr, wenn A die Aussage B impliziert.\\
+\(A \Leftrightarrow B\)  ist wahr, wenn A genau dann wahr ist, wenn B wahr ist.\\
+\begin{tabular}{l | l | l | l}
+A & B & \(A \Rightarrow B\) & \(A \Leftrightarrow B\)\\
+\hline
+w & w & w & w\\
+f & w & w & f\\
+w & f & f & f\\
+f & f & w & w
+\end{tabular}
+}
+\end{enumerate}
+\textbf{Beispiel} Sei G ein lineares Gleichungssystem mit m Zeilen, n Spalten und Grad k. Dann gilt \\
+\begin{tabular}{l c l}
+\(k = n\) & \(\Rightarrow\) & L\"osung immer eindeutig.\\
+\(A\) & \(\Rightarrow\) &  \(B\)\\
+\end{tabular}\\
+Um die Aussage \(A \Rightarrow B\) zu zeigen, k\"onnen wir annehmen, das A richtig ist und m\"ussen folgern, das B auch richtig ist.\\
+\\
+\textbf{Bemerkung (De Morgan)}
+\begin{enumerate}
+\item{\((\neg A \lor \neg B) = \neg (A \land B)\)}
+\item{\((\neg A \land \neg B\) = \(\neg (A \lor B)\)}
+\end{enumerate}
+
+\subsection{Mengen und Abbildungen}
+Problem: Der Begriff der Menge ist sehr schwer zu definieren. (Die Menge aller Mengen die sich nicht selbst enthalten, ist zwar naiv eine Menge, macht aber keinen Sinn, da die Definition dieser Menge zum Widerspruch gef\"uhrt werden kann. Objekte wie dieses machen die Definition schwer.)\\
+Endliche Mengen kann man durch Auflistung aller Elemente angeben.\\
+z.B. \(X = \{x_1, x_2, x_3\}\)\\
+\(x_1, x_2, x_3\) hei\ss{}en dann Elemente von X und wir scheiben \(x_1 \in X\).\\
+Reihenfolge der Elemente und Mehrfachauflistung sind nicht relevant. Die M\"achtigkeit einer Menge ist die Anzahl paarweise verschiedener Elemente.\\
+\(\{1, 2, 2, 3\}\) hat M\"achtigkeit 3.\\
+Die leere Menge \(\{\}\) oder \(\emptyset\) enth\"alt kein Element.
+
+\subsubsection{Definition 1.2 Teilmengen und Gleichheit}
+\begin{enumerate}
+\item{Eine Menge Y hei\ss{}t Teilmenge von X, wenn aus \(x \in y\) immer folgt \(x \in X\). Wir schreiben \(Y \subset X\).}
+\item{Wir sagen \(X=Y\) genau dann, wenn \(X \subset Y\) und \(Y \subset X\)\\
+(d.h. zwei Mengen sind gleich, wenn sie die gleichen Elemente enthalten. (''Extensenalit\"astsprinzip''?))}
+\end{enumerate}
+\textbf{Bemerkungen}
+\begin{enumerate}
+\item{\(\emptyset \subset M\), f\"ur jede Menge M}
+\item{\(M \subset M\), f\"ur jede Menge M}
+\item{Wenn gilt \(M \subset N\), aber nicht \(M = N\), dann hei\ss{}t M ''echte Teilmenge'' von N, wir schreiben dann \(M \subsetneq N\) (Die ISO vorschrift sieht hier \(\subset\) f\"ur ''echte Teilmenge'' und \(\subseteq\) f\"ur ''Teilmenge'' vor, dies wird jedoch selten bentuzt.)}
+\end{enumerate}
+
+\subsubsection{Die Nat\"urliche Zahlen}
+Die einfachste unendliche Menge ist die, der nat\"urlichen Zahlen\\
+\(\N = \{1, 2, 3, \dots\}\), deren Existenz wir annehmen, zusammen mit den \"ublichen Rechenregeln.\\
+Die nat\"urlichen Zahlen gen\"ugen dem Prinzip der vollst\"andigen Induktion.\\
+Sei \(M \subset \N\) und es gelte:
+\begin{enumerate}
+\item{\(1 \in M\)}
+\item{falls \(m \in M\), so ist auch \(n + 1 \in M\)}
+\end{enumerate}
+Dann gilt \(M = \N\).\\
+\\
+Durch Erweiterung von Zahlbereichen k\"onnen wir aus \mN auch die ganzen Zahlen \(\mathbb{Z}\), die rationalen Zahlen \(\mathbb{Q}\) sowie die reellen Zahlen \mR konstruieren.\\
+(ebenso die komplexen Zahlen \(\mathbb{C}\))\\
+\textbf{Bemerkung}\\
+Es gilt \(\N \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}\)\\
+
+\subsubsection{Teilmengen mit Eigenschaften}
+Aus einer Menge k\"onnen wir Teilmengen Ausw\"ahlen, welche durch bestimme Eigenschaften charakterisiert werden. Wir schreiben\\
+\(X' = \{x \in X : x \) hat Eigenschaft E\(\}\) (aucch \(\{x \in X | x \) hat Eigenschaft\(\}\) ist verbreitet)
+
+\subsubsection{Definition 1.3 Mengenoperationen }
+Sind X, Y Mengen, so k\"onnen wir bilden:
+\begin{enumerate}
+\item{Die Vereinigung \(X \cup Y\), ist die Menge aller Elemente, welche in X sind oder welche in Y sind.}
+\item{Der Schnitt \(X \cap Y = \{x \in X : x \in Y\}\), ist die Menge aller Elemente, die sowohl in X als auch in Y sind.}
+\item{F\"ur \(Y \subset X\) schreiben wir \(X \setminus Y\) sprich ''X ohne Y'' f\"ur die Menge \(\{x \in X : x \not\in Y\}\)}
+\item{Das ''kartesische Produkt'' \(X \times Y\) ist die Menge aller geordneten Tupel \(\{(x, y) : x\in X, y\in Y\}\) }
+\end{enumerate}
+\textbf{Beispiele}
+\begin{enumerate}
+\item{\(\{1, 2, 4\} \cap \{2, 3\} = \{2\}\)}
+\item{\(\R \times \R = \R^2\)}
+\item{Die Elemente der Menge \(\{1, \{1\}, 2\}\) sind genau \(1, \{1\}, 2\) }
+\end{enumerate}
+
+\subsubsection{Definition 1.4 Abbildungen}
+Seien X, Y Mengen. Als Abbildung von C nach Y bezeichnen wir eine Vorschrift f, welche jedem Element x in X genau ein Element y in Y zuordnet. Wir schreiben\\
+\(f : X \rightarrow Y\), \(x \mapsto f(x)\)
+
+\subsubsection{Definition 1.5 Gleicheit von Abbildungen}
+Zwei Abbildungen \(f : X \rightarrow Y, g : X \rightarrow Y\) hei\ss{}en gleich, wenn f\"ur alle \(x \in X\) gilt \(f(x) = g(x)\).
+
+\subsubsection{Definition 1.6 Bild und Urbild}
+Sei \(f: X\rightarrow Y, M \subset X, N \subset Y\)\\
+\begin{enumerate}
+\item{Wir schreiben   \(f(M) = \{y \in Y : \) es existiert \(x \in X\) mit \(f (x) = y \} \in Y\)}
+\item{\(f^{-1}(N) = \{x \in X : f(x) \in N\} \in X\)}
+\end{enumerate}
+ 
+\pagebreak
+%\tableoftheorems
 \end{document}
