@@ -561,16 +561,119 @@ Sind X, Y Mengen, so k\"onnen wir bilden:
 Seien X, Y Mengen. Als Abbildung von C nach Y bezeichnen wir eine Vorschrift f, welche jedem Element x in X genau ein Element y in Y zuordnet. Wir schreiben\\
 \(f : X \rightarrow Y\), \(x \mapsto f(x)\)
 
-\subsubsection{Definition 1.5 Gleicheit von Abbildungen}
+\subsubsection{Definition 1.5 Gleichheit von Abbildungen}
 Zwei Abbildungen \(f : X \rightarrow Y, g : X \rightarrow Y\) hei\ss{}en gleich, wenn f\"ur alle \(x \in X\) gilt \(f(x) = g(x)\).
 
 \subsubsection{Definition 1.6 Bild und Urbild}
-Sei \(f: X\rightarrow Y, M \subset X, N \subset Y\)\\
+Sei \(f: X\rightarrow Y, M \subset X, N \subset Y\)
 \begin{enumerate}
-\item{Wir schreiben   \(f(M) = \{y \in Y : \) es existiert \(x \in X\) mit \(f (x) = y \} \in Y\)}
-\item{\(f^{-1}(N) = \{x \in X : f(x) \in N\} \in X\)}
+\item{Wir schreiben   \(f(M) = \{y \in Y : \) es existiert \(x \in M\) mit \(f(x) = y \} \subset Y\) Bild von M}
+\item{\(f^{-1}(N) = \{x \in X : f(x) \in N\} \subset X\) Urbild von N}
 \end{enumerate}
- 
+\textbf{Beispiel}:
+\begin{enumerate}
+\item{\(X = \{1, 2, 3\}\\
+Y = \{3, 4, 5, 6\}\\
+f(1) = 4, f(2) = 5, f(3) = 5\\
+M = \{1, 2\} \subset X\\
+f(M) = \{4, 5\} \subset Y\\
+f(\emptyset) = \emptyset \subset Y\\
+f(X) = \{4, 5\}\\
+N = \{3, 4, 5\}\\
+f^{-1}(N) = \{1, 2, 3\}\\
+f^{-1}(\emptyset) = \emptyset\\
+f^{-1}(\{6\}) = \emptyset\\
+f^{-1}(\{5\}) = \{2, 3\}\\
+\)
+}
+\item{
+\(X = \R., Y = \R\\
+f : X \rightarrow Y, x \mapsto f(x) =  x^2\\
+f([1,2]) = [1, 4] \subset Y\\
+f^{-1}(\{0\}) = \{0\}\\
+f^{-1}(\{1\}) = \{-1, 1\}\\
+f^{-1}(\{-1\}) = \emptyset\\
+\)
+}
+\end{enumerate}
+\textbf{Achtung}: \(f^{-1}(N)\) ist nur definiert f\"ur Mengen \(N \subset Y\). Insebesundere ist \(f^{-1}\) (zumindest jetzt) keine Abbildung von Y nach X.
+
+\subsubsection{Definition 1.7 Einschr\"ankung von Funktionen}
+Es sei \(f : X \to Y\) eine Abbildung, \(M \subset X \).\\
+Die Einschr\"ankung von f auf M ist die Abbildung \(f|_M = M \to Y, x \mapsto f(x)\)\\
+\textbf{Bemerkung}\\
+Der Unterschied zu f ist nur der eingeschr\"ankte Definitionsbereich.\\
+\(f  :\R \to \R, x \mapsto f(x) = x^2\\
+M = R^+_0 = \{x \in \R : x \ge 0\}\\
+(f|_M)^{-1}(\{1\}) = \{1\}
+\)
+
+\subsubsection{Def 1.8 Injektiv und surjektiv}
+Es sei \(f : X \to Y\) eine Abbildung.
+\begin{enumerate}
+\item{f hei\ss{}t injektiv, falls gilt\\
+\((x, x'\in X, f(x) = f(x') \Rightarrow x = x')\)}
+\item{
+f hei\ss{}t surjektiv, falls gilt\\
+\(f(x) = Y\)
+}
+\item {
+ f hei\ss{}t bijektiv, falls f injektiv und surjektiv ist.
+}
+\end{enumerate}
+\textbf{Beispiel}\\
+\(f : \R \to \R, x \mapsto f(x) = x^2\)\\
+ist nicht injektiv, da \(f(-1) = f(1), 1 \neq -1\). f ist auch nicht surjektiv, da \(f(x) \ge 0\).\\
+\(f|_{\R^+_0} : \R^+_0 \to \R\) ist injektiv, aber nicht surjektiv\\
+\(f|_{\R^+_0} : \R^+_0 \to \R^+_0\) ist injektiv, und surjektiv, also bijektiv\\
+
+\subsubsection{Definition 1.9 \(f^{-1}\)}
+Es sei \(f : X \to Y\) bijektiv. Wir schreiben dann \(f^{-1} : Y \to X, f^{-1}(y) = x\) mit dem eindeutig definierten \(x \in X\), sodass gilt \(f(x) = y\).\\
+\textbf{Bemerkung}\\
+Die Sinnhaftigkeit der Definition 1.9 folgt sofort aus der Definition von bijektivit\"at.
+
+\subsubsection{Satz 1.10}
+Sei X eine endliche Menge, so sind f\"ur \(f : X \to X\) \"aquivalent:
+\begin{enumerate}
+\item{f ist injektiv}
+\item{f ist surjektiv}
+\item{f ist bijektiv}
+\end{enumerate}
+\textbf{Bemerkung} F\"ur nicht endliche Mengen haben wir einfache Gegenbeispiele:\\ 
+\(f : \N \to \N , x \mapsto f(x) = 2x\)\\
+\textbf{Beweis}\\
+X ist eine endliche Menge, wir schreiben \(X = \{x_1, \dots, x_n\}\) mit paarweise verschiedenen \(x_j\).
+\begin{enumerate}
+\item{Wir zeigen zun\"achst \(1. \Rightarrow 2.\). Zu zeigen ist also falls f injektiv ist, so ist f auch surjektiv. Dies wird impliziert durch die Aussage ''Ist f \textit{nicht} surjektiv, so ist f auch \textit{nicht} injektiv'', welche wir zeigen.\\
+Sei f also nicht surjektiv. Also \(f(X) \neq X\). Damit besteht \(f(X)\) aus \(m < n\) Elementen. Verteilt man aber n Elemente in \(m < n\) Schubladen, so muss eien Schublade existieren, in der mehr als ein Element ist. Damit kann f nicht injektiv sein (es existiert \(x \neq x'\) mit \(f(x') = f(x)\)).}
+\item{\(2. \Rightarrow 1.\). Sei f also nicht injektiv, dann existieren nach Definition \(x, x' \in X, x' \neq x\) aber \(f(x) = f(x')\). Damit kann aber \(f(X)\) h\"ochstens n-1 Elemente enthalten und f ist auch nicht surjektiv.}
+\item{\(3. \Rightarrow 1.\) trivial nach der Definition der Bijektivit\"at}
+\item{\(3. \Rightarrow 2.\) ebenso}
+\item{\(1. \Rightarrow 3.\) Aus Injektivit\"at folgt bereits Surjektivit\"at und damit auch Bijektivit\"at.}
+\item{\(2. \Rightarrow 3.\) Aus Surjektivit\"at folgt bereits Injektivit\"at und damit auch Bijektivit\"at.}
+\end{enumerate}
+
+\subsubsection{Definition 1.11 Komposition von Abbildungen}
+Es seien X, Y, Z Mengen, \(f: X \to Y, g : Y \to Z\) Abbildungen.\\
+Dann definiert \(g \circ f : X \to Z, x \mapsto g(f(x)) = (g \circ f)(x)\) die Komposition von Abbildungen.\\
+\\
+\textbf{Bemerkung}\\
+Es gilt Assoziativit\"at: \((h \circ g) \circ f = h \circ (g \circ f)\) f\"ur \(f : X \to Y, g : Y \to Z , h : Z \to A\)\\
+aber \textit{nicht} Kommutativit\"at, d.h. im Allgemeinen gilt nicht  \(f\circ g = g \circ f\) f\"ur \(f : X \to X, g : X \to X\), denn \\
+\(f : \R \to R, f(x) = x + 1\\
+g : \R \to \R, f(x) = x^2\)\\
+ist ein Gegenbeispiel, denn im Allgemeinen gilt \textit{nicht}, dass \((x + 1)^2 = x^2 + 1\).
+
+\subsubsection{Definition 1.12 Identit\"at}
+Mit  \(Id_X : X \to X\) bezeichnen wir die identische Abbildung \(x \mapsto x\)
+
+\subsubsection{Lemma 1.13}
+Es sei \(f : X \to Y\) eine Abbildung. Dann gilt:
+\begin{enumerate}
+\item{f ist genau dann injektiv, wenn eine Abbildung \(g : Y \to X\) existiert, mit \(g \circ f = Id_X\)}
+\item{f ist genau dann surjektiv, wenn \(g : Y \to X\) existiert, mit \(f \circ g = Id_Y\)}
+\item{f ist genau dann bijektiv, falls \(g : Y \to X\) existiert, so dass sowohl \(g \circ f = Id_X\) und \(f \circ g = Id_Y\). Es gilt dann \(g = f^{-1}\)}
+\end{enumerate}
 \pagebreak
 %\tableoftheorems
 \end{document}
