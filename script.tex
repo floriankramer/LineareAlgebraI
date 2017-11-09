@@ -667,13 +667,77 @@ ist ein Gegenbeispiel, denn im Allgemeinen gilt \textit{nicht}, dass \((x + 1)^2
 \subsubsection{Definition 1.12 Identit\"at}
 Mit  \(Id_X : X \to X\) bezeichnen wir die identische Abbildung \(x \mapsto x\)
 
-\subsubsection{Lemma 1.13}
-Es sei \(f : X \to Y\) eine Abbildung. Dann gilt:
+\subsubsection{Lemma 1.13 Identit\"at und Surjektivit\"at bzw. Injektivit\"at}
+Es sei \(f : X \to Y\) eine Abbildung, \(X, Y \neq \emptyset\). Dann gilt:
 \begin{enumerate}
 \item{f ist genau dann injektiv, wenn eine Abbildung \(g : Y \to X\) existiert, mit \(g \circ f = Id_X\)}
 \item{f ist genau dann surjektiv, wenn \(g : Y \to X\) existiert, mit \(f \circ g = Id_Y\)}
 \item{f ist genau dann bijektiv, falls \(g : Y \to X\) existiert, so dass sowohl \(g \circ f = Id_X\) und \(f \circ g = Id_Y\). Es gilt dann \(g = f^{-1}\)}
 \end{enumerate}
+\textbf{Beweis}
+\begin{enumerate}
+\item{Sei f injektiv. Dann existiert zu jedem \(y \in f(X)\) genau ein \(x \in X\) mit \(f(x) = y\). Wir setzen \(g(y) = x\) f\"ur ebensolche \(y = f(x)\). Nun w\"ahlen wir \(x_0\in X\) beliebig und setzen \(g(y') = x_0\) f\"ur alle \(y' \in \setminus f(X)\). Dieses g erf\"ullt die Bedingung.\\
+Sei nun \(g : Y \to X\) mit \(g \circ f = Id_X\)}. Seien \(x, x' \in X\) mit \(f(x) = f(x')\). Es gilt \(x = Id_X(x) = (g \circ f)(x) = g(f(x)) = g(f(x')) = (g \circ f)(x') = Id_X(x') = x'\). Also ist f injektiv.
+\item{Sei f surjektiv. Zu jedem \(y \in Y\) w\"ahlen wir ein \(x \in X\) mit \(f(x) = y\) und setzen \(g(y) = x\). Damit gilt \(f \circ g = Id_Y\).\\
+Ungekehrt, sei \(g : Y \to X\), so dass \(f \circ g = Id_Y\). Sei \(y \in Y\), dann gilt \(y = f(g(y))\). Sei \(x' = g(y)\). Damit ist \(y = f(x'), x' \in X\) und \(y \in f(X)\). Damit ist f surjektiv.}
+\item{Sei f bijektiv. Die nun definierte Abbildung \(f^{-1} : Y \to X\) erf\"ullt die Voraussetzung an g.\\
+Falls aber g existiert, mit \(g \circ f = Id_x\) und \(f \circ g = Id_Y\). Damit erf\"ullt g die Voraussetzungen von 1. und 2. und f ist sowohl injektiv als auch surjektiv. Es gilt dann auch \(g = f^{-1}\).}
+\end{enumerate}
+
+\subsubsection{Definition 1.14 Menge aller Abbildungen}
+Seien X, Y Mengen. Mit \(Abb(X, Y)\) bezeichnen wir die Menge aller Abbildungen von X nach Y.\\
+\textbf{Bemerkung}\\
+\(\{ f \in Abb(X, Y) : f \text{ surjektiv}\}\) ist nun ebenfalls definiert.
+
+\subsubsection{Definition 1.15 M\"achtigkeit von Mnegen}
+Es seien X, Y Mengen. Wir sagen X ist gleichm\"achtig wie Y, falls eine bijektive Abbildung von X nach Y existiert.\\
+\textbf{Bemerkung}\\
+F\"ur endliche  Mengen M gilt \(\#M = m\) genau dann, wenn M gleichm\"achtig wie \(\{1, 2, \dots, m\}\) ist.
+
+\subsubsection{Definition 1.16 Potenzmenge}
+Sei M eine Menge. Die Menge aller Teilmengen von M hei\ss{}t Potenzmenge von M, kurz \(2^M\).\\
+\textbf{Bemerkung}\\
+F\"ur eine (beliebige nicht notwendigerweise bijektive) Abbildung \(f : X \to Y\) ist \(f^{-1}\) eine Abbildung von \(2^Y\) nach \(2^X\).
+
+\subsubsection{Satz 1.17 M\"achtigkeit von \(2^M\)}
+Sei M eine endliche Menge mit \(\#M = m\), \(m \in \N \cup \{0\}\). Dann gilt \(\#2^M = 2^m\).\\
+\textbf{Beweis}\\
+F\"ur m = 0 gilt \(M = \emptyset\) und die Aussage ist klar. (denn \(2^\emptyset = \{\emptyset\}\), und diese Menge besitzt ein Element).\\
+Rest des Beweises mittel Induktion.\\
+Wir nennen \(K \subset \N\) die Menge der nat\"urlichen Zahlen m, f\"ur welche die Aussage gilt, und zeigen:\\
+1.) \(1 \in K\)\\
+2.) falls \(m \in K\) so ist auch \(m + 1 \in K\).\\
+Damit folgt (nach dem Induktionsprinzip), dass  K = \mN\ und der Satz ist gezeigt.\\
+Zu 1.) Die einelementige Menge M schreiben wir als \(\{x\}\), die Teilmengen sind \(\emptyset, \{x\}\). Somit ist \(2^M = \{\emptyset, \{x\}\}\) mit \(\#2^M = 2 = 2^1\).\\
+Zu 2.) Es sei also \(\#M = m + 1\)  und \(M_m\) eine Menge mit \(\# M_m = m\). Wir d\"urfen annehmen, dass gilt \(\#2^{M_m} = 2^m\). Wir schreiben M als \(M_m \cup \{x\}, x \not\in M_m\). Wir scheiben\\
+\(2^M = \{\)Menge aller Teilmengen von M, welche x nicht enthalten\(\} \cup \{\)Menge aller Teilmengen von M, welche x enthalten\(\} = A \cup B\) und es gilt \(\#2^M = \#A + \#B\).\\
+\(\#A = \#2^{M_m} = m\), da \(A = 2^{M_m}\).\\
+Jede Menge in B ist aber eine Menge in \(2^{M_m}\) vereinigt mit \(\{x\}\) und \(\#B = 2^m\). Somit gilt \(\#2^M = 2^m + 2^m = 2^{m + 1}\).\\
+Damit gilt die Aussage f\"ur \(m + 1\).\\
+\\
+Wir kennen bereits das direkte (bzw. kartesische) Produkt zweier Mengen \(X \times Y = \{(x, y) : x\in X, y \in Y\}\).\\
+
+\subsubsection{Definition 1.18 Graph einer Funktion}
+Es sei \(f : X \to Y\) eine Abbildung. Die Menge \(\Gamma_f = \{(x, f(x)) \in X \times Y\}\) nennen wir Graph von f.\\
+\\
+Noch n\"utzlicher ist das direkte Produkt um eine sogenannte Relation zu definieren.\\
+\textbf{Beispiele}\\
+\(x \underset{\text{(Steht in Relation zu)}}{\sim} y \Leftrightarrow x \le y\)\\
+
+\subsubsection{Definition 1.19 Relationen}
+Eine Relation R auf einer Menge X ist eine Teilmenge von \(X \times X\).\\
+ Wir sagen f\"ur \(x, y \in X\), dass \(x \sim y\) genau dann, wenn \((x, y) \in R\).\\
+\\
+F\"ur das Beispiel gilt \(R = \{(x, y) \in X \times X : x \le y\}\)\\
+
+\subsubsection{Definition 1.20 \"Aquivanlenzrelation}
+Eine Relation \(\sim\) auf X hei\ss{}t \"Aquivalenzrelation, falls gilt:
+\begin{enumerate}
+\item{\(x \sim x\) (Reflexivit\"at)}
+\item{\(x \sim y \Rightarrow y \sim x\) (Symmetrie)}
+\item{\(x \sim y \land y \sim z \Rightarrow x \sim z\) (Transitivit\"at)}
+\end{enumerate}
+f\"ur alle \(x, y, z \in X\)
 \pagebreak
 %\tableoftheorems
 \end{document}
