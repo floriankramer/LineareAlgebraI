@@ -16,8 +16,12 @@
 \newcommand{\mlb}{\(\lb\)}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
 \newcommand{\mR}{\(\mathbb{R}\)}
 \newcommand{\mN}{\(\mathbb{N}\)}
+\newcommand{\mZ}{\(\mathbb{Z}\)}
 \newcommand{\Rn}{\mathbb{R}^n}
 \newcommand{\mRn}{\(\mathbb{R}^n\)}
 \newcommand{\al}{\alpha}
@@ -738,6 +742,95 @@ Eine Relation \(\sim\) auf X hei\ss{}t \"Aquivalenzrelation, falls gilt:
 \item{\(x \sim y \land y \sim z \Rightarrow x \sim z\) (Transitivit\"at)}
 \end{enumerate}
 f\"ur alle \(x, y, z \in X\)
+
+\textbf{Beispiele:}\\
+''\(=\)'' auf Zahlensystemen.\\
+\(X = 2^N \). F\"ur \( x, y \in X\) gelte \(x \sim y\) falls endliche Teilmengen A, B von x und y mit \(x \setminus A = y \setminus B \)
+
+\subsubsection{Definition 1.21 \"Aquivalenzklassen}
+Sei X eine Menge mit \"Aquivalenzrelation ''\(\sim\)''. Eine Menge \(A \subset X\) hei\ss{}t \"Aquivalenzklasse bez\"uglich ''\(\sim\)'', falls gilt:
+\begin{enumerate}
+\item{\(A \neq \emptyset\)}
+\item{falls \(x, y \in A \Rightarrow x \sim y\)}
+\item{\(x \in A, y \in X, x \sim y \Rightarrow y \in A\)}
+\end{enumerate}
+
+\subsubsection{Proposition 1.22 Partitionierung in \"Aquivalenzklassen}
+Sei X eine Menge mit \"Aquivalenzrelation ''\(\sim\)''. Dann geh\"ort jedes \(a \in X\) zu genau einer \"Aquivalenzklasse A bez\"uglich ''\(\sim\)''.\\
+F\"ur zwei \"Aquivalenzlkassen A, A' gilt entweder \(A = A'\) oder \(A\cap A' = \emptyset\).\\
+\\
+\textbf{Beweis}\\
+F\"ur \(a \in X\) definieren wir die Menge \(A = \{x \in X : a \sim x\}\).\\
+Nachdem \(a \sim a\) gilt \(a \in A\), somit ist \(A \neq \emptyset\). Sind nun \(x, y \in A\), so gilt \(a \sim x \land a \sim y\). Damit folgt \(x \sim a\) und \(a \sim y\) und somit \(x \sim y\).\\
+F\"ur \(x \in A, y \in X\) mit \(x \sim y\). gilt \(a \sim x, x \sim y\) also \(a \sim y\) und somit \(y \in A\).\\
+Somit ist A eien \"Aquivalenzklasse und a ist in \textit{mindestens} einer \"Aquivalenzklasse enthalten.\\
+Es ist noch zu zeigen, dass zwei \"Aquivalenzklassen entweder gleich oder disjunkt sind.\\
+Seien also \(A, A'\) \"Aquivalenzklassen mit \(A \cap A' \neq \emptyset\). Also existiert \(b \in A\cap A'\). Falls nun \(x \in A\), so gilt \(x \sim b\). Nachdem b auch in A' ist, folgt aber \(x \in A'\). Damit folgt \(a \subset A'\). Die Umkehrung, also \(A' \subset A\) folgt ebenso.
+
+\subsubsection{Definition 1.23 Quotientenmenge}
+Es sei X eine Menge mit \"Aquivalenzrelation ''\(\sim\)''. Die Menge der \"Aquivalenzklassen in X bezeichnen wir  als Quotientenmenge und schreiben
+ f\"ur diese Menge \(X/{\sim}\)\\
+ \\
+ \textbf{Bemerkung}\\
+ Wir k\"onnen eine Abbildung definieren, welche jedem \(a \in X\) dessen \"Aquivalenzklasse zuordnet:\\
+ \(X \to x/{\sim}, a \mapsto A_a\) (nach Prop 1.22 eindeutig zugeorndete \"Aquivalenzklasse).\\
+ Ein solches a hei\ss{}t dann Repr\"asentant der \"Aquivalenzklasse \(A_a\).\\
+ \\
+ \textbf{Beispiel}\\
+ Sei X = \mN. Wir schreiben \(X \sim y\), falls sowohl x als auch y gerade bzw. ungerade Zahlen sind.\\
+ Sei \(a \in X\). Die zugh\"orige \"Aquivalenzklasse ist gegeben durch:\\
+ Die Menge aller geraden Zahlen, falls a gerade ist.\\
+ Die Menge aller ungeraden Zahlen, falls a ungerade ist.
+ 
+\subsection{Gruppen} 
+
+\subsubsection{Definition 1.24 Verkn\"upfungen}
+Es sei G eine Menge. Eine Verkn\"upfung \(*\) auf G ist eine Abbildung:\\
+\(* : G \times G \to G\).\\
+\((a, b) \mapsto *(a, b)\)\\
+\\
+\textbf{Bemerkung} Oft schreiben wir einfach \(a * b\) f\"ur \(*(a, b)\).\\
+\textbf{Beispiele}\\
+\(G = \N, *(a, b) = a \cdot b\)\\
+\(G = \N, *(a, b) = a + b\)\\
+X Menge, \(G = Abb(X, X), *(f, g) = f \circ g\)
+ 
+\subsubsection*{Definition 1.25 Gruppen}
+Eine Menge G mit Verkn\"upfung \(*\) hei\ss{}t Gruppe, falls gilt:
+\begin{enumerate}
+\item{\((a * b) * c = a * (b * c)\) (Assoziativgesetzt)}
+\item{Es existiert ein Element \(e \in G\), so dass gilt:
+\begin{enumerate}
+\item{\(a * e = a\) f\"ur alle \(a \in G\)}
+\item{F\"ur alle \(a \in G\) existiert \(a' \in G\) mit \(a' * a = e\)}
+\end{enumerate}
+}
+\end{enumerate}
+Die Gruppe hei\ss{}t abelsch, falls zus\"atzlich gilt \(a * b = b * a\) f\"ur alle \(a, b \in G\).\\
+e aus 2. a.) hei\ss{}t neutrales Element.\\
+a' ais 2. b.) hei\ss{}t inverses Element.\\
+\\
+\textbf{Bemerkung}\\
+Wir schreiben oft einfach \(a \cdot b\) bzw. \(ab\) f\"ur \(a * b\).\\
+\textbf{Beispiele}
+\begin{enumerate}
+\item{\(G = \Z, *(a, b) = a + b\) (\(e = 0, a' = -a)\)}
+\item{\(G = \Q \setminus\{0\}, *(a, b) = a \cdot b\) (\(e = 1, a' = \frac{1}{a}\))}
+\item{\(G = \{f \in Abb(X, X), f\) bijektiv\(\}, *(f, g) = f \circ g\) (\(e = Id_X, f^{-1}\) als inverses)}
+\end{enumerate}
+Achtung: 1 und 2 sind abelsch, 3 nicht notwendigerweise.
+
+\subsubsection{Propostition 1.26}
+Es sei G eine Gruppe. Dann gilt
+\begin{enumerate}
+\item{Das neutrale Element ist eindeutig bestimmt, und es gilt auch \(a * e = a\)}
+\item{Das inverse Element a' ist zu jedem \(a \in G\) eindeutig bestimt und es gilt auch \(a * a' = e\)}
+\end{enumerate}
+\textbf{Beweis}\\
+Wir betrachten ein \(e \in G\) und ein \(a \in G\), wobei e ein neutrales Element ist. Es sei \(a'\) ein Inverses zu a. Es folgt:\\
+\(a a' = e (a a') = (a'' a') (a a') = a'' (a' (a a')) = a'' ((a' a) a') = a'' (e a') = a'' a' = e\)\\
+Somit gilt \(a e = a (a' a) = (a a') a = a\).\\
+Sei \(\hat{e}\) ein anderes neutrales Element. Dann gilt \(e \hat{e} = e\) und \(e \hat{e} = \hat{e}\). Damit folgt \(e = \hat{e}\).
 \pagebreak
 %\tableoftheorems
 \end{document}
