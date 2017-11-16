@@ -22,6 +22,7 @@
 \newcommand{\mR}{\(\mathbb{R}\)}
 \newcommand{\mN}{\(\mathbb{N}\)}
 \newcommand{\mZ}{\(\mathbb{Z}\)}
+\newcommand{\mQ}{\(\mathbb{Q}\)}
 \newcommand{\Rn}{\mathbb{R}^n}
 \newcommand{\mRn}{\(\mathbb{R}^n\)}
 \newcommand{\al}{\alpha}
@@ -619,7 +620,7 @@ Es sei \(f : X \to Y\) eine Abbildung.
 \((x, x'\in X, f(x) = f(x') \Rightarrow x = x')\)}
 \item{
 f hei\ss{}t surjektiv, falls gilt\\
-\(f(x) = Y\)
+\(f(X) = Y\)
 }
 \item {
  f hei\ss{}t bijektiv, falls f injektiv und surjektiv ist.
@@ -820,7 +821,7 @@ Wir schreiben oft einfach \(a \cdot b\) bzw. \(ab\) f\"ur \(a * b\).\\
 \end{enumerate}
 Achtung: 1 und 2 sind abelsch, 3 nicht notwendigerweise.
 
-\subsubsection{Propostition 1.26}
+\subsubsection{Propostition 1.26 Eindeutigkeit neutrales und inverses}
 Es sei G eine Gruppe. Dann gilt
 \begin{enumerate}
 \item{Das neutrale Element ist eindeutig bestimmt, und es gilt auch \(a * e = a\)}
@@ -830,7 +831,138 @@ Es sei G eine Gruppe. Dann gilt
 Wir betrachten ein \(e \in G\) und ein \(a \in G\), wobei e ein neutrales Element ist. Es sei \(a'\) ein Inverses zu a. Es folgt:\\
 \(a a' = e (a a') = (a'' a') (a a') = a'' (a' (a a')) = a'' ((a' a) a') = a'' (e a') = a'' a' = e\)\\
 Somit gilt \(a e = a (a' a) = (a a') a = a\).\\
-Sei \(\hat{e}\) ein anderes neutrales Element. Dann gilt \(e \hat{e} = e\) und \(e \hat{e} = \hat{e}\). Damit folgt \(e = \hat{e}\).
+Sei \(\hat{e}\) ein anderes neutrales Element. Dann gilt \(e \hat{e} = e\) und \(e \hat{e} = \hat{e}\). Damit folgt \(e = \hat{e}\).\\
+Sei nun \(\hat{a}'\) ein weiteres inverses Element, dann folgt:\\
+\(\hat{a}' = \hat{a}' e = \hat{a}' (aa') = (\hat{a}'a)a' = ea' = a'\)\\
+\\
+\textbf{Bemerkungen}
+\begin{enumerate}
+\item{
+Wir schreiben \(a^{-1}\) f\"ur das (nun) eindeutig bestimmte inverse Element zu a.\\
+Es gilt also \(a^{-1}a = aa^{-1} = e\) sowie \((a^{-1})^{-1} = a\) und \((ab)^{-1} = b^{-1}a^{-1}\)\\
+(denn \(b^{-1}a^{-1})(ab) = b^{-1}((a^{-1}a)b) = b^{-1}(eb) = b^{-1}b = e\)
+}
+\item{
+Es folgen auch die K\"urzungsregeln:\\
+\(a \hat{x} = ax \Rightarrow x = \hat{x}\)\\
+und \(\hat{y}a = ya \Rightarrow y = \hat{y}\)
+}
+\end{enumerate}
+
+\subsubsection{Definition 1.27 Rechts- und Linkstranslation}
+F\"ur \(a \in G\), G eine Gruppe, schreiben wir\\
+\(\tau_a : G \to G, x \mapsto x a\) (Rechtstranslation)\\
+\(_{a}\tau : G \to G, x \mapsto a x\) (Linkstanslation)
+
+\subsubsection{Lemma 1.28}
+\begin{enumerate}
+\item{Falls G eine Gruppe ist, so sind \(\tau_a\) und \(_{a}\tau\) bijektiv.}
+\item{Sei G eine Menge mit assoziativer Verkn\"upfung. Dann folgt Def 1.25 2. aus surjektivit\"at von \(t_a\) und \(_{a}\tau\)}
+\end{enumerate}
+\textbf{Beweis}\\
+\begin{enumerate}
+\item{
+Bijektivit\"at folgt aus  \((\tau_a)^{-1}\) gegeben durch \((\tau_a)^{-1}(x) = x a^{-1}\), denn \((tau_a)^{-1}(\tau_a(y)) = \tau_a(y)a^{-1} = (y a) a^{-1} = y\) f\"ur jedes \(y \in G\).
+}
+\item{
+ Seien also \(\tau_a\) und \(_{a}\tau\) surjektiv. Dann existiert f\"ur jedes \(b \in G\) eine L\"osung f\"ur:\\
+ \(x a = b\) sowie \(a y = b\).\\
+ Damit existiert aber zu \(a \in G\) ein  e mit \(ea = a\). F\"ur beliebiges \(b \in G\) folgt dann \(e b = e (a y) = (e a) y = ay = b\)\\
+ Durch L\"osen von \(x a = e\) bekommen wir analog das Inverse Element zu a.
+}
+\end{enumerate}
+\textbf{Bemerkungen}
+\begin{enumerate}
+\item{Falls die Gerfahr der Verwechslung besteht, scheiben wir gerne \((G, *)\) Ff\"ur eine Gruppe G mit Verkn\"upfung \(*\).\\
+Beispielsweise \((\Q, +)\) f\"ur \mQ mit Addition, oder \((\Q \setminus {0}, \cdot)\) f\"ur \(\Q \setminus {0}\) mit Multiplikation.\\}
+\item{Bei der Verkn\"upfung + gehen wir immer von kommutativit\"at aus.}
+\item{Endliche Gruppen kann man mit einer (Gruppen-) Tafel darstellen\\
+\begin{tabular}{c || c | c | c}
+* & e & \(\cdots\) & \(a_i\)\\
+\hline
+\hline
+e & e &        & \(a_i\)\\
+\hline
+\(\vdots\) & & \\
+\hline
+\(a_j\) & \(a_j\)& & \(a_i * a_j\)
+\end{tabular}
+}
+\item{
+Es gibt nur eine zweielementige Gruppe:\\
+\begin{tabular}{c || c | c}
+* & e & a\\
+\hline
+\hline
+e & e & a\\
+\hline
+a & a & e
+\end{tabular}
+}
+\end{enumerate}
+
+\subsubsection{Definition 1.29 Untergruppen}
+Es sei \((G, \cdot)\) eine Gruppe, \(G' \subset G\). \(G'\) hei\ss{}t Untergruppe von G, falls f\"ur \(a, b \in G'\) auch gilt \(ab \in G'\) und \(a^{-1} \in G'\).
+
+\subsubsection{Definition 1.30 Homo- und Isomorphismen auf Gruppen}
+Seien \((G, \cdot), (H, *)\) Gruppen, und \(\varphi : G \to H\) eine Abbildung.
+\begin{enumerate}
+\item{
+Die Abbildung \(\varphi\) hei\ss{}t Homomorphismus, falls gilt, dass\\
+\(\varphi(a \cdot b) = \varphi(a) * \varphi(b)\) f\"ur alle \(a, b \in G\)
+}
+\item{
+\(\varphi\) hei\ss{}t Isomorphismum, falls \(\varphi\) zus\"atzlich bijektiv ist.
+}
+\end{enumerate}
+
+\subsubsection{Proposition 1.31}
+Es sei \((G, \cdot)\) eine Gruppe, \(G'\) eine Untergruppe von G. Dann ist \((G', \cdot)\) selbst eine Gruppe.\\
+\\
+\textbf{Beweis}\\
+Assoziativit\"at folgt sofort. Es ex \(a^{-1}\) in \(G'\), somit auch \(e = aa^{-1} \in G'\).
+
+\subsubsection{Proposition 1.32}
+Sei \(\varphi : G \to H\) ein Homomorphismus von Gruppen \((G, \cdot), (H, *)\). Dann gilt
+\begin{enumerate}
+\item{\(\varphi(e) = \hat{e}\) mit neutralen Elementen \(e \in G, \hat{e} \in H\)}
+\item{\(\varphi(a^{-1}) = (\varphi(a))^{-1}\) f\"ur alle \(a \in G\)}
+\item{F\"ur einen Isomorphismus \(\varphi\) ist auch \(\varphi^{-1}\) ein Homomorphismus}
+\end{enumerate}
+
+\textbf{Beweis}
+\begin{enumerate}
+\item{
+\(\hat{e} * \varphi(e) = \varphi(e) = \varphi(e \cdot e) = \varphi(e) * \varphi(e)\)\\
+Nach der K\"urzungsregel folgt \(\hat{e} = \varphi(e)\)
+}
+\item{
+Aus 1. gilt \
+\(\hat{e} = \varphi(e) = \varphi(a^{-1} a) = \varphi(a^{-1}) * \varphi(a)\) also ist \(\varphi(a^{-1}) = (\varphi(a))^{-1}\)
+}
+\item{
+Wir betrachten \(c, d \in H\) mit \(c = \varphi(a), d = \varphi(b)\). Dann gilt\\
+\(\varphi(a b) = \varphi(a) * \varphi(b) = c * d\)\\
+also \(\varphi^{-1}(c * d) = \varphi^{-1}(\varphi(a b)) = ab = \varphi^{-1}(c) \varphi^{-1}(d)\)
+}
+\end{enumerate}
+
+\textbf{Beispiele}
+\begin{enumerate}
+\item{
+\(G = (\R, +), H = (\{x \in \R : x > 0\}, \cdot)\)\\
+\(exp : \R \to \R^+_*, x \mapsto e^x\)\\
+ist ein Isomorphismus, denn \(e^{x + y} = e^x e^y\).
+}
+\item{
+Wir betrachten \((\Z, +)\). Sei \(m \in \Z\). Dann ist \(\varphi_m : \Z \to \Z, a \mapsto ma\) ein Homomorphismus, denn \(m(a + b) = ma + mb\).\\
+Das Bild \(\phi_m(\Z) = m\Z = \{m a : a \in \Z\} \subset \Z\)  ist eine Untergruppe von \((\Z, +)\), denn \(ma + mb = m(a + b) \in m\Z\) und \(-(ma) = m(-a) \in m\Z\).\\
+Dazu betrachten wir die Menge \(r + m\Z\) (f\"ur \(r \in \{0, 1, \dots, m-1\}\)) mit \(r + m\Z = \{r+ma : a \in \Z\}\). Dann gilt \(\Z = (0 +m\Z) \cup (1 + m\Z) \cup \dots \cup(m-1 \cup m\Z)\) und die Vereinigung ist disjunkt.\\
+F\"ur \(a \in \Z\) gilt \(\frac{a}{m} = k + \frac{r}{m}\) f\"ur \(k \in \Z, r \in \{0, \dots, m-1\}\) (Division mit Rest).\\
+Dann gilt \( a \in r + m\Z\). (denn \(a = km + r\)).\\
+Wir beseichnen die Mengen \(r + m\Z\) auch als sogenannte ''\textit{Restklassen modulo m}''.
+}
+\end{enumerate}
 \pagebreak
 %\tableoftheorems
 \end{document}
