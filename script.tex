@@ -960,9 +960,107 @@ Das Bild \(\phi_m(\Z) = m\Z = \{m a : a \in \Z\} \subset \Z\)  ist eine Untergru
 Dazu betrachten wir die Menge \(r + m\Z\) (f\"ur \(r \in \{0, 1, \dots, m-1\}\)) mit \(r + m\Z = \{r+ma : a \in \Z\}\). Dann gilt \(\Z = (0 +m\Z) \cup (1 + m\Z) \cup \dots \cup(m-1 \cup m\Z)\) und die Vereinigung ist disjunkt.\\
 F\"ur \(a \in \Z\) gilt \(\frac{a}{m} = k + \frac{r}{m}\) f\"ur \(k \in \Z, r \in \{0, \dots, m-1\}\) (Division mit Rest).\\
 Dann gilt \( a \in r + m\Z\). (denn \(a = km + r\)).\\
-Wir beseichnen die Mengen \(r + m\Z\) auch als sogenannte ''\textit{Restklassen modulo m}''.
+Wir beseichnen die Mengen \(r + m\Z\) auch als sogenannte ''\textit{Restklassen modulo m}''.\\
+Falls \(a, a'\) in derselben Klasse \(r +m\Z\) sind, gilt \(\frac{a-a'}{r} \in \Z\), und wir schreiben \(a \equiv a' \mod m\) (ist kongruent zu).\\
+Zu \(a \in \Z\) schreiben wir \(\bar{a} = a + m\Z\), die zu a geh\"orige Restklasse und wir definieren eine Addition \(\bar{a} + \bar{b} = \overline{a + b}\).\\
+Wir m\"ussen sicherstellen, dass die Definition nicht von der Auswahl des Repr\"asentanten abh\"angt, das ist aber leicht zu sehen.\\
+\(\bar{a} = \bar{a'}, \bar{b} = \bar{b'}\), dann folgt auch schon, dass gilt \(\overline{a + b} = \overline{a' + b'}\).
 }
 \end{enumerate}
-\pagebreak
+
+\subsubsection*{Satz}
+F\"ur \(m \in \N\)  sei \(Z/m\Z = \{\bar{0}, \dots, \overline{m-1}\}\).\\
+Dann gilt, dass \(\Z/m\Z, +\) (+ def. wie oben) eine abelsche Gruppe ist.\\
+Die Abbildung \(Z \to Z/m\Z, a \mapsto \bar{a} = a + m\Z\) ist ein surjektiver Homomorphismus.\\
+Beweis: \"Ubung.\\
+Wir nennen diese Gruppen die zyklischen Gruppen der Ordnung m.
+
+\subsection{Ringe und K\"orper}
+
+\subsubsection{Def 1.33 Ringe}
+Es sei R eine Menge, \(+ : R \times R \to R\) und \(\cdot : R \times R \to R\) Verkn\"upfungen. \((R, +, \cdot)\) hei\ss{}t Ring, falls:
+\begin{enumerate}
+\item{\((R, +)\) ist eine abelsche Gruppe}
+\item{Die Multiplikation  \(\cdot\) assoziativ ist.}
+\item{Das Distributivgesetz gilt:\\
+\(a \cdot (b + c) = ab + ac\)\\
+\((b + c) a = ba + ca\)
+}
+\end{enumerate}
+Ein Ring hei\ss{}t kommutativ, falls gilt \(a \cdot b = b \cdot a\) f\"ur alle \(a, b \in R\).\\
+Falls ein Element \(1 \in R\) existiert mit \(1 \cdot a = a \cdot 1 = a\) f\"ur alle \(a \in R\), dann nennen wir dieses Element Einselement.\\
+Das neutrale Element der Addition + hei\ss{}t Nullelement (oder 0).
+
+\subsubsection{Proposition 1.34 Absorption durch Nullelement}
+Es gilt \(0 \cdot a = a \cdot 0 = 0\).\\
+\textbf{Beweis}\\
+Wir erinnern uns an die K\"urzungsregel: \(\al + \xi = \beta + \xi \Rightarrow \al = \beta\).\\
+Wir schreiben \(0 + 0a = 0a = (0 + 0) a = 0a + 0a \Rightarrow 0 = 0a\)\\
+Ebenso folgt \(0 = a0\).\\
+\\
+\textbf{Beispiele}
+\begin{enumerate}
+\item{\((\Z, + \cdot)\), \((\Q, +, \cdot), (\R, + \cdot)\).}
+\item{\(\Z.m\Z\) mit + wie bisher und \(\bar{a} \cdot \bar{b} = \overline{ab}\) (Nach \"Uberpr\"ufung der Unabh\"angigkeit von der Wahl des Repr\"asentanten)}
+\end{enumerate}
+\textbf{Beispiel}\\
+Die 2x2-Matrizen \(A = \begin{pmatrix}a & b\\c & d\end{pmatrix}\) bilden einen Ring mit\\
+\(\begin{pmatrix}a & b\\c & d\end{pmatrix} + \begin{pmatrix}e & f\\g & h\end{pmatrix} = \begin{pmatrix}a + e & b + f\\c + g & d + h\end{pmatrix}\)\\
+\(\begin{pmatrix}a & b\\c & d\end{pmatrix} \cdot \begin{pmatrix}e & f\\g & h\end{pmatrix} = \begin{pmatrix}ac+bg & af+bh\\ce+dg & cf+dh\end{pmatrix}\)\\
+Die gew\"unschten Eigenschaften folgen sofort. Es gilt aber:\\
+\(\begin{pmatrix}1 & 1\\0 & 1\end{pmatrix} \begin{pmatrix}1 & 0\\1 &1\end{pmatrix} \neq \begin{pmatrix}1 & 0\\1 & 1\end{pmatrix} \begin{pmatrix}1 & 1\\0 & 1\end{pmatrix}\)
+
+\subsubsection{Definition 1.35 Unterring und Ringhomomorphismus}
+\begin{enumerate}
+\item{
+Es sei \(R, +, \cdot)\) ein Ring, \(R' \subset R\). \((R', +, \cdot)\) hei\ss{}t Unterring, falls \((R', +)\) eine Untergruppe von \((R, +)\) ist und gilt \(a, b \in R' \Rightarrow ab \in R'\)
+}
+\item{
+Es seien \(R, +, \cdot)\), \(S, \hat{+}, \hat{\cdot})\) Ringe, \(\varphi : R \to S\) eine Abbildung. \(\varphi\) hei\ss{}t Ringhomomorphismus, falls gilt \(\varphi(a + b) = \varphi(a) \hat{+} \varphi{b}\) und \(\varphi(ab) = \varphi(a) \hat{\cdot} \varphi(b)\) f\"ur alle \(a, b \in R\).
+}
+\end{enumerate}
+
+\subsubsection{Definition 1.36 K\"orper}
+Es sei K eine Menge, \(+ : K \times K \to K, \cdot : K \times K \to K\) Verkn\"upfungen. \((k, +, \cdot)\) hei\ss{}t K\"orper, falls gilt:\\
+\begin{enumerate}
+\item{\((K, +)\) ist eine abelsche Gruppe}
+\item{\(K^*\) sei gegeben durch \(K \setminus \{0\}\). Dann gilt \((K^*, \cdot)\) ist eine abelsche Gruppe.}
+\item{F\"ur \(a, b, c \in K\) gilt  \((a (b+c) = ab + bc\) und \((b+c) a = ba + ca, ad + bc)\)}
+\end{enumerate}
+\textbf{Bemerkung}\\
+Das neutrale Element der Multiplikation bezeichnen wir mit Eins \(( = 1)\), das inverse zu a bezgl. Multiplikation mit \(a^{-1}\) oder \(\frac{1}{a}\) bzgl. Addition mit \(-a\).
+
+\subsubsection{Proposition 1.37 Rechenregeln f\"ur K\"orper}
+Sei \((K, +, \cdot)\) ein K\"orper. Dann gilt
+\begin{enumerate}
+\item{\(1 \neq 0\)}
+\item{\(0a = a0 = 0\)}
+\item{\(ab = 0 \Rightarrow a = 0 \lor b = 0\)}
+\item{\(a(-b) -(ab)\) und \((-a)(-b) = ab\)}
+\item{\(x a = \hat{x}a\) und \(a \neq 0 \Rightarrow x = \hat{x}\)}
+\end{enumerate}
+\textbf{Beweis}
+\begin{enumerate}
+\item{Folgt sofort, denn \((K^*, \cdot)\) ist eine Gruppe.}
+\item{Folgt analog zu Ringen.}
+\item{Folgt aus Gruppeneigenschaft von \((K^*, \cdot)\), da \((K^*, \cdot)\) unter der Multiplikation abgeschlossen ist, und somit a oder b nicht in \(K^*\) sein kann (also 0 ist)}
+\item{Wir rechnen \\
+\(ab + a(-b) = a (b - b) = a 0 = 0\)\\
+und\\
+\((-a)(-b) = -((-a)b) = -(-(ab)) = ab\)}
+\item{Die Regel gilt f\"ur \(x, \hat{x}\) beide in \(K^*\). Ist aber \(\hat{x} = 0\), so gilt \(\hat{x}a = 0\) nach 2. und mit 3. folgt die Aussage.}
+\end{enumerate}
+\textbf{Beispiele}
+\begin{enumerate}
+\item{\((\Q, +, \cdot), (\R, +, \cdot)\).}
+\item{Die komplexen Zahlen \(\C\), wie folgt definiert. F\"ur \((a, b), (c, d) \in \R \times \R\) sei\\
+\((a, b)+(c, d) = (a + c, b + d)\) und\\
+\((a,b)\cdot (c,d) = (ac-bd, ad + bc)\).\\
+Mit \((0, 0)\) als Nullelement und \((1, 0)\) als Einselement.\\
+Das additive Inverse zu \((a, b)\) ist dann \((-a, -b)\), das Multiplikative Inverse ist \((\frac{a}{a^2+b^2}, -\frac{b}{a^2 + b^2})\)\\
+Wir bezeichnen den so konstruierten K\"orper mit \(\C\).
+}
+\end{enumerate}
+% \pagebreak
 %\tableoftheorems
 \end{document}
