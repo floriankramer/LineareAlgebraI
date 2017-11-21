@@ -46,9 +46,9 @@
 % {\tableoftheorems % insert the command at its current state
 % \hyperref[theoremlink\thetableoftheoremslinks]{#1}\\% insert a link to the label
 % #2}}% insert the text
-% dummy command 
+% dummy command
 \newcommand{\dtheorem}[1]{#1}
-\newcommand{\definition}[1]{#1} 
+\newcommand{\definition}[1]{#1}
 \newcounter{test}
 \newcommand{\test}{test}
 \newcommand{\extest}[1]{\stepcounter{test} \label{a\thetest}\expandafter\edef\expandafter\test\expandafter{\test \hyperref[a\thetest]{test\thetest}}}
@@ -89,12 +89,12 @@ Zur Berechnung von \(p(\delta_j), j \in \{1..5\}\) gibt es Methoden aus der line
 
 \section{Lineare Gleichungssyteme und der n-dimensionale reelle Raum}
 \begin{itemize}
-\item{Descartes f\"uhrte "Koordinaten" ein in der Geometrie ein, also Zahlensysteme. Das f\"uhrte dazu, das man nun leichter rechnen kann.}
-\item{Wir benutzen hier die reellen Zahlen (mit den \"ublichen Rechenregeln, also f\"ur die Addition : 
+\item{Descartes f\"uhrte ``Koordinaten'' ein in der Geometrie ein, also Zahlensysteme. Das f\"uhrte dazu, das man nun leichter rechnen kann.}
+\item{Wir benutzen hier die reellen Zahlen (mit den \"ublichen Rechenregeln, also f\"ur die Addition :
 \begin{itemize}
 \item{\((x + y) + z = x + (y + z)\)}\\
 \item{\(0 + x = x + 0 = x\)}
-\item{Es gibt f\'ur jedes x ein y mit \(x + y = 0\), wir nennen dieses y das additiv inverse zu x ("-x").}
+\item{Es gibt f\"ur jedes x ein y mit \(x + y = 0\), wir nennen dieses y das additiv inverse zu x (``-x'').}
 \item{\(x + y = y + x\)}
 \end{itemize}
 Und f\"ur multiplikation:
@@ -136,7 +136,7 @@ oder, noch k\"urzer, in Matrixschreibweise\\
 \(Ax=b\)\\
 Wobei \(A\) eine Matrix ist mit Eintr\"agen \(a_{i,j}\), wir schreiben\\
 \(
-A = 
+A =
 \begin{pmatrix}
 a_{1, 1} & \dots & a_{1, n}\\
  & \vdots\\
@@ -144,8 +144,8 @@ a_{m, 1} & \dots & a_{m, n}
 \end{pmatrix}
 \)\\
 \(Ax\) f\"ur \(x \in \Rn\) ist dann eine Kurzform f\"ur \(\sum_{i=1}^na_{ij}x_j\) mit einem Vektor \(x = (x_1, \dots, x_n) \in \Rn\). Das Ergebnis ist ein Vektor \(b = (b_1, \dots, b_m) \in \R^m\) f\"ur eine Matrix \(A\) mit m Zeilen und n Spalten.\\
-Der Vektor b hei\ss{}t rechte Seite des linearen Gleichungssystems, A hei\ss{}t Koeffizienten Matrix des linearen Gleichungssystems. Eine Spalte / Zeile von A kann mit einem Vektor im \(\R^m\) bzw. im \(\R^n\) identifiziert werden. Wir sprechen von Spalten- / Zeilen Vektoren der Matrix a.\\
-Eine Matrix mit m Zeilen und n Spalten nennen wir mxn - Matrix. Fuer \(x  \in \Rn \), A eine mxn - Matix und B eine lxm - Matrix gilt die Rechenregel \(BAx = B(Ax)\). Ein Gleichugnssystem \(Ax=b\) heisst homogen, falls b der Nullvektor \((0, \dots, 0)\) ist und quadratisch fuer \(m = n\) (eine quadratische Matrix A).\\
+Der Vektor b hei\ss{}t rechte Seite des linearen Gleichungssystems, A hei\ss{}t Koeffizienten Matrix des linearen Gleichungssystems. Eine Spalte / Zeile von A kann mit einem Vektor im \(\R^m\) bzw. im \(\R^n\) identifiziert werden. Wir sprechen von Spalten- / Zeilen Vektoren der Matrix A.\\
+Eine Matrix mit m Zeilen und n Spalten nennen wir \(m\times n\) - Matrix. Fuer \(x  \in \Rn \), A eine \(m\times n\) - Matix und B eine lxm - Matrix gilt die Rechenregel \(BAx = B(Ax)\). Ein Gleichugnssystem \(Ax=b\) heisst homogen, falls b der Nullvektor \((0, \dots, 0)\) ist und quadratisch fuer \(m = n\) (eine quadratische Matrix A).\\
 \subsubsection{Definition: Normalform}
 Ein Gleichungssytstem \(Ax=b\) ist min Normalform, falss A die Gestalt \\
 \(
@@ -197,7 +197,7 @@ Beispiele:
 0 & 1 & 4\\
 0 & 0 & 0\\
 0 & 0 & 0\\
-\end{pmatrix} x = b = 
+\end{pmatrix} x = b =
 \begin{pmatrix}
 1\\1\\0\\0
 \end{pmatrix}
@@ -208,7 +208,7 @@ Wir sagen die L\"osungsmenge ist \\
 Wir nennen eine solche Mengen (n-k) parametrig.
 
 \subsubsection{Lemma 0.1}
-Sei A eine \(mxn\) -Matrix mit Rang k. Dann gilt \(k=n\)  genau dann, wenn alle Gleichungssysteme mit A h\"ochstens eine L\"osung haben, und k = m, genau dann, wenn alle Gleichungssyteme mit A l\"osbar sind.\\
+Sei A eine \(m\times n\) -Matrix mit Rang k. Dann gilt \(k=n\)  genau dann, wenn alle Gleichungssysteme mit A h\"ochstens eine L\"osung haben, und k = m, genau dann, wenn alle Gleichungssyteme mit A l\"osbar sind.\\
 Beweis: klar aus der Darstellung.\\
 
 \subsubsection{Zeilenoperationen}
@@ -424,7 +424,7 @@ F\"ur \(\lb = -\frac{(a,b)}{(b, b)}\) ergibt sich\\
 \(0 \le (a, a) - 2 \frac{(a, b)^2}{(b, b)} + \frac{(a, b)^2}{(b, b)}\)\\
 F\"ur \(b = 0\) ist die Aussage des Lemmas klar. Angenommen \(b \neq 0\). Es folgt:\\
 \((a,b)^2 \le (a, a)(b,b)\)\\
-\textbf{Bemerkung}: Falls a und b linear unabh\"angig sind so folgt \(|(a,b)| < ||a||||b||\), denn dann ist \(a + \lb b \neq 0\) (f\"ir jedes \(\lb \in \R\)) und die Ungleichung ist strikt (d.h. mit "\(<\)").
+\textbf{Bemerkung}: Falls a und b linear unabh\"angig sind so folgt \(|(a,b)| < ||a||||b||\), denn dann ist \(a + \lb b \neq 0\) (f\"ur jedes \(\lb \in \R\)) und die Ungleichung ist strikt (d.h. mit "\(<\)").
 
 \subsubsection{Lemma 0.22 Dreiecksungleichung}
 Es gilt \(||a+b|| \le ||a|| + ||b||\).\\
@@ -644,7 +644,7 @@ Sei X eine endliche Menge, so sind f\"ur \(f : X \to X\) \"aquivalent:
 \item{f ist surjektiv}
 \item{f ist bijektiv}
 \end{enumerate}
-\textbf{Bemerkung} F\"ur nicht endliche Mengen haben wir einfache Gegenbeispiele:\\ 
+\textbf{Bemerkung} F\"ur nicht endliche Mengen haben wir einfache Gegenbeispiele:\\
 \(f : \N \to \N , x \mapsto f(x) = 2x\)\\
 \textbf{Beweis}\\
 X ist eine endliche Menge, wir schreiben \(X = \{x_1, \dots, x_n\}\) mit paarweise verschiedenen \(x_j\).
@@ -782,8 +782,8 @@ Es sei X eine Menge mit \"Aquivalenzrelation ''\(\sim\)''. Die Menge der \"Aquiv
  Sei \(a \in X\). Die zugh\"orige \"Aquivalenzklasse ist gegeben durch:\\
  Die Menge aller geraden Zahlen, falls a gerade ist.\\
  Die Menge aller ungeraden Zahlen, falls a ungerade ist.
- 
-\subsection{Gruppen} 
+
+\subsection{Gruppen}
 
 \subsubsection{Definition 1.24 Verkn\"upfungen}
 Es sei G eine Menge. Eine Verkn\"upfung \(*\) auf G ist eine Abbildung:\\
@@ -795,7 +795,7 @@ Es sei G eine Menge. Eine Verkn\"upfung \(*\) auf G ist eine Abbildung:\\
 \(G = \N, *(a, b) = a \cdot b\)\\
 \(G = \N, *(a, b) = a + b\)\\
 X Menge, \(G = Abb(X, X), *(f, g) = f \circ g\)
- 
+
 \subsubsection*{Definition 1.25 Gruppen}
 Eine Menge G mit Verkn\"upfung \(*\) hei\ss{}t Gruppe, falls gilt:
 \begin{enumerate}
@@ -873,7 +873,7 @@ Bijektivit\"at folgt aus  \((\tau_a)^{-1}\) gegeben durch \((\tau_a)^{-1}(x) = x
 \end{enumerate}
 \textbf{Bemerkungen}
 \begin{enumerate}
-\item{Falls die Gerfahr der Verwechslung besteht, scheiben wir gerne \((G, *)\) Ff\"ur eine Gruppe G mit Verkn\"upfung \(*\).\\
+\item{Falls die Gefahr der Verwechslung besteht, scheiben wir gerne \((G, *)\) Ff\"ur eine Gruppe G mit Verkn\"upfung \(*\).\\
 Beispielsweise \((\Q, +)\) f\"ur \mQ mit Addition, oder \((\Q \setminus {0}, \cdot)\) f\"ur \(\Q \setminus {0}\) mit Multiplikation.\\}
 \item{Bei der Verkn\"upfung + gehen wir immer von kommutativit\"at aus.}
 \item{Endliche Gruppen kann man mit einer (Gruppen-) Tafel darstellen\\
