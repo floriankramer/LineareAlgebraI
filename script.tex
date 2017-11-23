@@ -7,6 +7,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
 \usepackage{xstring}
+\usepackage{tikz}
 
 \title{Lineare Algebra I\\Mitschrieb}
 \author{Florian Kramer}
@@ -23,6 +24,7 @@
 \newcommand{\mN}{\(\mathbb{N}\)}
 \newcommand{\mZ}{\(\mathbb{Z}\)}
 \newcommand{\mQ}{\(\mathbb{Q}\)}
+\newcommand{\mC}{\(\mathbb{C}\)}
 \newcommand{\Rn}{\mathbb{R}^n}
 \newcommand{\mRn}{\(\mathbb{R}^n\)}
 \newcommand{\al}{\alpha}
@@ -916,13 +918,13 @@ Die Abbildung \(\varphi\) hei\ss{}t Homomorphismus, falls gilt, dass\\
 }
 \end{enumerate}
 
-\subsubsection{Proposition 1.31}
+\subsubsection{Proposition 1.31 Untergruppen sind Gruppen}
 Es sei \((G, \cdot)\) eine Gruppe, \(G'\) eine Untergruppe von G. Dann ist \((G', \cdot)\) selbst eine Gruppe.\\
 \\
 \textbf{Beweis}\\
 Assoziativit\"at folgt sofort. Es ex \(a^{-1}\) in \(G'\), somit auch \(e = aa^{-1} \in G'\).
 
-\subsubsection{Proposition 1.32}
+\subsubsection{Proposition 1.32 Eigenschaften von Homomorphismen}
 Sei \(\varphi : G \to H\) ein Homomorphismus von Gruppen \((G, \cdot), (H, *)\). Dann gilt
 \begin{enumerate}
 \item{\(\varphi(e) = \hat{e}\) mit neutralen Elementen \(e \in G, \hat{e} \in H\)}
@@ -984,7 +986,7 @@ Es sei R eine Menge, \(+ : R \times R \to R\) und \(\cdot : R \times R \to R\) V
 \item{Die Multiplikation  \(\cdot\) assoziativ ist.}
 \item{Das Distributivgesetz gilt:\\
 \(a \cdot (b + c) = ab + ac\)\\
-\((b + c) a = ba + ca\)
+\((b + c) \cdot a = ba + ca\)
 }
 \end{enumerate}
 Ein Ring hei\ss{}t kommutativ, falls gilt \(a \cdot b = b \cdot a\) f\"ur alle \(a, b \in R\).\\
@@ -1013,22 +1015,22 @@ Die gew\"unschten Eigenschaften folgen sofort. Es gilt aber:\\
 \subsubsection{Definition 1.35 Unterring und Ringhomomorphismus}
 \begin{enumerate}
 \item{
-Es sei \(R, +, \cdot)\) ein Ring, \(R' \subset R\). \((R', +, \cdot)\) hei\ss{}t Unterring, falls \((R', +)\) eine Untergruppe von \((R, +)\) ist und gilt \(a, b \in R' \Rightarrow ab \in R'\)
+Es sei \((R, +, \cdot)\) ein Ring, \(R' \subset R\). \((R', +, \cdot)\) hei\ss{}t Unterring, falls \((R', +)\) eine Untergruppe von \((R, +)\) ist und gilt \(a, b \in R' \Rightarrow ab \in R'\)
 }
 \item{
-Es seien \(R, +, \cdot)\), \(S, \hat{+}, \hat{\cdot})\) Ringe, \(\varphi : R \to S\) eine Abbildung. \(\varphi\) hei\ss{}t Ringhomomorphismus, falls gilt \(\varphi(a + b) = \varphi(a) \hat{+} \varphi{b}\) und \(\varphi(ab) = \varphi(a) \hat{\cdot} \varphi(b)\) f\"ur alle \(a, b \in R\).
+Es seien \((R, +, \cdot)\), \((S, \hat{+}, \hat{\cdot})\) Ringe, \(\varphi : R \to S\) eine Abbildung. \(\varphi\) hei\ss{}t Ringhomomorphismus, falls gilt \(\varphi(a + b) = \varphi(a) \hat{+} \varphi(b)\) und \(\varphi(ab) = \varphi(a) \hat{\cdot} \varphi(b)\) f\"ur alle \(a, b \in R\).
 }
 \end{enumerate}
 
 \subsubsection{Definition 1.36 K\"orper}
-Es sei K eine Menge, \(+ : K \times K \to K, \cdot : K \times K \to K\) Verkn\"upfungen. \((k, +, \cdot)\) hei\ss{}t K\"orper, falls gilt:\\
+Es sei K eine Menge, \(+ : K \times K \to K, \cdot : K \times K \to K\) Verkn\"upfungen. \((k, +, \cdot)\) hei\ss{}t K\"orper, falls gilt:
 \begin{enumerate}
 \item{\((K, +)\) ist eine abelsche Gruppe}
 \item{\(K^*\) sei gegeben durch \(K \setminus \{0\}\). Dann gilt \((K^*, \cdot)\) ist eine abelsche Gruppe.}
-\item{F\"ur \(a, b, c \in K\) gilt  \((a (b+c) = ab + bc\) und \((b+c) a = ba + ca, ad + bc)\)}
+\item{F\"ur \(a, b, c \in K\) gilt  \(a (b+c) = ab + bc\) und \((b+c) a = ba + ca\)}
 \end{enumerate}
 \textbf{Bemerkung}\\
-Das neutrale Element der Multiplikation bezeichnen wir mit Eins \(( = 1)\), das inverse zu a bezgl. Multiplikation mit \(a^{-1}\) oder \(\frac{1}{a}\) bzgl. Addition mit \(-a\).
+Das neutrale Element der Multiplikation bezeichnen wir mit Eins \(( = 1)\), das Inverse zu a bez\"uglich der Multiplikation mit \(a^{-1}\) oder \(\frac{1}{a}\), bez\"uglich der Addition mit \(-a\).
 
 \subsubsection{Proposition 1.37 Rechenregeln f\"ur K\"orper}
 Sei \((K, +, \cdot)\) ein K\"orper. Dann gilt
@@ -1058,9 +1060,71 @@ und\\
 \((a,b)\cdot (c,d) = (ac-bd, ad + bc)\).\\
 Mit \((0, 0)\) als Nullelement und \((1, 0)\) als Einselement.\\
 Das additive Inverse zu \((a, b)\) ist dann \((-a, -b)\), das Multiplikative Inverse ist \((\frac{a}{a^2+b^2}, -\frac{b}{a^2 + b^2})\)\\
-Wir bezeichnen den so konstruierten K\"orper mit \(\C\).
+Wir bezeichnen den so konstruierten K\"orper mit \(\C\).\\
+Die Abbildung \(\R \to \C, a \mapsto (a, 0)\) ist injektiv. Wir sehen, dass zwischen \(\R \times \{0\}\) und \(\{(a, b) \in \C : b = 0\}\) nicht unterschieden werden muss, denn \\
+\(
+(a, 0) (b, 0) = (ab, 0)\\
+(a, 0) + (b, 0) = (a+b, 0)
+\)\\
+Wir schreiben \(i = (0, 1) \in \C\) und \((a, b) = (a, 0) + (0, b) = a + ib\).\\
+Es gilt \(i^2 = ii = -1\). Weiterhin schreiben wir  f\"ur \(z = (a, b) \in \C, \bar{z} = (a, -b)\). (bzw. \(z = a + ib, \bar{z} = a - ib\)). (Komplex konjugiertes)\\
+F\"ur komplexe Zahlen \(\lb, \mu\) gilt dann \(\overline{\lb + \mu} = \bar{\lb} + \bar{\mu}\) sowie \(\overline{\lb \mu} = \bar{\lb}\bar{\mu}\) und \(\lb \in R \Leftrightarrow lb = \bar{\lb}\)\\
+F\"ur \(\lb = a+ib \in \C\) sehen wir \(\lb \bar{\lb} = (a + bi) (a - bi) = a^2 + b^2 \in \R\) und wir definieren den Absolutbetrag \(|\lb| = \sqrt{\lb \bar{\lb}}\).\\
+Damit gilt, dass \(d(\lb, \mu) = |\lb - \mu|\) ein Metrik im Sinne von Kap 0 darstellt. (denn \(d(\mu, \lb) = d(\lb, \mu),\\
+d(\mu, \lb) = 0 \Leftrightarrow \lb = \mu,\\
+d(\mu, \lb) + d(\lb, \kappa) \ge d(\mu, \kappa)\))\\
+(Das ist die selbe Metrik, die bereits im \(\R^2\) eingef\"uhrt wurde.)\\
+\(d(x, y) = \sqrt{(x - y, x - y)} = \sqrt{(x_1-y_1)^2 + (x_2 - y_2)^2}\) mit (\((\xi, \eta) = \xi_1 \eta_1 + \xi_2 \eta_2\)).\\
+Neu ist die Identit\"at \(|\lb \cdot \mu| = |\lb| |\mu|\)\\
+Wir betrachten noch eine geometrische Anschauung der komplexen Zahlen. Es sei \(\lb \in \C\) mit \(|\lb| = 1\). Dann gilt, dass \(\lb^{-1} = |\frac{1}{\lb}| = 1\)  (folgt aus der Formel f\"ur das Inverse bezgl. Multiplikation in \mC).\\
+In der Analysis lernen wir, dass gilt:\\
+- es existiert ein eindeutiges \(\al \in [0, 2\pi)\), so dass \(\lb = cos(\al) + i \sin(\al) = e^{i\al}\) f\"ur \(\lb \in \C, |\lb| = 1\).\\
+Wir bezeichnen \(\al\) als Argument von \(\lb\), also \(\al = \arg \lb\).\\
+Sei nun \(\lb \in \C \setminus 0\) beliebig (d.h. ohne die Einsch\"ankung, dass \(|\lb| = 1\)). Dann schreiben wir \(\arg \lb = \arg \frac{\lb}{|\lb|}\), denn \(|\frac{\lb}{|\lb|}|\).\\
+Damit gilt \(\lb = |\lb| e^{i \arg \lb}\) (f\"ur jedes \(\lb \in \C\)).\\
+In der komplexen Ebene \(\C = \R^2\) gilt dann:\\
+\begin{tikzpicture}
+\draw[->] (-1, 0) to (6, 0);
+\draw[->] (0, -1) to (0, 6);
+\node() at (3, 5) {(a + ib)};
+\node() at (3, -0.5) {a};
+\node() at (-0.5, 5) {b};
+\draw[color=red] (0, 0) to (3, 5);
+\node[color=red] at (1.5, 3) {d};
+\node() at (1.5, 1) {\(\alpha\)};
+\node() at (6, -0.5) {\mR};
+\node() at (-0.5, 6) {i\mR};
+\draw[] (3, 0) to [bend right=20] (1.5, 2.5);
+\end{tikzpicture}\\
+mit \(d = |\lb|, \al = \arg \lb\).\\
+Wir sehen nun, dass gilt \(\lb \mu = |\lb| e^{i \arg \lb} \cdot  |\mu| e^{i \arg \mu} = |\lb||\mu| e^{e \arg\lb} e^{i \arg \mu} = |\lb||\mu| e^{i (\arg\lb + \arg \mu)}\).\\
+D.h. Betr\"age werden multipliziert, Argumente addiert bei der Multiplikation in \mC.
 }
 \end{enumerate}
+
+\subsubsection{Definition 1.38 Nullteilerfreiheit von Ringen}
+Ein Ring \((R, +, \cdot)\) hei\ss{}t Nullteilerfrei, falls f\"ur \(a, b \in R\) gilt \(ab = 0 \Rightarrow a = 0 \lor b = 0\).\\
+\\
+\textbf{Bemerkung}\\
+Wir sehen, dass jeder K\"orper bereits ein nullteilerfreier Ring ist.\\
+\textbf{Beispiele}\\
+Auf \(\Z/m\Z\) ist bereits eine Addition definiert, mit der \(\Z/m\Z\) eine Gruppe wird. Mit der Multiplikation\\
+\(\bar{a} \cdot \bar{b} = \overline{ab}\)\\
+f\"ur \(\bar{a}, \bar{b} \in \Z / m\Z\) und Repr\"asentanten a und b wird \(\Z/m\Z\) zu einem Ring\\
+Wie f\"ur die Addition zeigen wir unabh\"angigkeit von der Wahl der Repr\"asentanten.\\
+(Assoziativit\"at und Distributivgesetz sind leicht Nachzurechnen.) Der Ring ist kommutativ.
+
+\subsubsection{Satz 1.39 Nullteilerfreiheit des Restklassenrings}
+Der Restklassenring \((\Z/m\Z, +, \cdot)\) ist genau dann nullteilerfrei, wenn m eine Primzahl ist.\\
+\\
+\textbf{Beweis}\\
+Falls m nicht prim ist, gilt \(m = k \cdot l\) mit \(1 < k, l < m\). Damit gilt \(\bar{k} \neq \bar{0}, \bar{l} \neq \bar{0}\), aber \(\bar{k} \bar{l}= \overline{kl} = \bar{m} = \bar{0}\).\\Umgekehrt: Sei m prim und \(\bar{k} \bar{l} = 0\). Dann gilt \(k \cdot l= r \cdot m\), f\"ur ein \(r \in \Z\). Damit gilt aber, dass mindestens einer der Faktoren \(k, l\) einen Faktor m enth\"alt. Also ist \(\bar{k} = 0\) oder \(\bar{l} = 0\).
+
+\subsubsection{Satz 1.40}
+Ein nullteilerfreier, kommutativer Ring K mit endlich vielen Elementen und Eins ist ein K\"orper.\\
+\\
+\textbf{Beweis}\\
+Nach Lemma 1.28 reicht es zu zeigen, dass die Abbildung \({}_{a}\tau : K^* \to K^* : {}_{a}\tau(x) = ax\) f\"ur jedes \(a \in K^*\) surjektiv ist. \(K^*\) ist eine endliche Menge, also folgt surjektivit\"at aus injektivit\"at. Sei also \({}_a\tau(x) = {}_a\tau(y)\), f\"ur x, y aus \(K^*\). Es folgt \(ax = ay\), also \(a (x - y) = 0\). Damit gilt aber  (wegen Nullteilerfreiheit und \(a \in K^*\), also \(a \neq 0\)), dass \(x - y = 0\), also \(x = y\).
 % \pagebreak
 %\tableoftheorems
 \end{document}
