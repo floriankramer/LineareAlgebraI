@@ -1120,11 +1120,101 @@ Der Restklassenring \((\Z/m\Z, +, \cdot)\) ist genau dann nullteilerfrei, wenn m
 \textbf{Beweis}\\
 Falls m nicht prim ist, gilt \(m = k \cdot l\) mit \(1 < k, l < m\). Damit gilt \(\bar{k} \neq \bar{0}, \bar{l} \neq \bar{0}\), aber \(\bar{k} \bar{l}= \overline{kl} = \bar{m} = \bar{0}\).\\Umgekehrt: Sei m prim und \(\bar{k} \bar{l} = 0\). Dann gilt \(k \cdot l= r \cdot m\), f\"ur ein \(r \in \Z\). Damit gilt aber, dass mindestens einer der Faktoren \(k, l\) einen Faktor m enth\"alt. Also ist \(\bar{k} = 0\) oder \(\bar{l} = 0\).
 
-\subsubsection{Satz 1.40}
+\subsubsection{Satz 1.40 Ringe dei K\"orper sind}
 Ein nullteilerfreier, kommutativer Ring K mit endlich vielen Elementen und Eins ist ein K\"orper.\\
 \\
 \textbf{Beweis}\\
 Nach Lemma 1.28 reicht es zu zeigen, dass die Abbildung \({}_{a}\tau : K^* \to K^* : {}_{a}\tau(x) = ax\) f\"ur jedes \(a \in K^*\) surjektiv ist. \(K^*\) ist eine endliche Menge, also folgt surjektivit\"at aus injektivit\"at. Sei also \({}_a\tau(x) = {}_a\tau(y)\), f\"ur x, y aus \(K^*\). Es folgt \(ax = ay\), also \(a (x - y) = 0\). Damit gilt aber  (wegen Nullteilerfreiheit und \(a \in K^*\), also \(a \neq 0\)), dass \(x - y = 0\), also \(x = y\).
-% \pagebreak
-%\tableoftheorems
+
+\subsubsection{Definition 1.41 Charakteristik eines Ringes}
+Es sei R ein Ring mit Einselement 1. Die Charakteristik  von R ist gegeben durch\\
+\(\chi(R) = \begin{cases}
+0 & \text{, falls } n \cdot 1 \neq 0 \forall n \neq 0\\
+min(n \in \N \setminus \{0\}) : n \cdot 1 = 0
+\end{cases}\)\\
+Statt \(\chi(R)\) wird auch \(char(R)\) verwendet.\\
+\\
+\textbf{Achtung:} Wir haben benutzt, dass \(n \cdot a = a + a + \dots + a\) (n-mal) mit \(a \in R, n \in \N\)
+
+\subsubsection{Lemma 1.42 Charakteristik von K\"orpern}
+Ist K ein K\"orper, so gilt \(\chi(K)\) ist entweder  Null, oder eine Primzahl.\\
+\\
+\textbf{Beweis}\\
+Angenommen, \(\chi(K) = m = k \cdot l \neq 0\) mit  \(1 < k, l < m\) (also m keine Primzahl). Es folgt  \(0 = m \cdot 1 = (k \cdot l) 1 = (k \cdot 1)(l \cdot 1)\). Wegen Nullteilerfreiheit folgt \(k \cdot 1 = 0\) oder \(l \cdot 1\) = 0, und somit ein Widerspruch.
+
+\subsubsection*{Definition Schiefk\"orper}
+Ein K\"orper ohne kommutativit\"at in der Multiplikation nennen wir Schiefk\"orper. (Beispiel: Quaternionen. Siehe \"Ubungsblatt.)
+
+\section{Vektorr\"aume}
+Wir kennen bereits  \(\R^n = \R \times \R \times \dots \times \R\) mit Operationen \(a + b\) f\"ur \(a,b \in \R^n\) und \(\lb \cdot a\) f\"ur \(a \in \R^n, \lb \in \R\).
+
+\subsection{Definitionen und elementare Eigenschaften}
+
+\subsubsection{Definition 2.1 Vektorraum}
+Es sei K ein K\"orper, \((V, +)\) eine abelsche Gruppe mit einer Abbildung \(K \times V \to V\), \((\lb, b) \mapsto \lb v\)\\
+so dass gilt 
+\begin{enumerate}
+\item{\(\lb (x + y) = (\lb x) + (\lb y)\)}
+\item{\((\lb + \mu) x = (\lb x) + (\mu x)\)}
+\item{\(\lb (\mu x) = (\lb \mu) x\)}
+\item{\(1 x = x\)}
+\end{enumerate}
+f\"ur alle \(x, y \in V\), \(\lb, \mu \in K\).\\
+(Zu beachten ist hierbei, was Addition der Gruppe, was Multiplikation des K\"orpers und was die speziell definierte Abbildung ist. Dies ergibt sich jedoch eindeutig aus den Typen der Verkn\"upften Elemente.).\\
+Wir nennen die Abbildung \((\lb, v) \mapsto \lb v\) skalare Multiplikation. Die Gruppe \((V, +)\) mit der skalaren Multiplikation  hei\ss{}t dann K-Vektorraum.\\
+\\
+\textbf{Bemerkung}
+\begin{enumerate}
+\item{Ist \((R, +, \cdot)\) ein Ring, \((V, +)\) eine abelsche Gruppe mit Abbildung \(R \times V \to V, (\lb, v) \mapsto \lb v\) welche die Bedingungen aus Def. 2,1 erf\"ullt. Dann ist V ein R-Modul (bzw. Links-R-Modul.).\\
+Rechts-R-Moduln analog.}
+\item{
+\begin{itemize}
+\item{Elemente in V hei\ss{}en Vektoren, Elemente in K hei\ss{}en Skalare.}
+\item{Das Inverse zu \(a \in V\) hei\ss{}t -a (das Inverse f\"ur Gruppen mit Addition)}
+\end{itemize}
+}
+\item{
+Wir schreiben \((\lb x) + (\mu y) = \lb x + \mu y\) (d.h. ''Punkt vor Strich'' f\"ur skalare Multiplikation)
+}
+\item{
+	\(K = \R\): reelle Vektorr\"aume.\\
+	\(K = \C\) : komplexe Vektorr\"aume.
+}
+\end{enumerate}
+\textbf{Beispiele}
+\begin{enumerate}
+\item{\mRn, siehe Kap 0.}
+\item{\(\C^n, K = \C\) analog.}
+\item{Sei K ein beliebiger K\"orper, dann ist \(K^n\) ein Vektorraum, der aus den n-Tupeln von K\"orperelementen besteht. Addition in \(K^n\) eintragweise, Multiplikation f\"ur \(\lb \in K\) ebenfalls eintragweise.\\
+\(
+\v{v_1\\ \vdots\\ v_n} + \v{w_1\\ \vdots\\ w_n} = \v{v_1 + w_1\\ \vdots \\ v_n + w_n}\\
+\lb \v{w_1\\ \vdots\\ w_n} = \v{\lb w_1\\ \vdots \\ \lb w_n}
+\)\\
+\(K^0 := \{0\}\) ist der triviale Vektorraum.}
+\item{Es sei K ein K\"orper, X eine Menge, \(V = Abb(X, K)\) mit\\
+\((f + g)(x) = f(x) + g(x)\) f\"ur alle \(x \in X, f, g \in V\).\\
+Damit wird V zu einer abelschen Gruppe, denn oben ist eine Addition \(+(f, g)\) definiert.\\
+Wir definieren nun \((\lb f)(x) = \lb (f(x))\) f\"ur alle \(\lb \in K, f \in V, x \in X\) als Skalarmultiplikation.\\
+Damit wird V zu einem Vektorraum.
+}
+\end{enumerate}
+
+\subsubsection{Proposition 2.2 Eigenschaften von Vektorr\"aumen}
+Es sei V eine K-Vektorraum. Dann gilt
+\begin{enumerate}
+\item{\(0 x = 0 \in V\) f\"ur alle \(x \in V\)}
+\item{\(\lb 0 = 0\) f\"ur alle \(\lb \in K\)}
+\item{Falls \(\lb \in K, x \in V, \lb x = 0 \in V\), dann gilt \(\lb = 0\) oder \(x = 0\).}
+\item{\((-1) x = -x\) f\"ur alle \(x \in V\), mit \(-1 \)}
+\end{enumerate}
+\textbf{Beweis}
+\begin{enumerate}
+\item{\(0 x = (0 + 0)x = 0x + 0x \Rightarrow 0x = 0\).}
+\item{\(\lb 0 = \lb(0 + 0) = \lb 0 + \lb 0 \Rightarrow \lb 0 = 0\).}
+\item{Zu zeigen ist \(\lb \in K^*, x \in V, \lb x = 0\) dann folgt \(x = 0\).\\
+Es gilt aber \(x = 1 x \overset{\lb \neq 0}{=} (\lb ^{-1} \lb) x = \lb^{-1}(\lb x) = \lb^{-1} 0 = 0\)}
+\item{\(x + (-1) x = 1x + (-1) x = (1 - 1)  x = 0 x = 0\)}
+\end{enumerate}
+\textbf{Bemerkung}\\
+Es sei \((G. +)\) eine Gruppe, \(y \in G\). Falls gilt \(y = y + y\), so folgt \(y = 0\), denn die K\"urzungsregel besagt \(a + \hat{x} = a+x \Rightarrow x = \hat{x}\). Mit \(x = 0, \hat{x} = y, a = y\). Also \(y +y = y + 0 = y \Rightarrow y = 0\).
 \end{document}
