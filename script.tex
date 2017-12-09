@@ -10,7 +10,6 @@
 \usepackage{tikz}
 
 \title{Lineare Algebra I\\Mitschrieb}
-\author{Florian Kramer}
 
 % ease of use commands
 \newcommand{\lb}{\lambda}
@@ -1293,4 +1292,97 @@ Es sei V ein k-Vektorraum, \(E \subset V\). Dann gilt
 \end{enumerate}}
 \item{Sei \(W \subset V\) ein Untervektorraum, \(E \subset W\). Es folgt sofort, dass (wegen Abgeschlossenheit von W bez\"uglich der Addition und Skalarmultiplikation), dass jede Linearkombination der \(e \in E\) wieder in W liegt.}
 \end{enumerate}
+
+\subsection{Basis und Dimension}
+\textbf{Ziel}:\\
+finde m\"oglichst kleine Erzeugendensysteme f\"ur Vektorr\"aume.\\
+\textbf{Beispiel:}\\
+\(R^2, e_1=(1, 0), e_2 = (0,1)\) dann gilt \(span(\{e_1, e_2\})\\
+= \{x \in \R^2, x = (x_1, x_2), x_1 = \lb_1 e_1, x_2 = \lb_2 e_2, \lb_1, \lb_2 \in \R\} = \R^2\). Aber nur \(\{e_1\}\) oder \(\{e_2\}\) ist kein Erzeugendensystem f\"ur \(\R^2\).\\
+Mit \(e_3 = \{1, 1\}\) ist \(\{e_1, e_2, e_3\}\) ein Erzeugendensystem f\"ur \(\R^2\), aber kein kleinstm\"ogliches im obigen Sinne.\\
+\textit{Im folgenden sei stets} \textbf{K ein K\"orper} \textit{und} \textbf{V ein K-Vektorraum}
+
+\subsubsection{Definition 2.8 Familien von Elementen} 
+Seien X, I Mengen. F\"ur jedes \(j \in I\) sei \(e_j \in X\). Dann berechnen wir die Abbildung \(I \to X, j \mapsto e_j\) als ''durch I induzierte Familie von Elementen von X''. Wir schreiben \((e_j)_{j \in I} \in X^I = Abb(I, X)\).\\
+\\
+\textbf{Bemerkung}\\
+Es sei \(I = \{1, 2, 3, \dots, n\}\). Dann gilt \(\R^I = \R^{\{1, 2, \dots, n\}} = \R^n\). Die Abbildung ist hier \(1 \mapsto x_1, 2 \mapsto x_2, \dots, n \mapsto x_n\).
+\\
+F\"ur \(I = \N\) is \(\R^\N\) die Menge der reellen Folgen.
+
+\subsubsection{Definition 2.9 Minimale und linear unab\"angige Erzeugendensysteme}
+Es sei I eine Menge, und \((v_i)_{i \in I}\) eine Familie von Vektoren \(v_i \in V\).
+\begin{enumerate}
+\item{\((v_i)_{i \in I}\) hei\ss{}t minimales Eerzeugendensystem von V, falls \(E = \{v_i, i \in I\}\) ein Erzeugendensystem von V ist und gilt \((J \subsetneq I) \Rightarrow span(v_j, j \in J) \neq V\)}
+\item{\((v_i)_{i \in I}\) hei\ss{}t lineare unabh\"angig, falls gilt:\\
+Es sei \((\lb_i)_{i \in I} \in K^I\) (eine durch I induzierte Menge von Skalaren) mit \(\lb_i \neq 0\) f\"ur endlich viele \(i \in I\) und \(\sum_{i \in I} \lb_i v_i = 0\), dann folgt \(\lb_i = 0\) f\"ur alle \(i \in I\). Nicht linear unabh\"angige Familien hei\ss{}en lineare abh\"angig.\\
+\textbf{Bemerkung}: F\"ur \(I = \emptyset\) ist \((v_i)\_{i \in I}\) stets linear unabh\"angig.}
+\end{enumerate}
+\textbf{Beispiele}\\
+Siehe Kapitel 0.
+
+\subsubsection{Lemma 2.10}
+Es sei \((v_i)_{i \in I} \in V^I\). Dann gilt:
+\begin{enumerate}
+\item{Falls \(v_j = 0\) f\"ur ein \(j \in I\), dann ist \((v_i)_{i \in I}\) linear abh\"angig.}
+\item{Falls \(i, j \in I\) existieren, mit \(v_i = v_j\) dann ist \((v_i)_{i \in I}\) linear abh\"angig.}
+\item{Falls \(I = \{i\}\) ist, dann ist \((v_i)_{i \in I}\) linear unabh\"angig genau dann, wenn \(v_i \neq 0\)}
+\item{\((v_i)_{i \in I}\) linear unabh\"angig, dann gilt \((J \subset I) \Rightarrow (v_j)_{j \in J}\) ist ebenfalls linear unabh\"angig.}
+\item{Sei \(I \neq \emptyset\), dann gilt \((v_i)_{i \in I}\) ist lineare abh\"angig genau dann, wenn \(j_0 \in I\) existiert so dass \(J \subset I \setminus \{j_0\}\), J ist eine endliche Mengen und \((\mu_j)_{j \in J} \in K^I\) existiert, so dass \(\mu_{j_0} = \sum_{j \in J} \mu_j v_j \).\\
+(Ein Element l\"asst sich als Linearkombination der anderen schreiben).}
+\end{enumerate}
+\textbf{Beweis}
+\begin{enumerate}
+\item{\(1 v_j = 0\) und \(1 \neq 0\)}
+\item{Klar aus i) und Definition}
+\item{Folgt direkt aus der Definition.}
+\item{''linear abh\"angig'' \(\Rightarrow\) es ex. ''linear Koeffizienten''.\\
+Sei also \((v_i)_{I \in I}\) lin. abh\"angig \(\Rightarrow \exists (\lb_i)_{i\in I} \in K^I\) (nur endlich viele \(\neq 0\)) und ein \(\lb_{i_0} \neq 0\) mit \(i_0 \in I\) und\(\sum_{i \in I} \lb_i v_i = 0\). Damit gilt \(\lb_{i_0} v_{i_0} = - \sum_{i \in I}\lb_i v_i\\
+\Rightarrow v_{i_0} = -\sum_{i \in I \setminus \{i_0\}} \frac{\lb_i}{\lb_{i_0}} v_i\)\\
+''\(\Leftarrow\)''\\
+Es sei \(v_{j_0} = \sum_{i \in I \setminus \{i_0\}} \mu_i v_i\) (wie in Vorraussetzung), dann setzen wir\\
+\(\lb_i = \begin{cases}1, & \text{falls } i = j_0\\-\mu_i & \text{falls } i\in I \setminus j_0\end{cases}\)\\
+und es gilt \(\sum_{i \in I} \lb_i v_i = 0\).}
+\end{enumerate}
+
+\subsubsection{Satz 2.11}
+Es sei \((v_i)_{i\in I} \in V^I\). Dann sind \"aquivalent:
+\begin{enumerate}
+\item{\((v_i)_{i \in I}\) ist ein miniales Erzeugendensystem von V.}
+\item{\((v_i)_{i \in I}\) ist ein linear unabh\"angiges Erzeugendensystem von V}
+\item{jedes \(v \in V\) besitzt eine eindeutige Darstellung als Linearkombination der \(v_i\) mit \(i \in I\)}
+\item{\((v_i)_{i \in I}\) ist eine maximale lienare unabh\"angige Familie, d.h. f\"ur jedes \(w \in V\) gilt \((w, (v_i)_{i \in I})\) ist linear abh\"angig.}
+\end{enumerate}
+\textbf{Beweis}\\
+Zu zeigen \(1 \Rightarrow 2 \Rightarrow 3 \Rightarrow 4 \Rightarrow 1\) (Zirkelschluss).\\
+\begin{itemize}
+\item[\(1 \Rightarrow 2\)]{Beweis durch Widerspruch: \((\neg 2 \Rightarrow \neg 1)\)\\
+Sei also \((v_i)_{i \in I}\) ein minimales Erzeugendensystem, aber linear abh\"angig. Es gilt aus Lemma 2.10(5), dass gilt: es ex. ein \(j_0 \in I\), mit \(v_{j_0} = \sum_{i \in I \setminus \{j_0\}} \lb_i v_i\) (\(\lb_i \in K \) geeignet). Also gilt \(v_{j_0} \in span(\{v_i : i \in I \setminus \{j_0\}\})\). Mit Lemma 2.7 folgt aber, wenn \(W, \hat{W}\) UVR on V, \(W \cup \hat{W}\) UVR von V.\\
+\(\Rightarrow W \subset \hat{W}\) oder \(\hat{W} \subset W\)\\
+\(\Rightarrow span(\{v_i, i \in I\}) = span(\{v_i, i \in I \setminus \{j_0\}\} = V\). Damit ist \(\{v_i, i \in I\}\) kein minimales Erzeugendensystem und wir erhalten einen Widerspruch.
+}
+\item[\(2 \Rightarrow 3\)]{ \(v \in V \Rightarrow v = \sum_{i \in I}\lb_i v_i\) (\(\lb_i\) geeignet). Angenommen die Darstellung sei nicht eindeutig, d.h. \(v = \sum_{i \in I}\bar{\lb_i} v_i\), dann gilt \(v - v = 0 = \sum_{i \in I} (\lb_i - \bar{\lb_i}) v_i\), aus 2 folgt \(\lb_i - \bar{\lb_i} = 0 \Rightarrow \lb_i = \bar{\lb_i}\), somit ist die Darstellung eindeutig.
+}
+\item[\(3 \Rightarrow 4\)]{Es sei eine eind. Darstellung f\"ur jedes \(v \in V\). Zu zeigen ist:
+\begin{enumerate}
+\item[a.)]{\((v_i)_{i \in I}\) ist linear unabh\"angig}
+\item[b.)]{F\"ur jedes \(w \in V\) ist \((w, (v_i)_{i \in I})\) linear abh\"angig}
+\end{enumerate}
+Zu a.)\\
+Es sei \(\sum_{i \in I}\lb_i v_i = 0\) (\(\lb_i\) geeignet). Es gilt \(0 \in V\), die Darstellung \(0 = \sum_{i \in I}\mu_i v_i\) mit \(\mu_i = 0\) f\"ur jedes \(i \in I\) ist nach 3 eindeutig, also folgt \(\lb_i = \mu_i = 0 \forall i \in I\).\\
+Zu b.)\\
+Sei \(w \in V, w = \sum_{i \in I} \lb_i v_i\) (\(\lb_i\) geeignet). Dann gilt aber mit Lemma 2.10, dass \((w, (v_i)_{i \in I})\) linear abh\"angig ist.
+}
+\item[\(4 \Rightarrow 1\)]{
+Sei \((v_i)_{i \in I}\) eine maximale lineare unabh\"angige Familie. Zu zeigen ist
+\begin{itemize}
+\item[a.)]{\(span(\{v_i, i \in I\}) = V\)}
+\item[b.)]{\(span(\{v_j, j \in J\}) \neq V\) f\"ur \(J \subsetneq I\).}
+\end{itemize}
+zu a.)\\
+Falls w  \(\in V \setminus span(\{v_i, i \in I\})\) existiert ist \((w, (v_i)_{i \in I})\) linear unabh\"angig, denn \(\mu_w + \sum_{i \in I} \lb_i v_i = 0\) (mit \(\lb_i, \mu \in K\) geeignet) impliziert \(\mu = 0\) und damit \(\lb_i = 0\) f\"ur alle \(i \in I\). Das steht im Widerspruch zu der maximalen Unabh\"anigkeit der Familie.\\
+zu b.)\\
+Es sei \(V = span(\{v_j : j \in J\}), J \subsetneq I\). Dann gilt \(v_{j_0}\) mit \(j_0 \in I \setminus J\) l\"asst sich als Linearkombination \(v_{j_0} = \sum_{j \in J} \lb_j v_j\) schreiben, ein Widerspruch zur linearen Unabh\"angigkeit der \(v_j\).
+}
+\end{itemize}
 \end{document}
