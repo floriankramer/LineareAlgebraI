@@ -20,13 +20,13 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\mR}{$\mathbb{R}$}
-\newcommand{\mN}{$\mathbb{N}$}
-\newcommand{\mZ}{$\mathbb{Z}$}
-\newcommand{\mQ}{$\mathbb{Q}$}
-\newcommand{\mC}{$\mathbb{C}$}
-\newcommand{\Rn}{\mathbb{R}^n}
-\newcommand{\mRn}{$\mathbb{R}^n$}
+\newcommand{\mR}{$\mathbb{R}$\ }
+\newcommand{\mN}{$\mathbb{N}$\ }
+\newcommand{\mZ}{$\mathbb{Z}$\ }
+\newcommand{\mQ}{$\mathbb{Q}$\ }
+\newcommand{\mC}{$\mathbb{C}$\ }
+\newcommand{\Rn}{\mathbb{R}^n\ }
+\newcommand{\mRn}{$\mathbb{R}^n$\ }
 \newcommand{\al}{\alpha}
 \newcommand{\be}{\beta}
 \newcommand{\vtwo}[2]{\begin{pmatrix}#1 \\ #2 \end{pmatrix}}
@@ -86,8 +86,8 @@
 \end{enumerate}
 
 \subsection{Beispiel: Der Google Pagerank}
-Gegeben 4 Seiten, mit Verlinkungen zwischen den Seiten. Von einer nicht  verlinkten Seite wechselt man zufällig auf eine andere Seite. Der user startet an einer zufälligen Stelle und folgt von dort einem zufälligen Link auf eine andere Seite. Zusätzlich wird immer mit Wahrscheinlichkeit $(1-d), \ d \in [0, 1]$ auf eine beliebige Website gewechselt.\\
-Die wichtigste Site ist nun die, auf welcher ein Benutzer sich mit der höchsten Wahrscheinlichkeit aufhält.\\
+Gegeben seien vier Seiten mit Verlinkungen zwischen diesen Seiten. Von einer nicht verlinkten Seite wechselt man zufällig auf eine andere Seite. Der User startet an einer zufälligen Stelle und folgt von dort einem zufälligen Link auf eine andere Seite. Zusätzlich wird immer mit Wahrscheinlichkeit $(1-d), \ d \in [0, 1]$ auf eine beliebige Website gewechselt.\\
+Die wichtigste Seote ist nun die, auf welcher ein Benutzer sich mit der höchsten Wahrscheinlichkeit aufhält.\\
 $$
 p(\delta_1) = \frac{1-d}{N} + d\left(\frac{p(\delta_2)}{1}, \frac{p(\delta_5)}{4}\right)$$$$
 p(\delta_2) = \frac{1-d}{N} + d\left(\frac{p(\delta_1)}{3}, \frac{p(\delta_5)}{4}\right)$$$$
@@ -96,17 +96,17 @@ $$\\
 Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linearen Algebra.
 
 
-\section{Lineare Gleichungssyteme und der n-dimensionale reelle Raum}
+\section{Lineare Gleichungssysteme und der n-dimensionale reelle Raum}
 \begin{itemize}
 \item{Descartes führte ``Koordinaten'' ein in der Geometrie ein, also Zahlensysteme. Das führte dazu, das man nun leichter rechnen kann.}
-\item{Wir benutzen hier die reellen Zahlen (mit den üblichen Rechenregeln, also für die Addition :
+\item{Wir benutzen hier die reellen Zahlen (mit den üblichen Rechenregeln für die Addition):
 \begin{itemize}
 \item{$(x + y) + z = x + (y + z)$}\\
 \item{$0 + x = x + 0 = x$}
 \item{Es gibt für jedes x ein y mit $x + y = 0$, wir nennen dieses y das additiv inverse zu x (``-x'').}
 \item{$x + y = y + x$}
 \end{itemize}
-Und für multiplikation:
+Und für Multiplikation:
 \begin{itemize}
 \item{$\lambda (x + y) = \lambda x + \lambda y$}
 \item{$(\lambda + \mu) x = \lambda x + \mu x)$}
@@ -114,114 +114,139 @@ Und für multiplikation:
 \item{$1x = x$}
 \end{itemize}
 }
-\item{Weiteres brauchen wir die natürlichen Zahlen, die 1,2,3\dots}
+\item{Weiterhin brauchen wir die natürlichen Zahlen, die $1,2,3\dots$}
 \end{itemize}
 
 \subsection{Der $\R^n$}
 Für gegebenes $n \in \N$ definieren wir:\\
-$\R^n = \{x = (x_1, x_2, \dots, x_n): x_1, \dots, x_n \in \R\}$\\
-$(x_1, \dots, x_n)$ ist dabei ein geordnetes n-Tupel, die Reihenfolge beim Vergleich Elemente dieser Art ist wichtig.\\
-Für $x, y, \in \R : x = y \Leftrightarrow x_1 = y_1, x_2 = y_2, \dots x_n, = y_n$\\
-Wir nennen diese n-Tupel auch Vektoren im \mRn.\\
-Mit $\R^0$ bezeichnen wir die Menge $\{0\}$, welche nur das Nullelement enthält.\\
-Die Rechenregeln übertragen sich nun von \mR. Wir schreiben\\
-$x + y = (x_1 + y_1, \dots, x_n + y_n)$ für $x, y \in \Rn$ (Vektoradition)\\
-$\lb x = (\lb x_1, \dots, \lb x_n)$ (Skalarmultiplikation)
+$$\R^n = \{x = (x_1, x_2, \dots, x_n): x_1, \dots, x_n \in \R\}$$
+Hierbei ist $(x_1, \dots, x_n)$ ein geordnetes $n$-Tupel, die Reihenfolge beim Vergleich Elemente dieser Art ist wichtig.\\
+Weiterhin gilt: $x, y, \in \R : x = y \Leftrightarrow x_1 = y_1, x_2 = y_2,\ \dots \ x_n, = y_n$\\
+Wir nennen diese $n$-Tupel auch Vektoren im \mRn.\\
+Mit $\R^0$ bezeichnen wir die Menge $\{0\}$, welche nur das Nullelement enthält. Allgemein übertragen sich die Rechenregeln von \mR. Wir schreiben:
+\begin{align*}
+ x + y =& (x_1 + y_1, \dots, x_n + y_n)\text{ für } x, y \in \Rn\qquad \tag*{Vektoraddition}\\
+ \lb x = &(\lb x_1, \dots, \lb x_n)\qquad \tag*{Skalarmultiplikation}
+\end{align*}
 
-\subsection{Lineare Gleichungssyteme}
-Eine lineare Gleichung ueber \mR ist ein Ausdruck der Form:\\
-$
-\alpha_1x_1 + \alpha_2 x_2 + \dots \alpha_n x_n = \beta$\\
-Fuer reele Zahlen $\beta, \alpha_1, \dots, \alpha_n \in \R$. Einen Vektor, $\xi = \{\xi_1, \dots, \xi_n) \in \Rn$ nennen wir Loesung, wenn die reelen Zahleen  , $\xi_1, \dots, \xi_n$ eingesetzt in $x_1, \dots, x_n$ die Gleichung erfüllen.\\
-Ein lineares Gleichungssystem G ist ein System \\
-$
-a_11 x_1 + a_12 + x_2 \dots a_1n x_n = b_1\\
-a_21 x_1 + a_22 + x_2 \dots a_2n x_n = b_1\\
-\vdots\\
-a_m1 x_1 + a_m2 + x_2 \dots a_mn x_n = b_1\\
-$\\
-In Kurzform = $\sum_{j=1}^n a_{i,j} x_j = b_i \forall i\in\{1,\dots,m\}$\\
-oder, noch kürzer, in Matrixschreibweise\\
-$Ax=b$\\
-Wobei $A$ eine Matrix ist mit Einträgen $a_{i,j}$, wir schreiben\\
-$
+\subsection{Lineare Gleichungssysteme}
+Eine lineare Gleichung über \mR ist ein Ausdruck der Form: $\alpha_1x_1 + \alpha_2 x_2 + \dots \alpha_n x_n = \beta$ für reelle Zahlen $\beta, \alpha_1, \dots, \alpha_n \in \R$. Einen Vektor, $\xi = \left(\xi_1, \dots, \xi_n\right) \in \Rn$ nennen wir Lösung, wenn die reellen Zahlen  $\xi_1, \ \dots\ , \xi_n$ eingesetzt in $x_1, \dots, x_n$ die Gleichung erfüllen.\\
+Ein lineares Gleichungssystem G ist ein System der Form
+\begin{alignat*}{4}
+	a_{11} x_1 &+ a_{12}x_2 &+\ \dots\ +\ & a_{1n} x_n &= b_1\\
+	a_{21} x_1 &+ a_{22}x_2 &+\ \dots\ +\ & a_{2n} x_n &= b_2\\
+	\vdots\quad & \qquad\vdots&\ddots\quad \ \ &\quad\vdots & \vdots\  \\
+	a_{m1} x_1 &+ a_{m2} x_2  &+\ \dots\ +\ & a_{mn} x_n &= b_m\\
+\end{alignat*}
+Die einzelnen Komponenten lassen sich auch zusammenfassen als $$\sum_{j=1}^n a_{i,j} x_j = b_i \quad i\in\{1,\dots,m\}$$
+oder, noch kürzer, in Matrixschreibweise:
+$$Ax=b$$\\
+Dabei bezeichnet $A$ eine sog. Matrix mit den Einträgen $a_{i,j},\ i\in[0,\ \dots\ , m],\ j\in[0,\ \dots\ , n]$, wir schreiben\\
+$$
 A =
 \begin{pmatrix}
-a_{1, 1} & \dots & a_{1, n}\\
- & \vdots\\
-a_{m, 1} & \dots & a_{m, n}
+a_{11} & \dots & a_{1n}\\
+\vdots & \ddots& \vdots\\
+a_{m1} & \dots & a_{mn}
 \end{pmatrix}
-$\\
-$Ax$ für $x \in \Rn$ ist dann eine Kurzform für $\sum_{i=1}^na_{ij}x_j$ mit einem Vektor $x = (x_1, \dots, x_n) \in \Rn$. Das Ergebnis ist ein Vektor $b = (b_1, \dots, b_m) \in \R^m$ für eine Matrix $A$ mit m Zeilen und n Spalten.\\
-Der Vektor b hei\ss{}t rechte Seite des linearen Gleichungssystems, A hei\ss{}t Koeffizienten Matrix des linearen Gleichungssystems. Eine Spalte / Zeile von A kann mit einem Vektor im $\R^m$ bzw. im $\R^n$ identifiziert werden. Wir sprechen von Spalten- / Zeilen Vektoren der Matrix A.\\
-Eine Matrix mit m Zeilen und n Spalten nennen wir $m\times n$ - Matrix. Fuer $x  \in \Rn $, A eine $m\times n$ - Matix und B eine lxm - Matrix gilt die Rechenregel $BAx = B(Ax)$. Ein Gleichugnssystem $Ax=b$ heisst homogen, falls b der Nullvektor $(0, \dots, 0)$ ist und quadratisch fuer $m = n$ (eine quadratische Matrix A).\\
+$$\\
+$Ax$ für $x \in \Rn$ ist dann eine Kurzform für $\sum_{i=1}^na_{ij}x_j$ mit einem Vektor $x = (x_1, \dots, x_n) \in \Rn$. Das Ergebnis ist ein Vektor $b = (b_1, \dots, b_m) \in \R^m$ für eine Matrix $A$ mit $m$ Zeilen und $n$ Spalten.\\
+Der Vektor $b$ heißt rechte Seite des linearen Gleichungssystems, $A$ heißt Koeffizientenmatrix des linearen Gleichungssystems. Eine Spalte, bzw. Zeile von $A$ kann mit einem Vektor im $\R^m$ bzw. im $\R^n$ identifiziert werden. Wir sprechen von Spalten-, bzw. Zeilenvektoren der Matrix $A$.\\
+Eine Matrix mit $m$ Zeilen und $n$ Spalten nennen wir $m\times n$ - Matrix. Fuer $x  \in \Rn $, $A$ eine $m\times n$ - Matix und $B$ eine $l\times m$ - Matrix gilt die Rechenregel $BAx = B(Ax)$. Ein Gleichungssystem $Ax=b$ heißt homogen, falls $b$ der Nullvektor $(0, \dots, 0)$ ist und quadratisch für  $m = n$ (eine quadratische Matrix A).\\
 \subsubsection{Definition: Normalform}
-Ein Gleichungssytstem $Ax=b$ ist min Normalform, falss A die Gestalt \\
-$
-\begin{pmatrix}
-1 & 0 & a_{1,k+1}& \dots & a_{1, n}\\
-0 & 1 & a_{m, k+1} & \dots & a_{m, n}\\
-0 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 0\\
-\end{pmatrix}
-$ (fuer k=2)\\
-fuer ein $k \in \N_0$\\
-Beispiele:\\
-$
+Ein Gleichungssytstem $Ax=b$ ist in Normalform, falls $A$ die Gestalt \\
+$$\hspace{3cm}
+\left(
+\begin{matrix}
+	\text{\scriptsize $k$}\left\{\vphantom{
+		\begin{matrix}
+		1 & 0 & 0 & \ \cdots \ & 0\\
+		0 & 1 & 0 & \ \cdots \ & 0\\
+		0 & 0 & 1 & \ \cdots \ & 0 \\
+		\vdots & \vdots & \vdots&\ddots & \vdots\\
+		0 & 0 & 0 & \ \cdots \ & 1\\
+		\end{matrix}}\right.\kern-2\nulldelimiterspace
+	\underbrace{
+	\begin{matrix}
+		1 & 0 & 0 & \ \cdots \ & 0\\
+		0 & 1 & 0 & \ \cdots \ & 0\\
+		0 & 0 & 1 & \ \cdots \ & 0 \\
+		\vdots & \vdots & \vdots&\ddots & \vdots\\
+		0 & 0 & 0 & \ \cdots \ & 1\\
+	\end{matrix}}_{k}
+	&
+	\begin{matrix}
+		a_{1, k+1} & \ \cdots \ & a_{1, n}\\
+		a_{2, k+1} & \ \cdots \ & a_{2, n}\\
+		a_{3, k+1} & \ \cdots \ & a_{3, n}\\
+		\cdots & \ \ddots \ & \vdots\\
+		a_{k, k+1} & \ \cdots \ & a_{k, n}\\
+	\end{matrix} \\
+	\hspace{.5cm}
+	\begin{matrix}
+		0 &\hspace{.25cm}  & \cdots & \hspace{.25cm}& 0\\
+		\vdots &  & \ddots & &\vdots\\
+		0 &  & \cdots & & 0\\
+	\end{matrix}
+	&
+	\begin{matrix}
+		0 &\hspace{.25cm}\ \cdots\ \hspace{.25cm}& 0\\
+		\vdots &\ \ddots\ & \vdots\\
+		0 &\ \cdots\ & 0\\
+	\end{matrix}
+\end{matrix}
+\hspace{.15cm}
+\right)\text{\hspace{1cm}für ein $k \in \N_0$}$$
+annimmt. Beispiele:\\
+$$
 \begin{pmatrix}
 1 & 0 & 3\\
 0 & 1 & 4\\
 0 & 0 & 0\\
 0 & 0 & 0\\
-\end{pmatrix}
-$ Ist in Normalform für $k = 2$.\\
-$
+\end{pmatrix}\text{\hspace{.75cm}Ist in Normalform mit $k = 2$.}
+$$
+$$
 \begin{pmatrix}
 1 & 0 & 0\\
 0 & 1 & 0\\
 0 & 0 & 1\\
-\end{pmatrix}
-$ Ist in Normalform für $k = 3$.\\
-$
+\end{pmatrix}\text{\hspace{.75cm}Ist in Normalform mit $k = 3$.}
+$$
+$$
 \begin{pmatrix}
 0 & 0\\
 0 & 0\\
-\end{pmatrix}
-$ Ist in Normalform für $k = 0$.\\
-k hei\ss{}t Rang der Matrix A (bzw. des Gleichungssytems). Es gilt \\
-$0 \le k \le min(m, n)\\ $
-Ein Gleichungssystem ist genau dann Lösbar,  wenn gilt:\\
-$
-b_{k+1} = b_{k+2} = \dots = b_m = 0
-$\\
-In diesem Fall lässt sich eine Lösung $\xi \in \Rn$ bestimmen,  indem man $\xi_{k+1}, \dots, \xi_n$ beliebig wählt, und danach $\xi_i = b_i -  \sum_{j=k+1}^n a_{i,j} \xi_j \forall i\in\{1,\dots,n\}$ wählt.\\
-Denn für Zeile $i, i=k+1, \dots, n$ lautet das Gleichungssystem $0x_1 + \dots + 0x_n = b_i = 0$ und \\
-Für Zeile $i, i =1, \dots, k$ \\
-$a_{i, i} x_i + \sum_{j=k+1}^n a_{i,j} x_j = b_i$\\
+\end{pmatrix}\text{\hspace{.75cm} Ist in Normalform mit $k = 0$.}
+$$
+Wir nennen $k$ den Rang der Matrix $A$ (bzw. des Gleichungssystems). Es gilt $0 \le k \le \min(m, n) $.
+Ein Gleichungssystem ist genau dann lösbar,  wenn gilt: $b_{k+1} = b_{k+2} = \ldots = b_m = 0$. 
+In diesem Fall lässt sich eine Lösung $\xi \in \Rn$ bestimmen,  indem man $\xi_{k+1}, \dots, \xi_n$ beliebig wählt, und danach $\xi_i = b_i -  \sum_{j=k+1}^n a_{i,j} \xi_j, \ i\in\{1,\dots,n\}$ wählt.\\
+%Denn für Zeile $i, i=k+1, \dots, n$ lautet das Gleichungssystem $0x_1 + \dots + 0x_n = b_i = 0$ und \\
+%Für Zeile $i, i =1, \dots, k$ 
+%$$a_{i, i} x_i + \sum_{j=k+1}^n a_{i,j} x_j = b_i$$
 Beispiele:
-$
+$$
 \begin{pmatrix}
 1 & 0 & 3\\
 0 & 1 & 4\\
 0 & 0 & 0\\
 0 & 0 & 0\\
-\end{pmatrix} x = b =
+\end{pmatrix} x =
 \begin{pmatrix}
 1\\1\\0\\0
 \end{pmatrix}
-$\\
-Wähle $x_3 = 1$. Dann folgt daraus $x_2 = -3$ und $x_1 = -2$\\
-Wir sagen die Lösungsmenge ist \\
-$\{(b_1 - \sum_{j=k+1}^na_{1j}\xi_j), \dots,  (b_k - \sum_j={k+1}^na_{kj}\xi_j), \xi_{k+1}, \dots, \xi_n : \xi_{k+1}, \dots, \xi_n \in \R\}$.\\
-Wir nennen eine solche Mengen (n-k) parametrig.
+$$\\
+Wähle $x_3 = 1$. Dann folgt daraus $x_2 = -3$ und $x_1 = -2$. Wir sagen die Lösungsmenge ist \\
+$$\mathbb{L} =\left\{\left(b_1 - \sum_{j=k+1}^na_{1j}\xi_j\right), \dots,  \left(b_k - \sum_{j=k+1}^{n}a_{kj}\xi_j\right), \xi_{k+1}, \dots, \xi_n \Big| \xi_{k+1}, \dots, \xi_n \in \R\right\}$$
+Wir nennen eine solche Menge $(n-k)$-parametrig.
 
 \subsubsection{Lemma 0.1}
-Sei A eine $m\times n$ -Matrix mit Rang k. Dann gilt $k=n$  genau dann, wenn alle Gleichungssysteme mit A höchstens eine Lösung haben, und k = m, genau dann, wenn alle Gleichungssyteme mit A lösbar sind.\\
+Sei A eine $m\times n$ -Matrix mit Rang $k$. Dann gilt $k=n$  genau dann, wenn alle Gleichungssysteme mit $A$ höchstens eine Lösung haben, und $k = m$, genau dann, wenn alle Gleichungssysteme mit $A$ lösbar sind.\\
 Beweis: klar aus der Darstellung.\\
 
 \subsubsection{Zeilenoperationen}
-Eine Zeilenoperation macht aus dem Gleichungssystem ein neues Gleichungssytem durch Multiplikation  der i-ten Zeile mit einer Zahl $\lb \in \R \setminus 0$ oder durch addieren des \mlb -fachen der i-ten Zeile zur j-ten Zeile $(i \neq j)$. Wir bezeichnen diese Operationen mit $Z_i^\lb$ bzw. $Z_{i,j}^\lb$.\\
+Eine Zeilenoperation macht aus dem Gleichungssystem ein neues Gleichungssystem durch Multiplikation  der i-ten Zeile mit einer Zahl $\lb \in \R \setminus 0$ oder durch addieren des \mlb -fachen der i-ten Zeile zur j-ten Zeile $(i \neq j)$. Wir bezeichnen diese Operationen mit $Z_i^\lb$ bzw. $Z_{i,j}^\lb$.\\
 Bemerkung: Die Zeilenoperationen sind umkehrbar. \\
 Die Umkehrung von $Z_i^\lb = Z_i^{\frac{1}{\lb}}$, die Umkehrung von $Z_{i,j}^\lb = Z_{i,j}^{-\lb}$
 
