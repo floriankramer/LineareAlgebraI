@@ -1385,4 +1385,48 @@ zu b.)\\
 Es sei \(V = span(\{v_j : j \in J\}), J \subsetneq I\). Dann gilt \(v_{j_0}\) mit \(j_0 \in I \setminus J\) l\"asst sich als Linearkombination \(v_{j_0} = \sum_{j \in J} \lb_j v_j\) schreiben, ein Widerspruch zur linearen Unabh\"angigkeit der \(v_j\).
 }
 \end{itemize}
+
+\subsubsection*{Fehlender Teil kommt noch}
+
+\subsubsection{Satz 2.18 Basis endlich erzeugter Vektorr\"aume (Basisauswahlsatz)}
+Falls V endlich erzeugt ist, und \((w_i)_{i \in I}\) eine linear unabh\"angige Familie von Vektoren ist, dann existiert eine Basis von V, die alle \(w_i\) enth\"alt. Insbesondere besitzt jeder endlich erzeugte Vektorraum eine Basis.\\
+\textbf{Bemerkung} Satz 2.16 hei\ss{}t auch Basisauswahlsatz von Steinitz.\\
+\textbf{Beweis}\\
+Es seien \(\{v)1, \dots, v_n\} \subset V\) mit \(n \in \N \setminus\{0\}\), mit \(span(\{v_1, \dots, v_n\}) = V\). Aus dem Basisauswahlsatz folgt sofort Existenz einer Basis. Der Rest folgt mit Basisergenzungssatz.
+
+\subsubsection{Lemma 2.19}
+Falls \(dim_k(v) = n\) mit \(n \in \N \cup \{0\}\), dann gilt
+\begin{enumerate}
+\item{Falls \((v_1, \dots, v_n)\) linear unabh\"angig ist, dann ist \((v_1, \dots, v_n)\) bereits eine Basis.}
+\item{Falls \(W \subset V\) ein Untervektorraum ist, so gilt \(dim_K(W) \le dim_K(V)\) und, \(dim_K(W) = dim_K(V) \Rightarrow W = V\)}
+\end{enumerate}
+\textbf{Beweis}
+\begin{enumerate}
+\item{Folgt aus dem Basisaustauschsatz.}
+\item{Angenommen \((w_1, \dots, w_m)\) sind lineare unabh\"angig in W. Dann sind sie auch in V linear unabh\"angig. Damit folgt \(m \le n = dim_K(V)\). Es folt \(dim_K(W) \le n\). Falls \(dim_K(W) = dim_K(V)\) dann ist eine Basis von W nach 1. auch eine Basis von V. Also folgt sofort \(V = W\).}
+\end{enumerate}
+\textbf{Anmerkung}\\
+Es gibt nicht nur endlich erzeugte Vektorr\"aume.\\
+Beispiel: \(\R^\N\), also \((x_1, x_2, \dots)\) mit eintragweiser Addition (d.h. f\"ur \(x = (x_1, \dots), y = (y_1, y_2, \dots)\) schreiben wir \(x + y = (x_1 + y_2. x_2 + y_2, \dots)\) und eintragweiser Skalarmultiplikation (d.h. \(\lb x = (\lb x_1, \lb x_2, \dots)\)) ist ein \mR -Vektorraum. Es gilt \((dim_K(V) = \infty\), denn, angenommen \(dim_K(V) = n\), f\"ur \(n \in \N_0\) kann man leicht \(n + 1\) linear unabh\"angige Vektoren finden (z.B. \((1, 0, \dots), (0, 1, 0, \dots), \dots, (0, \dots, 0, 1, 0, \dots)\)) was einen Widerspruch darstellt.\\
+Die Vektoren \((1, 0, \dots), (0, 1, 0, \dots), \dots)\) stellen auch keine Basis dar, insbesondere gibt es keine abz\"ahlbare Basis f\"ur V.\\
+Beispiel: Menge der konvergenten Folgen.\\
+Beispiel: \(Abb(\R, \R)\).\\
+Beispiel: Die stetigen reelen Funktionen.\\
+Beispiel: \(\{x \in \R^\N, x = (x_1, x_2, \dots)\) mit endlich vielen \(x_i \neq 0\} \subset \R^\N\).\\
+Hier ist \(((1, 0, \dots), (0, 1, 0, \dots), \dots)\) eine Basis.
+
+\subsubsection{Satz Jeder Vektorraum besitzt eine Basis}
+Jeder Vektorraum besitzt eine Basis.\\
+\textbf{Beweisidee}\\
+Es sei V ein K-Vektorraum. Es sei \(M = \{A \subset V : A\) linear unabh\"angig\(\} \subset 2^M\). Auf M definiert ''\(\subset\)'' eine Halbordnung, d.h. es gilt \(A \subset A\), \(A \subset B \land B \subset A \Rightarrow A = B\), \(A \subset B, B \subset C \Rightarrow A \subset C\). Wir betrachten nun Teilmengen \(U \subset M\), welche total geordnet sind, d.h. f\"ur \(A, B \in U\) gilt immer \(A \subset B\) oder \(B \subset A\).\\
+Beispiel aus \(2^\R\) f\"ur U. \(U = \{(-j, j), j \in \N\}\). Solche Teilmengen von M hei\ss{}en auch Ketten.\\ Nun sei \(\bar{M}(U) = \bigcup_{A \in U} A\). Es gilt nun 
+\begin{enumerate}
+\item{\(\bar{M}(U) \subset V\).}
+\item{F\"ur alle \(A \in U : A \subset \bar{M}(U)\)}
+\item{Es seien \(v_1, \dots v_n\) Vektoren in \(\bar{M}(U)\) und \(\lb_1, \dots, \lb_n \in K\), so dass gilt \(\lb_1 v_1 + \dots + \lb_n + v_n = 0\). Es existiert ein \(\bar{A} \in U\), so dass \(v_1, \dots, v_n \in \bar{A}\), denn f\"ur \(j = 1, \dots, n\) existiert \(A_j \in U\) mit \(v_j \in A_j\). Nachdem U aber totalgeordnet ist  ist eines der \(A_j\) das gr\"o\ss{}te davon, dieses nennen wir \(\bar{A}\). Dieses \(\bar{A}\) ist aber linear unabh\"angig. (Denn \(\bar{A} \in M\).) Damit folgt aber \(\lb_1 = \dots = \lb_n = 0\) und es gilt \(\bar{M}(U)\) ist linear unabh\"angig und \(\bar{M}(U) \in M\)\\}.
+\end{enumerate}
+Anders gesagt: jede Kette in M besitzt eine obere Schranke in M.\\
+Wir benutzen nun das Lemma von Zorn: Es sei M eine Menge mit Halbordnung ''\(\subset\)'', so dass jede Kette in M eine obere Schranke in M besitzt. Dann existiert ein maximales Element m in M., d.h. ein Element m, so dass gilt \(B \in M, m \subset B \Rightarrow B = m\).\\ Angewendet auf unseren Fall ergibt sich sofort ein maximales Element aus \(M = \{A \in V : A\) lin unabh.\(\}\), also eine maximale lineare unabh\"angige Familie, d.h. eine Basis.\\
+Das Lemma von Zorn ist (in der \"ublichen Mengenlehre nach Zermelo und Frenhel, welche man in der Logik kennenlernt) \"aquivalent zum Auswahlaxiom (auch kennenzulernen in der Logik), welches besagt:\\
+Sei \(X = \{U_i, i \in I\}\) eine Menge von Mengen, dann existiert eine so genante Auswahlfunktion \(F : X \to \bigcup_{i \in I} U_i\) mit \(F(U_i) = a_i \in U_i\).
 \end{document}
