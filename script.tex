@@ -1429,4 +1429,85 @@ Anders gesagt: jede Kette in M besitzt eine obere Schranke in M.\\
 Wir benutzen nun das Lemma von Zorn: Es sei M eine Menge mit Halbordnung ''\(\subset\)'', so dass jede Kette in M eine obere Schranke in M besitzt. Dann existiert ein maximales Element m in M., d.h. ein Element m, so dass gilt \(B \in M, m \subset B \Rightarrow B = m\).\\ Angewendet auf unseren Fall ergibt sich sofort ein maximales Element aus \(M = \{A \in V : A\) lin unabh.\(\}\), also eine maximale lineare unabh\"angige Familie, d.h. eine Basis.\\
 Das Lemma von Zorn ist (in der \"ublichen Mengenlehre nach Zermelo und Frenhel, welche man in der Logik kennenlernt) \"aquivalent zum Auswahlaxiom (auch kennenzulernen in der Logik), welches besagt:\\
 Sei \(X = \{U_i, i \in I\}\) eine Menge von Mengen, dann existiert eine so genante Auswahlfunktion \(F : X \to \bigcup_{i \in I} U_i\) mit \(F(U_i) = a_i \in U_i\).
+
+\section{Lineare Abbildungen}
+Wir kennen schon lineare Abbildungen von \(\R^n\) nach \(\R^m\), n\"amlich diejenigen, welche durch Matrizen dargestellt werden.
+
+\subsection{Definition und grundlegende Eigenschaften.}
+Im folgenden sei K ein K\"orper un V ein K-Vektorraum.
+\subsubsection{Definition 3.1 Lineare Abbildungen}
+Es seien V, W K-Vektorr\"aume.
+\begin{enumerate}
+\item{
+Eine Abbildung \(F : V \to W\) hei\ss{}t (K) linear (oder Vektorraumhomomorphismus) falls gilt\\
+\(F(x + y) = F(x) + F(y)\\
+F(\lb x) = \lb F(x)\)\\
+f\"ur alle \(x, y \in V, \lb in K\) und wir schreiben \(F \in Hom_K(V, W)\).
+}
+\item{Falls \(V = W\), so hei\ss{}t \(F \in Hom_K(V, W) = End_K(V)\) Vektorraumendomorphismus.}
+\item{Ein Vektorraum-Komorphismus ist ein bijektiver Vektorraumhomomorphismus. Falls ein solcher Komorphismus von V nach W existiert, nennen wir W und V isomorph, und schreiben \(V \cong W\)}
+\item{\(Aut_K(V) = \{F \in End_K(V) : F \text{ bijektiv}\}\) sind die Vektorraum-Automorphismen von V.}
+\end{enumerate}
+\textbf{Bemerkungen}
+\begin{enumerate}
+\item{\(\hat{V} \subset V\) ein Untervektorraum, dann ist die Inklusion \(i : \hat{V} \to V, i(x) = x\) ein VR-Homomorphismus.}
+\item{\(Hom_K(V, W) \subset Abb(V, W)\) ist ein Untervektorraum.}
+\item{\(End_K(V)\) hat zus\"atzlich die Struktur eines Ringes (mit Addition punktweise definiert, d.h. \((F + G)(x) = F(x) + G(x)\) und Multiplikation als Hintereinanderausf\"uhrung)\\
+Es gilt die Kompatibilit\"atseigenschaft \\
+\((\lb F) \circ G = \lb (F \circ G) = F \circ (\lb G)\) f\"ur alle \(F, G \in End_K(V), \lb \in K\).\\
+Eine solche Struktur (Ring, VR, Komp) hei\ss{}t K-Algebra.}
+\item{\(Aut_K(V)\) ist eine Gruppe (mit Nacheinanderausfuehrung als Verkn\"upfung)\\
+Aber: \(Aut_K(V)\) ist kein Vektorraum, au\ss{}er \(V = \{0\}\)}
+\end{enumerate}
+Beweise : Siehe \"Ubung.\\
+\textbf{Beispiele}
+\begin{enumerate}
+\item{Matrizen induzieren lineare Abbildungen.}
+\item{\(V = \{f \in Abb(\R, \R) : f\) stetig differenzierbar\(\}\)\\
+\(W = \{f \in Abb(\R, \R) : f\) stetig\(\}\)\\
+Dann ist \(D : V \to W, f \mapsto f'\) eine lineare Abbildung.}
+\end{enumerate}
+\textbf{Anmerkung}\\
+Das L\"osen von reellen linearen Gleichungssystemen \(Ax = B\) entspricht also der Bestimmung der Menge \(A^{-1}(\{b\})\), wobei A sowohl als (Koeffizienten-)Matrix als auch als lineare Abbildung aufgefasst werden kann.
+
+\subsubsection{Lemma 3.2 Eigenschaften lin. Abbildungen}
+U, V, W seien K-Vektorr\"aume, \(F \in Hom_K(V,W), G \in Hom_K(U, V)\). Dann gilt
+\begin{enumerate}
+\item{\(F(0) = 0\)}
+\item{\(F(x - y) = F(x) - F(y)\)}
+\item{\(F \circ G \in Hom_K(U, W)\)}
+\item{\(F\) Isomorphismus \(\Rightarrow F^{-1} \in Hom_K(W, V)\).}
+\item{I Indexmenge, \((v_i)_{i \in I} \in V^I\), dann gilt\\
+\((v_i)_{i \in I}\) lin. abh\"angig \(\Rightarrow (F(v_i))_{i \in I} \in W^I\) lin. abh\"angig.}
+\item{
+\begin{enumerate}
+\item{\(\hat{V} \subset V\) Untervektorraum. Dann gilt \(F(\hat{V}) \subset W\) ist Untervektorraum. Insbesondere ist \(Im(F) = F(V)\) ein Untervektorraum.}
+\item{\(\hat{W} \subset W\) Untervektorraum. Dann gilt \(F^{-1}(\hat{W}) \subset V\) ist ein Untervektorraum. Insbesondere ist \(ker(F) = F^{-1}(\{0\})\) ein Untervektorraum.}
+\item{F Isomorphismus. Dann gilt \(F(\hat{V}) \cong \hat{V}\) f\"ur jeden Untervektorraum \(\hat{V} \subset V\).}
+\end{enumerate}
+}
+\item{\(dim(Im(F)) \le dim(V)\)}
+\end{enumerate}
+\textbf{Beweis}: \"Ubungen.\\
+\textbf{Bemerkung}:\\
+Es gilt nat\"urlich auch \((F (v_i))_{i \in I}\) lin. unabh. \(\Rightarrow (v_i)_{i \in I}\) lin. unabh\"angig
+
+\subsubsection{Satz 3.3 Definition linearer Abb. durch Basis}
+Es seien \(V, W\) K-Vektorr\"aume, I eine Indexmenge, \((v_i)_{i \in I}\) eine Basis von V. Weiter sei \((w_j)_{j \in I} \in W^I\) eine Familie von Vektoren in W. Dann existiert genau eine K-lineare Abbildung \(F : V \to W\) mit \(f(v_j) = w_j\) f\"ur alle \(j \in I\).\\
+Dieses \(F\) erf\"ullt weiterhin
+\begin{enumerate}
+\item{\(Im(F) = span(\{w_j : j \in I\})\)}
+\item{F injektiv \(\Leftrightarrow (w_j)_{j \in I}\) linear unabh\"angig.}
+\end{enumerate}
+\textbf{Beweis}\\
+Es sei \(x \in V\). Damit existiert eine eindeutige Linearkombination \(x = \sum_{j \in I} \lb_j v_j\). Wir setzen \(F(x) = \sum_{j \in I}\lb_jw_j = \sum_{j \in I} \lb_fF(v_j)\). Nachdem F lineare sein soll, ist dies die einzig m\"ogliche Form von F, es existiert also h\"ochstens eine solche lin. Abbildung. Es ist (durch einsetzen) leicht zu \"uberpr\"ufen, dass gilt \(F(x + y) = F(x) + F(y)\) sowie \(F(\lb x) = \lb F(x)\). Damit ist das oben definierte F lineare und es existiert genau ein \(F \in Hom_K(V, W)\) mit den gew\"unschten Eigenschaften.\\
+Zu 1.:\\
+Folgt direkt aus der Definition von F.\\
+Zu 2.:\\
+Es gilt \(F\) nicht injektiv \(\\
+\Leftrightarrow \exists x, y \in V, x \neq y : F(x) = F(y)\\
+\Leftrightarrow \exists z \neq 0 : z = x - y : F(z) = 0\\
+\Leftrightarrow z = \sum_{j \in I} \lb_j v_j\) nicht alle \(\lb_j = 0\).\\
+Somit ist \(F(\sum_{j \in I}\lb_j v_j) = \sum_{j \in I} \lb_j F(v_j) = \sum_{j \in I} \lb_j w_j = 0\).\\
+\(\Leftrightarrow (w_j)_{j \in I}\) linear abh\"angig.
 \end{document}
