@@ -1386,7 +1386,66 @@ Es sei \(V = span(\{v_j : j \in J\}), J \subsetneq I\). Dann gilt \(v_{j_0}\) mi
 }
 \end{itemize}
 
-\subsubsection*{Fehlender Teil kommt noch}
+\subsubsection{Definition 2.12 Basis eines Vektorraums}
+Eine Familie \((vi)_{i\in I}\) mit \(v_i \in V\) f\"ur alle \(i \in I\) hei\ss{}t Basis von V, falls \((vi)_{i\in I}\) ein linear unabh\"angiges Erzeugendensystem von V ist.\\
+\textbf{Beispiel}\\
+\(V = K^N\), Eine Basis ist gegeben durch \(e_i = \ve{0\\\vdots\\0\\1\\0\\vdots\\0}\) (i-te Eintrag ist 1).\\
+Diese \((e_I)_{i \in \{1, \dots, n\}}\) hei'ss{}t kanonische (oder Standard-) Basis von \(K^n\).
+
+\subsubsection{Satz 2.13 Basisauswahlsatz}
+Es sei \(N \in \N \cup \{0\}, v_1, \dots, v_N \in V\) und \(v = span(\{v_1, \dots, v_N\})\). Dann existeiren \(n \in N \cup \{0\} i_1, \dots, i_n \in \{1, \dots, N\}\), so dass \((v_{i1}, \dots, v_{i2}\) eine Basis von V bilden.\\
+\textbf{Beweis}\\
+Wir verkleinern die Familie \((v_i)_{i \in \{1, \dots, N\}}\) schrittweise
+\begin{enumerate}
+\item{Falls \((v_i)_{i \in \{1, \dots, N\}}\) linear unabh\"angig ist, sind wir fertig. Andernfalls existiert \(j_0 \in \{1, \dots, N\}\), so dass \(v_{j_0} = \sum_{i \in \{1, \dots, j_0 - 1, j_0 + 1, \dots, N\}}\lb_i v_i\).\ Damit ist aber\\
+\((v_1, \dots, v_{j_0 - 1}, v_{j_0 + 1}, \dots, v_n)\) immer noch ein Erzeugendensystem. Mit der Menge wiederholen wir den Schritt. Nach maximal N Schritten ist die Methode zum Ende gelangt.}
+\end{enumerate}
+\textbf{Bemerkung}\\
+Satz 2.13 hei\ss{}t auch ''Basisauswahlsatz''
+
+\subsubsection{Lemma 2.14}
+\((v_1, \dots, v_n)\) sei eine Basis von V, \(w = \lb_1v_1 + \dots +  \lb_n v_n\) mit \(\lb_a \neq 0\) f\"ur \(a \in \{1, \dots, n\}\). Dann gilt \((v_1, \dots, v_{a - 1}, w, v_{a+1}, \dots, v_n)\) ist eine Basis.\\
+\textbf{Beweis}\\
+Durch Umnumerierung der Basisvektoren k\"onnen wir annehmen, dass gilt \(a = 1\). Sei also o.B.d.A. \(a = 1\). Zu zeigen ist nun, dass \((w, v_2, \dots, v_n)\) ein linear unabh\"angiges (2) Erzeugendensystem (1) ist.
+\begin{enumerate}
+\item{f\"ur \(x \in V\) gilt \(x = \mu_1 v_1 + \dots + \mu_n v_n, \mu_i \in K\). Wir schreiben\\
+\(v_1 = \lb^{-1}(w-\lb_2 v_2 - \dots - \lb_n v_n0 + \dots + \mu_n v_n)\) und \((w, v_2, \dots, v_n)\) ist ein Erzeugendensystem von V.}
+\item{Sei \(0 = \mu_1 w + \mu_2 v_2 + \dots + \mu_n v_n\). Wir setzen w ein, und erhalten:\\
+\(0 = \mu_1 \lb_1 v_1 + (\mu_2  + \mu_1 \lb_2) v_2 + \dots + (\mu_n + \mu_1 \lb_n)v_n\)\\
+Da \((v_1, \dots, v_n)\) eine Basis ist gilt \(\mu_1\lb_1 = 0 = (\mu_i + \mu_1 \lb_i) \Rightarrow (\lb_1 \neq 0) \Rightarrow \mu_1 = 0\)\\
+\(\mu_i + \mu_1 \lb_i = 0 \Rightarrow (\mu_i + 0 \lb_i) = \mu_i = 0 \Rightarrow\) f\"ur \(0 = \mu_1 w + mu_2 v_2 + \dots + \mu_n v_2\) m\"ussen alle  \(\mu_i = 0\) sein. Daher ist \((w, v_2, \dots, v_n)\) lin. unabh\"angig und somit eine Basis von V.}
+\end{enumerate}
+
+\subsubsection{Satz 2.15 Basisaustauschsatz von Steinitz}
+Es sei \((v_1, \dots, v_n)\) eine Basis von V und \((w_1, \dots, w_m)\) sei eine linear unabh\"angige Familie von Vektoren in V. Dann gilt
+\begin{enumerate}
+\item{\(m \le n\)}
+\item{\((v_1, \dots, v_n)\) kann so umnumerriert werden, dass gilt \((w_1, \dots, _m, v_{m + 1}, \dots, v_n)\) ist eine Basis.}
+\end{enumerate}
+\textbf{Beweis} (Durch induktion \"uber m)\\
+\begin{itemize}
+\item{F\"ur \(m = 0\) ist nichts zu zeigen.}
+\item{Induktionsschritt (''\(m \to m + 1\)'').\\
+\((w_1, \dots, w_{m+1})\) sei also eine linear unabh\"angige Familie. Es gilt nach Lemma 2.10 (4), dass \((w_1, \dots, w_m)\) linean unabh\"angig sind. Nach der Induktionsanahme gilt also 1. \(m \le n\), 2. \((w_1, \dots, w_m, v_{m+1}, \dots, v_n)\) ist eine Basis von V.\\
+Wir betrachten zwei F\"alle
+\begin{enumerate}
+\item{\(m = n\). Dann ist \((w_1, \dots, w_m, v_{m+1}, \dots, v_n) = (w_1, \dots, w_m)\) eine Basis von V. Somit ist \(w_{m + 1} = \sum_{i = 1}^n \lb_i w_i\) und \((w_1, \dots, w_{m+1})\) ist nicht linear unabh\"angig.}
+\item{\(m < n\). Dann ist \(w_1, \dots, w_m, v_{m+1}, \dots, v_n)\) eine Basis von V. Somit ist \(w_{m+1} = \lb_1w_1 + \dots + \lb_n v_n\). Ist \(\lb_{m+1} = \dots = \lb_0 = 0\), so ist \(w_{m+1} = \lb_1 + \dots + \lb_mw_m \Rightarrow\) \(w_1, \dots, w_{m+1})\) ist nicht linear unabh\"angig. Somit gibt es ein \(\lb_I\) mit \(m+1 
+le i 
+le n\). Nach Lemma 2.14 k\"onnen wir v so umnumerrieren, dass \(\lb_{m+1} \neq a\). Somit ist nach Lemma 2.14 \((w_1, \dots, w_{m+1}, v_{m+2}, \dots, v_n)\) ein Erzeugendensystem von V und die Vermutung bewiesen.}
+\end{enumerate}
+}
+\end{itemize}
+
+\subsubsection{Korollar 2.16 Alle Basen eines Vektorraumes haben gleich viele Elemente}
+V besitze eine Bassi \((v_1, \dots, v_n)\) mit \(n \in \N \cup \{0\}\). Dann hat jede Basis von V genau n Elemente.\\
+\textbf{Beweis}\\
+Sei \((w_i)_{i \in I}\) eine weitere Basis. Es folgt sofort, dass gilt, dass die Anzahl der Elemente \(\le n\) ist. Insbesondere ist I endlich. Falls \(m = \#I < n\) liefert das selbe Argument mit \((v_I)\) und \((w_i)\) vertauscht wieder einen Widerspruch.
+
+\subsubsection{Definition 2.17}
+Es sei V ein K-Vektorraum. Wir setzen\\
+\(dim_K(V) = \begin{cases}\infty&\text{, falls V keine endliche Basis besitzt}\\n&\text{, falls V eine Basis mit n Elementen besitzt.}\end{cases}\).\\
+\(dim_K(V)\) hei\ss{}t Dimension von V.
 
 \subsubsection{Satz 2.18 Basis endlich erzeugter Vektorr\"aume (Basisauswahlsatz)}
 Falls V endlich erzeugt ist, und \((w_i)_{i \in I}\) eine linear unabh\"angige Familie von Vektoren ist, dann existiert eine Basis von V, die alle \(w_i\) enth\"alt. Insbesondere besitzt jeder endlich erzeugte Vektorraum eine Basis.\\
