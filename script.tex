@@ -396,15 +396,15 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 			Folgt aus Lemma 0.2 und daraus, dass Zeilen-, bzw. Spaltenoperationen die Lösungsmenge (modulo Variablentausch) nicht ändern.
 		\end{proof}
 	\end{kor}
-	
+	\vspace{.2cm}
 	\begin{kor}
 		\label{kor5}
 		Ein homogenes Gleichungssystem mit weniger Gleichungen als Variablen hat mindestens eine nicht triviale Lösung.\\
 		\begin{proof}
-			Es gibt für homogene Gleichungssysteme immer die triviale Lösung. Der Rang der Matrix des Gleichungssystems in Normalform sei k. Damit existiert ein $(n-k)$-parametriges Lösungssystem, aber $k \le min(n, m) \le m \le (n-1)$. Somit existiert mindestens eine weitere Lösung.
+			Es gibt für homogene Gleichungssysteme immer die triviale Lösung. Der Rang der Matrix des Gleichungssystems in Normalform sei k. Damit existiert ein $(n-k)$-parametriges Lösungssystem, aber $k \le \min(n, m) \le m \le (n-1)$. Somit existiert mindestens eine weitere Lösung.
 		\end{proof}
 	\end{kor}
-
+	\vspace{.2cm}
 	\begin{definition}[Lineare Unabhängigkeit]
 		\IN{Lineare!Unabhängigkeit}
 		\label{deflineareunab}
@@ -470,7 +470,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 			Nach \hyperref[kor5]{Korollar \ref{kor5}} hat dieses homogene Gleichungssystem mit $k$ Gleichungen und $k+1$ Unbekannten aber mindestens eine nicht triviale Lösung. Die Vektoren $a_{i_1}, \dots a_{i_{k+1}}$ sind somit nicht linear unabhängig.
 		\end{proof}
 	\end{satz}
-	
+	\vspace{.2cm}
 	\begin{kor}
 		Wird ein Gleichungssystem \textit{nur} durch Zeilenoperationen (also ohne Variablentausch) auf Normalform gebracht, so ist die Matrix, die man erhält, immer die gleiche. Falls das Gleichungssystem lösbar ist, so ist auch das erhaltene $b$ immer das gleiche.
 	\end{kor}
@@ -501,6 +501,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 			Die Umkehrung, also die Behauptung, dass sich ein Punkt $y \in b + \R w$ auch als Punkt in $a + \R v$ schreiben lässt, folgt analog.
 		\end{proof}
 	\end{lem}
+	\vspace{.2cm}
 	\begin{lem}
 		Durch zwei verschiedene Punkte in \mRn geht genau eine Gerade.\\
 		\textbf{Beweis: } Übung
@@ -537,7 +538,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 			$ ebenfalls linear unabhängig. Damit besitzt das Gleichungssystem eine Lösung (da $k = m$) nach \hyperref[satz12]{Satz \ref{satz12}}.
 		\end{proof}
 	\end{lem}
-	
+	\vspace{.4cm}
 \subsection{Das Skalarprodukt}
 	Im Folgenden seien $a = (a_1, \dots, a_n), b = (b_1, \dots, b_n)$ zwei Vektoren in \mRn.
 	
@@ -561,7 +562,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 			1., 2., 3. sind klar aus der Definition. 4. und 5. folgen daraus, dass $(a, a) = a_1^2, \ldots, a_n^2$.
 		\end{proof}
 	\end{lem}
-
+	\vspace{.2cm}
 	\begin{definition}[Norm]
 		Die Norm (oder Länge) von a ist $\sqrt{(a, a)} = ||a||$.
 	\end{definition}
@@ -579,7 +580,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 		\begin{proof}
 			Es gilt für jedes beliebiges $\lb \in \R$:
 			$0 \le (a + \lb b, a + \lb b) = (a, a) + 2 (\lb a, b) + \lb^2 (b, b)$.	Für $\lb = -\frac{(a,b)}{(b, b)}$ ergibt sich $0 \le (a, a) - 2 \frac{(a, b)^2}{(b, b)} + \frac{(a, b)^2}{(b, b)}$.
-			Für $b = 0$ ist die Aussage des Lemmas klar. Es folgt $(a,b)^2 \le (a, a)(b,b)$
+			Für $b = 0$ ist die Aussage des Lemmas klar. Es folgt $(a,b)^2 \le (a, a)(b,b)$\\
 		\end{proof} 
 		\begin{bem}
 			Falls a und b linear unabhängig sind so folgt $|(a,b)| < ||a||||b||$, denn dann ist $a + \lb b \neq 0$ (für jedes $\lb \in \R$) und die Ungleichung ist strikt (d.h. mit "`$<$"').
@@ -594,7 +595,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 		\end{proof}
 		
 	\end{lem}
-	
+	\vspace{.2cm}
 	\begin{kor}[$||x-y||$ ist eine Metrik]
 		\IN{Metrik}
 		\label{metrikkor}
@@ -1029,6 +1030,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 		\begin{bem}
 			Oft schreiben wir einfach $a \ast b$ für $\ast(a, b)$.\\
 		\end{bem}
+		\vspace{1cm}
 		\noindent\textbf{Beispiele:}
 		\begin{enumerate}[leftmargin=2cm]
 			\itemsep0cm
