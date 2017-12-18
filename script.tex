@@ -1568,5 +1568,67 @@ Es gilt \(F\) nicht injektiv \(\\
 \Leftrightarrow \exists z \neq 0 : z = x - y : F(z) = 0\\
 \Leftrightarrow z = \sum_{j \in I} \lb_j v_j\) nicht alle \(\lb_j = 0\).\\
 Somit ist \(F(\sum_{j \in I}\lb_j v_j) = \sum_{j \in I} \lb_j F(v_j) = \sum_{j \in I} \lb_j w_j = 0\).\\
-\(\Leftrightarrow (w_j)_{j \in I}\) linear abh\"angig.
+\(\Leftrightarrow (w_j)_{j \in I}\) linear abh\"angig.\\
+\\
+\textbf{Bemerkung}\\
+Der Satz 3.3 besagt, dass man eine lineare Abbildung bereits kennt, wenn man die Wirkung auf die Basisvektoren kennt.
+
+\subsubsection{Proposition 3.5 injektivit\"at Homomorphismus}
+Es gilt \(G \in Hom(V, W)\) ist injektiv genau dann, wenn \(Ker(G) = \{0\}\).\\
+\\
+\textbf{Beweis}\\
+Wurde bereits im Beweis von Satz 3.3 gezeigt.
+
+\subsubsection{Korollar 3.5 (zu Satz 3.3) Isomorphie endlich dimensionaler Vektorr\"aume.}
+Es sei \(V\) ein K-Vektorraum mit \(dim_K(V) = n < \infty\). Dann gilt \(V \cong K^n\). Weiter sei W ein K-Vektorraum mit \(dim_K(w) = n\). Dann gilt auch \(V \cong W\).\\
+\\
+\textbf{Beweis}\\
+Nach Satz 2.18 existiert eine Basis \((v_1, \dots, v_n)\) von V. Weiter sei \((e_1, \dots, e_n)\) die Standardbasis von \(K^n\).\\
+Dann gilt (nach Satz 3.3), dass genau eine K-lineare Abbildung f existiert, mit \(f(v_i) = e_i\) f\"ur \(i = 1, \dots, n\).\\
+f ist surjektiv, denn  \(Im(f) = f(V) = span(e_1, \dots, e_n) = K^n\).\\
+f ist injektiv, denn \((e_1, \dots, e_n)\) ist linear unabh\"angig.\\
+Ebenso f\"ur \(V \cong W\).\\
+\\
+\textbf{Bemerkung}\\
+Der \(K^n\) ist also (in einem gewissen Sinn) der einzige n-dimensionale K-Vektorraum.\\
+Der Isomorphismus h\"angt von der Wahl der Basis in V ab, ist also nicht eindeutig (man sagt, er ist nicht kanonisch).\\
+\textbf{Bemerkung}\\
+Das Korollar hilft bei Fragen wie ''Was ist die L\"osungsmenge von \(f(x) = 0\), mit \(f : V \to W\) linear, \(dim_K(V) = n < \infty, dim_K(W) = m < \infty\)'', denn wir haben einen Isomorphismus \(g : V \to K^n, h : W \to K^m\) und bemerken \(f(x) = 0 \Leftrightarrow \hat{f}(g(x)) = h(0)\) mit einer Abbildung \(\hat{f} : k^n \to K^m\), \(\hat{f}(e_i) = h(f(g^{-1}(e_i))\) und beispielweise mit Lemma 3.2 \(dim(Ker(f)) = dim(ker(\hat{f}))\). 
+
+\subsubsection{Definition 3.6}
+Vm W seien K-Vektorr\"aume, \(F \in Hom(V, W)\). Dann hei\ss{}t \(rg(F) = dim_K(F(V)) = dim_K(Im(F))\) der Rang von F.\\
+\\
+\textbf{Bemerkung}
+Falls \(G, \hat{G}\) Isomorphismen sind, so gilt \(rg(F) = rg(F \circ G) = rg(\hat{G} \circ F)\) mit \(F : V \to W, G : \hat{V} \to V, \hat{G} : W \to \hat{W}\).
+
+\subsubsection{Satz 3.7 Dimensionsformen}
+Es seien \(V, W\) K-Vektorr\"aume, \(F \in Hom_K(V, W)\), \(dim_K(V) \le \infty\).\\
+Dann gilt \(dim_K(V) = dim_K(ker(F)) + rg(F)\).\\
+\\
+\textbf{Beweis}:\\
+Nach Lemma 3.2 ist \(ker(F) \subset V\) ein Untervektorraum, also nach Lemma 2.19 ebenfalls endlichdimensional.\\
+Weiteres ist \(Im(F) \subset W\) ein Untervektorraum und nach Lemma 3.2 gilt auch\\
+\(dim(Im(F)) \le \infty\).\\
+Es sei nun \((v_1, \dots, v_n)\) eine Basis von \(ker(F)\), \((w_1, \dots, w_r)\) eine Basis von \(Im(F)\). Es seien \(u_1, \dots, u_r\) Vektoren in V, mit \(F(u_j) = w_j\) f\"ur \(j = 1, \dots, r\).\\
+Zu zeigen ist nun, dass \(m + r = dim_K(V)\). Wir beweisen, dass \((v_1, \dots, v_m, u_1, \dots, u_r)\) eine Basis von V ist.
+\begin{enumerate}
+\item{\(\{v_1, \dots, v_m, u_1, \dots, U_r\}\) erzeugt V.\\
+Es sei also \(x \in V\). Es existieren \(\lb_1, \dots, \lb_r \in K\) mit \(F(x) = \sum_{j=1}^r \lb_j w_j\). Nun seei \(y = x - \sum_{j=1}^r \lb_j u_j \in V\).\\
+Dann gilt \(F(y) = F(x) - F(\sum_{j=1}^r \lb_j u_j) = F(x) - \sum_{j = 1}^r \lb_j F(u_j) = F(x) - \sum_{j = 1}^r \lb_j w_j = F(x) - F(x) = 0\)\\
+Also ist \(y \in ker(F)\) und es existeiren \(\mu_1, \dots, \mu_n\), so dass \(y = \sum_{i =1}^m \mu_i v_i\). Damit gilt aber, \(x = \sum_{i=1}^m \mu_i v_i + \sum_{j=1}^r \lb_j u_j\) und \(x \in span(v_1, \dots, v_m, u_1, \dots, u_r)\). Somit erzeugt \(\{v_1, \dots, v_m, u_1, \dots, u_r\}\) den Vektorraum V.
+}
+\item{\(v_1, \dots, v_m, u_1, \dots, u_r)\) ist linear unabh\"angig.\\
+Es seien \(\lb_1,\dots, \lb_m, \mu_1, \dots, \mu_r \in K\) mit \(\sum_{i=1}^m\lb_i v_i + \sum_{j=1}^r \mu_j u_j = 0\). Dann folgt\\
+\(F(0) = 0 = \sum_{i=1}^m\lb_i F(v_i) + \sum_{j=1}^r \mu_j F(u_j)\) \hfill (\(v_i \in ker(F) \Rightarrow F(v_i) = 0)\)\\
+\(= \sum_{j=1}^r \mu_j w_j \Rightarrow \mu_j = 0\) f\"ur \(j = 1, \dots, r\) (denn \(w_j\) sind linear unabh\"angig.).\\
+Damit gilt \(\sum_{i=1}^m \lb_iv_i = 0\) also \(\lb_i = 0\) f\"ur \(i = 1, \dots, m\), da \((v_1, \dots, v_m)\) eine Basis ist (und somit lin. unabh.).
+}
+\end{enumerate}
+
+\subsubsection{Definition 3.8}
+Es sei \(V\) ein K-Vektorraum, \(V_1, V_2 \subset V\) UVR.
+\begin{enumerate}
+\item{\(V_1 + V_2 = span(V_1 \cup V_2)\)}
+\item{\(W = V_1 \bigoplus V_2\) falls \(W = V)1 + V_2\) und \(V_1 \cap V_2 = \{0\}\). W hei\ss{}t dann ''direkte Summe' von \(V_1\) und \(V_2\) und diese hei\ss{}en komplement\"ar}
+\end{enumerate}
 \end{document}
