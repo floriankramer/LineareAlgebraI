@@ -4,21 +4,30 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage{marvosym}
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
 \usepackage{xstring}
 \usepackage{tikz}
 \usepackage{amsthm}
+\usepackage{thmtools}
 \usepackage{titlesec}
 \usepackage{enumitem}
 \usepackage{pgfplots}
+\usepackage{relsize}
+\usepackage{imakeidx}
+
+\makeindex[columns=2, title=Stichwortverzeichnis, intoc]
+\newcommand{\BH}[1]{\large\textbf{\hyperpage{#1}}\normalsize}
+\newcommand{\IN}[1]{\index{#1|BH}}
+
 \usepackage[a4paper, top = 2cm, left = 2.5cm, right = 2.5cm, bottom = 2cm]{geometry}
 \title{Lineare Algebra I\\Mitschrieb}
 
 
 
 \titleformat{\chapter}[block]
-{\normalfont\huge\bfseries}{}{0em}{\Huge}
+{\normalfont\huge\bfseries}{\Huge \thechapter. }{0em}{\Huge}
 \titlespacing*{\chapter}{-7pt}{-15pt}{20pt}
 \titlespacing*{\section}{-7pt}{0pt}{10pt}
 \titlespacing*{\subsection}{-7pt}{0pt}{10pt}
@@ -49,6 +58,11 @@
 \renewcommand{\v}{\ve}
 \DeclareMathOperator{\abb}{Abb}
 \DeclareMathOperator{\Span}{span}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Ima}{Im}
+\DeclareMathOperator{\rg}{rg}
 
 % increase line height
 \renewcommand{\baselinestretch}{1.2}
@@ -109,13 +123,14 @@
 	\textsc{\large Albert-Ludwigs-Universität Freiburg}\\[0.5cm] 
 	\vspace{4cm}
 	\HRule \\[0.8cm]
-	{ \huge \bfseries Lineare Algebra $\mathbf{I}$}\\[0.4cm] 
+	{ \Huge  \textbf{Lineare Algebra $\mathbf{I}$}}\\[0.4cm] 
 	\HRule \\[.5cm]
-	\Large Inoffizieller Mitschrieb
-	\\[13.5cm]
+	{\Large Inoffizieller Mitschrieb}\\[1.0cm]
+	\textsl{Stand}: 18. Dezember 2017
+	\\[12.5cm]
 	\begin{minipage}{0.5\textwidth}
 		\begin{center} \large
-			\emph{Vorlesung gehalten von:}\\[1cm]
+			\textsl{Vorlesung gehalten von:}\\[1cm]
 			Prof. Dr. Patrick Dondl\\
 			Abteilung für Angewandte Mathematik\\
 		\end{center}
@@ -141,9 +156,9 @@
 \item{Eigenwerte und Normalformen}
 \end{enumerate}
 
-\subsection*{Beispiel: Der Google Pagerank}
+\subsection*{Beispiel: Der Google-Pagerank}
 Gegeben seien vier Seiten mit Verlinkungen zwischen diesen Seiten. Von einer nicht verlinkten Seite wechselt man zufällig auf eine andere Seite. Der User startet an einer zufälligen Stelle und folgt von dort einem zufälligen Link auf eine andere Seite. Zusätzlich wird immer mit Wahrscheinlichkeit $(1-d), \ d \in [0, 1]$ auf eine beliebige Website gewechselt.\\
-Die wichtigste Seote ist nun die, auf welcher ein Benutzer sich mit der höchsten Wahrscheinlichkeit aufhält.\\
+Die wichtigste Seite ist nun die, auf welcher ein Benutzer sich mit der höchsten Wahrscheinlichkeit aufhält.\\
 $$
 p(\delta_1) = \frac{1-d}{N} + d\left(\frac{p(\delta_2)}{1}, \frac{p(\delta_5)}{4}\right)$$$$
 p(\delta_2) = \frac{1-d}{N} + d\left(\frac{p(\delta_1)}{3}, \frac{p(\delta_5)}{4}\right)$$$$
@@ -175,6 +190,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 \end{itemize}
 
 \section{Der $\R^n$}
+	\IN{Zahlen!Reelle}
 	\label{kap0}
 	Für gegebenes $n \in \N$ definieren wir:\\
 	$$\R^n = \{x = (x_1, x_2, \dots, x_n): x_1, \dots, x_n \in \R\}$$
@@ -188,6 +204,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{align*}
 	
 	\begin{definition*}[Lineare Gleichungssysteme]
+		\IN{Lineare!Gleichungssysteme}
 		Eine lineare Gleichung über \mR ist ein Ausdruck der Form: $\alpha_1x_1 + \alpha_2 x_2 + \dots \alpha_n x_n = \beta$ für reelle Zahlen $\beta, \alpha_1, \dots, \alpha_n \in \R$. Einen Vektor, $\xi = \left(\xi_1, \dots, \xi_n\right) \in \Rn$ nennen wir Lösung, wenn die reellen Zahlen  $\xi_1, \ \dots\ , \xi_n$ eingesetzt in $x_1, \dots, x_n$ die Gleichung erfüllen.\\
 		Ein lineares Gleichungssystem G ist ein System der Form
 		
@@ -215,7 +232,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition*}
 	
 	\begin{definition*}[Normalform]
-	
+		\IN{Lineare!Gleichungssysteme!Normalform}
 		Ein Gleichungssystem $Ax=b$ ist in Normalform, falls $A$ die Gestalt \\
 		$$\hspace{3cm}
 		\left(
@@ -311,6 +328,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{lem}
 	
 	\begin{definition*}[Zeilenoperationen]
+		\IN{Lineare!Gleichungssysteme!Zeilenoperationen}
 		Eine Zeilenoperation macht aus einem Gleichungssystem ein neues Gleichungssystem durch Multiplikation  der $i$-ten Zeile mit einer Zahl $\lb \in \R \setminus 0$ oder durch Addieren des \mlb-fachen der $i$-ten Zeile zur $j$-ten Zeile $(i \neq j)$. Wir bezeichnen diese Operationen mit $Z_i^\lb$ bzw. $Z_{i,j}^\lb$.\\
 		Die Umkehrung von $Z_i^\lb = Z_i^{\frac{1}{\lb}}$, die Umkehrung von $Z_{i,j}^\lb = Z_{i,j}^{-\lb}$
 		\begin{bem}
@@ -329,6 +347,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{lem}
 	
 	\begin{satz}[Gauß-Jordan-Elimination]
+		\IN{Lineare!Gleichungssysteme!Gauß-Jordan-Elimination}
 		Jedes lineare Gleichungssystem lässt sich durch Zeilenoperationen und Vertauschungen von Variablen (d.h. Vertauschung von Spalten) in Normalform bringen.\\[.5cm]
 		\begin{proof}
 			Wir beweisen dies mittels eines expliziten  Algorithmus' (der Gauß-Jordan-Elimination).	Aus praktischen Gründen schreiben wir unser Gleichungssystem als sogenannte erweiterte Koeffizientenmatrix.
@@ -387,6 +406,8 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{kor}
 
 	\begin{definition}[Lineare Unabhängigkeit]
+		\IN{Lineare!Unabhängigkeit}
+		\label{deflineareunab}
 		Eine Kollektion $a_1, \dots, a_n$ von Vektoren in $\R^m$ heißt linear unabhängig, wenn sich keiner der Vektoren als Linearkombination der anderen Vektoren schreiben lässt.
 	\end{definition}
 	
@@ -459,6 +480,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 \subsection{Geraden und Ebenen}
 
 	\begin{definition}[Geraden]
+		\IN{Gerade}
 		$ $\vspace{-.5cm}
 		\begin{enumerate}
 			\item Sei $v \not= 0$ ein Vektor in \mRn. Mit $\R v$ bezeichnen wir die Menge an Vektoren in \mRn der Form $\R v = \{\lb v : \lb \in \R\}$
@@ -471,6 +493,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{bem}
 	
 	\begin{lem}
+		\IN{Gerade!Gleichheit}
 		Zwei Geraden $a + \R v, b + \R w$ sind genau dann gleich, wenn gilt $\R v = \R w$ und $a - b \in \R v$.\\
 		\begin{proof}
 			Sei also  $x = a + \R v$, d.h. $x = a + \lb v$ für ein $\lb \in \R$. Nach Annahme gilt $\R v = \R w$. Damit existiert ein $\mu \in \R$ mit $\lb v = \mu w$ und somit $x = a + \mu w$. Weiterhin haben wir nach Annahme, dass $a-b \in \R v$, also existiert ein $\xi \in \R$ mit $a - b = \xi w$, also $x = a - (a - b) + \xi w + \mu w$ und somit $x = b + (\xi + \mu) w$.
@@ -484,10 +507,12 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{lem}
 
 	\begin{definition}[Parallelität]
+		\IN{Gerade!Parallelität}
 		Zwei Geraden heißen parallel, wenn sie die gleichen Richtungsräume haben.
 	\end{definition}
 
 	\begin{definition}
+		\IN{Ebene}
 		Eine (affine) Ebene ist eine Menge der Form $a + \R v + \R w$ für linear unabhängige Vektoren $v, w$.
 		\begin{bem}
 			Auch hier gilt, das der Raum $\R v + \R w$ eindeutig bestimmt ist als Menge aller Differenzen von Punkten in der Ebene.
@@ -517,6 +542,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	Im Folgenden seien $a = (a_1, \dots, a_n), b = (b_1, \dots, b_n)$ zwei Vektoren in \mRn.
 	
 	\begin{definition}[Skalarprodukt]
+		\IN{Skalar!-produkt}
 		Das Skalarprodukt von $a$ und $b$ ist definiert als $(a, b) = \sum_{j=1}^n a_j b_j$.
 	\end{definition}
 	
@@ -548,6 +574,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{lem}[Cauchy-Schwarzsche Ungleichung]
+		\IN{Ungleichung!Cauchy-Schwarzsche}
 		Es gilt $|(a, b)| \le ||a||\cdot||b||$.\\
 		\begin{proof}
 			Es gilt für jedes beliebiges $\lb \in \R$:
@@ -560,6 +587,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{lem}
 	
 	\begin{lem}[Dreiecksungleichung]
+		\IN{Ungleichung!Dreicks}
 		Es gilt $||a+b|| \le ||a|| + ||b||$.\\
 		\begin{proof}
 			$ ||a+b||^2 = (a+b, a+b)= ||a||^2 + 2(a,b) + ||b||^2 \le ||a||^2 + 2 ||a||||b|| + ||b||^2 = (||a|| + ||b||)^2$
@@ -568,6 +596,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{lem}
 	
 	\begin{kor}[$||x-y||$ ist eine Metrik]
+		\IN{Metrik}
 		\label{metrikkor}
 		Der \mRn mit dem Abstand $d(x, y) = ||x - y||$ ist ein sogenannter metrischer Raum. Das bedeutet folgendes:
 		\begin{enumerate}
@@ -582,6 +611,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 \chapter{Grundlegende Objekte}
 
 \section{Elementare Aussagenlogik}
+	\IN{Aussagen}
 	Aussagen (in der Mathematik) sind sprachliche Gebilde, welche entweder wahr (w) oder falsch (f) sind.\\
 	Darstellung mittels Wahrheitstabelle:\\
 	Beispiele:
@@ -594,6 +624,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{center}
 
 	\begin{definition}[Logische Operatoren]
+		\IN{Logische Operatoren}
 		A, B seien Aussagen.
 		\begin{enumerate}
 			\item "`$\neg A$"', oder "`nicht A"' ist die Negation von A
@@ -649,12 +680,14 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 
 
 \section{Mengen und Abbildungen}
+	\IN{Menge}
 	Problem: Der Begriff der Menge ist sehr schwer zu definieren (Vgl. Russelsche Antinomie).\
 	Endliche Mengen kann man durch Auflistung aller Elemente angeben, z.B. $X = \{x_1, x_2, x_3\}$.\ $x_1, x_2, x_3$ heißen dann Elemente von X und wir schreiben $x_1 \in X$.\\
 	Reihenfolge der Elemente und Mehrfachauflistung sind nicht relevant. Die Mächtigkeit einer Menge ist die Anzahl paarweise verschiedener Elemente. $\{1, 2, 2, 3\}$ beispielsweise hat Mächtigkeit $3$.
 	Die leere Menge $\{\}$ oder $\emptyset$ enthält kein Element.
 
 	\begin{definition}[Teilmengen]$ $\vspace{-.75cm}
+		\IN{Menge!Teil-}
 		\begin{enumerate}
 			\itemsep0cm
 			\item Eine Menge Y heißt Teilmenge von X, wenn aus $x \in Y$ immer folgt $x \in X$. Wir schreiben $Y \subset X$.
@@ -668,6 +701,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 			\end{enumerate}
 		\end{bem}
 		\textbf{Die Natürlichen Zahlen}\\
+		\IN{Zahlen!Natürliche}
 		Die einfachste unendliche Menge ist die der natürlichen Zahlen $$\N = \{1, 2, 3, \ldots\},$$ deren Existenz wir annehmen, zusammen mit den üblichen Rechenregeln.
 		Die natürlichen Zahlen genügen dem Prinzip der vollständigen Induktion.
 		Sei $M \subset \N$ und es gelte:
@@ -677,6 +711,8 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 			\item falls $m \in M$, so ist auch $n + 1 \in M$
 		\end{enumerate}
 		Dann gilt $M = \N$.\\
+		\IN{Zahlen!Rationale}
+		\IN{Zahlen!Ganze}
 		Durch Erweiterung von Zahlbereichen können wir aus \mN auch die ganzen Zahlen $\mathbb{Z}$, die rationalen Zahlen $\mathbb{Q}$ sowie die reellen Zahlen \mR konstruieren 
 		(ebenso die komplexen Zahlen $\mathbb{C}$).\\
 		\begin{bem}
@@ -688,6 +724,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{definition}[Mengenoperationen]
+		\IN{Menge!Operationen}
 		\label{defmengenoperationen}
 		Sind $X$, $Y$ Mengen, so können wir bilden:
 		\begin{enumerate}
@@ -706,6 +743,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{definition}[Abbildungen]
+		\IN{Abbildung}
 		Seien $X$, $Y$ Mengen. Als Abbildung von $X$ nach $Y$ bezeichnen wir eine Vorschrift $f$, welche jedem Element $x\in X$ genau ein Element $y\in Y$ zuordnet. Wir schreiben
 		$$f : X \rightarrow Y,\quad x \mapsto f(x).$$
 	\end{definition}
@@ -716,6 +754,8 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 
 	\begin{definition}[Bild und Urbild]
+		\IN{Abbildung!Bild}
+		\IN{Abbildung!Urbild}
 		Sei $f: X\rightarrow Y, M \subset X, N \subset Y$
 		\begin{enumerate}
 			\itemsep0cm
@@ -764,6 +804,9 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 
 	\begin{definition}[Injektivität, Surjektivität, Bijektivität]
+		\IN{Abbildung!Injektivität}
+		\IN{Abbildung!Surjektivität}
+		\IN{Abbildung!Bijektivität}
 		\label{def1.8}
 		Es sei $f : X \to Y$ eine Abbildung.
 		\begin{enumerate}
@@ -778,6 +821,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{definition}[Umkehrfunktionen]
+		\IN{Abbildung!Umkehr-}
 		\label{def1.9}
 		Es sei $f : X \to Y$ bijektiv. Wir schreiben dann $f^{-1} : Y \to X, f^{-1}(y) = x$ mit dem eindeutig definierten $x \in X$, sodass gilt $f(x) = y$.\\
 		\begin{bem}
@@ -812,6 +856,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{satz}
 	
 	\begin{definition}[Komposition von Abbildungen]
+		\IN{Abbildung!Komposition}
 		Es seien $X, Y, Z$ Mengen, $f: X \to Y,\ g : Y \to Z$ Abbildungen.
 		Dann definiert $g \circ f : X \to Z, x \mapsto g(f(x)) = (g \circ f)(x)$ die Komposition von Abbildungen.
 		\begin{bem}
@@ -824,6 +869,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{definition}[Identische Abbildung]
+		\IN{Abbildung!Identische}
 		Mit  $Id_X : X \to X$ bezeichnen wir die identische Abbildung $x \mapsto x$.
 	\end{definition}
 
@@ -848,6 +894,8 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{lem}
 	
 	\begin{definition}[Menge aller Abbildungen]
+		\IN{Menge!Aller Abbildungen}
+		\IN{Abbildung!Menge}
 		Seien $X$, $Y$ Mengen. Mit $\abb(X, Y)$ bezeichnen wir die Menge aller Abbildungen von $X$ nach $Y$.
 		\begin{bem}
 			$\{ f \in \abb(X, Y) :\ f \text{ surjektiv}\}$ ist nun ebenfalls definiert.
@@ -862,6 +910,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{definition}[Potenzmenge]
+		\IN{Menge!Potenz-}
 		Sei $M$ eine Menge. Die Menge aller Teilmengen von $M$ heißt Potenzmenge von $M$, kurz $2^M$.
 		\begin{bem}
 			Für eine (beliebige nicht notwendigerweise bijektive) Abbildung $f : X \to Y$ ist $f^{-1}$ eine Abbildung von $2^Y$ nach $2^X$.
@@ -897,6 +946,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{definition}[Relationen]
+		\IN{Relation}
 		Noch nützlicher ist das direkte Produkt, um eine sogenannte Relation zu definieren.
 		Eine Relation R auf einer Menge X ist eine Teilmenge von $X \times X$.
 		Wir sagen für $x, y \in X$, dass $x \sim y$ genau dann, wenn $(x, y) \in R$.\\
@@ -909,6 +959,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{definition}[Äquivalenzrelationen]
+		\IN{Äquivalenz!Relation}
 		Eine Relation $\sim$ auf $X$ heißt Äquivalenzrelation, falls gilt:
 		\begin{enumerate}[leftmargin=3cm, rightmargin=3cm]
 			\item $x \sim x$\hfill (Reflexivität)
@@ -924,6 +975,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{definition}[Äquivalenzklassen]
+		\IN{Äquivalenz!Klasse}
 		Sei $X$ eine Menge mit Äquivalenzrelation $\sim$. Eine Menge $A \subset X$ heißt Äquivalenzklasse bezüglich $\sim$, falls gilt:
 		\begin{enumerate}
 			\item $A \neq \emptyset$ 
@@ -949,6 +1001,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\vspace{.25cm}
 	
 	\begin{definition}[Quotientenmenge]
+		\IN{Menge!Quotienten-}
 		Es sei X eine Menge mit Äquivalenzrelation $\sim$. Die Menge der Äquivalenzklassen in $X$ bezeichnen wir  als Quotientenmenge und schreiben für diese Menge $X/{\sim}$.\\
 		\begin{bem}
 			Wir können eine Abbildung definieren, welche jedem $a \in X$ dessen Äquivalenzklasse zuordnet:
@@ -966,7 +1019,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 
 \section{Gruppen}
-
+	
 	\begin{definition}[Verknüpfungen]
 		Es sei $G$ eine Menge. Eine Verknüpfung $\ast$ auf $G$ ist eine Abbildung:
 		\begin{alignat*}{3}
@@ -986,6 +1039,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{definition}[Gruppen]
+		\IN{Gruppe}
 		\label{def125}
 		Eine Menge G mit Verknüpfung $\ast$ heißt Gruppe, falls gilt:
 		\begin{enumerate}[leftmargin=3cm, rightmargin=1cm]
@@ -996,6 +1050,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 					\item Für alle $a \in G$ existiert $a' \in G$ mit $a' \ast a = e$ \hfill (inverses Element)
 				\end{enumerate}
 		\end{enumerate}
+		\IN{Gruppe!abelsche}
 		Die Gruppe heißt abelsch, falls zusätzlich gilt $$a \ast b = b \ast a\text{ für alle $a, b \in G$}$$\vspace{-.5cm}
 		\begin{bem}
 			Wir schreiben oft einfach $a \cdot b$ bzw. $ab$ für $a \ast b$.\\
@@ -1042,6 +1097,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{prop}
 	
 	\begin{definition}[Rechts- und Linkstranslation]
+		\IN{Gruppe!Translation}
 		Für $a \in G$, $G$ eine Gruppe, schreiben wir
 		\begin{enumerate}[leftmargin=5cm, rightmargin=4cm]
 			\item $\tau_a : G \to G$, $x \mapsto x a$\hfill (Rechtstranslation)
@@ -1092,6 +1148,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{lem}
 	
 	\begin{definition}[Untergruppen]
+		\IN{Gruppe!Unter-}
 		Es sei $(G, \cdot)$ eine Gruppe, $G' \subset G$. $G'$ heißt Untergruppe von G, falls für $a, b \in G'$ auch gilt:\vspace{-.125cm}
 		\begin{enumerate}[leftmargin=3cm]
 			\itemsep0cm
@@ -1101,6 +1158,8 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{definition}[Homo- und Isomorphismen auf Gruppen]
+		\IN{Abbildungen!Homomorphismus}
+		\IN{Abbildungen!Isomorphismus}
 		Seien $(G, \cdot), (H, *)$ Gruppen, und $\varphi : G \to H$ eine Abbildung.
 		\begin{enumerate}
 			\item Die Abbildung $\varphi$ heißt Homomorphismus, falls gilt:
@@ -1142,6 +1201,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{prop}
 	
 	\begin{satz*}[Zyklische Gruppen]
+		\IN{Gruppe!zyklische}
 		Für $m \in \N$  sei $\Z/m\Z = \{\bar{0}, \dots, \overline{m-1}\}$.\\
 		Dann gilt, dass $\Z/m\Z, +$ ($+$ definiert wie oben) eine abelsche Gruppe ist.
 		Die Abbildung $\Z \to \Z/m\Z, a \mapsto \bar{a} = a + m\Z$ ist ein surjektiver Homomorphismus.\\
@@ -1152,6 +1212,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 \section{Ringe und Körper}
 	
 	\begin{definition}[Ringe]
+		\IN{Ring}
 		Es sei $R$ eine Menge, $+ : R \times R \to R$ und $\cdot : R \times R \to R$ Verknüpfungen. $(R, +, \cdot)$ heißt Ring, falls gilt:
 		\begin{enumerate}
 			\item $(R, +)$ ist eine abelsche Gruppe
@@ -1187,11 +1248,14 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{prop}
 
 	\begin{definition}[Unterring und Ringhomomorphismus]
+		\IN{Ring!Unter-}
+		\IN{Ring!-homomorphismus}
 		Es sei $(R, +, \cdot)$ ein Ring, $R' \subset R$. $(R', +, \cdot)$ heißt Unterring, falls $(R', +)$ eine Untergruppe von $(R, +)$ ist und gilt $a, b \in R' \Rightarrow ab \in R'$.\\[.2cm]
 		Es seien $(R, +, \cdot)$, $(S, \hat{+}, \hat{\cdot})$ Ringe, $\varphi : R \to S$ eine Abbildung. $\varphi$ heißt Ringhomomorphismus, falls gilt $\varphi(a + b) = \varphi(a) \hat{+} \varphi(b)$ und $\varphi(ab) = \varphi(a) \hat{\cdot} \varphi(b)$ für alle $a, b \in R$.
 	\end{definition}
 
 	\begin{definition}[Körper]
+		\IN{Körper}
 		Es sei $K$ eine Menge, $+ : K \times K \to K, \cdot : K \times K \to K$ Verknüpfungen. $(K, +, \cdot)$ heißt Körper, falls gilt:
 		\begin{enumerate}
 			\item $(K, +)$ ist eine abelsche Gruppe
@@ -1230,7 +1294,8 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 		\noindent\textbf{Beispiele:}
 		\begin{enumerate}
 			\item$(\Q, +, \cdot), (\R, +, \cdot)$.
-			\item Die komplexen Zahlen $\C$, wie folgt definiert. Für $(a, b), (c, d) \in \R \times \R$ definieren wir
+			\item \IN{Zahlen!Komplexe}
+				Die komplexen Zahlen $\C$, wie folgt definiert. Für $(a, b), (c, d) \in \R \times \R$ definieren wir
 				$$(a, b)+(c, d) = (a + c, b + d)$$ und
 				$$(a,b)\cdot (c,d) = (ac-bd, ad + bc)$$
 				mit $(0, 0)$ als Nullelement und $(1, 0)$ als Einselement. Das additive Inverse zu $(a, b)$ ist dann $(-a, -b)$, das multiplikative Inverse ist $\left(\frac{a}{a^2+b^2}, -\frac{b}{a^2 + b^2}\right)$. Wir bezeichnen den so konstruierten Körper mit $\C$.\\
@@ -1315,7 +1380,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\vspace{.2cm}
 	
 	\begin{satz}
-		Ein nullteilerfreier, kommutativer Ring K mit endlich vielen Elementen und Eins ist ein Körper.\\
+		Ein nullteilerfreier, kommutativer Ring $K$ mit endlich vielen Elementen und Eins ist ein Körper.\\
 		
 		\begin{proof}
 			Nach \hyperref[lem128]{Lemma \ref{lem128}} reicht es zu zeigen, dass die Abbildung ${}_{a}\tau : K^* \to K^* : {}_{a}\tau(x) = ax$ für jedes $a \in K^\ast$ surjektiv ist. $K^\ast$ ist eine endliche Menge, also folgt Surjektivität aus Injektivität. Sei also ${}_a\tau(x) = {}_a\tau(y)$, für $x$, $y$ aus $K^\ast$. Es folgt $ax = ay$, also $a (x - y) = 0$. Damit gilt aber  (wegen Nullteilerfreiheit und $a \in K^\ast$, also $a \neq 0$), dass $x - y = 0$, also $x = y$.
@@ -1325,6 +1390,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\vspace{.2cm}
 
 	\begin{definition}[Charakteristik eines Ringes]
+		\IN{Ring!Charakteristik}
 		Es sei $R$ ein Ring mit Einselement $1$. Die Charakteristik von $R$ ist gegeben durch\\
 		$$\chi(R) = 
 			\begin{cases}
@@ -1337,6 +1403,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{lem}[Charakteristik von Körpern]
+		\IN{Körper!Charakteristik}
 		Ist K ein Körper, so gilt $\chi(K)$ ist entweder  Null, oder eine Primzahl.\\
 		\begin{proof}
 			Angenommen, $\chi(K) = m = k \cdot l \neq 0$ mit  $1 < k, l < m$ (also $m$ nicht prim). Es folgt  $0 = m \cdot 1 = (k \cdot l) 1 = (k \cdot 1)(l \cdot 1)$. Wegen Nullteilerfreiheit folgt $k \cdot 1 = 0$ oder $l \cdot 1$ = 0, und somit ein Widerspruch.
@@ -1354,6 +1421,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 \section{Definitionen und elementare Eigenschaften}
 
 	\begin{definition}[Vektorraum]
+		\IN{Vektorraum}
 		\label{def21}
 		Es sei $K$ ein Körper, $(V, +)$ eine abelsche Gruppe mit einer Abbildung $K \times V \to V$, $(\lb, b) \mapsto \lb v$, sodass für alle $x, y \in V$, $\lb, \mu \in K$ gilt:
 		
@@ -1424,6 +1492,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{prop}
 
 	\begin{definition}[Untervektorräume]
+		\IN{Vektorraum!Unter-}
 		Es sei $K$ ein Körper, $V$ ein $K$-Vektorraum. Weiteres sei $W \subset V$. Dann heißt $W$ Untervektorraum von $V$, falls gilt:
 		
 		\begin{enumerate}[leftmargin=4cm]
@@ -1526,5 +1595,460 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 		\end{proof}
 	\end{lem}
 	
+\section{Basis und Dimension}
+	\hspace{-.25cm}\textbf{Ziel:} finde möglichst kleine Erzeugendensysteme für Vektorräume.
+	\begin{enumerate}[leftmargin=1.4cm]
+		\item[\textbf{Beispiel:}]Wir betrachten $\R^2, e_1=(1, 0), e_2 = (0,1)$. Dann gilt $$\Span(\{e_1, e_2\})
+		= \{x \in \R^2 : x = (x_1, x_2),\ x_1 = \lb_1 e_1,\ x_2 = \lb_2 e_2,\ \lb_1,\ \lb_2 \in \R\} = \R^2.$$ 
+		Allerdings nur $\{e_1\}$ oder nur $\{e_2\}$ ist kein Erzeugendensystem für $\R^2$. Mit $e_3 = \{1, 1\}$ ist $\{e_1, e_2, e_3\}$ ein Erzeugendensystem für $\R^2$, aber kein kleinstmögliches im obigen Sinne.
+	\end{enumerate}
+	\hspace{-.25cm}Im Folgenden sei stets $K$ ein Körper und $V$ ein $K$-Vektorraum.
+	
+	\begin{definition}[Familien von Elementen]
+		\IN{Familie}
+		Seien $X$, $I$ Mengen. Für jedes $j \in I$ sei $e_j \in X$. Dann bezeichnen wir die Abbildung $I \to X, j \mapsto e_j$ als "`durch $I$ induzierte Familie von Elementen von $X$"'. Wir schreiben $(e_j)_{j \in I} \in X^I = \abb(I, X)$.\\
+		\begin{bem}
+			Es sei $I = \{1, 2, 3, \dots, n\}$. Dann gilt $\R^I = \R^{\{1, 2, \dots, n\}} = \R^n$. Die Abbildung ist hier $1 \mapsto x_1$, $2 \mapsto x_2$, $\ldots$, $n \mapsto x_n$.
+			
+			\noindent Für $I = \N$ is $\R^\N$ die Menge der reellen Folgen.
+		\end{bem}
+	\end{definition}
+	
+	\begin{definition}[Minimale und linear unabhängige Erzeugendensysteme]
+		\IN{Erzeugendensystem}
+		Es sei $I$ eine Menge, und $(v_i)_{i \in I}$ eine Familie von Vektoren $v_i \in V$.
+		\begin{enumerate}
+			\item $(v_i)_{i \in I}$ heißt minimales Erzeugendensystem von $V$, falls $E = \{v_i, i \in I\}$ ein Erzeugendensystem von $V$ ist und gilt $(J \subsetneq I) \Rightarrow \Span(v_j, j \in J) \neq V$
+			\item $(v_i)_{i \in I}$ heißt lineare unabhängig, falls gilt:\\
+			Es sei $(\lb_i)_{i \in I} \in K^I$ (eine durch I induzierte Menge von Skalaren) mit $\lb_i \neq 0$ für endlich viele $i \in I$ und $\sum_{i \in I} \lb_i v_i = 0$, dann folgt $\lb_i = 0$ für alle $i \in I$. Nicht linear unabhängige Familien heißen linear abhängig.
+			\begin{bem}
+				Für $I = \emptyset$ ist $(v_i)_{i \in I}$ stets linear unabhängig.
+			\end{bem}
+		\end{enumerate}
+		\textbf{Beispiele:} Siehe \hyperref[deflineareunab]{Kapitel 0}.
+	\end{definition}
 
+	\begin{lem}
+		\label{lem210}
+		Es sei $(v_i)_{i \in I} \in V^I$. Dann gilt:
+		\begin{enumerate}
+			\itemsep.1cm
+			\item Falls $v_j = 0$ für ein $j \in I$, dann ist $(v_i)_{i \in I}$ linear abhängig
+			\item Falls $i, j \in I$ existieren, mit $v_i = v_j$ dann ist $(v_i)_{i \in I}$ linear abhängig
+			\item Falls $I = \{i\}$ ist, dann ist $(v_i)_{i \in I}$ linear unabhängig genau dann, wenn $v_i \neq 0$
+			\item Sind $(v_i)_{i \in I}$ linear unabhängig, dann gilt $(J \subset I) \Rightarrow (v_j)_{j \in J}$ ebenfalls als linear unabhängig
+			\item Sei $I \neq \emptyset$, dann gilt $(v_i)_{i \in I}$ ist linear abhängig genau dann, wenn $j_0 \in I$ existiert, sodass $J \subset I \setminus \{j_0\}$, $J$ ist eine endliche Menge und es existiert $(\mu_j)_{j \in J} \in K^I$, sodass $\mu_{j_0} = \sum_{j \in J} \mu_j v_j $ \ (Ein Element lässt sich als Linearkombination der anderen schreiben)\\
+		\end{enumerate}
+		
+		\begin{proof}
+			\begin{enumerate}
+				\itemsep0cm
+				\item $1\cdot v_j = 0$ und $1 \neq 0$ $\Rightarrow$ linear abhängig
+				\item Klar aus 1. und Definition
+				\item Folgt direkt aus der Definition
+				\item Der Beweis erfolgt in zwei Richtungen:
+				\begin{enumerate}
+					\item["`$\Rightarrow$"'] Sei also $(v_i)_{I \in I}$ linear abhängig. Also existieren $(\lb_i)_{i\in I} \in K^I$ (nur endlich viele $\neq 0$) und ein $\lb_{i_0} \neq 0$ mit $i_0 \in I$ und $\sum_{i \in I} \lb_i v_i = 0$.\hspace{1cm} Damit gilt $\lb_{i_0} v_{i_0} = - \sum_{i \in I\setminus\{i_0\}}\lb_i\linebreak v_i	\Rightarrow v_{i_0} = -\sum_{i \in I \setminus \{i_0\}} \frac{\lb_i}{\lb_{i_0}} v_i$
+					\item["`$\Leftarrow$"'] 	Es sei $v_{j_0} = \sum_{i \in I \setminus \{j_0\}} \mu_i v_i$, dann setzen wir
+					$$\lb_i = \begin{cases}1, & \text{falls } i = j_0\\-\mu_i, & \text{falls } i\in I \setminus \{j_0\}\end{cases}$$
+					und es gilt $\sum_{i \in I} \lb_i v_i = 0$.
+				\end{enumerate}	
+			\end{enumerate}
+		\end{proof}
+	\end{lem}
+
+
+	\begin{satz}
+		Es sei $(v_i)_{i\in I} \in V^I$. Dann sind äquivalent:
+		\begin{enumerate}
+			\item $(v_i)_{i \in I}$ ist ein minimales Erzeugendensystem von $V$
+			\item $(v_i)_{i \in I}$ ist ein linear unabhängiges Erzeugendensystem von $V$
+			\item Jedes $v \in V$ besitzt eine eindeutige Darstellung als Linearkombination der $v_i$ mit $i \in I$
+			\item $(v_i)_{i \in I}$ ist eine maximale lineare unabhängige Familie, d.h. für jedes $w \in V$ gilt: $(w, (v_i)_{i \in I})$ ist linear abhängig\\
+		\end{enumerate}
+		
+		\begin{proof}
+			Zu zeigen ist $1. \Rightarrow 2. \Rightarrow 3. \Rightarrow 4. \Rightarrow 1.$ (Zirkelschluss).
+			\begin{enumerate}[leftmargin=1.9cm]
+				\item[1. $\Rightarrow$ 2. ] Wir zeigen $\neg1.\ \Rightarrow\ \neg 2.$
+				
+					 Sei $(v_i)_{i\in I}$ ein Erzeugendensystem, aber nicht linear unabhängig. Laut \hyperref[lem210]{Lemma \ref{lem210}.5} existiert ein $j_0\in I$, sodass $v_{j_0} = \sum_{i\in I\setminus\{j_0\}} \lb_i v_i$ mit $\lb_i\in K$, nur endlich viele $\lb_i\not=0$. 
+					 
+					 Wir behaupten: $(v_j)_{j\in I\setminus\{j_0\}}$ ist ein Erzeugendensystem. Sei also $x\in V$, und $(v_i)_{i\in I}$ ein Erzeugendensystem. Es gilt: $x=\sum_{i\in I}\mu_iv_i = \sum_{i\in I\setminus\{j_0\}} + \mu_{j_0}v_{j_0} = \sum_{i\in I\setminus\{j_0\}}\mu_i v_i + \mu_{j_0}\sum_{i\in I\setminus\{j_0\}} \lb_i v_i$ mit $\mu_i\in K$, nur endlich viele $\mu_i \not= 0$. 
+					 
+					 Damit ist aber $x=\sum_{j\in I\setminus\{j_0\}}\overbrace{(\mu_j+\mu_{j_0}v\lb_j)}^{\mathlarger{\mathlarger{\vartheta_j}}}v_j = \sum_{j\in I\setminus\{j_0\}} \vartheta_j v_j$ mit $\vartheta_j\in K$, nur endlich viele $\vartheta_j\not=0$.
+					 
+				\item[2. $\Rightarrow$ 3. ] $v \in V \Rightarrow v = \sum_{i \in I}\lb_i v_i$ ($\lb_i$ geeignet). Angenommen, die Darstellung sei nicht eindeutig, d.h. $v = \sum_{i \in I}\tilde{\lb_i} v_i$, dann gilt $v - v = 0 = \sum_{i \in I} (\lb_i - \tilde{\lb_i}) v_i$, aus 2 folgt $\lb_i - \tilde{\lb_i} = 0 \Rightarrow \lb_i = \tilde{\lb_i}$, somit ist die Darstellung eindeutig
+				
+				\item[3. $\Rightarrow$ 4. ]
+				Es sei eine eindeutige Darstellung für jedes $v \in V$. Zu zeigen ist:
+					\begin{enumerate}
+						\item[a) ] $(v_i)_{i \in I}$ ist linear unabhängig
+						\item[b) ] Für jedes $w \in V$ ist $(w, (v_i)_{i \in I})$ linear abhängig\vspace{.2cm}
+						\item[Zu a):] Es sei $\sum_{i \in I}\lb_i v_i = 0$ ($\lb_i$ geeignet). Es gilt $0 \in V$, die Darstellung $0 = \sum_{i \in I}\mu_i v_i$ mit $\mu_i = 0$ für jedes $i \in I$ ist eindeutig, also folgt $\lb_i = \mu_i = 0\ \forall i \in I$.
+						\item[Zu b):] Sei $w \in V, w = \sum_{i \in I} \lb_i v_i$ ($\lb_i$ geeignet). Dann gilt aber mit \hyperref[lem210]{Lemma \ref{lem210}}, dass $(w, (v_i)_{i \in I})$ linear abhängig ist.
+					\end{enumerate}
+					
+				\item[4. $\Rightarrow$ 1. ]
+					Sei $(v_i)_{i \in I}$ eine maximale lineare unabhängige Familie. Zu zeigen ist
+					\begin{enumerate}
+						\item[a) ] $\Span(\{v_i, i \in I\}) = V$
+						\item[b) ] $\Span(\{v_j, j \in J\}) \neq V$ für $J \subsetneq I$ \vspace{.2cm}
+						\item[Zu a):] Falls $w \in V \setminus \Span(\{v_i, i \in I\})$ existiert, ist $(w, (v_i)_{i \in I})$ linear unabhängig, denn $\mu_w + \sum_{i \in I} \lb_i v_i = 0$ (mit $\lb_i, \mu \in K$ geeignet) impliziert $\mu = 0$ und damit $\lb_i = 0$ für alle $i \in I$. Das steht im Widerspruch zu der maximalen Unabhängigkeit der Familie.
+						\item[Zu b):] Es sei $V = \Span(\{v_j : j \in J\}), J \subsetneq I$. Dann gilt $v_{j_0}$ mit $j_0 \in I \setminus J$ lässt sich als Linearkombination $v_{j_0} = \sum_{j \in J} \lb_j v_j$ schreiben, was ein Widerspruch zur linearen Unabhängigkeit der $v_j$ darstellt.
+					\end{enumerate}
+			\end{enumerate}
+		\end{proof}
+	\end{satz}
+	
+	\begin{definition}[Basis eines Vektorraums]
+		\IN{Vektorraum!Basis}
+		Eine Familie $(v_i)_{i\in I}$ mit $v_i \in V$ für alle $i \in I$ heißt Basis von $V$, falls $(v_i)_{i\in I}$ ein linear unabhängiges Erzeugendensystem von V ist.\\
+		
+		\noindent
+		\textbf{Beispiel: } $V = K^n$, Eine Basis ist gegeben durch $e_i = (0, \ldots, 0, 1, 0, \ldots, 0)$, wobei der $i$-te Eintrag 1 beträgt.
+		Diese $(e_i)_{i \in \{1, \dots, n\}}$ heißt kanonische (oder Standard-) Basis von $K^n$.
+		\begin{bem}
+			Die kanonische Basis wurde hier aus Platzgründen zeilenweise statt vektoriell geschrieben.
+		\end{bem}
+	\end{definition}
+	
+	\begin{satz}[Basisauswahlsatz]
+		\IN{Vektorraum!Basis!-auswahlsatz}
+		\label{satz213}
+		Es sei $N \in \N \cup \{0\}$, $v_1, \dots, v_N \in V$ und $v = span(\{v_1, \dots, v_N\})$. Dann existieren $i_1, \dots, i_n \in \{1, \dots, N\}$, sodass $(v_{i_1}, \dots, v_{i_n})$ eine Basis von $V$ bilden.\\
+		
+		\begin{proof}
+			Wir verkleinern die Familie $(v_i)_{i \in \{1, \dots, N\}}$ schrittweise:
+			\begin{enumerate}
+				\item Falls $(v_i)_{i \in \{1, \dots, N\}}$ linear unabhängig ist, sind wir fertig. 
+				\item Andernfalls existiert $j_0 \in \{1, \dots, N\}$, so dass $v_{j_0} = \sum_{i \in \{1, \dots, j_0 - 1, j_0 + 1, \dots, N\}}\lb_i v_i$.\ Damit ist aber	$(v_1, \dots, v_{j_0 - 1}, v_{j_0 + 1}, \dots, v_n)$ immer noch ein Erzeugendensystem.
+				
+				Mit der Menge wiederholen wir den Schritt. Nach maximal $N$ Schritten ist die Methode zum Ende gelangt.
+			\end{enumerate}
+		\end{proof}
+	\end{satz}
+	
+	\begin{lem}
+		\label{lem214}
+		Sei $(v_1, \dots, v_n)$ eine Basis von $V$, $w = \lb_1v_1 + \dots +  \lb_n v_n$ mit $\lb_a \neq 0$ für $a \in \{1, \dots, n\}$. Dann gilt $(v_1, \dots, v_{a - 1}, w, v_{a+1}, \dots, v_n)$ ist eine Basis.\\
+		
+		\begin{proof}
+			Durch Umnummerierung der Basisvektoren können wir annehmen, dass gilt $a = 1$. Sei also oBdA $a = 1$. Zu zeigen ist nun, dass $(w, v_2, \dots, v_n)$ ein Erzeugendensystem (1.) und zusätzlich linear unabhängig (2.) ist.
+			\begin{enumerate}
+				\item Für $x \in V$ gilt $x = \mu_1 v_1 + \ldots + \mu_n v_n$, $\mu_i \in K$. Wir schreiben
+					$$v_1 = \lb^{-1}(w-\lb_2 v_2 - \ldots - \lb_n v_n0 + \ldots + \mu_n v_n)$$ denn $\lb_1\not=0$. Dann gilt
+					\begin{align*}
+						x =&\quad \ \ \mu_1\lb_1^{-1}w\\
+						   &+(\mu_2-\lb_1^{-1}\lb_2)v_2\\
+						   &+\qquad\ \ldots\\
+						   &+(\mu_n-\lb_1^{-1}\lb_n)v_n
+					\end{align*}
+					und $(w, v_2, \dots, v_n)$ ist ein Erzeugendensystem von $V$.
+				\item Sei $0 = \mu_1 w + \mu_2 v_2 + \ldots + \mu_n v_n$. Wir setzen $w$ ein, und erhalten
+					$$0 = \mu_1 \lb_1 v_1 + (\mu_2  + \mu_1 \lb_2) v_2 + \ldots + (\mu_n + \mu_1 \lb_n)v_n$$
+					Nun ist aber nach Annahme $(v_1, \ldots, v_n)$ eine Basis von $V$. Also gilt $\mu_1\lb_1 = 0$, $\mu_2  + \mu_1 \lb_2=0$, $\ldots$ , $\mu_n + \mu_1 \lb_n$ = 0. 
+					
+					Damit folgt $(\lb_1 \neq 0) \Rightarrow \mu_1 = 0\ \Rightarrow \ \mu_2=0,\ \mu_3=0,\ \ldots ,\ \mu_n=0$. Also sind $(w, v_2, \dots, v_n)$ linear unabhängig und somit eine Basis von $V$.
+			\end{enumerate}
+		\end{proof}	
+	\end{lem}
+	
+	\begin{satz}[Basisaustauschsatz von Steinitz]
+		\IN{Vektorraum!Basis!-austauschsatz}
+		\label{satz215}
+		Es sei $(v_1, \dots, v_n)$ eine Basis von $V$ und $(w_1, \dots, w_m)$ sei eine linear unabhängige Familie von Vektoren in $V$. Dann gilt:
+		\begin{enumerate}
+			\itemsep0cm
+			\item $m \leq n$
+			\item $(v_1, \dots, v_n)$ kann so umnummeriert werden, dass $(w_1, \ldots, _m, v_{m + 1}, \ldots, v_n)$ eine Basis ist.
+		\end{enumerate}
+		\vspace{.25cm}
+		\begin{proof} Erfolgt durch Induktion über $m$:
+			\begin{enumerate}
+				\item[IA:] Für $m = 0$ ist nichts zu zeigen.
+				\item[IS:] "`$m \to m + 1$"'
+				
+					Sei $(w_1, \dots, w_{m+1})$ also eine linear unabhängige Familie. Es gilt nach \hyperref[lem210]{Lemma \ref{lem210}.4}, dass $(w_1, \dots, w_m)$ linear unabhängig sind. Nach der Induktionsannahme gilt also
+					
+					\begin{enumerate}
+						\item[i.]  $m \leq n$
+						\item[ii.] $(w_1, \dots, w_m, v_{m+1}, \dots, v_n)$ ist eine Basis von $V$ (nach geeigneter Umnummerierung)
+					\end{enumerate}
+					
+					Zu zeigen ist nun:
+					
+					\begin{enumerate}
+						\item[a) ] $m+1\leq n$
+						\item[b) ] $(w_1, \dots, w_{m+1}, v_{m+2}, \dots, v_n)$ ist eine Basis von $V$ (nach geeigneter Umnummerierung)\vspace{.2cm}
+						\item[Zu a):] Wir zeigen die Aussage durch einen Widerspruch und nehmen also an, dass gilt: $m+1>n$. Es folgt nach i.: $m\leq n$, dass $m=n$. Damit ist aber laut Induktionsannahme $(w_1,\ldots, w_m)$ eine Basis von $V$, also eine maximal linear unabhängige Familie, damit kann $(w_1, \ldots, w_{m+1})$ nicht mehr linear unabhängig sein \Lightning
+						\item[Zu b):] Es sei $w_{m+1} = \lb_1w_1+\ldots+\lb_m w_m + \lb_{m+1} v_{m+1} +\ldots + \lb_n v_n$. Es muss aber ein $a\geq m+1$ existieren mit $\lb_a\not=0$ (denn sonst wären $(w_1, \ldots, w_m)$ linear abhängig). Nach \hyperref[lem214]{Lemma \ref{lem214}} kann $v_a$ durch $w_{m+1}$ ersetzt werden. Umnummerierung liefert das Ergebnis.
+					\end{enumerate}
+			\end{enumerate}
+		\end{proof}
+	\end{satz}
+	
+	\begin{kor}[Alle Basen eines Vektorraumes haben gleich viele Elemente]
+		$V$ besitze eine Basis $(v_1, \dots, v_n)$ mit $n \in \N \cup \{0\}$. Dann hat jede Basis von $V$ genau $n$ Elemente.\\
+		
+		\begin{proof}
+			Sei $(w_i)_{i \in I}$ eine weitere Basis. Es folgt sofort, dass die Anzahl der Elemente $\le n$ ist. Insbesondere ist $I$ endlich. Falls $m = \#I < n$ liefert das selbe Argument mit $(v_I)$ und $(w_i)$ vertauscht wieder einen Widerspruch \Lightning
+		\end{proof}
+	\end{kor}
+	\vspace{.25cm}
+	\begin{definition}[Dimension]
+		\IN{Vektorraum!Dimension}
+		Es sei $V$ ein $K$-Vektorraum. Wir setzen
+		$$\dim_K(V) = \begin{cases}\infty,&\text{ falls $V$ keine endliche Basis besitzt}\\n,&\text{ falls $V$ eine Basis mit $n$ Elementen besitzt}\end{cases}$$
+		$\dim_K(V)$ heißt Dimension von $V$.
+	\end{definition}
+	
+	\begin{satz}[Basisergänzungssatz von Steinitz]
+		\label{satz218}
+		Falls $V$ endlich erzeugt ist, und $(w_i)_{i \in I}$ eine linear unabhängige Familie von Vektoren ist, dann existiert eine Basis von $V$, die alle $w_i$ enthält. Insbesondere besitzt jeder endlich erzeugte Vektorraum eine Basis.\\
+		
+		\begin{proof}
+			Es seien $\{v_1, \dots, v_n\} \subset V$ mit $n \in \N \setminus\{0\}$, mit $\Span(\{v_1, \dots, v_n\}) = V$. Aus dem \hyperref[satz213]{Basisauswahlsatz} folgt sofort Existenz einer Basis. Der Rest folgt mit Basisergänzungssatz.$^{\text{ [Literaturangabe benötigt]}}$\\
+		\end{proof}
+	\end{satz}
+	
+	\begin{lem}
+		Falls $\dim_k(v) = n$ mit $n \in \N \cup \{0\}$, dann gilt:
+		\begin{enumerate}
+			\item Falls $(v_1, \dots, v_n)$ linear unabhängig ist, dann ist $(v_1, \ldots, v_n)$ bereits eine Basis
+			\item Falls $W \subset V$ ein Untervektorraum ist, so gilt
+			\begin{align*}
+				\dim_K(W) &\le \dim_K(V)\ \text{und}\\
+				\dim_K(W) &= \dim_K(V)\ \Rightarrow \ W = V
+			\end{align*}
+		\end{enumerate}
+		\vspace{.2cm}
+		\begin{proof}
+			\begin{enumerate}
+				\item Folgt aus dem \hyperref[satz215]{Basisaustauschsatz}
+				\item Angenommen $(w_1, \dots, w_m)$ sind linear unabhängig in $W$. Dann sind sie auch in $V$ linear unabhängig. Damit folgt $m \leq n = \dim_K(V)$. Es folgt $\dim_K(W) \leq n$. Falls $\dim_K(W) = \dim_K(V)$ dann ist eine Basis von $W$ nach 1. auch eine Basis von $V$. Also folgt sofort $V = W$.
+			\end{enumerate}
+		\end{proof}
+		\begin{bem}
+			Es gibt nicht nur endlich erzeugte Vektorräume.\\
+		\end{bem}
+		\begin{minipage}{\textwidth}
+			\textbf{Beispiele: }
+			\begin{enumerate}
+				\item $\R^\N$, also $(x_1, x_2, \ldots)$ mit eintragsweiser Addition (d.h. für $x = (x_1, \ldots), y = (y_1, y_2, \ldots)$ schreiben wir $x + y = (x_1 + y_2. x_2 + y_2, \ldots)$ und eintragsweiser Skalarmultiplikation (d.h. $\lb x = (\lb x_1, \lb x_2, \ldots)$) ist ein \mR -Vektorraum. Es gilt $\dim_K(V) = \infty$, denn, angenommen $\dim_K(V) = n$, für $n \in \N_0$ kann man leicht $n + 1$ linear unabhängige Vektoren finden (z.B. $(1, 0, \ldots), (0, 1, 0, \ldots), \dots, (0, \ldots, 0, 1, 0, \ldots)$) was einen Widerspruch darstellt \Lightning
+				
+				Die Vektoren $(1, 0, \dots), (0, 1, 0, \dots), \dots)$ stellen auch keine Basis dar, insbesondere gibt es keine abzählbare Basis für $V$.
+				\item Die Menge konvergenter Folgen
+				\item $\abb(\R, \R)$
+				\item Die Menge der stetigen reellen Funktionen
+				\item  $\{x \in \R^\N, x = (x_1, x_2, \dots)$ mit endlich vielen $x_i \neq 0\} \subset \R^\N$. Hier ist $((1, 0, \dots), (0, 1, 0, \dots), \dots)$ eine Basis.
+			\end{enumerate}
+		\end{minipage}
+
+	\end{lem}
+
+	\begin{satz}[Existenz einer Basis]
+		Jeder Vektorraum besitzt eine Basis.\\
+		
+		\noindent\textbf{Beweisidee: }	Es sei $V$ ein $K$-Vektorraum. Es sei $\mathfrak{M} = \{A \subset V : A$ linear unabhängig$\} \subset 2^V$. Auf $\mathfrak{M}$ definiert "`$\subset$"' eine Halbordnung, d.h. es gilt 
+		\begin{enumerate}[leftmargin=5cm]
+			\item $A \subset A$
+			\item $A \subset B \land B \subset A \Rightarrow A = B$
+			\item $A \subset B, B \subset C \Rightarrow A \subset C$
+		\end{enumerate}
+		Wir betrachten nun Teilmengen $U \subset \mathfrak{M}$, welche total geordnet sind, d.h. für $A, B \in U$ gilt immer $A \subset B$ oder $B \subset A$.\\
+		
+		\noindent Ein kurzes Beispiel aus $2^\R$ für $U$ ist $U = \{(-j, j), j \in \N\}$. Solche Teilmengen von $\mathfrak{M}$ heißen auch Ketten. Nun sei $\mathcal{M}(U) = \bigcup_{A \in U} A$. Es gilt nun:
+		\begin{enumerate}
+			\item $\mathcal{M}(U) \subset V$
+			\item Für alle $A \in U : A \subset \mathcal{M}(U)$
+			\item Es seien $v_1, \dots v_n$ Vektoren in $\mathcal{M}(U)$ und $\lb_1, \ldots, \lb_n \in K$, sodass gilt $\lb_1 v_1 + \ldots + \lb_n + v_n = 0$.
+			Es existiert ein $\mathcal{A} \in U$, so dass $v_1, \ldots, v_n \in \mathcal{A}$, denn für $j = 1, \ldots, n$ existiert $A_j \in U$ mit $v_j \in A_j$. Nachdem $U$ aber total geordnet ist, ist eines der $A_j$ das größte davon, dieses nennen wir $\mathcal{A}$. Dieses $\mathcal{A}$ ist aber linear unabhängig, denn $\mathcal{A} \in \mathfrak{M}$. Damit folgt aber $\lb_1 = \dots = \lb_n = 0$ und es gilt $\mathcal{M}(U)$ ist linear unabhängig und $\mathcal{M}(U) \in \mathfrak{M}$
+		\end{enumerate}
+		Anders gesagt: jede Kette in $\mathfrak{M}$ besitzt eine obere Schranke in $\mathfrak{M}$.\\
+		
+		\noindent Wir benutzen nun das Lemma von Zorn: Es sei $\mathfrak{M}$ eine Menge mit Halbordnung "`$\subset$"', so dass jede Kette in  $\mathfrak{M}$ eine obere Schranke in $\mathfrak{M}$ besitzt. Dann existiert ein maximales Element $m$ in  $\mathfrak{M}$, d.h. ein Element $m$, so dass gilt $B \in  \mathfrak{M}, m \subset B \Rightarrow B = m$.\\
+		
+		\noindent Angewendet auf unseren Fall ergibt sich sofort ein maximales Element aus $\mathfrak{M} = \{A \in V : A$ linear unabhängig$\}$, also eine maximale lineare unabhängige Familie, d.h. eine Basis.\\
+		
+		\noindent Das Lemma von Zorn ist (in der üblichen Mengenlehre nach Zermelo und Fraenkel, welche man in der Logik kennenlernt) äquivalent zum Auswahlaxiom (auch kennenzulernen in der Logik), welches besagt:
+		
+		\noindent Sei $X = \{U_i, i \in I\}$ eine Menge von Mengen, dann existiert eine sogenannte Auswahlfunktion $$F : X \to \bigcup_{i \in I} U_i\ \text{ mit }\ F(U_i) = a_i \in U_i.$$
+	\end{satz}
+
+
+
+\chapter{Lineare Abbildungen}
+\hspace{-.25cm}\begin{minipage}{1.05\textwidth}
+	Wir kennen schon lineare Abbildungen von $\R^n$ nach $\R^m$, nämlich diejenigen, welche durch Matrizen dargestellt werden.
+\end{minipage}
+\vspace{.5cm}
+
+\section{Definition und grundlegende Eigenschaften}
+\hspace{-.25cm}Im Folgenden sei $K$ ein Körper und $V$ ein $K$-Vektorraum.
+
+	\begin{definition}[Lineare Abbildungen]
+		\IN{Lineare!Abbildungen}
+		Es seien $V$, $W$ $K$-Vektorräume.
+		\begin{enumerate}
+			\item Eine Abbildung $F : V \to W$ heißt $K$-linear (oder Vektorraumhomomorphismus) falls gilt:
+			\begin{enumerate}[leftmargin=5cm]
+				\item $F(x + y) = F(x) + F(y)$
+				\item $F(\lb x) = \lb F(x)$
+			\end{enumerate}
+			für alle $x, y \in V, \lb in K$ und wir schreiben $F \in \Hom_K(V, W)$
+			
+			\item Falls $V = W$, so heißt $F \in \Hom_K(V, W) = \End_K(V)$ Vektorraumendomorphismus
+			\item Ein Vektorraum-Komorphismus ist ein bijektiver Vektorraumhomomorphismus. Falls ein solcher Komorphismus von $V$ nach $W$ existiert, nennen wir $W$ und $V$ isomorph, und schreiben $V \cong W$
+			\item $\Aut_K(V) = \{F \in \End_K(V) : F \text{ bijektiv}\}$ sind die Vektorraum-Automorphismen von $V$
+		\end{enumerate}
+		\vspace{.1cm}
+		\begin{bem}$ $
+			\begin{enumerate}
+				\item $\hat{V} \subset V$ ein Untervektorraum, dann ist die Inklusion $i : \hat{V} \to V, i(x) = x$ ein Vektorraumhomomorphismus
+				\item $\Hom_K(V, W) \subset \abb(V, W)$ ist ein Untervektorraum
+				\item $\End_K(V)$ hat zusätzlich die Struktur eines Ringes mit Addition punktweise definiert, d.h. $$(F + G)(x) = F(x) + G(x)$$ und Multiplikation als Hintereinanderausführung.
+				Es gilt die Kompatibilitätseigenschaft
+				$$(\lb F) \circ G = \lb (F \circ G) = F \circ (\lb G)\ \text{ für alle }\ F, G \in \End_K(V), \lb \in K$$
+				Eine solche Struktur (Ring, Vektorraum, Komposition) heißt $K$-Algebra.
+				
+				\item $\Aut_K(V)$ ist eine Gruppe (mit Nacheinanderausführung als Verknüpfung). Aber: $\Aut_K(V)$ ist kein Vektorraum, außer $V = \{0\}$
+			\end{enumerate}
+		\end{bem}
+		Beweise : Siehe Übung.\\
+		
+		\noindent\textbf{Beispiele: }
+		\begin{enumerate}
+			\item Matrizen induzieren lineare Abbildungen
+			\item 
+			\begin{align*}
+				V &= \{f \in Abb(\R, \R) : f \text{ stetig differenzierbar}\}\\
+				W &= \{f \in Abb(\R, \R) : f \text{ stetig}\}
+			\end{align*}
+			Dann ist $D : V \to W, f \mapsto f'$ eine lineare Abbildung.
+		\end{enumerate}
+		
+		\begin{bem}
+			Das Lösen von reellen linearen Gleichungssystemen $Ax = b$ entspricht also der Bestimmung der Menge $A^{-1}(\{b\})$, wobei $A$ sowohl als (Koeffizienten-) Matrix als auch als lineare Abbildung aufgefasst werden kann.
+		\end{bem}
+	\end{definition}
+
+	\begin{lem}[Eigenschaften linearer Abbildungen]
+		\label{lem32}
+		$U$, $V$, $W$ seien $K$-Vektorräume, $F \in \Hom_K(V,W), G \in \Hom_K(U, V)$. Dann gilt
+		\begin{enumerate}
+			\item $F(0) = 0$
+			\item $F(x - y) = F(x) - F(y)$
+			\item $F \circ G \in Hom_K(U, W)$
+			\item Ist $F$ ein Isomorphismus $\Rightarrow F^{-1} \in \Hom_K(W, V)$.
+			\item Sei $I$ eine  Indexmenge, $(v_i)_{i \in I} \in V^I$, dann gilt
+				$$(v_i)_{i \in I}\ \text{linear abhängig} \ \Rightarrow (F(v_i))_{i \in I} \in W^I \text{ linear abhängig}$$
+			\item 
+				\begin{enumerate}
+					\item Sei $\hat{V} \subset V$ ein Untervektorraum. Dann ist $F(\hat{V}) \subset W$  ebenfalls ein Untervektorraum. Insbesondere ist $\Ima(F) = F(V)$ ein Untervektorraum.
+					\item Sei $\hat{W} \subset W$ ein Untervektorraum. Dann ist $F^{-1}(\hat{W}) \subset V$  ebenfalls ein Untervektorraum. Insbesondere ist $\ker(F) = F^{-1}(\{0\})$ ein Untervektorraum.
+					\item Sei $F$ ein Isomorphismus. Dann gilt $F(\hat{V}) \cong \hat{V}$ für jeden Untervektorraum $\hat{V} \subset V$. 
+				\end{enumerate}
+			\item $\dim(Im(F)) \leq \dim(V)$
+		\end{enumerate}
+		Beweis: Übungen.\\
+		\begin{bem}
+			Es gilt natürlich auch $(F (v_i))_{i \in I}$ linear unabhängig $\Rightarrow (v_i)_{i \in I}$ linear unabhängig	
+		\end{bem}
+	\end{lem}
+	
+	\begin{satz}[Definition linearer Abbildung durch Basis]
+		\label{satz33}
+		Es seien $V, W$ $K$-Vektorräume, $I$ eine Indexmenge, $(v_i)_{i \in I}$ eine Basis von $V$. Weiterhin sei $(w_j)_{j \in I} \in W^I$ eine Familie von Vektoren in $W$. Dann existiert genau eine $K$-lineare Abbildung $F : V \to W$ mit $f(v_j) = w_j$ für alle $j \in I$.\\
+		
+		\noindent Dieses $F$ erfüllt weiterhin
+		\begin{enumerate}[leftmargin = 4cm]
+			\item $\Ima(F) = \Span(\{w_j : j \in I\})$
+			\item $F$ injektiv $\Leftrightarrow (w_j)_{j \in I}$ linear unabhängig.
+		\end{enumerate}
+		
+		\begin{proof}
+			Es sei $x \in V$. Damit existiert eine eindeutige Linearkombination $x = \sum_{j \in I} \lb_j v_j$. Wir setzen $$F(x) = \sum_{j \in I}\lb_jw_j = \sum_{j \in I} \lb_fF(v_j).$$ Nachdem $F$ linear sein soll, ist dies die einzig mögliche Form von $F$, es existiert also höchstens eine solche lineare Abbildung. Es ist mittels Einsetzen leicht zu überprüfen, dass gilt
+			\begin{align*}
+				F(x + y) &= F(x) + F(y)\ \text{sowie}\\
+				F(\lb x) &= \lb F(x)
+			\end{align*}
+			Damit ist das oben definierte $F$ linear und es existiert genau ein $F \in \Hom_K(V, W)$ mit den gewünschten Eigenschaften.
+			\begin{enumerate}[leftmargin=2cm]
+				\item[Zu 1.:]Folgt direkt aus der Definition von $F$
+				\item[Zu 2.:]Es gilt $F$ nicht injektiv 
+				\begin{alignat*}{2}
+					\Leftrightarrow \exists x, y \in V, x &\neq y : && F(x) = F(y)\\
+					\Leftrightarrow \exists z \neq 0 : z &= x - y : && F(z) = 0\\
+					\Leftrightarrow z &= \sum_{j \in I} \lb_j v_j
+				\end{alignat*}
+				und nicht alle $\lb_j = 0$.\\
+				Somit ist $F\left(\sum_{j \in I}\lb_j v_j\right) = \sum_{j \in I} \lb_j F(v_j) = \sum_{j \in I} \lb_j w_j = 0$ und $(w_j)_{j \in I}$ ist linear abhängig.\\
+			\end{enumerate}
+		\end{proof}
+		
+		\begin{bem}
+			Der \hyperref[satz33]{Satz \ref{satz33}} besagt, dass man eine lineare Abbildung bereits kennt, wenn man ihre Wirkung auf alle Basisvektoren kennt. 
+		\end{bem}
+	\end{satz}
+	
+	\begin{prop}
+		Es gilt $G\in\Hom_K(V, W)$ ist injektiv genau dann, wenn $\ker(G)=\{0\}$.\\
+		\begin{proof}
+			Wurde bereits im Beweis von \hyperref[satz33]{Satz \ref{satz33}} gezeigt. 
+		\end{proof}
+	\end{prop}
+	\vspace{.25cm}
+	\begin{kor}
+		Es sei $V$ ein $K$-Vektorraum mit $\dim_K(V)=n<\infty$. Dann gilt $V\cong K^n$. Weiterhin sei $W$ ein $K$-Vektorraum mit $\dim_K(W)=n$, dann gilt auch $V\cong W$.\\
+		
+		\begin{proof}
+			Nach dem \hyperref[satz218]{Basisergänzungssatz} existiert eine Basis $(v_1,\ldots, v_n)$ von $V$. Weiterhin sei $(e_1, \ldots, e_n)$ die Standardbasis von $K^n$. Dann gilt nach \hyperref[satz33]{Satz \ref{satz33}}, dass für genau eine $K$-lineare Abbildung ein $F$ existiert mit $F(v_i)=e_i$ für $i=1, \ldots, n$. $F$ ist surjektiv, denn $\Ima(F)=F(V)=\Span(\{e_1, \ldots, e_n\})=K^n$. \\
+			$F$ ist injektiv, denn $(e_1, \ldots, e_n)$ ist linear unabhängig, der Schluss folgt mit \hyperref[satz33]{Satz \ref{satz33}.2}.\\
+						
+			\noindent Ebenso für $V\cong W$.\\
+		\end{proof}
+		\begin{bem}
+			Der $K^n$ ist also in einem gewissen Sinn der einzige $n$-dimensionale $K$-Vektorraum. Der Isomorphismus hängt von der Wahl der Basis in $V$ ab, ist also nicht eindeutig bestimmt (man sagt, er ist nicht kanonisch).\\
+		\end{bem}
+		\begin{bem}
+			Das Korollar hilft bei Fragen wie "`Was ist die Lösungsmenge von $F(x)=0$"' mit $F:V\to W$ linear, $\dim_K(V) = n<\infty$ endlich, $\dim_K(W) = m<\infty$, denn wir haben einen Isomorphismus $G:U\to K^n$, $H:W\to K^m$ und berechnen $F(x)=0\ \Leftrightarrow\ \tilde{F}(G(x)) = H(0)$ mit einer Abbildung $\tilde{F}:K^n\to K^m,\ \tilde{F}(v_i) = H(F(G^{-1}(e_i)))$ und es folgt mit \hyperref[lem32]{Lemma \ref{lem32}}: $\dim_K(\ker(F)) = \dim_K(\ker(\tilde{F}))$.\\
+		\end{bem}
+	\end{kor}
+	
+	\begin{definition}
+		Seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$. Dann heißt $$\rg(F)=\dim_K(F(V)) = \dim_K(\Ima(F))$$ der Rang von $F$.\\
+		\begin{bem}
+			Falls $G$, $\tilde{G}$ Isomorphismen sind, so gilt $\rg(F) = \rg(F\cong G) = \rg(\tilde{G}\cong F)$ mit $F:V\to W,\ G:\tilde{V}\to V,\ \tilde{G}: W\to\tilde{W}$. Die Reihenfolge von Isomorphismenschaltungen ändert also den Rang nicht.\\
+		\end{bem}
+	\end{definition}
+	
+	\begin{satz}[Dimensionsformel]
+		Es seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$, $\dim_K(V)$ endlich. Dann gilt $$\dim_K(V) = \dim_K(\ker(F))+\rg(F).$$
+		\begin{proof}
+			Nach \hyperref[lem32]{Lemma \ref{lem32}} ist $\ker(F)\subset V$ ein Untervektorraum, also endlichdimensional ${}^\text{[Literaturangabe benötigt]}$. Weiter ist $\Ima(F)\subset W$ ein Untervektorraum, also mit $\dim_K(\Ima(F))$ endlichdimensional ${}^\text{[Literaturangabe benötigt]}$. Sei also $(v_1, \ldots v_m)$ eine Basis von $\ker(F)$, $(w_1,\ldots, w_r)$ eine Basis von $\Ima(F)$ und es seien $u_1,\ldots, u_r$ Vektoren in $V$ mit $F(u_j)=w_j$ für $j=1, \ldots, r$.
+			
+			Zu zeigen ist nun, dass $m+r=\dim_K(V)$ ist. Wir beweisen, dass $(v_1, \ldots, v_m, u_1, \ldots, u_r)$ eine Basis von $V$ ist:
+			\begin{enumerate}
+				\item $(v_1, \ldots, v_m, u_1, \ldots, u_r)$ erzeugt $V$. Es sei also $x\in V$ beliebig. Es existieren $\lb_1, \ldots, \lb_r\in K$ mit $F(x) = \sum_{j=1}^{r}\lb_j w_j$, denn $(w_j)_{j=1, \ldots, r}$ sind die Basis von $\Ima(F)$. Nun sei $y=x-\sum_{j=1}^{r}\lb_j v_j\ \in V$. dann gilt $$F(y) = F(x) - F\left(\sum_{j=1}^{r}\lb_j v_j\right) = F(x) - \sum_{j=1}^{r}\lb_j F(v_j)= F(x) - \sum_{j=1}^{r}\lb_j w_j = F(x)-F(x)=0.$$ Damit ist $y\in \ker(F)$ und es existieren $\mu_1, \ldots, \mu_m$, sodass $y=\sum_{i=1}^{m}\mu_i v_i$. Damit gilt aber $x=\sum_{i=1}^{m}\mu_iv_i + \sum_{j=1}^{r}\lb_jv_j$ und $x\in \Span(\{v_1, \ldots, v_m, u_1, \ldots, u_r\})$. 
+				
+				Somit erzeugt $(v_1, \ldots, v_m, u_1, \ldots, u_r)$ den Vektorraum $V$.
+				
+				\item Nun ist zu zeigen, dass $(v_1, \ldots, v_m, u_1, \ldots, u_r)$ linear unabhängig ist.
+				
+				Es seien $\lb_1,\ldots, \lb_m, \mu_1, \ldots, \mu_r\in K$ mit $\sum_{i=1}^{m}\lb_i v_i + \sum_{j=1}^{r}\mu_j u_j=0$. Dann folgt $$0\stackrel{\hyperref[lem32]{L\ref{lem32}}}{=} F(0) = \underbrace{\sum_{i=1}^{m}\lb_i F(v_i)}_{=0} + \sum_{j=1}^{r}\mu_jF(v_j) = \sum_{j=1}^{r}\mu_jw_j\ \Rightarrow \ \mu_j = 0$$ denn $(w_j)_{j=1,\ldots, r}$ bilden eine Basis und sind somit linear unabhängig.
+				
+				Damit gilt $\sum_{i=1}^{m}\lb_iv_i=0$ also $\lb_i=0$ für $i=1, \ldots, m$, denn $(v_i)_{i=1, \ldots, m}$ sind auch linear unabhängig.\\
+			\end{enumerate}
+		\end{proof}
+	\end{satz}
+	\begin{definition}[Direkte Summe]
+		Es sei $V$ ein $K$-Vektorraum, $V_1$, $V_2$ Untervektorräume.
+		\begin{enumerate}
+			\item Wir schreiben $V_1+V_2=\Span(V_1\cup V_2)$
+			\item $W=V_1\oplus V_2$, falls $W=V_1+v_2$ und $V_1\cap V_2 = \{0\}$. $W$ heißt dann direkte Summe von $V_1$ und $V_2$. $V_1$ und $V_2$ heißen dann komplementär.
+		\end{enumerate}
+	\end{definition}
+\newpage
+\printindex
 \end{document}
