@@ -11,6 +11,7 @@
 \usepackage{amsthm}
 \usepackage{titlesec}
 \usepackage{enumitem}
+\usepackage{pgfplots}
 \usepackage[a4paper, top = 2cm, left = 2.5cm, right = 2.5cm, bottom = 2cm]{geometry}
 \title{Lineare Algebra I\\Mitschrieb}
 
@@ -26,6 +27,8 @@
 % ease of use commands
 \newcommand{\lb}{\lambda}
 \newcommand{\mlb}{$\lb$}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\ee}{\mathrm{e}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
@@ -45,6 +48,7 @@
 \newcommand{\ve}[1]{{\begin{pmatrix}#1 \end{pmatrix}}}
 \renewcommand{\v}{\ve}
 \DeclareMathOperator{\abb}{Abb}
+\DeclareMathOperator{\Span}{span}
 
 % increase line height
 \renewcommand{\baselinestretch}{1.2}
@@ -66,11 +70,11 @@
 	{}     % name of font to use in the body of the theorem
 	{}     % measure of space to indent
 	{\itshape}% name of head font
-	{:}       % punctuation between head and body
+	{}       % punctuation between head and body
 	{.5em} % space after theorem head; " " = normal interword space
 	{}
 \theoremstyle{customrem}
-\newtheorem*{bem}{Bemerkung}
+\newtheorem*{bem}{Bemerkung:}
 \theoremstyle{customdef}
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem*{definition*}{Definition} % without numbering
@@ -149,8 +153,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 \newpage
 \tableofcontents
 \newpage
-
-\chapter{Lineare Gleichungssysteme und der \\ $\mathbf{n}$-dimensionale reelle Raum}
+\chapter[Lineare Gleichungssysteme und der $\mathbf{n}$-dimensionale reelle Raum]{Lineare Gleichungssysteme und der \\ $\mathbf{n}$-dimensionale reelle Raum}
 
 \begin{itemize}
 	\item Descartes führte ``Koordinaten'' ein in der Geometrie ein, also Zahlensysteme. Das führte dazu, das man nun leichter rechnen kann.
@@ -172,6 +175,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 \end{itemize}
 
 \section{Der $\R^n$}
+	\label{kap0}
 	Für gegebenes $n \in \N$ definieren wir:\\
 	$$\R^n = \{x = (x_1, x_2, \dots, x_n): x_1, \dots, x_n \in \R\}$$
 	Hierbei ist $(x_1, \dots, x_n)$ ein geordnetes $n$-Tupel, die Reihenfolge beim Vergleich Elemente dieser Art ist wichtig.\\
@@ -564,6 +568,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{lem}
 	
 	\begin{kor}[$||x-y||$ ist eine Metrik]
+		\label{metrikkor}
 		Der \mRn mit dem Abstand $d(x, y) = ||x - y||$ ist ein sogenannter metrischer Raum. Das bedeutet folgendes:
 		\begin{enumerate}
 			\itemsep0cm
@@ -1045,6 +1050,7 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 	\end{definition}
 	
 	\begin{lem}$ $\vspace{-.75cm}
+		\label{lem128}
 		\begin{enumerate}
 			\item Falls $G$ eine Gruppe ist, so sind $\tau_a$ und $_{a}\tau$ bijektiv.
 			\item Sei $G$ eine Menge mit assoziativer Verknüpfung. Dann folgt \hyperref[def125]{Definition \ref{def125}.2} aus Surjektivität von $\tau_a$ und $_{a}\tau$
@@ -1161,306 +1167,364 @@ Zur Berechnung von $p(\delta_j), j \in \{1..5\}$ gibt es Methoden aus der linear
 		Das neutrale Element der Addition $+$ heißt Nullelement (oder $0$).
 	\end{definition}
 
+	\begin{prop}[Absorption durch Nullelement]
+		Es gilt $0 \cdot a = a \cdot 0 = 0$.\\
+		\begin{proof}
+			Wir erinnern uns an die Kürzungsregel: $\al + \xi = \beta + \xi \Rightarrow \al = \beta$. Wir schreiben also $0 + 0a = 0a = (0 + 0) a = 0a + 0a \Rightarrow 0 = 0a$. \ Ebenso folgt $0 = a0$.
+		\end{proof}\vspace{.75cm}
+		\linebreak\textbf{Beispiele:}
+		\begin{enumerate}
+			\item $(\Z, + \cdot)$, $(\Q, +, \cdot)$, $(\R, + \cdot)$
+			\item $\Z.m\Z$ mit der Addition wie bisher und $\bar{a} \cdot \bar{b} = \overline{ab}$ (Nach Überprüfung der Unabhängigkeit von der Wahl des Repräsentanten)
+			\item Die $2\times2$-Matrizen $A = \begin{pmatrix}a & b\\c & d\end{pmatrix}$ bilden einen Ring mit\\
+			\begin{alignat*}{3}
+				&\begin{pmatrix}a & b\\c & d\end{pmatrix} + &\begin{pmatrix}e & f\\g & h\end{pmatrix} &= \begin{pmatrix}a + e & b + f\\c + g & d + h\end{pmatrix}\\
+				&\begin{pmatrix}a & b\\c & d\end{pmatrix}\; \cdot &\begin{pmatrix}e & f\\g & h\end{pmatrix} &= \begin{pmatrix}ac+bg & af+bh\\ce+dg & cf+dh\end{pmatrix}
+			\end{alignat*}
+			Die gewünschten Eigenschaften folgen sofort. Es gilt aber:\\
+			$$\begin{pmatrix}1 & 1\\0 & 1\end{pmatrix} \begin{pmatrix}1 & 0\\1 &1\end{pmatrix} \neq \begin{pmatrix}1 & 0\\1 & 1\end{pmatrix} \begin{pmatrix}1 & 1\\0 & 1\end{pmatrix}$$
+		\end{enumerate}
+	\end{prop}
 
-\subsubsection{Proposition 1.34 Absorption durch Nullelement}
-Es gilt $0 \cdot a = a \cdot 0 = 0$.\\
-\textbf{Beweis}\\
-Wir erinnern uns an die Kürzungsregel: $\al + \xi = \beta + \xi \Rightarrow \al = \beta$.\\
-Wir schreiben $0 + 0a = 0a = (0 + 0) a = 0a + 0a \Rightarrow 0 = 0a$\\
-Ebenso folgt $0 = a0$.\\
-\\
-\textbf{Beispiele}
-\begin{enumerate}
-\item{$(\Z, + \cdot)$, $(\Q, +, \cdot), (\R, + \cdot)$.}
-\item{$\Z.m\Z$ mit + wie bisher und $\bar{a} \cdot \bar{b} = \overline{ab}$ (Nach Überprüfung der Unabhängigkeit von der Wahl des Repräsentanten)}
-\end{enumerate}
-\textbf{Beispiel}\\
-Die 2x2-Matrizen $A = \begin{pmatrix}a & b\\c & d\end{pmatrix}$ bilden einen Ring mit\\
-$\begin{pmatrix}a & b\\c & d\end{pmatrix} + \begin{pmatrix}e & f\\g & h\end{pmatrix} = \begin{pmatrix}a + e & b + f\\c + g & d + h\end{pmatrix}$\\
-$\begin{pmatrix}a & b\\c & d\end{pmatrix} \cdot \begin{pmatrix}e & f\\g & h\end{pmatrix} = \begin{pmatrix}ac+bg & af+bh\\ce+dg & cf+dh\end{pmatrix}$\\
-Die gewünschten Eigenschaften folgen sofort. Es gilt aber:\\
-$\begin{pmatrix}1 & 1\\0 & 1\end{pmatrix} \begin{pmatrix}1 & 0\\1 &1\end{pmatrix} \neq \begin{pmatrix}1 & 0\\1 & 1\end{pmatrix} \begin{pmatrix}1 & 1\\0 & 1\end{pmatrix}$
+	\begin{definition}[Unterring und Ringhomomorphismus]
+		Es sei $(R, +, \cdot)$ ein Ring, $R' \subset R$. $(R', +, \cdot)$ heißt Unterring, falls $(R', +)$ eine Untergruppe von $(R, +)$ ist und gilt $a, b \in R' \Rightarrow ab \in R'$.\\[.2cm]
+		Es seien $(R, +, \cdot)$, $(S, \hat{+}, \hat{\cdot})$ Ringe, $\varphi : R \to S$ eine Abbildung. $\varphi$ heißt Ringhomomorphismus, falls gilt $\varphi(a + b) = \varphi(a) \hat{+} \varphi(b)$ und $\varphi(ab) = \varphi(a) \hat{\cdot} \varphi(b)$ für alle $a, b \in R$.
+	\end{definition}
 
-\subsubsection{Definition 1.35 Unterring und Ringhomomorphismus}
-\begin{enumerate}
-\item{
-Es sei $(R, +, \cdot)$ ein Ring, $R' \subset R$. $(R', +, \cdot)$ hei\ss{}t Unterring, falls $(R', +)$ eine Untergruppe von $(R, +)$ ist und gilt $a, b \in R' \Rightarrow ab \in R'$
-}
-\item{
-Es seien $(R, +, \cdot)$, $(S, \hat{+}, \hat{\cdot})$ Ringe, $\varphi : R \to S$ eine Abbildung. $\varphi$ hei\ss{}t Ringhomomorphismus, falls gilt $\varphi(a + b) = \varphi(a) \hat{+} \varphi(b)$ und $\varphi(ab) = \varphi(a) \hat{\cdot} \varphi(b)$ für alle $a, b \in R$.
-}
-\end{enumerate}
+	\begin{definition}[Körper]
+		Es sei $K$ eine Menge, $+ : K \times K \to K, \cdot : K \times K \to K$ Verknüpfungen. $(K, +, \cdot)$ heißt Körper, falls gilt:
+		\begin{enumerate}
+			\item $(K, +)$ ist eine abelsche Gruppe
+			\item $K^\ast$ sei gegeben durch $K \setminus \{0\}$. Dann ist $(K^\ast, \cdot)$ eine abelsche Gruppe.
+			\item Für $a, b, c \in K$ gilt  $a (b+c) = ab + bc$ und $(b+c) a = ba + ca$
+		\end{enumerate}
+		\begin{bem}
+			Das neutrale Element der Multiplikation bezeichnen wir mit Eins $( = 1)$, das Inverse zu $a$ bezüglich der Multiplikation mit $a^{-1}$ oder $\frac{1}{a}$, bezüglich der Addition mit $-a$.
+		\end{bem}
+	\end{definition}
+	
+	\begin{prop}[Rechenregeln für Körper]
+		Sei $(K, +, \cdot)$ ein Körper. Dann gilt:
+		\begin{enumerate}[leftmargin = 4cm, rightmargin = 2cm]
+			\itemsep0cm
+			\item $1 \neq 0$
+			\item $0a = a0 = 0$
+			\item $ab = 0 \Rightarrow a = 0 \lor b = 0$\hfill (Nullteilerfreiheit)
+			\item $a(-b) -(ab)$ und $(-a)(-b) = ab$
+			\item $x a = \hat{x}a$ und $a \neq 0 \Rightarrow x = \hat{x}$
+		\end{enumerate}
+		\begin{proof}
+			\begin{enumerate}
+				\item Folgt sofort, denn $(K^\ast, \cdot)$ ist eine Gruppe.
+				\item Folgt analog zu Ringen.
+				\item Folgt aus Gruppeneigenschaft von $(K^*, \cdot)$, da $(K^*, \cdot)$ unter der Multiplikation abgeschlossen ist, und somit $a$ oder $b$ nicht in $K^\ast$ sein kann (also $0$ ist)
+				\item Wir rechnen 
+					$$ab + a(-b) = a (b - b) = a 0 = 0$$
+					und
+					$$(-a)(-b) = -((-a)b) = -(-(ab)) = ab$$
+				\item Die Regel gilt für $x, \hat{x}$ beide in $K^\ast$. Ist aber $\hat{x} = 0$, so gilt $\hat{x}a = 0$ nach 2. und mit 3. folgt die Aussage.
+			\end{enumerate}
+		\end{proof}
+		
+		
+		\noindent\textbf{Beispiele:}
+		\begin{enumerate}
+			\item$(\Q, +, \cdot), (\R, +, \cdot)$.
+			\item Die komplexen Zahlen $\C$, wie folgt definiert. Für $(a, b), (c, d) \in \R \times \R$ definieren wir
+				$$(a, b)+(c, d) = (a + c, b + d)$$ und
+				$$(a,b)\cdot (c,d) = (ac-bd, ad + bc)$$
+				mit $(0, 0)$ als Nullelement und $(1, 0)$ als Einselement. Das additive Inverse zu $(a, b)$ ist dann $(-a, -b)$, das multiplikative Inverse ist $\left(\frac{a}{a^2+b^2}, -\frac{b}{a^2 + b^2}\right)$. Wir bezeichnen den so konstruierten Körper mit $\C$.\\
+				
+				Wir betrachten nun die Abbildung $\R \to \C, a \mapsto (a, 0)$, welche injektiv ist. Wir sehen, dass zwischen $\R \times \{0\}$ und $\{(a, b) \in \C : b = 0\}$ nicht unterschieden werden muss, denn 
+				$$(a, 0)\cdot(b, 0) = (ab, 0)$$
+				$$(a, 0) + (b, 0) =  (a+b, 0)$$
+				Wir schreiben $\ii = (0, 1) \in \C$ und $(a, b) = (a, 0) + (0, b) = a + \ii b$. Es gilt $\ii^2 = \ii\ii = -1$. Weiterhin schreiben wir  für $z = (a, b) \in \C, \bar{z} = (a, -b)$. (bzw. $z = a + \ii b, \bar{z} = a - \ii b$). $\bar{z}$ (manchmal auch $z^\ast$) nennen wir komplex Konjugiertes (oder komplexe Konjugation) von $z$.\\
+				
+				Für komplexe Zahlen $\lb, \mu$ gilt dann $$\overline{\lb + \mu} = \bar{\lb} + \bar{\mu}\ \text{ sowie }\ \overline{\lb \mu} = \bar{\lb}\bar{\mu}\ \text{ und }\ \lb \in \R \Leftrightarrow \lb = \bar{\lb}$$
+				Für $\lb = a+ b\ii \in \C$ sehen wir $\lb \bar{\lb} = (a + b\ii) (a - b\ii) = a^2 + b^2 \in \R$ und wir definieren den Absolutbetrag $$|\lb| = \sqrt{\lb \bar{\lb}}$$
+				
+				Damit gilt, dass $d(\lb, \mu) = |\lb - \mu|$ eine \hyperref[metrikkor]{Metrik} darstellt, denn
+				\begin{align*}
+					d(\mu, \lb) &= d(\lb, \mu)\\
+					d(\mu, \lb) &= 0 \Leftrightarrow \lb = \mu\\
+					d(\mu, \lb) + d(\lb, \kappa) &\ge d(\mu, \kappa)
+				\end{align*}
+				Das ist die selbe Metrik, die bereits im $\R^2$ eingeführt wurde:			
+				$$d(x, y) = \sqrt{(x - y, x - y)} = \sqrt{(x_1-y_1)^2 + (x_2 - y_2)^2} \ \text{ mit }\ (\xi, \eta) = \xi_1 \eta_1 + \xi_2 \eta_2$$
+				Neu ist die Identität $|\lb \cdot \mu| = |\lb| |\mu|$.\\
+				
+				Wir betrachten noch eine geometrische Anschauung der komplexen Zahlen. Es sei $\lb \in \C$ mit $|\lb| = 1$. Dann gilt, dass $\lb^{-1} = |\frac{1}{\lb}| = 1$  (folgt aus der Definition des Inversen in \mC).
+				
+				In der Analysis lernen wir, dass ein eindeutiges $\al \in [0, 2\pi)$ existiert, so dass $$\lb = cos(\al) + \ii \sin(\al) = \ee^{\ii\al}\ \text{ für }\ \lb \in \C, |\lb| = 1$$
+				Wir bezeichnen $\al$ als Argument von $\lb$, also $\al = \arg \lb$.
+				
+				Sei nun $\lb \in \C \setminus \{0\}$ beliebig (d.h. ohne die Einschränkung, dass $|\lb| = 1$). Dann schreiben wir $\arg \lb = \arg \frac{\lb}{|\lb|}$, denn $\left|\frac{\lb}{|\lb|}\right|=1$.
+				
+				Damit gilt $\lb = |\lb| \ee^{\ii \arg \lb}$ für jedes $\lb \in \C$. In der komplexen Ebene $\C = \R^2$ (auch Gaußsche Zahlenebene genannt) gilt dann	mit $d = |\lb|$, $\al = \arg \lb$:
+				
+				\begin{figure}[h!]
+					\begin{center}
+						\begin{tikzpicture}[>=latex, axes/.style={thick,=>}]
+							\begin{axis}[
+								axis x line=center,
+								axis y line=center,
+								ticks=none,
+								xlabel={\mR},
+								ylabel={$\ii$\mR}] % certainly not best practice but looks pretty
+							\end{axis}
+							\draw[dashed] (5, 3) to (5, 0) node[below]{$a$};
+							\draw[dashed] (5, 3) to (0, 3) node[left]{$b$};
+							\node() at (-.125, -.125){$0$};
+							\draw[color=red!75!black] (0, 0) to (5, 3) node[above, color=black]{$a + \ii b$};
+							\path (0, 0) -- node[above]{$d$} (5,3) node[above, color=black]{$a + \ii b$};
+							\draw [<->] (1.5,0) arc (0:30:1.5) node[right, xshift=.1cm, yshift=-.3cm]{$\alpha$}; 
+						\end{tikzpicture}
+					\end{center}
+				\end{figure}
 
-\subsubsection{Definition 1.36 Körper}
-Es sei K eine Menge, $+ : K \times K \to K, \cdot : K \times K \to K$ Verknüpfungen. $(k, +, \cdot)$ hei\ss{}t Körper, falls gilt:
-\begin{enumerate}
-\item{$(K, +)$ ist eine abelsche Gruppe}
-\item{$K^*$ sei gegeben durch $K \setminus \{0\}$. Dann gilt $(K^*, \cdot)$ ist eine abelsche Gruppe.}
-\item{Für $a, b, c \in K$ gilt  $a (b+c) = ab + bc$ und $(b+c) a = ba + ca$}
-\end{enumerate}
-\textbf{Bemerkung}\\
-Das neutrale Element der Multiplikation bezeichnen wir mit Eins $( = 1)$, das Inverse zu a bezüglich der Multiplikation mit $a^{-1}$ oder $\frac{1}{a}$, bezüglich der Addition mit $-a$.
+				Wir sehen nun, dass gilt $$\lb \mu = |\lb| \ee^{\ii \arg \lb} \cdot  |\mu| \ee^{\ii \arg \mu} = |\lb||\mu| \ee^{\ii \arg\lb} \ee^{\ii \arg \mu} = |\lb||\mu| \ee^{\ii (\arg\lb + \arg \mu)}.$$
+				Wir sehen: Beträge werden multipliziert, Argumente addiert bei der Multiplikation in \mC.
+		\end{enumerate}
+	\end{prop}
+	
+	\begin{definition}[Nullteilerfreiheit von Ringen]
+		Ein Ring $(R, +, \cdot)$ heißt nullteilerfrei, falls für $a, b \in R$ gilt $$ab = 0 \Rightarrow a = 0 \lor b = 0.$$
+		
+		\vspace{.1cm}
+		\begin{bem}
+			Wir sehen, dass jeder Körper bereits ein nullteilerfreier Ring ist.
+		\end{bem}		
+		
+		\vspace{.25cm}
+		\noindent\textbf{Beispiel:}
+		Auf $\Z/m\Z$ ist bereits eine Addition definiert, mit der $\Z/m\Z$ eine Gruppe wird. Mit der Multiplikation $$\bar{a} \cdot \bar{b} = \overline{ab}$$
+		für $\bar{a}, \bar{b} \in \Z / m\Z$ und Repräsentanten $a$ und $b$ wird $\Z/m\Z$ zu einem Ring.
+		Wie für die Addition zeigen wir Unabhängigkeit von der Wahl der Repräsentanten, Assoziativität und Distributivgesetz sind leicht nachzurechnen. Der Ring ist kommutativ.
+	\end{definition}
 
-\subsubsection{Proposition 1.37 Rechenregeln für Körper}
-Sei $(K, +, \cdot)$ ein Körper. Dann gilt
-\begin{enumerate}
-\item{$1 \neq 0$}
-\item{$0a = a0 = 0$}
-\item{$ab = 0 \Rightarrow a = 0 \lor b = 0$}
-\item{$a(-b) -(ab)$ und $(-a)(-b) = ab$}
-\item{$x a = \hat{x}a$ und $a \neq 0 \Rightarrow x = \hat{x}$}
-\end{enumerate}
-\textbf{Beweis}
-\begin{enumerate}
-\item{Folgt sofort, denn $(K^*, \cdot)$ ist eine Gruppe.}
-\item{Folgt analog zu Ringen.}
-\item{Folgt aus Gruppeneigenschaft von $(K^*, \cdot)$, da $(K^*, \cdot)$ unter der Multiplikation abgeschlossen ist, und somit a oder b nicht in $K^*$ sein kann (also 0 ist)}
-\item{Wir rechnen \\
-$ab + a(-b) = a (b - b) = a 0 = 0$\\
-und\\
-$(-a)(-b) = -((-a)b) = -(-(ab)) = ab$}
-\item{Die Regel gilt für $x, \hat{x}$ beide in $K^*$. Ist aber $\hat{x} = 0$, so gilt $\hat{x}a = 0$ nach 2. und mit 3. folgt die Aussage.}
-\end{enumerate}
-\textbf{Beispiele}
-\begin{enumerate}
-\item{$(\Q, +, \cdot), (\R, +, \cdot)$.}
-\item{Die komplexen Zahlen $\C$, wie folgt definiert. Für $(a, b), (c, d) \in \R \times \R$ sei\\
-$(a, b)+(c, d) = (a + c, b + d)$ und\\
-$(a,b)\cdot (c,d) = (ac-bd, ad + bc)$.\\
-Mit $(0, 0)$ als Nullelement und $(1, 0)$ als Einselement.\\
-Das additive Inverse zu $(a, b)$ ist dann $(-a, -b)$, das Multiplikative Inverse ist $(\frac{a}{a^2+b^2}, -\frac{b}{a^2 + b^2})$\\
-Wir bezeichnen den so konstruierten Körper mit $\C$.\\
-Die Abbildung $\R \to \C, a \mapsto (a, 0)$ ist injektiv. Wir sehen, dass zwischen $\R \times \{0\}$ und $\{(a, b) \in \C : b = 0\}$ nicht unterschieden werden muss, denn \\
-$
-(a, 0) (b, 0) = (ab, 0)\\
-(a, 0) + (b, 0) = (a+b, 0)
-$\\
-Wir schreiben $i = (0, 1) \in \C$ und $(a, b) = (a, 0) + (0, b) = a + ib$.\\
-Es gilt $i^2 = ii = -1$. Weiterhin schreiben wir  für $z = (a, b) \in \C, \bar{z} = (a, -b)$. (bzw. $z = a + ib, \bar{z} = a - ib$). (Komplex konjugiertes)\\
-Für komplexe Zahlen $\lb, \mu$ gilt dann $\overline{\lb + \mu} = \bar{\lb} + \bar{\mu}$ sowie $\overline{\lb \mu} = \bar{\lb}\bar{\mu}$ und $\lb \in R \Leftrightarrow lb = \bar{\lb}$\\
-Für $\lb = a+ib \in \C$ sehen wir $\lb \bar{\lb} = (a + bi) (a - bi) = a^2 + b^2 \in \R$ und wir definieren den Absolutbetrag $|\lb| = \sqrt{\lb \bar{\lb}}$.\\
-Damit gilt, dass $d(\lb, \mu) = |\lb - \mu|$ ein Metrik im Sinne von Kap 0 darstellt. (denn $d(\mu, \lb) = d(\lb, \mu),\\
-d(\mu, \lb) = 0 \Leftrightarrow \lb = \mu,\\
-d(\mu, \lb) + d(\lb, \kappa) \ge d(\mu, \kappa)$)\\
-(Das ist die selbe Metrik, die bereits im $\R^2$ eingeführt wurde.)\\
-$d(x, y) = \sqrt{(x - y, x - y)} = \sqrt{(x_1-y_1)^2 + (x_2 - y_2)^2}$ mit ($(\xi, \eta) = \xi_1 \eta_1 + \xi_2 \eta_2$).\\
-Neu ist die Identität $|\lb \cdot \mu| = |\lb| |\mu|$\\
-Wir betrachten noch eine geometrische Anschauung der komplexen Zahlen. Es sei $\lb \in \C$ mit $|\lb| = 1$. Dann gilt, dass $\lb^{-1} = |\frac{1}{\lb}| = 1$  (folgt aus der Formel für das Inverse bezgl. Multiplikation in \mC).\\
-In der Analysis lernen wir, dass gilt:\\
-- es existiert ein eindeutiges $\al \in [0, 2\pi)$, so dass $\lb = cos(\al) + i \sin(\al) = e^{i\al}$ für $\lb \in \C, |\lb| = 1$.\\
-Wir bezeichnen $\al$ als Argument von $\lb$, also $\al = \arg \lb$.\\
-Sei nun $\lb \in \C \setminus 0$ beliebig (d.h. ohne die Einschänkung, dass $|\lb| = 1$). Dann schreiben wir $\arg \lb = \arg \frac{\lb}{|\lb|}$, denn $|\frac{\lb}{|\lb|}|$.\\
-Damit gilt $\lb = |\lb| e^{i \arg \lb}$ (für jedes $\lb \in \C$).\\
-In der komplexen Ebene $\C = \R^2$ gilt dann:\\
-\begin{tikzpicture}
-\draw[->] (-1, 0) to (6, 0);
-\draw[->] (0, -1) to (0, 6);
-\node() at (3, 5) {(a + ib)};
-\node() at (3, -0.5) {a};
-\node() at (-0.5, 5) {b};
-\draw[color=red] (0, 0) to (3, 5);
-\node[color=red] at (1.5, 3) {d};
-\node() at (1.5, 1) {$\alpha$};
-\node() at (6, -0.5) {\mR};
-\node() at (-0.5, 6) {i\mR};
-\draw[] (3, 0) to [bend right=20] (1.5, 2.5);
-\end{tikzpicture}\\
-mit $d = |\lb|, \al = \arg \lb$.\\
-Wir sehen nun, dass gilt $\lb \mu = |\lb| e^{i \arg \lb} \cdot  |\mu| e^{i \arg \mu} = |\lb||\mu| e^{e \arg\lb} e^{i \arg \mu} = |\lb||\mu| e^{i (\arg\lb + \arg \mu)}$.\\
-D.h. Beträge werden multipliziert, Argumente addiert bei der Multiplikation in \mC.
-}
-\end{enumerate}
+	\begin{satz}[Nullteilerfreiheit des Restklassenrings]
+		Der Restklassenring $(\Z/m\Z, +, \cdot)$ ist genau dann nullteilerfrei, wenn $m$ eine Primzahl ist.\\
+		
+		\begin{proof}
+			Falls $m$ nicht prim ist, gilt $m = k \cdot l$ mit $1 < k, l < m$. Damit gilt $\bar{k} \neq \bar{0}, \bar{l} \neq \bar{0}$, aber $\bar{k} \bar{l}= \overline{kl} = \bar{m} = \bar{0}$.\\
+			\noindent
+			Umgekehrt: Sei $m$ prim und $\bar{k} \bar{l} = 0$. Dann gilt $k \cdot l= r \cdot m$, für ein $r \in \Z$. Damit gilt aber, dass mindestens einer der Faktoren $k, l$ einen Faktor $m$ enthält. Also ist $\bar{k} = 0$ oder $\bar{l} = 0$.
+		\end{proof}
+	\end{satz}
+	
+	\vspace{.2cm}
+	
+	\begin{satz}
+		Ein nullteilerfreier, kommutativer Ring K mit endlich vielen Elementen und Eins ist ein Körper.\\
+		
+		\begin{proof}
+			Nach \hyperref[lem128]{Lemma \ref{lem128}} reicht es zu zeigen, dass die Abbildung ${}_{a}\tau : K^* \to K^* : {}_{a}\tau(x) = ax$ für jedes $a \in K^\ast$ surjektiv ist. $K^\ast$ ist eine endliche Menge, also folgt Surjektivität aus Injektivität. Sei also ${}_a\tau(x) = {}_a\tau(y)$, für $x$, $y$ aus $K^\ast$. Es folgt $ax = ay$, also $a (x - y) = 0$. Damit gilt aber  (wegen Nullteilerfreiheit und $a \in K^\ast$, also $a \neq 0$), dass $x - y = 0$, also $x = y$.
+		\end{proof}
+	\end{satz}
+	
+	\vspace{.2cm}
 
-\subsubsection{Definition 1.38 Nullteilerfreiheit von Ringen}
-Ein Ring $(R, +, \cdot)$ hei\ss{}t Nullteilerfrei, falls für $a, b \in R$ gilt $ab = 0 \Rightarrow a = 0 \lor b = 0$.\\
-\\
-\textbf{Bemerkung}\\
-Wir sehen, dass jeder Körper bereits ein nullteilerfreier Ring ist.\\
-\textbf{Beispiele}\\
-Auf $\Z/m\Z$ ist bereits eine Addition definiert, mit der $\Z/m\Z$ eine Gruppe wird. Mit der Multiplikation\\
-$\bar{a} \cdot \bar{b} = \overline{ab}$\\
-für $\bar{a}, \bar{b} \in \Z / m\Z$ und Repräsentanten a und b wird $\Z/m\Z$ zu einem Ring\\
-Wie für die Addition zeigen wir unabhängigkeit von der Wahl der Repräsentanten.\\
-(Assoziativität und Distributivgesetz sind leicht Nachzurechnen.) Der Ring ist kommutativ.
+	\begin{definition}[Charakteristik eines Ringes]
+		Es sei $R$ ein Ring mit Einselement $1$. Die Charakteristik von $R$ ist gegeben durch\\
+		$$\chi(R) = 
+			\begin{cases}
+				0 & \text{ falls } n \cdot 1 \neq 0\ \forall n \neq 0\\
+				\min\left(n \in \N \setminus \{0\}\right) &\text{ falls } n \cdot 1 = 0
+			\end{cases}
+		$$
+		Statt $\chi(R)$ wird auch $\mathrm{char}(R)$ verwendet.\\
+		\emph{Achtung}: Wir haben benutzt, dass $n \cdot a = a + a + \dots + a$ ($n$-mal) mit $a \in R, n \in \N$
+	\end{definition}
+	
+	\begin{lem}[Charakteristik von Körpern]
+		Ist K ein Körper, so gilt $\chi(K)$ ist entweder  Null, oder eine Primzahl.\\
+		\begin{proof}
+			Angenommen, $\chi(K) = m = k \cdot l \neq 0$ mit  $1 < k, l < m$ (also $m$ nicht prim). Es folgt  $0 = m \cdot 1 = (k \cdot l) 1 = (k \cdot 1)(l \cdot 1)$. Wegen Nullteilerfreiheit folgt $k \cdot 1 = 0$ oder $l \cdot 1$ = 0, und somit ein Widerspruch.
+		\end{proof}
+	\end{lem}
+	\vspace{.2cm}
+	\begin{definition}[Schiefkörper]
+		Ein Körper ohne Kommutativität bezüglich der Multiplikation nennen wir Schiefkörper (Beispiel: Quaternionen, siehe Übungsblatt).
+	\end{definition}
 
-\subsubsection{Satz 1.39 Nullteilerfreiheit des Restklassenrings}
-Der Restklassenring $(\Z/m\Z, +, \cdot)$ ist genau dann nullteilerfrei, wenn m eine Primzahl ist.\\
-\\
-\textbf{Beweis}\\
-Falls m nicht prim ist, gilt $m = k \cdot l$ mit $1 < k, l < m$. Damit gilt $\bar{k} \neq \bar{0}, \bar{l} \neq \bar{0}$, aber $\bar{k} \bar{l}= \overline{kl} = \bar{m} = \bar{0}$.\\Umgekehrt: Sei m prim und $\bar{k} \bar{l} = 0$. Dann gilt $k \cdot l= r \cdot m$, für ein $r \in \Z$. Damit gilt aber, dass mindestens einer der Faktoren $k, l$ einen Faktor m enthält. Also ist $\bar{k} = 0$ oder $\bar{l} = 0$.
+\chapter{Vektorräume}
 
-\subsubsection{Satz 1.40 Ringe dei Körper sind}
-Ein nullteilerfreier, kommutativer Ring K mit endlich vielen Elementen und Eins ist ein Körper.\\
-\\
-\textbf{Beweis}\\
-Nach Lemma 1.28 reicht es zu zeigen, dass die Abbildung ${}_{a}\tau : K^* \to K^* : {}_{a}\tau(x) = ax$ für jedes $a \in K^*$ surjektiv ist. $K^*$ ist eine endliche Menge, also folgt surjektivität aus injektivität. Sei also ${}_a\tau(x) = {}_a\tau(y)$, für x, y aus $K^*$. Es folgt $ax = ay$, also $a (x - y) = 0$. Damit gilt aber  (wegen Nullteilerfreiheit und $a \in K^*$, also $a \neq 0$), dass $x - y = 0$, also $x = y$.
+\hspace{-.25cm}Wir kennen bereits  $\R^n = \R \times \R \times \dots \times \R$ mit Operationen $a + b$ für $a,b \in \R^n$ und $\lb \cdot a$ für $a \in \R^n, \lb \in \R$.\\
 
-\subsubsection{Definition 1.41 Charakteristik eines Ringes}
-Es sei R ein Ring mit Einselement 1. Die Charakteristik  von R ist gegeben durch\\
-$\chi(R) = \begin{cases}
-0 & \text{, falls } n \cdot 1 \neq 0 \forall n \neq 0\\
-min(n \in \N \setminus \{0\}) : n \cdot 1 = 0
-\end{cases}$\\
-Statt $\chi(R)$ wird auch $char(R)$ verwendet.\\
-\\
-\textbf{Achtung:} Wir haben benutzt, dass $n \cdot a = a + a + \dots + a$ (n-mal) mit $a \in R, n \in \N$
+\section{Definitionen und elementare Eigenschaften}
 
-\subsubsection{Lemma 1.42 Charakteristik von Körpern}
-Ist K ein Körper, so gilt $\chi(K)$ ist entweder  Null, oder eine Primzahl.\\
-\\
-\textbf{Beweis}\\
-Angenommen, $\chi(K) = m = k \cdot l \neq 0$ mit  $1 < k, l < m$ (also m keine Primzahl). Es folgt  $0 = m \cdot 1 = (k \cdot l) 1 = (k \cdot 1)(l \cdot 1)$. Wegen Nullteilerfreiheit folgt $k \cdot 1 = 0$ oder $l \cdot 1$ = 0, und somit ein Widerspruch.
+	\begin{definition}[Vektorraum]
+		\label{def21}
+		Es sei $K$ ein Körper, $(V, +)$ eine abelsche Gruppe mit einer Abbildung $K \times V \to V$, $(\lb, b) \mapsto \lb v$, sodass für alle $x, y \in V$, $\lb, \mu \in K$ gilt:
+		
+		\begin{enumerate}[leftmargin=3cm, rightmargin=2cm]
+			\itemsep0cm
+			\item $\lb (x + y) = \lb x + \lb y$ \hfill Erstes Distributivgesetz
+			\item $(\lb + \mu) x = \lb x + \mu x$ \hfill Zweites Distributivgesetz
+			\item $\lb (\mu x) = (\lb \mu) x$	\hfill Skalarmultiplikation
+			\item $1 x = x$\hfill Einselement
+		\end{enumerate}
+		
+		\noindent
+		Zu beachten ist hierbei, was Addition der Gruppe, was Multiplikation des Körpers und was die speziell definierte Abbildung ist. Dies ergibt sich jedoch eindeutig aus den Typen der verknüpften Elemente.\\
+		Wir nennen die Abbildung $(\lb, v) \mapsto \lb v$ skalare Multiplikation. Die Gruppe $(V, +)$ mit der skalaren Multiplikation  heißt dann $K$-Vektorraum.
+		
+		\begin{bem}$ $
+			\begin{enumerate}
+				\item Ist $(R, +, \cdot)$ ein Ring, $(V, +)$ eine abelsche Gruppe mit Abbildung $R \times V \to V, (\lb, v) \mapsto \lb v$, welche die Bedingungen aus \hyperref[def21]{Definition \ref{def21}} erfüllt. Dann ist $V$ ein $R$-Modul (bzw. Links-$R$-Modul).	Rechts-$R$-Moduln analog.
+				\item
+					\begin{enumerate}
+						\item Elemente in $V$ heißen Vektoren, Elemente in $K$ heißen Skalare.
+						\item Das Inverse zu $a \in V$ heißt $-a$ (das Inverse für Gruppen mit Addition)
+					\end{enumerate}
+				\item Wir schreiben $(\lb x) + (\mu y) = \lb x + \mu y$ (d.h. "`Punkt vor Strich"') für skalare Multiplikation
+				\item
+					$K = \R$ : reelle Vektorräume\\
+					$K = \C$ : komplexe Vektorräume
+			\end{enumerate}
+		\end{bem}
+		\noindent
+		\textbf{Beispiele}
+		\begin{enumerate}
+			\item \mRn, siehe \hyperref[kap0]{Kapitel 0}
+			\item $\C^n$, $K = \C$ analog
+			\item Sei $K$ ein beliebiger Körper, dann ist $K^n$ ein Vektorraum, der aus den $n$-Tupeln von Körperelementen besteht. Addition in $K^n$ erfolgt eintragsweise, Multiplikation für $\lb \in K$ erfolgt ebenfalls eintragsweise.
+			\begin{align*}
+				\v{v_1\\ \vdots\\ v_n} + \v{w_1\\ \vdots\\ w_n} &= \v{v_1 + w_1\\ \vdots \\ v_n + w_n}\\[1em]
+				\lb \v{w_1\\ \vdots\\ w_n} &= \v{\lb w_1\\ \vdots \\ \lb w_n}
+			\end{align*}
+			$K^0 := \{0\}$ ist der triviale Vektorraum.
+			\item Es sei $K$ ein Körper, $X$ eine Menge, $V = \abb(X, K)$ mit
+				$$(f + g)(x) = f(x) + g(x)\ \text{ für alle }\ x \in X, f, g \in V.$$
+				Damit wird $V$ zu einer abelschen Gruppe, denn oben ist eine Addition $+(f, g)$ definiert. Wir definieren nun $(\lb f)(x) = \lb (f(x))$ für alle $\lb \in K, f \in V, x \in X$ als Skalarmultiplikation. Damit wird $V$ zu einem Vektorraum.
+		\end{enumerate}
+	\end{definition}
 
-\subsubsection*{Definition Schiefkörper}
-Ein Körper ohne kommutativität in der Multiplikation nennen wir Schiefkörper. (Beispiel: Quaternionen. Siehe Übungsblatt.)
+	\begin{prop}[Eigenschaften von Vektorräumen]
+		Es sei $V$ ein $K$-Vektorraum. Dann gilt:
+		\begin{enumerate}[leftmargin=4cm]
+			\itemsep0cm
+			\item $0 x = 0 \in V$ für alle $x \in V$
+			\item $\lb 0 = 0$ für alle $\lb \in K$
+			\item Falls $\lb \in K, x \in V, \lb x = 0 \in V$, dann gilt $\lb = 0$ oder $x = 0$
+			\item $(-1) x = -x$ für alle $x \in V$
+		\end{enumerate}
+		\begin{proof}
+			\begin{enumerate}
+				\itemsep0cm
+				\item $0 x = (0 + 0)x = 0x + 0x \Rightarrow 0x = 0$
+				\item $\lb 0 = \lb(0 + 0) = \lb 0 + \lb 0 \Rightarrow \lb 0 = 0$
+				\item Zu zeigen ist $\lb \in K^\ast, x \in V, \lb x = 0$. Dann folgt $x = 0$. Es gilt aber $x = 1 x \overset{\lb \neq 0}{=} (\lb ^{-1} \lb) x = \lb^{-1}(\lb x) = \lb^{-1} 0 = 0$
+				\item $x + (-1) x = 1x + (-1) x = (1 - 1)  x = 0 x = 0$
+			\end{enumerate}
+		\end{proof}
+		\begin{bem}
+			Es sei $(G. +)$ eine Gruppe, $y \in G$. Falls gilt $y = y + y$, so folgt $y = 0$, denn die Kürzungsregel besagt $a + \hat{x} = a+x \Rightarrow x = \hat{x}$. Mit $x = 0, \hat{x} = y, a = y$. Also $y +y = y + 0 = y \Rightarrow y = 0$.
+		\end{bem}
+	\end{prop}
 
-\section{Vektorräume}
-Wir kennen bereits  $\R^n = \R \times \R \times \dots \times \R$ mit Operationen $a + b$ für $a,b \in \R^n$ und $\lb \cdot a$ für $a \in \R^n, \lb \in \R$.
+	\begin{definition}[Untervektorräume]
+		Es sei $K$ ein Körper, $V$ ein $K$-Vektorraum. Weiteres sei $W \subset V$. Dann heißt $W$ Untervektorraum von $V$, falls gilt:
+		
+		\begin{enumerate}[leftmargin=4cm]
+			\itemsep0cm
+			\item $W \neq \emptyset$ 
+			\item $v, w \in W \Rightarrow v + w \in W$
+			\item $v \in W, \lb \in K \Rightarrow \lb v \in W$
+		\end{enumerate}
+		
+		\noindent\textbf{Beispiel:}
+		$V = R^2, W = \{v = (v_1, v_2) \in V : v_1 = 0\}$\\
+		\textbf{Gegenbeispiel:}
+		$V = R^2$, $W = \{v = (v_1, v_2) \in V : v_2 = 1\}$ ist kein Untervektorraum von $V$
+	\end{definition}
+	
+	\begin{satz}[Untervektorräume sind Vektorräume]
+		Ein Untervektorraum ist (mit der induzierten Addition und Skalarmultiplikation) ein Vektorraum.\\
+		
+		\begin{proof}
+			Sei $V$ ein $K$-Vektorraum, $W$ ein Untervektorraum von $V$.
+			\begin{enumerate}
+				\item $W$ ist eine Untergruppe von $(V, +)$, denn $W$ ist nicht leer und abgeschlossen bezüglich der Addition. Das neutrale Element $0 \in W$, denn für ein beliebiges $w \in W$ folgt mit (3.), dass $0 = 0w \in W$. Zu $v \in W$ gilt weiter $-v = (-1)v \in W$ nach (3.)
+				\item Kommutativität und Assoziativität der Untergruppe $(W, +)$ folgt sofort, Distributivgesetze ebenfalls.
+			\end{enumerate}
+			Damit ist $W$ ein Vektorraum.\\
+		\end{proof}
+		\vspace{.3cm}
+		\begin{bem}
+			Es sei $I$ eine Menge und für jedes $a \in I$ sei $M_a$ wieder eine Menge. So ein $I$ nennen wir Indexmenge. Nun verallgemeinern wir Schnittmenge und Vereinigung:
+			\begin{align*}
+				\bigcap_{a\in I} M_a &= \{x : x \in M_a \text{ für jedes\ } a \in I\}\\
+				\bigcup_{a\in I} M_a &= \{x : x \in M_a \text{ für ein\ } a \in I\}
+			\end{align*}
+		\end{bem}
+	\end{satz}
+	
+	\begin{lem}
+		Es sei $V$ ein $K$-Vektorraum, $I$ eine Indexmenge und für jedes $a \in I$ sei $W_a \subset V$ ein Untervektorraum. Dann gilt
+		\begin{enumerate}
+			\item $W = \bigcap_{a \in I} W_a$ ist ein Untervektorraum von V
+			\item Seien $a, b \in I$, dann folgt $\hat{W} = W_a \ \cup W_b$ ist ein Untervektorraum von $V$ genau dann, wenn $W_a \subset W_b$ oder $W_b \subset W_a$
+		\end{enumerate}
+		\textbf{Beispiele}
+		\begin{enumerate}
+			\itemsep0cm 
+			\item $V = R^3$, $I = \{1, 2\}$
+			\item $W_1 = \{v = (v_1, v_2, v_3) \in V : v_1 = 0\}$
+			\item $W_2 = \{v = (v_1, v_2, v_3) \in V : v_2 = 0\}$
+			\item $W = W_1 \cap W_2 = \{v = (v_1, v_2, v_3) \in V : v_1 = v_2 = 0\}$ ist ein Untervektorraum.
+			\item $W_1 \cup W_2 = \{v = (v_1, v_2, v_3) \in V : v_1 = 0 \lor v_2 = 0\}$ ist kein Untervektorraum von V, denn $w_1 = (0, 1, 1) \in W_1, w_2 = (1, 0, 1) = W_2$, aber $w_1 + w_2 = (1, 1, 2)$ ist nicht in $W_1 \cup W_2$
+		\end{enumerate}
+		\vspace{.25cm}
+		\begin{proof}
+			\begin{enumerate}
+				\item Es gilt $0 \in W_a$ für jedes $a \in I$, also gilt $0 \in W$.
+				
+				Es seien $x, y \in W$, also gilt $x, y \in W_a$ für jedes $a \in I$. Nachdem $W_a$ (für jedes $a$) ein Untervektorraum von $V$ ist, gilt $x + y \in W_a$ für jedes $a \in I$, also $x + y \in W$. Ebenso folgt $\lb x \in W$.
+				\item 
+				\begin{enumerate}
+					\item["`$\Leftarrow$"'] folgt sofort, denn wenn $W_a \subset W_b$, so gilt $W_a \cup W_b = W_b$ und somit ist $W = W_b$ ein Untervektorraum
+					\item["`$\Rightarrow$"']  Sei $\hat{W} = W_a \cup W_b \subset V$ ein Untervektorraum und sei $W_a \not\subset W_b$.
+					
+					 Zu zeigen ist nun, $W_b \subset W_a$. Es sei $x \in W_b$, wir zeigen, dass folgt $x \in W_a$. Sei $y \in W_a \setminus W_b$ (sodass ein $y$ existiert, nachdem $W_a \not\subset W_b$). Es folgt $x + y \in \hat{W}$, also $x + y \in W_a$ oder $x + y \in W_b$. Es gilt aber, dass $y = (x + y) - x$, und somit $x + y\not\in W_b$. Somit gilt $x + y \in W_a$, also $(x + y) - y = x \in W_a$.
+				\end{enumerate}
+			\end{enumerate}
+		\end{proof}		
+	\end{lem}
+	
+	\begin{definition}[Linearkombination und Erzeugendensysteme]
+		Es sei $V$ ein $K$-Vektorraum, $E \subset V$ eine Menge.
+		
+		\begin{enumerate}
+			\item Für jedes $e \in E$ sei $\lb_e \in K$, so dass nur endlich viele $\lb_e \neq 0$ sind. Dann schreiben wir $$\sum_{e \in E}\lb_e \cdot e = \sum_{e\in E, \lb_e \neq 0} \lb_e \cdot e \in V\ \text{ und }\ \sum_{e \in V} \lb_e \cdot e$$ heißt Linearkombination der $e \in E$
+			\item Ein beliebiges $x \in V$ heißt darstellbar als Linearkombination der $e \in E$, falls $\lb_e \in k$ existieren, mit $\lb_e \neq 0$ für endlich viele $e \in E$ und es gilt $x = \sum_{e \in E}\lb_e \cdot e$.
+			\item Spann oder Aufspann: $\Span(E) = \{x \in V : x \text{ als Linearkombination der } e \in E \text{ darstellbar}\}$ (manchmal auch als lineare Hülle bezeichnet)
+			\item Falls gilt $W = \Span(E)$, so heißt $E \subset V$ Erzeugendensystem von $W$.
+			\item $W \subset V$ heißt endlich erzeugt über $K$, falls ein Erzeugendensystem für $W$ mit nur endlich vielen Elementen existiert.
+		\end{enumerate}
+		\textbf{Beispiel: } 
+		$V = R^2, E = \{(1, 0), (0, 1), (1, 1)\} \subset V$. Dann gilt $V = \Span(E)$, denn sei $v = (v_1, v_2) \in R^2, v_1, v_2 \in \R$ und es gilt $v = v_1 + \cdot (1, 0) + v_2 \cdot (0, 1)$. $V$ ist also endlich erzeugt.
+		
+	\end{definition}
+	
+	\begin{lem}
+		Es sei $V$ ein $K$-Vektorraum, $E \subset V$. Dann gilt
+		\begin{enumerate}
+			\item $\Span(E)$ ist ein Untervektorraum von $V$
+			\item Falls $W \subset V$ ein Untervektorraum ist mit $E \subset W$, so gilt $\Span(E) \subset W$. Es folgt, dass $\Span(E) \subset V$ der minimale Untervektorraum ist, der $E$ enthält.
+		\end{enumerate}
+		\vspace{.2cm}
+		\begin{proof}
+			\begin{enumerate}
+				\item Folgt sofort aus der Definition, denn 
+				\begin{enumerate}
+					\item $\Span(E) \neq \emptyset$, denn $0 \in \Span(E)$
+					\item Für $v_1, v_2 \in \Span(E)$ gilt $v_1 + v_2 \in span(E)$, denn wir können die Koeffizienten $\lb_e^{v1}$ und $\lb_e^{v2}$ addieren. Ebenso für $\mu v_1$.
+				\end{enumerate}
+				\item Sei $W \subset V$ ein Untervektorraum, $E \subset W$. Es folgt aufgrund der Abgeschlossenheit von $W$ bezüglich Addition und Skalarmultiplikation, dass jede Linearkombination der $e \in E$ wieder in $W$ liegt.
+			\end{enumerate}
+		\end{proof}
+	\end{lem}
+	
 
-\subsection{Definitionen und elementare Eigenschaften}
-
-\subsubsection{Definition 2.1 Vektorraum}
-Es sei K ein Körper, $(V, +)$ eine abelsche Gruppe mit einer Abbildung $K \times V \to V$, $(\lb, b) \mapsto \lb v$\\
-so dass gilt 
-\begin{enumerate}
-\item{$\lb (x + y) = (\lb x) + (\lb y)$}
-\item{$(\lb + \mu) x = (\lb x) + (\mu x)$}
-\item{$\lb (\mu x) = (\lb \mu) x$}
-\item{$1 x = x$}
-\end{enumerate}
-für alle $x, y \in V$, $\lb, \mu \in K$.\\
-(Zu beachten ist hierbei, was Addition der Gruppe, was Multiplikation des Körpers und was die speziell definierte Abbildung ist. Dies ergibt sich jedoch eindeutig aus den Typen der Verknüpften Elemente.).\\
-Wir nennen die Abbildung $(\lb, v) \mapsto \lb v$ skalare Multiplikation. Die Gruppe $(V, +)$ mit der skalaren Multiplikation  hei\ss{}t dann K-Vektorraum.\\
-\\
-\textbf{Bemerkung}
-\begin{enumerate}
-\item{Ist $(R, +, \cdot)$ ein Ring, $(V, +)$ eine abelsche Gruppe mit Abbildung $R \times V \to V, (\lb, v) \mapsto \lb v$ welche die Bedingungen aus Def. 2,1 erfüllt. Dann ist V ein R-Modul (bzw. Links-R-Modul.).\\
-Rechts-R-Moduln analog.}
-\item{
-\begin{itemize}
-\item{Elemente in V hei\ss{}en Vektoren, Elemente in K hei\ss{}en Skalare.}
-\item{Das Inverse zu $a \in V$ hei\ss{}t -a (das Inverse für Gruppen mit Addition)}
-\end{itemize}
-}
-\item{
-Wir schreiben $(\lb x) + (\mu y) = \lb x + \mu y$ (d.h. ''Punkt vor Strich'' für skalare Multiplikation)
-}
-\item{
-	$K = \R$: reelle Vektorräume.\\
-	$K = \C$ : komplexe Vektorräume.
-}
-\end{enumerate}
-\textbf{Beispiele}
-\begin{enumerate}
-\item{\mRn, siehe Kap 0.}
-\item{$\C^n, K = \C$ analog.}
-\item{Sei K ein beliebiger Körper, dann ist $K^n$ ein Vektorraum, der aus den n-Tupeln von Körperelementen besteht. Addition in $K^n$ eintragweise, Multiplikation für $\lb \in K$ ebenfalls eintragweise.\\
-$
-\v{v_1\\ \vdots\\ v_n} + \v{w_1\\ \vdots\\ w_n} = \v{v_1 + w_1\\ \vdots \\ v_n + w_n}\\
-\lb \v{w_1\\ \vdots\\ w_n} = \v{\lb w_1\\ \vdots \\ \lb w_n}
-$\\
-$K^0 := \{0\}$ ist der triviale Vektorraum.}
-\item{Es sei K ein Körper, X eine Menge, $V = Abb(X, K)$ mit\\
-$(f + g)(x) = f(x) + g(x)$ für alle $x \in X, f, g \in V$.\\
-Damit wird V zu einer abelschen Gruppe, denn oben ist eine Addition $+(f, g)$ definiert.\\
-Wir definieren nun $(\lb f)(x) = \lb (f(x))$ für alle $\lb \in K, f \in V, x \in X$ als Skalarmultiplikation.\\
-Damit wird V zu einem Vektorraum.
-}
-\end{enumerate}
-
-\subsubsection{Proposition 2.2 Eigenschaften von Vektorräumen}
-Es sei V eine K-Vektorraum. Dann gilt
-\begin{enumerate}
-\item{$0 x = 0 \in V$ für alle $x \in V$}
-\item{$\lb 0 = 0$ für alle $\lb \in K$}
-\item{Falls $\lb \in K, x \in V, \lb x = 0 \in V$, dann gilt $\lb = 0$ oder $x = 0$.}
-\item{$(-1) x = -x$ für alle $x \in V$, mit $-1 $}
-\end{enumerate}
-\textbf{Beweis}
-\begin{enumerate}
-\item{$0 x = (0 + 0)x = 0x + 0x \Rightarrow 0x = 0$.}
-\item{$\lb 0 = \lb(0 + 0) = \lb 0 + \lb 0 \Rightarrow \lb 0 = 0$.}
-\item{Zu zeigen ist $\lb \in K^*, x \in V, \lb x = 0$ dann folgt $x = 0$.\\
-Es gilt aber $x = 1 x \overset{\lb \neq 0}{=} (\lb ^{-1} \lb) x = \lb^{-1}(\lb x) = \lb^{-1} 0 = 0$}
-\item{$x + (-1) x = 1x + (-1) x = (1 - 1)  x = 0 x = 0$}
-\end{enumerate}
-\textbf{Bemerkung}\\
-Es sei $(G. +)$ eine Gruppe, $y \in G$. Falls gilt $y = y + y$, so folgt $y = 0$, denn die Kürzungsregel besagt $a + \hat{x} = a+x \Rightarrow x = \hat{x}$. Mit $x = 0, \hat{x} = y, a = y$. Also $y +y = y + 0 = y \Rightarrow y = 0$.
-
-\subsubsection{Definition 2.3 Untervektorräume}
-Es sei K ein Körper, V ein K-Vektorraum. Weiteres sei $W \subset V$. Dann hei\ss{}t W Untervektorraum von V, falls gilt
-\begin{enumerate}
-\item{$W \neq \emptyset$}
-\item{$v, w \in W \Rightarrow v + w \in W$}
-\item{$v \in W, \lb \in K \Rightarrow \lb v \in W$}
-\end{enumerate}
-\textbf{Beispiel}\\
-$V = R^2, W = \{v = (v_1, v_2) \in V : v_1 = 0\}$\\
-\textbf{Gegenbeispiel}\\
-$V = R^2, W = \{v = (v_1, v_2) \in V : v_2 = 1\}$ ist kein Untervektorraum von V.
-
-\subsubsection{Satz 2.4 Untervektorräume sind Vektorräume}
-Ein Untervektorraum ist (mit der induzierten Addition und Skalarmultiplikation) ein Vektorraum.\\
-\textbf{Beweis}\\
-Sei V ein K-Vektorraum, W ein Untervektorraum von V.
-\begin{enumerate}
-\item{W ist eine Untergruppe von $(V, +)$, denn W ist nicht leer, abgeschlossen bezüglich der Addition. Das neutrale Element $0 \in W$, denn für ein beliebiges $w \in W$ folgt mit 3., dass $0 = 0w \in W$. Zu $v \in W$ gilt weiter $-v = (-1)v \in W$ nach 3..}
-\item{Kommutativität und Assoziativität der Untergruppe $(W, +)$ folgt sofort, Distributivgesetze ebenfalls.}
-\end{enumerate}
-Damit ist W ein Vektorraum.\\
-\\
-\textbf{Bemerkung} zur Notation:\\
-Es sei I eine Menge und für jedes $a \in I$ sei $M_a$ wieder eine Menge. So ein I nennen wir Indexmenge. Nun verallgemeinern wir.Schnittmengen, etc.\\
-$\bigcap_{a\in I} M_a = \{x : x \in M_a \text{ für jedes\ } a \in I\}$\\
-$\bigcup_{a\in I} M_a = \{x : x \in M_a \text{ für ein\ } a \in I\}$
-
-\subsubsection{Lemma 2.5}
-Es sei V ein K-Vektorraum, I eine Indexmenge und für jedes $a \in I$ sei $W_a \subset V$ ein Untervektorraum. Dann gilt
-\begin{enumerate}
-\item{$W = \bigcap_{a \in I} W_a$ ist ein Untervektorraum von V.}
-\item{Seien $a, b \in I$, dann folgt $\hat{W} = W_a \ \cup W_b$ ist ein Untervektorraum von V genau dann, wenn $W_a \subset W_b$ oder $W_b \subset W_a$}
-\end{enumerate}
-\textbf{Beispiele}\\
-$V = R^3, I = \{1, 2\},\\
-W_1 = \{v = (v_1, v_2, v_3) \in V : v_1 = 0\},\\
-W_2 = \{v = (v_1, v_2, v_3) \in V : v_2 = 0\}\\
-W = w_1 \cap W_2 = \{v = (v_1, v_2, v_3) \in V : v_1 = v_2 = 0\}$ ist ein Untervektorraum.\\
-$W_1 \cup W_2 = \{v = (v_1, v_2, v_3) \in V : v_1 = 0 \lor v_2 = 0\}$ ist kein Untervektorraum von V, denn $w_1 = (0, 1, 1) \in W_1, w_2 = (1, 0, 1) = W_2$, aber $w_1 + w_2 = (1, 1, 2)$ ist nicht in $W_1 \cup W_2$.\\
-\\
-\textbf{Beweis}
-\begin{enumerate}
-\item{Es gilt $0 \in W_a$ für jedes $a \in I$, also gilt $0 \in W$\\
-Es seien $x, y \in W$, also gilt $x, y \in W_a$ für jedes $a \in I$. Nachdem $W_a$ (für jedes a) ein Untervektorraum von V ist, gilt $x + y \in W_a$ für jedes $a \in I$, also $x + y \in W$. Ebenso folgt $\lb x \in W$.}
-\item{''$\Leftarrow$'' folgt sofort, denn wenn $W_a \subset W_b$, so gilt $W_a \cup W_b = W_b$ und somit $W = W_b$ UVR (Untervektorraum).\\
-''$\Rightarrow$'' Sei $\hat{W} = W_a \cup W_b \subset V$ ein UVR und sei $W_a \not\subset W_b$. Zu zeigen ist nun, $W_b \subset W_a$. Es sei $x \in W_b$, wir zeigen, dass folgt $x \in W_a$. Sei $y \in W_a \setminus W_b$ (so ein y existiert, nachdem $W_a \not\subset W_b$). Es folgt $x + y \in \hat{W}$, also $x + y \in W_a$ oder $x + y \in W_b$. Es gilt aber, dass $y = (x + y) - x$, und somit $x + y\not\in W_b$. Somit gilt $x + y \in W_a$, also $(x + y) - y = x \in W_a$.}
-\end{enumerate}
-
-\subsubsection{Definition 2.6 Linearkombination und Erzeugendensysteme}
-Es sei V ein K-Vektorraum, $E \subset V$ eine Menge.
-\begin{enumerate}
-\item{Für jedes $e \in E$ sei $\lb_e \in K$, so dass nur endlich viele $\lb_e \neq 0$ sind. Dann schreiben wir $\sum_{e \in E}\lb_e \cdot e = \sum_{e\in E, \lb_e \neq 0} \lb_e \cdot e \in V$ und $\sum_{e \in V} \lb_e \cdot e$ hei\ss{}t Linearkombination der $e \in E$.}
-\item{$x \in V$ hei\ss{}t darstellbar als Linearkombination der $e \in E$, falls $\lb_e \in k$ existeiren, mit $\lb_e \neq 0$ für endlich viele $e \in E$ und es gilt $x = \sum_{e \in E}\lb_e \cdot e$.}
-\item{$span(E) = \{x \in V : x \text{ als Linearkombination der } e \in E \text{ darstellbar}\}$}
-\item{Falls gilt $W = span(E)$, so hei\ss{}t $E \subset V$ Erzeugendensystem von W.}
-\item{$W \subset V$ hei\ss{}t endlich erzeugt, über K, falls ein Erzeugendensystem für W mit nur endlich vielen Elementen existiert.}
-\end{enumerate}
-\textbf{Beispiel}\\
-$V = R^2, E = \{(1, 0), (0, 1), (1, 1)\} \subset V$. Dann gilt $V = span(E)$, denn sei $v = (v_1, v_2) \in R^2, v_1, v_2 \in \R$ und es gilt $v = v_1 + \cdot (1, 0) + v_2 \cdot (0, 1)$. V ist also endlich erzeugt.
-
-\subsubsection{Lemma 2.7}
-
-Es sei V ein k-Vektorraum, $E \subset V$. Dann gilt
-\begin{enumerate}
-\item{$span(E)$ ist ein UVR von V.}
-\item{Falls $W \subset V$ ein UVR ist mit $E \subset W$, so gilt $span(E) \subset W$. (Es folgt ,dass $span(E) \subset V$ der minimale Untervektorraum ist, der E enthält.)}
-\end{enumerate}
-\textbf{Beweis}
-\begin{enumerate}
-\item{Folgt sofort aus der Definition, denn 
-\begin{enumerate}
-\item{$span(E) \neq \emptyset$, denn $0 \in span(E)$}
-\item{Für $v_1, v_2 \in span(E)$ gilt $v_1 + v_2 \in span(E)$, denn wir können die Koeffizienten $\lb_e^{v1}$ und $\lb_e^{v2}$ addieren. Ebenso für $\mu v_1$.}
-\end{enumerate}}
-\item{Sei $W \subset V$ ein Untervektorraum, $E \subset W$. Es folgt sofort, dass (wegen Abgeschlossenheit von W bezüglich der Addition und Skalarmultiplikation), dass jede Linearkombination der $e \in E$ wieder in W liegt.}
-\end{enumerate}
 \end{document}
