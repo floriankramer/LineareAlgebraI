@@ -4,3 +4,7 @@
 *.out
 *.synctex.gz
 *.the
+*.idx
+*.ilg
+*.ind
+*.loe
