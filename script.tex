@@ -1629,6 +1629,84 @@ Damit gilt \(\sum_{i=1}^m \lb_iv_i = 0\) also \(\lb_i = 0\) f\"ur \(i = 1, \dots
 Es sei \(V\) ein K-Vektorraum, \(V_1, V_2 \subset V\) UVR.
 \begin{enumerate}
 \item{\(V_1 + V_2 = span(V_1 \cup V_2)\)}
-\item{\(W = V_1 \bigoplus V_2\) falls \(W = V)1 + V_2\) und \(V_1 \cap V_2 = \{0\}\). W hei\ss{}t dann ''direkte Summe' von \(V_1\) und \(V_2\) und diese hei\ss{}en komplement\"ar}
+\item{\(W = V_1 \oplus V_2\) falls \(W = V_1 + V_2\) und \(V_1 \cap V_2 = \{0\}\). W hei\ss{}t dann ''direkte Summe' von \(V_1\) und \(V_2\) und diese hei\ss{}en komplement\"ar}
 \end{enumerate}
+Aus der Dimensionsformel Satz 3.7 folgen sofort
+
+\subsubsection{Korollar 3.9}
+\(dim_K(F^{-1})(W)) = dim_K(V) - dim_K(Im F)\)
+
+\subsubsection{Korollar 3.10}
+Es seien \(V, W\) endlichdimensional. Dann existiert ein Isomorphismus genau dann wenn \(dim_K(V) = dim_K(W)\).
+
+\subsubsection{Korollar 3.11}
+Es sei \(dim_K(V) = dim_K(W) \le \infty\). \(F : V \to W\) linear.\\
+Dann sind \"aquivalent
+\begin{enumerate}
+\item{F injektiv}
+\item{F surjektiv}
+\item{F bijektiv}
+\end{enumerate}
+
+\subsubsection{Satz 3.12 Dimension der Summe von Vektor\"aumen}
+Es gilt \(dim_K(V_1 + V_2) = dim_K(V_1) + dim_K(V_2) - dim_K(V_1 \cap V_2)\).\\
+(falls alle endlich sind.)\\
+\\
+\textbf{Beweis}\\
+Es sei \((u_1, \dots, u_n)\) eine Basis von \(V_1 \cap V_2\), erweitert mit \((v_1, \dots, v_m)\) zu einer Basis von \(V_1\) und erweitert mit \((w_1, \dots, w_k)\) zu einer Basis von \(V_2\). Zu zeigen ist nun, \(dim_K(V_1 + V_2) = n + m + k = (n + m) + (n + k) - n\).\\
+Wir zeigen, dass \((u_1, \dots, u_n, v_1 \dots, v_m, w_1, \dots, w_k)\) eine Basis von \(V_1 + V_2\) ist. Sicherlich ist es sie eine Erzeugendensystem, denn sei \(x \in V_1 + V_2\), dann gilt \(x = \sum \lb_i x^1_i + \sum \mu_i x^2_i\) mit \(x^1_i \in V_1, x^2_i \in V_2\). Jedes \(x_i^1, x_i^2\) kann nun als Linearkombination von Vektoren \((u_1, \dots, u_n, v_1, \dots, v_m)\) bzw. mit Vektoren \((u_1, \dots, u_n, w_1, \dots, w_k)\) geschrieben werden. Also ist x insgesamt eine Linearkombination aus \((u_i, v_j, w_l), i=1, \dots n, j = 1,, \dots, m, l = 1, \dots, k\).\\
+Zur linearen Unabh\"angigkeit: sei\\
+\(0 = \sum_{i=1}^n \lb_i u_i + \sum_{j=1}^m \mu_j v_j + \sum_{l = 1}^k \kappa_l w_l\).\\
+Wir setzen \(v = \sum \lb_i u_i + \sum \mu_j v_j \in V_1\). Es gilt aber \(-v = \sum \kappa_l w_l \in V_2\). damit gilt \(v \in V_1 \cap V_2\). Und sommit \(v =\sum \lb_i' u_i\).\\
+Die Linearkombination in \(V_1\) aus \((u_1, \dots, u_n, v_1, \dots, v_m)\) ist aber eindeutig, also folgt \(\lb_i' = \lb_i\) f\"ur \(i =  1, \dots n\) und \(\mu_j = 0\) f\"ur \(j = 1, \dots, m\).\\
+Damit aber auch \(\kappa_l = 0\) f\"ur \(l = 1, \dots, k\) und \(\lb_i = 0\) f\"ur \(i = 1, \dots, n\).
+
+\subsubsection{Satz 3.13}
+Es sei \(V\) ein K-Vektorraum, \(W \subset V\) ein Untervektorraum. Wir schreiben \(x \sim y\), falls \(x - y \in W\), f\"ur \(x, y \in V\).
+\begin{enumerate}
+  \item{
+    Dann gilt ''\(\sim\)'' ist eine \"Aquivalenzrelation.
+  }
+  \item{
+    Auf \(\bar{V} = V/\sim\) gibt s genau eine Vektrorraumstruktur, so dass die Abbildung
+    \[p : V \to \bar{V}, p : x \mapsto [x]\]
+    ein Vekotrraum Homomorphismus wird.
+    \([x]\) ist hierbei die zu x geh\"orige \"Aquivalenzklasse.
+  }
+\end{enumerate}
+\textbf{Beweis}
+\begin{enumerate}
+  \item{
+    \begin{enumerate}
+    \item{
+      Reflexivit\"at: \(x - x = 0 \in W \Rightarrow x \sim x\)
+    }
+    \item{
+      Symmetrie: \(x \sim y \Rightarrow x - y \in W \Rightarrow -(x - y) \in W \Rightarrow y - x \in W \Rightarrow y \sim x\)
+    }
+    \item{
+      Transitivit\"at: \(x \sim y, y \sim z \Rightarrow x - y \in W, y - z \in W \Rightarrow x-y + y - z \in W \Rightarrow x - z \in W \Rightarrow x \sim z\)
+    }
+    \end{enumerate}
+  }
+  \item{
+    Es seien \(x, y \in V\). Dann gilt \([x] = p(x), [y] = p(y) \in V/\sim\).\\
+    Wir rechnen  \([x] + [y] = p(x) + p(y) = p(x+y) = [x + y]\)\\
+    Ebenso \(\lb[x] = [\lb x]\).\\
+    Zur Wohldefiniertheit dieser Abbildungen nehmen wir\\
+    \(x, \hat{x}, y, \hat{y} \in V\) mit \([x] = [\hat{x}], [y] = [\hat{y}]\) und rechnen
+    \[(x + y) - (\hat{x} + \hat{y}) = (x - \hat{x}) + (y - \hat{y}) \in W\]
+    Also \(x + y \sim \hat{x} + \hat{y}\), also \([x  y] \sim [\hat{x} + \hat{y}]\)\\
+    Ebenso zeigen wir \([\lb \hat{x}] = [\lb x]\).\\
+    Wir sehen sofort (durch einfaches Nachrechnen), dass \(\bar{V}\) mit dieser Verk\"upfung ''\(+\)'' und der Skalarmultiplikation \(\lb[x] = [\lb x]\) zu einem K-Vektorraum wird.\\
+    Nachdem p surjektiv ist, sind \(+\) und Skalarmultiplikation aber f\"ur alle Elemente aus \(\bar{V}\) bereits festgelegt, die Struktur ist also eindeutig.
+  }
+\end{enumerate}
+
+\subsubsection{Definition 3.14 Quotientenvektorraum}
+\(\bar{V}\) wie in Satz 3.13 festgelegt, zusammen mit der dortigen Vektorraumstruktur hei\ss{}t Quotientenvektorraum \(\bar{V} = V/W\).\\
+\\
+\textbf{Bemerkung}\\
+Es sei \(F : V \to W\) linear, \(V_1 = ker(F)\). Dann wurde im Beweis von Satz 3.7 (Dimensionsformel) ein Untervektorraum \(V_2 \subset V\) konstruiert, mit \(V_2 \cong im(F)\), so dass \(V = V_1 \oplus V_2\).\\
+Wir zeigen nun, dass gilt \(im(F) \cong V/V_2\).
 \end{document}
