@@ -94,7 +94,7 @@
 \newtheorem*{bem}{Bemerkung\textnormal:}
 \theoremstyle{customdef}
 \newtheorem{definition}{Definition}[chapter]
-\newtheorem*{definition*}{Definition} % without numbering
+\newtheorem*{definitionn}{Definition} % without numbering
 \newtheorem{proposition}[definition]{Proposition}
 \newtheorem{lemma}[definition]{Lemma}
 \newtheorem{korrolar}[definition]{Korollar}
@@ -121,6 +121,13 @@
 \def\thmlopatch@endchapter{}
 
 \def\ll@definition{%
+	\protect\thmtopatch@numbernametext
+	\ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+	{\csname the\thmt@envname\endcsname}%
+	{\thmt@thmname}%
+}
+
+\def\ll@definitionn{%
 	\protect\thmtopatch@numbernametext
 	\ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
 	{\csname the\thmt@envname\endcsname}%
@@ -287,7 +294,7 @@
 		\lb x = &(\lb x_1, \dots, \lb x_n)\qquad \tag*{Skalarmultiplikation}
 	\end{align*}
 	
-	\begin{definition*}[Lineare Gleichungssysteme]
+	\begin{definitionn}[Lineare Gleichungssysteme]
 		\IN{Lineare!Gleichungssysteme}
 		Eine lineare Gleichung über \mR ist ein Ausdruck der Form: $\alpha_1x_1 + \alpha_2 x_2 + \dots \alpha_n x_n = \beta$ für reelle Zahlen $\beta, \alpha_1, \dots, \alpha_n \in \R$. Einen Vektor, $\xi = \left(\xi_1, \dots, \xi_n\right) \in \Rn$ nennen wir Lösung, wenn die reellen Zahlen  $\xi_1, \ \dots\ , \xi_n$ eingesetzt in $x_1, \dots, x_n$ die Gleichung erfüllen.\\
 		Ein lineares Gleichungssystem G ist ein System der Form
@@ -299,7 +306,7 @@
 			a_{m1} x_1 &+ a_{m2} x_2  &+\ \dots\ +\ & a_{mn} x_n &= b_m\\
 		\end{alignat*}
 		
-		Die einzelnen Komponenten lassen sich auch zusammenfassen als $$\sum_{j=1}^n a_{i,j} x_j = b_i \quad i\in\{1,\dots,m\}$$
+		\noindent Die einzelnen Komponenten lassen sich auch zusammenfassen als $$\sum_{j=1}^n a_{i,j} x_j = b_i \quad i\in\{1,\dots,m\}$$
 		oder, noch kürzer, in Matrixschreibweise:
 			$$Ax=b$$\\
 		Dabei bezeichnet $A$ eine sog. Matrix mit den Einträgen $a_{i,j},\ i\in[0,\ \dots\ , m],\ j\in[0,\ \dots\ , n]$, wir schreiben\\
@@ -313,9 +320,9 @@
 		$Ax$ für $x \in \Rn$ ist dann eine Kurzform für $\sum_{i=1}^na_{ij}x_j$ mit einem Vektor $x = (x_1, \dots, x_n) \in \Rn$. Das Ergebnis ist ein Vektor $b = (b_1, \dots, b_m) \in \R^m$ für eine Matrix $A$ mit $m$ Zeilen und $n$ Spalten.\\
 		Der Vektor $b$ heißt rechte Seite des linearen Gleichungssystems, $A$ heißt Koeffizientenmatrix des linearen Gleichungssystems. Eine Spalte, bzw. Zeile von $A$ kann mit einem Vektor im $\R^m$ bzw. im $\R^n$ identifiziert werden. Wir sprechen von Spalten-, bzw. Zeilenvektoren der Matrix $A$.\\
 		Eine Matrix mit $m$ Zeilen und $n$ Spalten nennen wir $m\times n$ - Matrix. Für $x  \in \Rn $, $A$ eine $m\times n$ - Matrix und $B$ eine $l\times m$ - Matrix gilt die Rechenregel $BAx = B(Ax)$. Ein Gleichungssystem $Ax=b$ heißt homogen, falls $b$ der Nullvektor $(0, \dots, 0)$ ist und quadratisch für  $m = n$ (eine quadratische Matrix A).\\
-	\end{definition*}
+	\end{definitionn}
 	
-	\begin{definition*}[Normalform]
+	\begin{definitionn}[Normalform]
 		\IN{Lineare!Gleichungssysteme!Normalform}
 		Ein Gleichungssystem $Ax=b$ ist in Normalform, falls $A$ die Gestalt \\
 		$$\hspace{3cm}
@@ -404,21 +411,21 @@
 		\end{pmatrix}
 		$$
 		Wähle $x_3 = 1$. Dann folgt daraus $x_2 = -3$ und $x_1 = -2$.
-	\end{definition*}
+	\end{definitionn}
 	
 	\begin{lemma}
 		Sei A eine $m\times n$ -Matrix mit Rang $k$. Dann gilt $k=n$  genau dann, wenn alle Gleichungssysteme mit $A$ höchstens eine Lösung haben, und $k = m$, genau dann, wenn alle Gleichungssysteme mit $A$ lösbar sind.\\
 		Beweis: klar aus der Darstellung.
 	\end{lemma}
 	
-	\begin{definition*}[Zeilenoperationen]
+	\begin{definitionn}[Zeilenoperationen]
 		\IN{Lineare!Gleichungssysteme!Zeilenoperationen}
 		Eine Zeilenoperation macht aus einem Gleichungssystem ein neues Gleichungssystem durch Multiplikation  der $i$-ten Zeile mit einer Zahl $\lb \in \R \setminus 0$ oder durch Addieren des \mlb-fachen der $i$-ten Zeile zur $j$-ten Zeile $(i \neq j)$. Wir bezeichnen diese Operationen mit $Z_i^\lb$ bzw. $Z_{i,j}^\lb$.\\
 		Die Umkehrung von $Z_i^\lb = Z_i^{\frac{1}{\lb}}$, die Umkehrung von $Z_{i,j}^\lb = Z_{i,j}^{-\lb}$
 		\begin{bem}
 			Die Zeilenoperationen sind umkehrbar.
 		\end{bem}
-	\end{definition*}
+	\end{definitionn}
 		
 	\begin{lemma}
 		Ein Gleichungssystem $G'$, welches aus einem Gleichungssystem $G$ durch Zeilenoperationen hervorgeht, besitzt die gleichen Lösungen wie $G$.\\
@@ -2226,7 +2233,7 @@
 	
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
-\listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}]
+\listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}]
 \addcontentsline{toc}{chapter}{Satz- und Definitionsverzeichnis}
 \newpage
 \printindex
