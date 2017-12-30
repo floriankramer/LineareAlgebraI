@@ -43,13 +43,13 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\C}{\mathbb{C}}
-\newcommand{\mR}{$\mathbb{R}$\ }
-\newcommand{\mN}{$\mathbb{N}$\ }
-\newcommand{\mZ}{$\mathbb{Z}$\ }
-\newcommand{\mQ}{$\mathbb{Q}$\ }
-\newcommand{\mC}{$\mathbb{C}$\ }
-\newcommand{\Rn}{\mathbb{R}^n\ }
-\newcommand{\mRn}{$\mathbb{R}^n$\ }
+\newcommand{\mR}{$\mathbb{R}$}
+\newcommand{\mN}{$\mathbb{N}$}
+\newcommand{\mZ}{$\mathbb{Z}$}
+\newcommand{\mQ}{$\mathbb{Q}$}
+\newcommand{\mC}{$\mathbb{C}$}
+\newcommand{\Rn}{\mathbb{R}^n}
+\newcommand{\mRn}{$\mathbb{R}^n$}
 \newcommand{\al}{\alpha}
 \newcommand{\be}{\beta}
 \newcommand{\vtwo}[2]{\begin{pmatrix}#1 \\ #2 \end{pmatrix}}
@@ -282,7 +282,7 @@
 				a_{1, k+1} & \ \cdots \ & a_{1, n}\\
 				a_{2, k+1} & \ \cdots \ & a_{2, n}\\
 				a_{3, k+1} & \ \cdots \ & a_{3, n}\\
-				\cdots & \ \ddots \ & \vdots\\
+			  	    \vdots & \ \ddots \ & \vdots\\
 				a_{k, k+1} & \ \cdots \ & a_{k, n}\\
 			\end{matrix} \\
 			\hspace{.5cm}
@@ -1923,6 +1923,7 @@
 \hspace{-.25cm}Im Folgenden sei $K$ ein Körper und $V$ ein $K$-Vektorraum.
 
 	\begin{definition}[Lineare Abbildungen]
+		\label{def31}
 		\IN{Lineare!Abbildungen}
 		Es seien $V$, $W$ $K$-Vektorräume.
 		\begin{enumerate}
@@ -1931,7 +1932,7 @@
 				\item $F(x + y) = F(x) + F(y)$
 				\item $F(\lb x) = \lb F(x)$
 			\end{enumerate}
-			für alle $x, y \in V, \lb in K$ und wir schreiben $F \in \Hom_K(V, W)$
+			für alle $x, y \in V, \lb \in K$ und wir schreiben $F \in \Hom_K(V, W)$
 			
 			\item Falls $V = W$, so heißt $F \in \Hom_K(V, W) = \End_K(V)$ Vektorraumendomorphismus
 			\item Ein Vektorraum-Komorphismus ist ein bijektiver Vektorraumhomomorphismus. Falls ein solcher Komorphismus von $V$ nach $W$ existiert, nennen wir $W$ und $V$ isomorph, und schreiben $V \cong W$
@@ -2059,6 +2060,7 @@
 	\end{definition}
 	
 	\begin{satz}[Dimensionsformel]
+		\label{satz37}
 		Es seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$, $\dim_K(V)$ endlich. Dann gilt $$\dim_K(V) = \dim_K(\ker(F))+\rg(F).$$
 		\begin{proof}
 			Nach \hyperref[lem32]{Lemma \ref{lem32}} ist $\ker(F)\subset V$ ein Untervektorraum, also endlichdimensional ${}^\text{[Literaturangabe benötigt]}$. Weiter ist $\Ima(F)\subset W$ ein Untervektorraum, also mit $\dim_K(\Ima(F))$ endlichdimensional ${}^\text{[Literaturangabe benötigt]}$. Sei also $(v_1, \ldots v_m)$ eine Basis von $\ker(F)$, $(w_1,\ldots, w_r)$ eine Basis von $\Ima(F)$ und es seien $u_1,\ldots, u_r$ Vektoren in $V$ mit $F(u_j)=w_j$ für $j=1, \ldots, r$.
@@ -2077,13 +2079,91 @@
 			\end{enumerate}
 		\end{proof}
 	\end{satz}
+	
 	\begin{definition}[Direkte Summe]
+		\label{def38}
 		Es sei $V$ ein $K$-Vektorraum, $V_1$, $V_2$ Untervektorräume.
 		\begin{enumerate}
 			\item Wir schreiben $V_1+V_2=\Span(V_1\cup V_2)$
-			\item $W=V_1\oplus V_2$, falls $W=V_1+v_2$ und $V_1\cap V_2 = \{0\}$. $W$ heißt dann direkte Summe von $V_1$ und $V_2$. $V_1$ und $V_2$ heißen dann komplementär.
+			\item $W=V_1\oplus V_2$, falls $W=V_1+V_2$ und $V_1\cap V_2 = \{0\}$. $W$ heißt dann direkte Summe von $V_1$ und $V_2$. $V_1$ und $V_2$ heißen dann komplementär.
 		\end{enumerate}
+		\begin{bem}
+			Seien $M_1$, $M_2$ Teilmengen von $V$. Also ist $M_1 + M_2 = \{x:y\in M_1,\ z\in M_2,\ y+z=x\}$. Sind $M_1$ und $M_2$ Untervektorräume, so ist "`$+$"' das gleiche wie die \hyperref[def38]{direkte Summe}.
+		\end{bem}
 	\end{definition}
+	
+	\begin{korrolar}		
+		Aus der \hyperref[satz37]{Dimensionsformel} folgt sofort $$\dim_K\left(F^{-1}(W)\right) = \dim_K(V)-\dim_K(\Ima(F)).$$
+	\end{korrolar}
+	
+	\begin{korrolar}
+		Es seien $V$, $W$ endlichdimensional. Dann existiert ein Isomorphismus genau dann, wenn $\dim_K(V)=\dim_K(W)$.
+	\end{korrolar}
+	
+	\begin{korrolar}
+		Es sei $\dim_K(V)=\dim_K(W) < \infty$, $F:V\to W$ linear. Dann sind folgende Aussagen äquivalent:
+		
+		\begin{enumerate}[leftmargin = 7cm]
+			\item[i)] $F$ ist injektiv.
+			\item[ii)] $F$ ist surjektiv.
+			\item[iii)] $F$ ist bijektiv.
+		\end{enumerate}
+	\end{korrolar}
+	
+	\begin{satz}
+		Es seien $V_1 \subset V$, $V_2 \subset V$ Untervektorräume und endlichdimensional. Dann gilt $$\dim_K(V_1 + V_2) = \dim_K(V_1) + \dim_K(V_2) - \dim_K(V_1 \cap V_2).$$
+		
+		\vspace{.25cm}
+		\begin{proof}
+			Es sei $(u_1, \ldots, u_n)$ eine Basis von $V_1\cap V_2$, erweitert mit $(v_1, \ldots v_m)$ zu einer Basis von $V_1$ sowie erweitert mit $(w_1, \ldots w_k)$ zu einer Basis von $V_2$. \\
+			
+			Zu zeigen ist nun, dass $\dim_K(V_1 + V_2) = (n+m) + (n+k) -n = n+m+k$ ist. Wir zeigen, dass $(u_1, \ldots u_n, v_1, \ldots v_m,  w_1, \ldots, w_k)$ eine Basis von $V_1 + V_2$ ist. Sicherlich ist die Familie ein Erzeugendensystem, denn sei $x\in V_1 + V_2$, dann gilt $x = \sum_{i\in I}\lb_i x_i^1 + \sum_{j\in J} \mu_j x_j^2$ mit $x_i^1\in V_1$ und $x_j^2\in V_2$.\\
+			
+			Jedes $x_i^1$, $x_j^2$ kann man als Linearkombination von Vektoren $(u_1,\ldots, u_n, v_1, \ldots, v_m)$ geschrieben werden, insbesondere ist $x$ eine Linearkombination von $(u_i, v_j, w_l)$, $i = 1,\ldots, n$, $j=1, \ldots, m$, $l = 1, \ldots, k$. 
+			
+			Zur linearen Unabhängigkeit: Sei $0=\sum_{i\in I}\lb_i u_i + \sum_{j\in J} \mu_j v_j + \sum_{l\in L} \kappa_l w_l$. Wir setzen $v = \sum_{i\in I} \lb_i u_i + \sum_{j \in J} \mu_j v_j\in V_1$. Es gilt aber $-v = \sum_{l\in L}\kappa_l w_l\in V_2$. Damit gilt $v\in V_1 \cup V_2$ und somit $v=\sum_{i\in I}\lb_i'u_i$. Die Linearkombination in $V_1$ aus $(u_1, \ldots, u_n, v_1, \ldots, v_m)$ ist aber eindeutig, also folgt: $\lb_i = \lb_i'$, $i = 1, \ldots, n$ und $\mu_j = 0$, $j =1, \ldots, m$. Damit ist aber auch $\kappa_l=0$, $l=1, \ldots, k$ und $\lb_i=0$ für $i=1, \ldots, n$.
+		\end{proof}
+		\vspace{.75cm}
+		\begin{bem}
+			In der Summenschreibweise ist das Weglassen der Indizes nicht unüblich.
+		\end{bem}
+	\end{satz}
+	
+	\begin{satz}
+		\label{satz313}
+		Es sei $V$ ein $K$-Vektorraum, $W\subset V$ ein Untervektorraum. Wir schreiben $x \sim y$, falls $x-y\in W$, für $x, y\in V$. Dann gilt:\\
+		
+		\begin{enumerate}
+			\item[i)] $\sim$ ist eine Äquivalenzrelation
+			\item[ii)] Auf $\tilde{V} = V/\sim$ gibt es genau eine Vektorraumstruktur, sodass die Abbildung $p:V\to \tilde{V}$, $x\mapsto [x]$ zu einem Vektorraumhomomorphismus wird. Hierbei entspricht $[x]$ die der zu $x$ gehörigen Äquivalenzklasse.
+		\end{enumerate}
+		
+		\begin{proof}
+			\begin{enumerate}
+				\item[i)]
+					\begin{enumerate}
+						\item \textit{Reflexivität}: $x-x=0$ und $0\in W$ $\Rightarrow\ x\sim x$
+						\item \textit{Symmetrie}: $x\sim y\ \Rightarrow\ x-y\in W\ \Rightarrow\ -(x-y)\in W\ \Rightarrow\ y-x\in W\ \Rightarrow\ y\sim x$
+						\item \textit{Transitivität}: $x\sim y,\ y\sim z\ \Rightarrow\ x-y\in W, y-z\in W\ \Rightarrow\ (x-y)+(y-z)\in W\ \Rightarrow\ x-z\in W\ \Rightarrow\ x\sim z$
+					\end{enumerate}
+					Da alle Axiome für Äquivalenzrelationen erfüllt sind, handelt es sich bei $\sim$ um eine Äquivalenzrelation.
+				\item[ii)] Es seien $x,y\in W$. Dann gilt $[x]=p(x)$, $[y] = p(y)\in V/\sim$. Wir rechnen 
+				$$[x] + [y] \stackrel{\hyperref[satz313]{\text{Def}}}{=} p(x)+ p(y) \stackrel{\hyperref[def31]{\text{D\ref{def31}}}}{=} [x+y],$$
+				ebenso $\lb[x] = [\lb x]$. Zur Wohldefiniertheit dieser Abbildung rechnen wir $x, \tilde{x}, y, \tilde{y}\in V$ mit $[x]=[\tilde{x}]$, $[y]=[\tilde{y}]$ und es gilt $(x+y)-(\tilde{x}+\tilde{y}) = \underbrace{(x-\tilde{x})}_{\in W} + \underbrace{(y-\tilde{y})}_{\in W}\in W$, also auch $(x+y)\sim (\tilde{x}+\tilde{y}$ und ebenso $[x+y] = [\tilde{x}+\tilde{y}]$. Wir sehen durch einfaches Nachrechnen sofort, dass $\tilde{V}$ mit Verknüpfung $+$ uns Skalarmultiplikation $\lb[x] = [\lb x]$ zu einem Vektorraum wird.
+				Nachdem $p$ surjektiv ist, sind $+$ und $\cdot$ für alle Elemente aus $\tilde{V}$ festgelegt, die Vektorraumstruktur ist also eindeutig.
+			\end{enumerate}
+		\end{proof}
+	\end{satz}
+	
+	\begin{definition}[Quotientenvektorraum]
+		Sei $\tilde{V}$ wie in \hyperref[satz313]{Satz \ref{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt Quotientenvektorraum $\tilde{V} = V/W$.\\
+		\begin{bem}
+			Es sei $F:V\to W$ linear, $V_1 = \ker(F)$. Dann wurde im Beweis der \hyperref[satz37]{Dimensionsformel} ein Untervektorraum $V_2\subset V$ konstruiert mit $V_2 \cong \Ima(F)$, sodass $V = V_1\oplus V_2$. Wir zeigen im neuen Jahr, dass gilt $\Ima(F)\cong V/V_2$.
+		\end{bem}
+	\end{definition}
+	
+	
+	
 \newpage
 \printindex
 \end{document}
