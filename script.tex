@@ -16,15 +16,17 @@
 \usepackage{pgfplots}
 \usepackage{relsize}
 \usepackage{imakeidx}
+\usepackage{framed}
+\usepackage{etoolbox}
+
+
+\usepackage[a4paper, top = 2cm, left = 2.5cm, right = 2.5cm, bottom = 2cm]{geometry}
 
 \makeindex[columns=2, title=Stichwortverzeichnis, intoc]
 \newcommand{\BH}[1]{\large\textbf{\hyperpage{#1}}\normalsize}
 \newcommand{\IN}[1]{\index{#1|BH}}
 
-\usepackage[a4paper, top = 2cm, left = 2.5cm, right = 2.5cm, bottom = 2cm]{geometry}
 \title{Lineare Algebra I\\Mitschrieb}
-
-
 
 \titleformat{\chapter}[block]
 {\normalfont\huge\bfseries}{\Huge \thechapter. }{0em}{\Huge}
@@ -87,8 +89,9 @@
 	{}            % punctuation between head and body
 	{.5em}        % space after theorem head; " " = normal interword space
 	{}
+
 \theoremstyle{customrem}
-\newtheorem*{bem}{Bemerkung:}
+\newtheorem*{bem}{Bemerkung\textnormal:}
 \theoremstyle{customdef}
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem*{definition*}{Definition} % without numbering
@@ -98,7 +101,61 @@
 \newtheorem{satz}[definition]{Satz}
 \newtheorem*{satz*}{Satz} % without numbering
 \renewenvironment{proof}{\vspace{-.75cm}\paragraph{Beweis: }}{\vspace{-.5cm}\hfill$\square$}
-%\renewcommand{\qedsymbol}{$\square$}
+
+% defines lists of theorems:
+\makeatletter
+\patchcmd\thmtlo@chaptervspacehack
+{\addtocontents{loe}{\protect\addvspace{10\p@}}}
+{\addtocontents{loe}{\protect\thmlopatch@endchapter\protect\thmlopatch@chapter{\thechapter}}}
+{}{}
+\AtEndDocument{\addtocontents{loe}{\protect\thmlopatch@endchapter}}
+\long\def\thmlopatch@chapter#1#2\thmlopatch@endchapter{%
+	\setbox\z@=\vbox{#2}%
+	\ifdim\ht\z@>\z@
+	\addvspace{10\p@}
+	\hbox{\bfseries\chaptername\ #1}\nobreak
+	#2
+	\addvspace{10\p@}
+	\fi
+}
+\def\thmlopatch@endchapter{}
+
+\def\ll@definition{%
+	\protect\thmtopatch@numbernametext
+	\ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+	{\csname the\thmt@envname\endcsname}%
+	{\thmt@thmname}%
+}
+
+\def\ll@satz{%
+	\protect\thmtopatch@numbernametext
+	\ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+	{\csname the\thmt@envname\endcsname}%
+	{\thmt@thmname}%
+}
+
+\def\ll@lemma{%
+	\protect\thmtopatch@numbernametext
+	\ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+	{\csname the\thmt@envname\endcsname}%
+	{\thmt@thmname}%
+}
+
+\def\ll@korrolar{%
+	\protect\thmtopatch@numbernametext
+	\ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+	{\csname the\thmt@envname\endcsname}%
+	{\thmt@thmname}%
+}
+
+\newcommand\thmtopatch@numbernametext[3][]{%
+	#3 #2%
+	\if\relax\detokenize{#1}\relax\else:\space\space #1\fi
+}
+
+\makeatother
+
+
 % replace ugly hyperref boxes with colored text
 \usepackage{xcolor}
 \hypersetup{
@@ -138,25 +195,28 @@
 	\fi}
 \makeatother
 
+% defines bigslant for quotient
+\newcommand{\bigslant}[2]{{\raisebox{.1em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
 
 \begin{document}
 \begin{titlepage}
 	\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-	\center
+	\centering
 	\vspace{6cm}
-	\textsc{\large Albert-Ludwigs-Universität Freiburg}\\[0.5cm] 
+	\textsc{\large \thinspace}\\[0.5cm]
 	\vspace{4cm}
 	\HRule \\[0.8cm]
 	{ \Huge  \textbf{Lineare Algebra $\mathbf{I}$}}\\[0.4cm] 
 	\HRule \\[.5cm]
 	{\Large Inoffizieller Mitschrieb}\\[1.0cm]
-	\textsl{Stand}: 18. Dezember 2017
-	\\[12.5cm]
-	\begin{minipage}{0.5\textwidth}
+	Stand: 21. Dezember 2017
+	\\[11.5cm]
+	\begin{minipage}{0.65\textwidth}
 		\begin{center} \large
 			\textsl{Vorlesung gehalten von:}\\[1cm]
 			Prof. Dr. Patrick Dondl\\
 			Abteilung für Angewandte Mathematik\\
+			\textsc{\large Albert-Ludwigs-Universität Freiburg}
 		\end{center}
 	\end{minipage}\\[2.5cm]
 	\thispagestyle{empty}
@@ -854,18 +914,20 @@
 		\end{bem}
 	\end{definition}
 	
-	\begin{satz}
+	\begin{satz}[Eigenschaften von Funktionen über endliche Mengen]
 		Sei $X$ eine endliche Menge, so sind für $f : X \to X$ folgende Aussagen äquivalent:
 		\begin{enumerate}
 			\itemsep0cm
-			\item f ist injektiv 
-			\item f ist surjektiv
-			\item f ist bijektiv
+			\item $f$ ist injektiv 
+			\item $f$ ist surjektiv
+			\item $f$ ist bijektiv
 		\end{enumerate}
+		
 		\begin{bem}
 			Für nicht endliche Mengen haben wir einfache Gegenbeispiele:
 			$$f : \N \to \N,\ x \mapsto f(x) = 2x$$
 		\end{bem}
+		
 		\begin{proof}
 			$X$ ist eine endliche Menge, wir schreiben $X = \{x_1, \dots, x_n\}$ mit paarweise verschiedenen $x_j$.
 			\begin{enumerate}
@@ -1027,10 +1089,10 @@
 	
 	\begin{definition}[Quotientenmenge]
 		\IN{Menge!Quotienten-}
-		Es sei X eine Menge mit Äquivalenzrelation $\sim$. Die Menge der Äquivalenzklassen in $X$ bezeichnen wir  als Quotientenmenge und schreiben für diese Menge $X/{\sim}$.\\
+		Es sei X eine Menge mit Äquivalenzrelation $\sim$. Die Menge der Äquivalenzklassen in $X$ bezeichnen wir  als Quotientenmenge und schreiben für diese Menge $\bigslant{X}{\sim}$.\\
 		\begin{bem}
 			Wir können eine Abbildung definieren, welche jedem $a \in X$ dessen Äquivalenzklasse zuordnet:
-			$X \to x/{\sim}, a \mapsto A_a$ (nach \hyperref[prop122]{Proposition \ref{prop122}} eindeutig zugeordnete Äquivalenzklasse).
+			$X \to \bigslant{x}{\sim}, a \mapsto A_a$ (nach \hyperref[prop122]{Proposition \ref{prop122}} eindeutig zugeordnete Äquivalenzklasse).
 			Ein solches $a$ heißt dann Repräsentant der Äquivalenzklasse $A_a$.\\
 		\end{bem}
 		\noindent\textbf{Beispiel: }
@@ -1232,10 +1294,10 @@
 	
 	\begin{satz*}[Zyklische Gruppen]
 		\IN{Gruppe!zyklische}
-		Für $m \in \N$  sei $\Z/m\Z = \{\xoverline{0}, \dots, \xoverline[.95]{m-1}\}$.\\
-		Dann gilt, dass $\Z/m\Z, +$ ($+$ definiert wie oben) eine abelsche Gruppe ist.
-		Die Abbildung $\Z \to \Z/m\Z, a \mapsto \xoverline{a} = a + m\Z$ ist ein surjektiver Homomorphismus.\\
-		Beweis: Übung.\\
+		Für $m \in \N$  sei $\bigslant{\Z}{m\Z} = \{\xoverline{0}, \dots, \xoverline[.95]{m-1}\}$.	Dann gilt, dass $\bigslant{\Z}{m\Z}, +$ ($+$ definiert wie oben) eine abelsche Gruppe ist.
+		Die Abbildung $\Z \to \bigslant{\Z}{m\Z}, a \mapsto \xoverline{a} = a + m\Z$ ist ein surjektiver Homomorphismus.
+		
+		Beweis: Übung.
 		Wir nennen diese Gruppen die zyklischen Gruppen der Ordnung $m$.
 	\end{satz*}
 
@@ -1397,13 +1459,13 @@
 		
 		\vspace{.25cm}
 		\noindent\textbf{Beispiel:}
-		Auf $\Z/m\Z$ ist bereits eine Addition definiert, mit der $\Z/m\Z$ eine Gruppe wird. Mit der Multiplikation $$\xoverline{a} \cdot \xoverline{b} = \overline{ab}$$
-		für $\xoverline{a}, \xoverline{b} \in \Z / m\Z$ und Repräsentanten $a$ und $b$ wird $\Z/m\Z$ zu einem Ring.
+		Auf $\bigslant{\Z}{m\Z}$ ist bereits eine Addition definiert, mit der $\bigslant{\Z}{m\Z}$ eine Gruppe wird. Mit der Multiplikation $$\xoverline{a} \cdot \xoverline{b} = \overline{ab}$$
+		für $\xoverline{a}, \xoverline{b} \in \bigslant{\Z}{m\Z}$ und Repräsentanten $a$ und $b$ wird $\bigslant{\Z}{m\Z}$ zu einem Ring.
 		Wie für die Addition zeigen wir Unabhängigkeit von der Wahl der Repräsentanten, Assoziativität und Distributivgesetz sind leicht nachzurechnen. Der Ring ist kommutativ.
 	\end{definition}
 
 	\begin{satz}[Nullteilerfreiheit des Restklassenrings]
-		Der Restklassenring $(\Z/m\Z, +, \cdot)$ ist genau dann nullteilerfrei, wenn $m$ eine Primzahl ist.\\
+		Der Restklassenring $(\bigslant{\Z}{m\Z}, +, \cdot)$ ist genau dann nullteilerfrei, wenn $m$ eine Primzahl ist.\\
 		
 		\begin{proof}
 			Falls $m$ nicht prim ist, gilt $m = k \cdot l$ mit $1 < k, l < m$. Damit gilt $\xoverline{k} \neq \xoverline{0}, \xoverline{l} \neq \xoverline{0}$, aber $\xoverline{k} \xoverline{l}= \xoverline{kl} = \xoverline{m} = \xoverline{0}$.\\
@@ -2135,7 +2197,7 @@
 		
 		\begin{enumerate}
 			\item[i)] $\sim$ ist eine Äquivalenzrelation
-			\item[ii)] Auf $\tilde{V} = V/\sim$ gibt es genau eine Vektorraumstruktur, sodass die Abbildung $p:V\to \tilde{V}$, $x\mapsto [x]$ zu einem Vektorraumhomomorphismus wird. Hierbei entspricht $[x]$ die der zu $x$ gehörigen Äquivalenzklasse.
+			\item[ii)] Auf $\tilde{V} = \bigslant{V}{\sim}$ gibt es genau eine Vektorraumstruktur, sodass die Abbildung $p:V\to \tilde{V}$, $x\mapsto [x]$ zu einem Vektorraumhomomorphismus wird. Hierbei entspricht $[x]$ die der zu $x$ gehörigen Äquivalenzklasse.
 		\end{enumerate}
 		
 		\begin{proof}
@@ -2147,7 +2209,7 @@
 						\item \textit{Transitivität}: $x\sim y,\ y\sim z\ \Rightarrow\ x-y\in W, y-z\in W\ \Rightarrow\ (x-y)+(y-z)\in W\ \Rightarrow\ x-z\in W\ \Rightarrow\ x\sim z$
 					\end{enumerate}
 					Da alle Axiome für Äquivalenzrelationen erfüllt sind, handelt es sich bei $\sim$ um eine Äquivalenzrelation.
-				\item[ii)] Es seien $x,y\in W$. Dann gilt $[x]=p(x)$, $[y] = p(y)\in V/\sim$. Wir rechnen 
+				\item[ii)] Es seien $x,y\in W$. Dann gilt $[x]=p(x)$, $[y] = p(y)\in \bigslant{V}{\sim}$. Wir rechnen 
 				$$[x] + [y] \stackrel{\hyperref[satz313]{\text{Def}}}{=} p(x)+ p(y) \stackrel{\hyperref[def31]{\text{D\ref{def31}}}}{=} [x+y],$$
 				ebenso $\lb[x] = [\lb x]$. Zur Wohldefiniertheit dieser Abbildung rechnen wir $x, \tilde{x}, y, \tilde{y}\in V$ mit $[x]=[\tilde{x}]$, $[y]=[\tilde{y}]$ und es gilt $(x+y)-(\tilde{x}+\tilde{y}) = \underbrace{(x-\tilde{x})}_{\in W} + \underbrace{(y-\tilde{y})}_{\in W}\in W$, also auch $(x+y)\sim (\tilde{x}+\tilde{y}$ und ebenso $[x+y] = [\tilde{x}+\tilde{y}]$. Wir sehen durch einfaches Nachrechnen sofort, dass $\tilde{V}$ mit Verknüpfung $+$ uns Skalarmultiplikation $\lb[x] = [\lb x]$ zu einem Vektorraum wird.
 				Nachdem $p$ surjektiv ist, sind $+$ und $\cdot$ für alle Elemente aus $\tilde{V}$ festgelegt, die Vektorraumstruktur ist also eindeutig.
@@ -2156,14 +2218,16 @@
 	\end{satz}
 	
 	\begin{definition}[Quotientenvektorraum]
-		Sei $\tilde{V}$ wie in \hyperref[satz313]{Satz \ref{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt Quotientenvektorraum $\tilde{V} = V/W$.\\
+		Sei $\tilde{V}$ wie in \hyperref[satz313]{Satz \ref{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt Quotientenvektorraum $\tilde{V} = \bigslant{V}{W}$.\\
 		\begin{bem}
-			Es sei $F:V\to W$ linear, $V_1 = \ker(F)$. Dann wurde im Beweis der \hyperref[satz37]{Dimensionsformel} ein Untervektorraum $V_2\subset V$ konstruiert mit $V_2 \cong \Ima(F)$, sodass $V = V_1\oplus V_2$. Wir zeigen im neuen Jahr, dass gilt $\Ima(F)\cong V/V_2$.
+			Es sei $F:V\to W$ linear, $V_1 = \ker(F)$. Dann wurde im Beweis der \hyperref[satz37]{Dimensionsformel} ein Untervektorraum $V_2\subset V$ konstruiert mit $V_2 \cong \Ima(F)$, sodass $V = V_1\oplus V_2$. Wir zeigen im neuen Jahr, dass gilt $\Ima(F)\cong \bigslant{V}{V_2}$.
 		\end{bem}
 	\end{definition}
 	
-	
-	
+\newpage
+\renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
+\listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}]
+\addcontentsline{toc}{chapter}{Satz- und Definitionsverzeichnis}
 \newpage
 \printindex
 \end{document}
