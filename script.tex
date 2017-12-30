@@ -104,6 +104,8 @@
 
 % defines lists of theorems:
 \makeatletter
+
+\AtBeginDocument{\addtocontents{loe}{\protect\thmlopatch@chapter {0}}} % fixes chapter 0 not showing by patching this shit to the beginning of the .loe
 \patchcmd\thmtlo@chaptervspacehack
 {\addtocontents{loe}{\protect\addvspace{10\p@}}}
 {\addtocontents{loe}{\protect\thmlopatch@endchapter\protect\thmlopatch@chapter{\thechapter}}}
@@ -265,7 +267,7 @@
 	\item Descartes führte ``Koordinaten'' ein in der Geometrie ein, also Zahlensysteme. Das führte dazu, das man nun leichter rechnen kann.
 	\item Wir benutzen hier die reellen Zahlen (mit den üblichen Rechenregeln für die Addition):
 		\begin{itemize}
-			\item $(x + y) + z = x + (y + z)$ \\
+			\item $(x + y) + z = x + (y + z)$ 
 			\item $0 + x = x + 0 = x$ 
 			\item Es gibt für jedes x ein y mit $x + y = 0$, wir nennen dieses y das additiv inverse zu x (``-x'').
 			\item $x + y = y + x$
@@ -281,7 +283,7 @@
 \end{itemize}
 
 \section{Der $\R^n$}
-	\IN{Zahlen!Reelle}
+	\IN{Reelle Zahlen}
 	\label{kap0}
 	Für gegebenes $n \in \N$ definieren wir:\\
 	$$\R^n = \{x = (x_1, x_2, \dots, x_n): x_1, \dots, x_n \in \R\}$$
@@ -295,7 +297,7 @@
 	\end{align*}
 	
 	\begin{definitionn}[Lineare Gleichungssysteme]
-		\IN{Lineare!Gleichungssysteme}
+		\IN{Lineare Gleichungssysteme}
 		Eine lineare Gleichung über \mR ist ein Ausdruck der Form: $\alpha_1x_1 + \alpha_2 x_2 + \dots \alpha_n x_n = \beta$ für reelle Zahlen $\beta, \alpha_1, \dots, \alpha_n \in \R$. Einen Vektor, $\xi = \left(\xi_1, \dots, \xi_n\right) \in \Rn$ nennen wir Lösung, wenn die reellen Zahlen  $\xi_1, \ \dots\ , \xi_n$ eingesetzt in $x_1, \dots, x_n$ die Gleichung erfüllen.\\
 		Ein lineares Gleichungssystem G ist ein System der Form
 		
@@ -323,7 +325,7 @@
 	\end{definitionn}
 	
 	\begin{definitionn}[Normalform]
-		\IN{Lineare!Gleichungssysteme!Normalform}
+		\IN{Lineare Gleichungssysteme!Normalform}
 		Ein Gleichungssystem $Ax=b$ ist in Normalform, falls $A$ die Gestalt \\
 		$$\hspace{3cm}
 		\left(
@@ -419,7 +421,7 @@
 	\end{lemma}
 	
 	\begin{definitionn}[Zeilenoperationen]
-		\IN{Lineare!Gleichungssysteme!Zeilenoperationen}
+		\IN{Lineare Gleichungssysteme!Zeilenoperationen}
 		Eine Zeilenoperation macht aus einem Gleichungssystem ein neues Gleichungssystem durch Multiplikation  der $i$-ten Zeile mit einer Zahl $\lb \in \R \setminus 0$ oder durch Addieren des \mlb-fachen der $i$-ten Zeile zur $j$-ten Zeile $(i \neq j)$. Wir bezeichnen diese Operationen mit $Z_i^\lb$ bzw. $Z_{i,j}^\lb$.\\
 		Die Umkehrung von $Z_i^\lb = Z_i^{\frac{1}{\lb}}$, die Umkehrung von $Z_{i,j}^\lb = Z_{i,j}^{-\lb}$
 		\begin{bem}
@@ -438,7 +440,7 @@
 	\end{lemma}
 	
 	\begin{satz}[Gauß-Jordan-Elimination]
-		\IN{Lineare!Gleichungssysteme!Gauß-Jordan-Elimination}
+		\IN{Lineare Gleichungssysteme!Gauß-Jordan-Elimination}
 		Jedes lineare Gleichungssystem lässt sich durch Zeilenoperationen und Vertauschungen von Variablen (d.h. Vertauschung von Spalten) in Normalform bringen.\\[.5cm]
 		\begin{proof}
 			Wir beweisen dies mittels eines expliziten  Algorithmus' (der Gauß-Jordan-Elimination).	Aus praktischen Gründen schreiben wir unser Gleichungssystem als sogenannte erweiterte Koeffizientenmatrix.
@@ -497,7 +499,7 @@
 	\end{korrolar}
 	\vspace{.2cm}
 	\begin{definition}[Lineare Unabhängigkeit]
-		\IN{Lineare!Unabhängigkeit}
+		\IN{Lineare Unabhängigkeit}
 		\label{deflineareunab}
 		Eine Kollektion $a_1, \dots, a_n$ von Vektoren in $\R^m$ heißt linear unabhängig, wenn sich keiner der Vektoren als Linearkombination der anderen Vektoren schreiben lässt.
 	\end{definition}
@@ -634,7 +636,7 @@
 	Im Folgenden seien $a = (a_1, \dots, a_n), b = (b_1, \dots, b_n)$ zwei Vektoren in \mRn.
 	
 	\begin{definition}[Skalarprodukt]
-		\IN{Skalar!-produkt}
+		\IN{Skalarprodukt}
 		Das Skalarprodukt von $a$ und $b$ ist definiert als $(a, b) = \sum_{j=1}^n a_j b_j$.
 	\end{definition}
 	
@@ -666,7 +668,7 @@
 	\end{definition}
 	
 	\begin{lemma}[Cauchy-Schwarzsche Ungleichung]
-		\IN{Ungleichung!Cauchy-Schwarzsche}
+		\IN{Cauchy-Schwarzsche Ungleichung}
 		Es gilt $|(a, b)| \le ||a||\cdot||b||$.\\
 		\begin{proof}
 			Es gilt für jedes beliebiges $\lb \in \R$:
@@ -679,7 +681,7 @@
 	\end{lemma}
 	
 	\begin{lemma}[Dreiecksungleichung]
-		\IN{Ungleichung!Dreicks}
+		\IN{Dreicksungleichung}
 		Es gilt $||a+b|| \le ||a|| + ||b||$.\\
 		\begin{proof}
 			$ ||a+b||^2 = (a+b, a+b)= ||a||^2 + 2(a,b) + ||b||^2 \le ||a||^2 + 2 ||a||||b|| + ||b||^2 = (||a|| + ||b||)^2$
@@ -779,7 +781,7 @@
 	Die leere Menge $\{\}$ oder $\emptyset$ enthält kein Element.
 
 	\begin{definition}[Teilmengen]$ $\vspace{-.75cm}
-		\IN{Menge!Teil-}
+		\IN{Teilmenge}
 		\begin{enumerate}
 			\itemsep0cm
 			\item Eine Menge Y heißt Teilmenge von X, wenn aus $x \in Y$ immer folgt $x \in X$. Wir schreiben $Y \subset X$.
@@ -793,7 +795,7 @@
 			\end{enumerate}
 		\end{bem}
 		\textbf{Die Natürlichen Zahlen}\\
-		\IN{Zahlen!Natürliche}
+		\IN{Natürliche Zahlen}
 		Die einfachste unendliche Menge ist die der natürlichen Zahlen $$\N = \{1, 2, 3, \ldots\},$$ deren Existenz wir annehmen, zusammen mit den üblichen Rechenregeln.
 		Die natürlichen Zahlen genügen dem Prinzip der vollständigen Induktion.
 		Sei $M \subset \N$ und es gelte:
@@ -803,8 +805,8 @@
 			\item falls $m \in M$, so ist auch $n + 1 \in M$
 		\end{enumerate}
 		Dann gilt $M = \N$.\\
-		\IN{Zahlen!Rationale}
-		\IN{Zahlen!Ganze}
+		\IN{Rationale Zahlen}
+		\IN{Ganze Zahlen}
 		Durch Erweiterung von Zahlbereichen können wir aus \mN auch die ganzen Zahlen $\mathbb{Z}$, die rationalen Zahlen $\mathbb{Q}$ sowie die reellen Zahlen \mR konstruieren 
 		(ebenso die komplexen Zahlen $\mathbb{C}$).\\
 		\begin{bem}
@@ -816,7 +818,7 @@
 	\end{definition}
 	
 	\begin{definition}[Mengenoperationen]
-		\IN{Menge!Operationen}
+		\IN{Mengenoperationen}
 		\label{defmengenoperationen}
 		Sind $X$, $Y$ Mengen, so können wir bilden:
 		\begin{enumerate}
@@ -913,7 +915,7 @@
 	\end{definition}
 	
 	\begin{definition}[Umkehrfunktionen]
-		\IN{Abbildung!Umkehr-}
+		\IN{Umkehrabbildung}
 		\label{def1.9}
 		Es sei $f : X \to Y$ bijektiv. Wir schreiben dann $f^{-1} : Y \to X, f^{-1}(y) = x$ mit dem eindeutig definierten $x \in X$, sodass gilt $f(x) = y$.\\
 		\begin{bem}
@@ -988,8 +990,7 @@
 	\end{lemma}
 	
 	\begin{definition}[Menge aller Abbildungen]
-		\IN{Menge!Aller Abbildungen}
-		\IN{Abbildung!Menge}
+		\IN{Menge aller Abbildungen}
 		Seien $X$, $Y$ Mengen. Mit $\abb(X, Y)$ bezeichnen wir die Menge aller Abbildungen von $X$ nach $Y$.
 		\begin{bem}
 			$\{ f \in \abb(X, Y) :\ f \text{ surjektiv}\}$ ist nun ebenfalls definiert.
@@ -1004,7 +1005,7 @@
 	\end{definition}
 	
 	\begin{definition}[Potenzmenge]
-		\IN{Menge!Potenz-}
+		\IN{Potenzmenge}
 		Sei $M$ eine Menge. Die Menge aller Teilmengen von $M$ heißt Potenzmenge von $M$, kurz $2^M$.
 		\begin{bem}
 			Für eine (beliebige nicht notwendigerweise bijektive) Abbildung $f : X \to Y$ ist $f^{-1}$ eine Abbildung von $2^Y$ nach $2^X$.
@@ -1053,7 +1054,7 @@
 	\end{definition}
 	
 	\begin{definition}[Äquivalenzrelationen]
-		\IN{Äquivalenz!Relation}
+		\IN{Äquivalenzrelation}
 		Eine Relation $\sim$ auf $X$ heißt Äquivalenzrelation, falls gilt:
 		\begin{enumerate}[leftmargin=3cm, rightmargin=3cm]
 			\item $x \sim x$\hfill (Reflexivität)
@@ -1069,7 +1070,7 @@
 	\end{definition}
 	
 	\begin{definition}[Äquivalenzklassen]
-		\IN{Äquivalenz!Klasse}
+		\IN{Äquivalenzklasse}
 		Sei $X$ eine Menge mit Äquivalenzrelation $\sim$. Eine Menge $A \subset X$ heißt Äquivalenzklasse bezüglich $\sim$, falls gilt:
 		\begin{enumerate}
 			\item $A \neq \emptyset$ 
@@ -1095,7 +1096,7 @@
 	\vspace{.25cm}
 	
 	\begin{definition}[Quotientenmenge]
-		\IN{Menge!Quotienten-}
+		\IN{Quotientenmenge}
 		Es sei X eine Menge mit Äquivalenzrelation $\sim$. Die Menge der Äquivalenzklassen in $X$ bezeichnen wir  als Quotientenmenge und schreiben für diese Menge $\bigslant{X}{\sim}$.\\
 		\begin{bem}
 			Wir können eine Abbildung definieren, welche jedem $a \in X$ dessen Äquivalenzklasse zuordnet:
@@ -1243,7 +1244,7 @@
 	\end{lemma}
 	
 	\begin{definition}[Untergruppen]
-		\IN{Gruppe!Unter-}
+		\IN{Untegruppe}
 		Es sei $(G, \cdot)$ eine Gruppe, $G' \subset G$. $G'$ heißt Untergruppe von G, falls für $a, b \in G'$ auch gilt:\vspace{-.125cm}
 		\begin{enumerate}[leftmargin=3cm]
 			\itemsep0cm
@@ -1253,8 +1254,8 @@
 	\end{definition}
 	
 	\begin{definition}[Homo- und Isomorphismen auf Gruppen]
-		\IN{Abbildungen!Homomorphismus}
-		\IN{Abbildungen!Isomorphismus}
+		\IN{Homomorphismus}
+		\IN{Isomorphismus}
 		Seien $(G, \cdot), (H, *)$ Gruppen, und $\varphi : G \to H$ eine Abbildung.
 		\begin{enumerate}
 			\item Die Abbildung $\varphi$ heißt Homomorphismus, falls gilt:
@@ -1347,8 +1348,8 @@
 	\end{proposition}
 
 	\begin{definition}[Unterring und Ringhomomorphismus]
-		\IN{Ring!Unter-}
-		\IN{Ring!-homomorphismus}
+		\IN{Unterring}
+		\IN{Ringhomomorphismus}
 		Es sei $(R, +, \cdot)$ ein Ring, $R' \subset R$. $(R', +, \cdot)$ heißt Unterring, falls $(R', +)$ eine Untergruppe von $(R, +)$ ist und gilt $a, b \in R' \Rightarrow ab \in R'$.\\[.2cm]
 		Es seien $(R, +, \cdot)$, $(S, \hat{+}, \hat{\cdot})$ Ringe, $\varphi : R \to S$ eine Abbildung. $\varphi$ heißt Ringhomomorphismus, falls gilt:
 		\begin{alignat*}{3}
@@ -1398,7 +1399,7 @@
 		\noindent\textbf{Beispiele:}
 		\begin{enumerate}
 			\item$(\Q, +, \cdot), (\R, +, \cdot)$.
-			\item \IN{Zahlen!Komplexe}
+			\item \IN{Komplexe Zahlen}
 				Die komplexen Zahlen $\C$, wie folgt definiert. Für $(a, b), (c, d) \in \R \times \R$ definieren wir
 				$$(a, b)+(c, d) = (a + c, b + d)$$ und
 				$$(a,b)\cdot (c,d) = (ac-bd, ad + bc)$$
@@ -1596,7 +1597,7 @@
 	\end{proposition}
 
 	\begin{definition}[Untervektorräume]
-		\IN{Vektorraum!Unter-}
+		\IN{Untervektorraum}
 		Es sei $K$ ein Körper, $V$ ein $K$-Vektorraum. Weiteres sei $W \subset V$. Dann heißt $W$ Untervektorraum von $V$, falls gilt:
 		
 		\begin{enumerate}[leftmargin=4cm]
@@ -1806,7 +1807,7 @@
 	\end{satz}
 	
 	\begin{definition}[Basis eines Vektorraums]
-		\IN{Vektorraum!Basis}
+		\IN{Basis}
 		Eine Familie $(v_i)_{i\in I}$ mit $v_i \in V$ für alle $i \in I$ heißt Basis von $V$, falls $(v_i)_{i\in I}$ ein linear unabhängiges Erzeugendensystem von V ist.\\
 		
 		\noindent
@@ -1818,7 +1819,7 @@
 	\end{definition}
 	
 	\begin{satz}[Basisauswahlsatz]
-		\IN{Vektorraum!Basis!-auswahlsatz}
+		\IN{Basisauswahlsatz}
 		\label{satz213}
 		Es sei $N \in \N \cup \{0\}$, $v_1, \dots, v_N \in V$ und $v = span(\{v_1, \dots, v_N\})$. Dann existieren $i_1, \dots, i_n \in \{1, \dots, N\}$, sodass $(v_{i_1}, \dots, v_{i_n})$ eine Basis von $V$ bilden.\\
 		
@@ -1859,7 +1860,7 @@
 	\end{lemma}
 	
 	\begin{satz}[Basisaustauschsatz von Steinitz]
-		\IN{Vektorraum!Basis!-austauschsatz}
+		\IN{Basisaustauschsatz}
 		\label{satz215}
 		Es sei $(v_1, \dots, v_n)$ eine Basis von $V$ und $(w_1, \dots, w_m)$ sei eine linear unabhängige Familie von Vektoren in $V$. Dann gilt:
 		\begin{enumerate}
@@ -1901,7 +1902,7 @@
 	\end{korrolar}
 	\vspace{.25cm}
 	\begin{definition}[Dimension]
-		\IN{Vektorraum!Dimension}
+		\IN{Dimension}
 		Es sei $V$ ein $K$-Vektorraum. Wir setzen
 		$$\dim_K(V) = \begin{cases}\infty,&\text{ falls $V$ keine endliche Basis besitzt}\\n,&\text{ falls $V$ eine Basis mit $n$ Elementen besitzt}\end{cases}$$
 		$\dim_K(V)$ heißt Dimension von $V$.
@@ -1993,7 +1994,7 @@
 
 	\begin{definition}[Lineare Abbildungen]
 		\label{def31}
-		\IN{Lineare!Abbildungen}
+		\IN{Lineare Abbildung}
 		Es seien $V$, $W$ $K$-Vektorräume.
 		\begin{enumerate}
 			\item Eine Abbildung $F : V \to W$ heißt $K$-linear (oder Vektorraumhomomorphismus) falls gilt:
@@ -2073,7 +2074,7 @@
 		\end{enumerate}
 		
 		\begin{proof}
-			Es sei $x \in V$. Damit existiert eine eindeutige Linearkombination $x = \sum_{j \in I} \lb_j v_j$. Wir setzen $$F(x) = \sum_{j \in I}\lb_jw_j = \sum_{j \in I} \lb_fF(v_j).$$ Nachdem $F$ linear sein soll, ist dies die einzig mögliche Form von $F$, es existiert also höchstens eine solche lineare Abbildung. Es ist mittels Einsetzen leicht zu überprüfen, dass gilt
+			Es sei $x \in V$. Damit existiert eine eindeutige Linearkombination $x = \sum_{j \in I} \lb_j v_j$. Wir setzen $$F(x) = \sum_{j \in I}\lb_jw_j = \sum_{j \in I} \lb_jF(v_j).$$ Nachdem $F$ linear sein soll, ist dies die einzig mögliche Form von $F$, es existiert also höchstens eine solche lineare Abbildung. Es ist mittels Einsetzen leicht zu überprüfen, dass gilt
 			\begin{align*}
 				F(x + y) &= F(x) + F(y)\ \text{sowie}\\
 				F(\lb x) &= \lb F(x)
@@ -2122,6 +2123,7 @@
 	\end{korrolar}
 	
 	\begin{definition}[Rang]
+		\IN{Rang}
 		Seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$. Dann heißt $$\rg(F)=\dim_K(F(V)) = \dim_K(\Ima(F))$$ der Rang von $F$.\\
 		\begin{bem}
 			Falls $G$, $\tilde{G}$ Isomorphismen sind, so gilt $\rg(F) = \rg(F\cong G) = \rg(\tilde{G}\cong F)$ mit $F:V\to W,\ G:\tilde{V}\to V,\ \tilde{G}: W\to\tilde{W}$. Die Reihenfolge von Isomorphismenschaltungen ändert also den Rang nicht.\\
@@ -2129,6 +2131,7 @@
 	\end{definition}
 	
 	\begin{satz}[Dimensionsformel]
+		\IN{Dimensionsformel}
 		\label{satz37}
 		Es seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$, $\dim_K(V)$ endlich. Dann gilt $$\dim_K(V) = \dim_K(\ker(F))+\rg(F).$$
 		\begin{proof}
@@ -2150,6 +2153,7 @@
 	\end{satz}
 	
 	\begin{definition}[Direkte Summe]
+		\IN{Direkte Summe}
 		\label{def38}
 		Es sei $V$ ein $K$-Vektorraum, $V_1$, $V_2$ Untervektorräume.
 		\begin{enumerate}
@@ -2160,7 +2164,7 @@
 			Seien $M_1$, $M_2$ Teilmengen von $V$. Also ist $M_1 + M_2 = \{x:y\in M_1,\ z\in M_2,\ y+z=x\}$. Sind $M_1$ und $M_2$ Untervektorräume, so ist "`$+$"' das gleiche wie die \hyperref[def38]{direkte Summe}.
 		\end{bem}
 	\end{definition}
-	
+	\vspace{.1cm}
 	\begin{korrolar}		
 		Aus der \hyperref[satz37]{Dimensionsformel} folgt sofort $$\dim_K\left(F^{-1}(W)\right) = \dim_K(V)-\dim_K(\Ima(F)).$$
 	\end{korrolar}
@@ -2168,7 +2172,7 @@
 	\begin{korrolar}
 		Es seien $V$, $W$ endlichdimensional. Dann existiert ein Isomorphismus genau dann, wenn $\dim_K(V)=\dim_K(W)$.
 	\end{korrolar}
-	
+	\pagebreak[3]
 	\begin{korrolar}
 		Es sei $\dim_K(V)=\dim_K(W) < \infty$, $F:V\to W$ linear. Dann sind folgende Aussagen äquivalent:
 		
@@ -2200,7 +2204,7 @@
 	
 	\begin{satz}
 		\label{satz313}
-		Es sei $V$ ein $K$-Vektorraum, $W\subset V$ ein Untervektorraum. Wir schreiben $x \sim y$, falls $x-y\in W$, für $x, y\in V$. Dann gilt:\\
+		Es sei $V$ ein $K$-Vektorraum, $W\subset V$ ein Untervektorraum. Wir schreiben $x \sim y$, falls $x-y\in W$, für $x, y\in V$. Dann gilt:
 		
 		\begin{enumerate}
 			\item[i)] $\sim$ ist eine Äquivalenzrelation
@@ -2225,6 +2229,7 @@
 	\end{satz}
 	
 	\begin{definition}[Quotientenvektorraum]
+		\IN{Quotientenvektorraum}
 		Sei $\tilde{V}$ wie in \hyperref[satz313]{Satz \ref{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt Quotientenvektorraum $\tilde{V} = \bigslant{V}{W}$.\\
 		\begin{bem}
 			Es sei $F:V\to W$ linear, $V_1 = \ker(F)$. Dann wurde im Beweis der \hyperref[satz37]{Dimensionsformel} ein Untervektorraum $V_2\subset V$ konstruiert mit $V_2 \cong \Ima(F)$, sodass $V = V_1\oplus V_2$. Wir zeigen im neuen Jahr, dass gilt $\Ima(F)\cong \bigslant{V}{V_2}$.
