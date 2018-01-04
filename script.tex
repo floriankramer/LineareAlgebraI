@@ -100,7 +100,7 @@
 \newtheorem{korrolar}[definition]{Korollar}
 \newtheorem{satz}[definition]{Satz}
 \newtheorem*{satz*}{Satz} % without numbering
-\renewenvironment{proof}{\vspace{-.75cm}\paragraph{Beweis: }}{\vspace{-.5cm}\hfill$\square$}
+\renewenvironment{proof}{\paragraph{Beweis: }}{\qed}
 
 % defines lists of theorems:
 \makeatletter
@@ -1032,7 +1032,7 @@
 				Jede Menge in $B$ ist aber eine Menge in $2^{M_m}$ vereinigt mit $\{x\}$ und $\#B = 2^m$. Somit gilt $\#2^M = 2^m + 2^m = 2^{m + 1}$.\\
 				Damit gilt die Aussage für $m + 1$.
 			\end{description}
-		\end{proof}\\[.25cm]
+		\end{proof}
 		Wir kennen bereits das \hyperref[defmengenoperationen]{direkte (bzw. kartesische) Produkt} zweier Mengen $X \times Y = \{(x, y) : x\in X, y \in Y\}$.\\
 	\end{satz}
 
@@ -2055,7 +2055,7 @@
 					\item Sei $\hat{W} \subset W$ ein Untervektorraum. Dann ist $F^{-1}(\hat{W}) \subset V$  ebenfalls ein Untervektorraum. Insbesondere ist $\ker(F) = F^{-1}(\{0\})$ ein Untervektorraum.
 					\item Sei $F$ ein Isomorphismus. Dann gilt $F(\hat{V}) \cong \hat{V}$ für jeden Untervektorraum $\hat{V} \subset V$. 
 				\end{enumerate}
-			\item $\dim(Im(F)) \leq \dim(V)$
+			\item $\dim(\Ima(F)) \leq \dim(V)$
 		\end{enumerate}
 		Beweis: Übungen.\\
 		\begin{bem}
