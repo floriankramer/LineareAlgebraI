@@ -18,8 +18,9 @@
 \usepackage{imakeidx}
 \usepackage{framed}
 \usepackage{etoolbox}
+\usepackage{float}
 
-
+\usetikzlibrary{matrix}
 \usepackage[a4paper, top = 2cm, left = 2.5cm, right = 2.5cm, bottom = 2cm]{geometry}
 
 \makeindex[columns=2, title=Stichwortverzeichnis, intoc]
@@ -65,6 +66,7 @@
 \DeclareMathOperator{\Aut}{Aut}
 \DeclareMathOperator{\Ima}{Im}
 \DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\Mat}{Mat}
 
 % increase line height
 \renewcommand{\baselinestretch}{1.2}
@@ -100,7 +102,7 @@
 \newtheorem{korrolar}[definition]{Korollar}
 \newtheorem{satz}[definition]{Satz}
 \newtheorem*{satz*}{Satz} % without numbering
-\renewenvironment{proof}{\vspace{-.75cm}\paragraph{Beweis: }}{\vspace{-.5cm}\hfill$\square$}
+\renewenvironment{proof}{\paragraph{Beweis: }}{\qed}
 
 % defines lists of theorems:
 \makeatletter
@@ -188,7 +190,7 @@
 \newlength\mylenA
 
 % define new overline command
-\newcommand*\xoverline[2][0.75]{%
+\newcommand*\xoverline[2][.8]{%
 	\sbox{\myboxA}{$\m@th#2$}%
 	\setbox\myboxB\null% Phantom box
 	\ht\myboxB=\ht\myboxA%
@@ -205,7 +207,8 @@
 \makeatother
 
 % defines bigslant for quotient
-\newcommand{\bigslant}[2]{{\raisebox{.1em}{$#1$}\left/\raisebox{-.2em}{$#2$}\right.}}
+\newcommand{\bigslant}[2]{{\raisebox{.1em}{$#1$}\hspace{-.2em}\left/\raisebox{-.1em}{$#2$}\right.}}
+\newcommand{\bigbigslant}[2]{{\raisebox{.4em}{$#1$}\hspace{-.2em}\left/\raisebox{-.4em}{$#2$}\right.}}
 
 \begin{document}
 \begin{titlepage}
@@ -218,7 +221,7 @@
 	{ \Huge  \textbf{Lineare Algebra $\mathbf{I}$}}\\[0.4cm] 
 	\HRule \\[.5cm]
 	{\Large Inoffizieller Mitschrieb}\\[1.0cm]
-	Stand: 21. Dezember 2017
+	Stand: \today
 	\\[11.5cm]
 	\begin{minipage}{0.65\textwidth}
 		\begin{center} \large
@@ -682,23 +685,29 @@
 	
 	\begin{lemma}[Dreiecksungleichung]
 		\IN{Dreicksungleichung}
-		Es gilt $||a+b|| \le ||a|| + ||b||$.\\
+		Es gilt $$||a+b|| \le ||a|| + ||b||.$$\\
 		\begin{proof}
-			$ ||a+b||^2 = (a+b, a+b)= ||a||^2 + 2(a,b) + ||b||^2 \le ||a||^2 + 2 ||a||||b|| + ||b||^2 = (||a|| + ||b||)^2$
+			\begin{align*}
+				||a+b||^2 &= (a+b, a+b)\\
+						  &= ||a||^2 + 2(a,b) + ||b||^2 \\
+						  &\leq ||a||^2 + 2 ||a||||b|| + ||b||^2 \\
+						  &= (||a|| + ||b||)^2
+			\end{align*}
+%			$ ||a+b||^2 = (a+b, a+b)= ||a||^2 + 2(a,b) + ||b||^2 \le ||a||^2 + 2 ||a||||b|| + ||b||^2 = (||a|| + ||b||)^2$
 		\end{proof}
 		
 	\end{lemma}
 	\vspace{.2cm}
-	\begin{korrolar}[$||x-y||$ ist eine Metrik]
+	\begin{korrolar}[Metrik]
 		\IN{Metrik}
 		\label{metrikkor}
-		Der \mRn mit dem Abstand $d(x, y) = ||x - y||$ ist ein sogenannter metrischer Raum. Das bedeutet folgendes:
-		\begin{enumerate}
+		Der \mRn\ mit dem Abstand $d(x, y) = ||x - y||$ ist ein sogenannter metrischer Raum. Das bedeutet folgendes:
+		\begin{enumerate}[leftmargin=4.5cm, rightmargin=2.5cm]
 			\itemsep0cm
-			\item $d(x, y) \geq 0$
-			\item $d(x, y) = 0 \Leftrightarrow x = y$
-			\item $d(x, y) = d(y, x)$
-			\item $d(x, z) \leq d(x,y) + d(y,z)$
+			\item $d(x, y) \geq 0\hfill\text{(Positivität)}$
+			\item $d(x, y) = 0 \Leftrightarrow x = y \hfill\text{(Positivität)}$
+			\item $d(x, y) = d(y, x)\hfill\text{(Symmetrie)}$
+			\item $d(x, z) \leq d(x,y) + d(y,z)\hfill\text{(Dreiecksungleichung)}$
 		\end{enumerate}
 		für alle $x, y, z \in \Rn$.	Wir nennen $d$ einen Abstand.
 	\end{korrolar}
@@ -1032,7 +1041,7 @@
 				Jede Menge in $B$ ist aber eine Menge in $2^{M_m}$ vereinigt mit $\{x\}$ und $\#B = 2^m$. Somit gilt $\#2^M = 2^m + 2^m = 2^{m + 1}$.\\
 				Damit gilt die Aussage für $m + 1$.
 			\end{description}
-		\end{proof}\\[.25cm]
+		\end{proof}
 		Wir kennen bereits das \hyperref[defmengenoperationen]{direkte (bzw. kartesische) Produkt} zweier Mengen $X \times Y = \{(x, y) : x\in X, y \in Y\}$.\\
 	\end{satz}
 
@@ -1783,7 +1792,7 @@
 					 
 					 Damit ist aber $x=\sum_{j\in I\setminus\{j_0\}}\overbrace{(\mu_j+\mu_{j_0}v\lb_j)}^{\mathlarger{\mathlarger{\vartheta_j}}}v_j = \sum_{j\in I\setminus\{j_0\}} \vartheta_j v_j$ mit $\vartheta_j\in K$, nur endlich viele $\vartheta_j\not=0$.
 					 
-				\item[2. $\Rightarrow$ 3. ] $v \in V \Rightarrow v = \sum_{i \in I}\lb_i v_i$ ($\lb_i$ geeignet). Angenommen, die Darstellung sei nicht eindeutig, d.h. $v = \sum_{i \in I}\tilde{\lb_i} v_i$, dann gilt $v - v = 0 = \sum_{i \in I} (\lb_i - \tilde{\lb_i}) v_i$, aus 2 folgt $\lb_i - \tilde{\lb_i} = 0 \Rightarrow \lb_i = \tilde{\lb_i}$, somit ist die Darstellung eindeutig
+				\item[2. $\Rightarrow$ 3. ] $v \in V \Rightarrow v = \sum_{i \in I}\lb_i v_i$ ($\lb_i$ geeignet). Angenommen, die Darstellung sei nicht eindeutig, d.h. $v = \sum_{i \in I}\widetilde{\lb_i} v_i$, dann gilt $v - v = 0 = \sum_{i \in I} (\lb_i - \widetilde{\lb_i}) v_i$, aus 2 folgt $\lb_i - \widetilde{\lb_i} = 0 \Rightarrow \lb_i = \widetilde{\lb_i}$, somit ist die Darstellung eindeutig
 				
 				\item[3. $\Rightarrow$ 4. ]
 				Es sei eine eindeutige Darstellung für jedes $v \in V$. Zu zeigen ist:
@@ -1811,7 +1820,7 @@
 		Eine Familie $(v_i)_{i\in I}$ mit $v_i \in V$ für alle $i \in I$ heißt Basis von $V$, falls $(v_i)_{i\in I}$ ein linear unabhängiges Erzeugendensystem von V ist.\\
 		
 		\noindent
-		\textbf{Beispiel: } $V = K^n$, Eine Basis ist gegeben durch $e_i = (0, \ldots, 0, 1, 0, \ldots, 0)$, wobei der $i$-te Eintrag 1 beträgt.
+		\textbf{Beispiel: } $V = K^n$, Eine Basis ist gegeben durch $e_i = (0, \ldots, 0, 1, 0, \ldots, 0)^\top$, wobei der $i$-te Eintrag 1 beträgt.
 		Diese $(e_i)_{i \in \{1, \dots, n\}}$ heißt kanonische (oder Standard-) Basis von $K^n$.
 		\begin{bem}
 			Die kanonische Basis wurde hier aus Platzgründen zeilenweise statt vektoriell geschrieben.
@@ -2055,7 +2064,7 @@
 					\item Sei $\hat{W} \subset W$ ein Untervektorraum. Dann ist $F^{-1}(\hat{W}) \subset V$  ebenfalls ein Untervektorraum. Insbesondere ist $\ker(F) = F^{-1}(\{0\})$ ein Untervektorraum.
 					\item Sei $F$ ein Isomorphismus. Dann gilt $F(\hat{V}) \cong \hat{V}$ für jeden Untervektorraum $\hat{V} \subset V$. 
 				\end{enumerate}
-			\item $\dim(Im(F)) \leq \dim(V)$
+			\item $\dim(\Ima(F)) \leq \dim(V)$
 		\end{enumerate}
 		Beweis: Übungen.\\
 		\begin{bem}
@@ -2118,7 +2127,7 @@
 			Der $K^n$ ist also in einem gewissen Sinn der einzige $n$-dimensionale $K$-Vektorraum. Der Isomorphismus hängt von der Wahl der Basis in $V$ ab, ist also nicht eindeutig bestimmt (man sagt, er ist nicht kanonisch).\\
 		\end{bem}
 		\begin{bem}
-			Das Korollar hilft bei Fragen wie "`Was ist die Lösungsmenge von $F(x)=0$"' mit $F:V\to W$ linear, $\dim_K(V) = n<\infty$ endlich, $\dim_K(W) = m<\infty$, denn wir haben einen Isomorphismus $G:U\to K^n$, $H:W\to K^m$ und berechnen $F(x)=0\ \Leftrightarrow\ \tilde{F}(G(x)) = H(0)$ mit einer Abbildung $\tilde{F}:K^n\to K^m,\ \tilde{F}(v_i) = H(F(G^{-1}(e_i)))$ und es folgt mit \hyperref[lem32]{Lemma \ref{lem32}}: $\dim_K(\ker(F)) = \dim_K(\ker(\tilde{F}))$.\\
+			Das Korollar hilft bei Fragen wie "`Was ist die Lösungsmenge von $F(x)=0$"' mit $F:V\to W$ linear, $\dim_K(V) = n<\infty$ endlich, $\dim_K(W) = m<\infty$, denn wir haben einen Isomorphismus $G:U\to K^n$, $H:W\to K^m$ und berechnen $F(x)=0\ \Leftrightarrow\ \widetilde{F}(G(x)) = H(0)$ mit einer Abbildung $\widetilde{F}:K^n\to K^m,\ \widetilde{F}(v_i) = H(F(G^{-1}(e_i)))$ und es folgt mit \hyperref[lem32]{Lemma \ref{lem32}}: $\dim_K(\ker(F)) = \dim_K(\ker(\widetilde{F}))$.\\
 		\end{bem}
 	\end{korrolar}
 	
@@ -2126,7 +2135,7 @@
 		\IN{Rang}
 		Seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$. Dann heißt $$\rg(F)=\dim_K(F(V)) = \dim_K(\Ima(F))$$ der Rang von $F$.\\
 		\begin{bem}
-			Falls $G$, $\tilde{G}$ Isomorphismen sind, so gilt $\rg(F) = \rg(F\cong G) = \rg(\tilde{G}\cong F)$ mit $F:V\to W,\ G:\tilde{V}\to V,\ \tilde{G}: W\to\tilde{W}$. Die Reihenfolge von Isomorphismenschaltungen ändert also den Rang nicht.\\
+			Falls $G$, $\widetilde{G}$ Isomorphismen sind, so gilt $\rg(F) = \rg(F\cong G) = \rg(\widetilde{G}\cong F)$ mit $F:V\to W,\ G:\widetilde{V}\to V,\ \widetilde{G}: W\to\widetilde{W}$. Die Reihenfolge von Isomorphismenschaltungen ändert also den Rang nicht.\\
 		\end{bem}
 	\end{definition}
 	
@@ -2208,7 +2217,7 @@
 		
 		\begin{enumerate}
 			\item[i)] $\sim$ ist eine Äquivalenzrelation
-			\item[ii)] Auf $\tilde{V} = \bigslant{V}{\sim}$ gibt es genau eine Vektorraumstruktur, sodass die Abbildung $p:V\to \tilde{V}$, $x\mapsto [x]$ zu einem Vektorraumhomomorphismus wird. Hierbei entspricht $[x]$ die der zu $x$ gehörigen Äquivalenzklasse.
+			\item[ii)] Auf $\widetilde{V} = \bigslant{V}{\sim}$ gibt es genau eine Vektorraumstruktur, sodass die Abbildung $p:V\to \widetilde{V}$, $x\mapsto [x]$ zu einem Vektorraumhomomorphismus wird. Hierbei entspricht $[x]$ die der zu $x$ gehörigen Äquivalenzklasse.
 		\end{enumerate}
 		
 		\begin{proof}
@@ -2222,20 +2231,124 @@
 					Da alle Axiome für Äquivalenzrelationen erfüllt sind, handelt es sich bei $\sim$ um eine Äquivalenzrelation.
 				\item[ii)] Es seien $x,y\in W$. Dann gilt $[x]=p(x)$, $[y] = p(y)\in \bigslant{V}{\sim}$. Wir rechnen 
 				$$[x] + [y] \stackrel{\hyperref[satz313]{\text{Def}}}{=} p(x)+ p(y) \stackrel{\hyperref[def31]{\text{D\ref{def31}}}}{=} [x+y],$$
-				ebenso $\lb[x] = [\lb x]$. Zur Wohldefiniertheit dieser Abbildung rechnen wir $x, \tilde{x}, y, \tilde{y}\in V$ mit $[x]=[\tilde{x}]$, $[y]=[\tilde{y}]$ und es gilt $(x+y)-(\tilde{x}+\tilde{y}) = \underbrace{(x-\tilde{x})}_{\in W} + \underbrace{(y-\tilde{y})}_{\in W}\in W$, also auch $(x+y)\sim (\tilde{x}+\tilde{y}$ und ebenso $[x+y] = [\tilde{x}+\tilde{y}]$. Wir sehen durch einfaches Nachrechnen sofort, dass $\tilde{V}$ mit Verknüpfung $+$ uns Skalarmultiplikation $\lb[x] = [\lb x]$ zu einem Vektorraum wird.
-				Nachdem $p$ surjektiv ist, sind $+$ und $\cdot$ für alle Elemente aus $\tilde{V}$ festgelegt, die Vektorraumstruktur ist also eindeutig.
+				ebenso $\lb[x] = [\lb x]$. Zur Wohldefiniertheit dieser Abbildung rechnen wir $x, \widetilde{x}, y, \widetilde{y}\in V$ mit $[x]=[\widetilde{x}]$, $[y]=[\widetilde{y}]$ und es gilt $(x+y)-(\widetilde{x}+\widetilde{y}) = \underbrace{(x-\widetilde{x})}_{\in W} + \underbrace{(y-\widetilde{y})}_{\in W}\in W$, also auch $(x+y)\sim (\widetilde{x}+\widetilde{y}$ und ebenso $[x+y] = [\widetilde{x}+\widetilde{y}]$. Wir sehen durch einfaches Nachrechnen sofort, dass $\widetilde{V}$ mit Verknüpfung $+$ uns Skalarmultiplikation $\lb[x] = [\lb x]$ zu einem Vektorraum wird.
+				Nachdem $p$ surjektiv ist, sind $+$ und $\cdot$ für alle Elemente aus $\widetilde{V}$ festgelegt, die Vektorraumstruktur ist also eindeutig.
 			\end{enumerate}
 		\end{proof}
 	\end{satz}
 	
 	\begin{definition}[Quotientenvektorraum]
 		\IN{Quotientenvektorraum}
-		Sei $\tilde{V}$ wie in \hyperref[satz313]{Satz \ref{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt Quotientenvektorraum $\tilde{V} = \bigslant{V}{W}$.\\
+		Sei $\widetilde{V}$ wie in \hyperref[satz313]{Satz \ref{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt Quotientenvektorraum $\widetilde{V} = \bigslant{V}{W}$.\\
 		\begin{bem}
 			Es sei $F:V\to W$ linear, $V_1 = \ker(F)$. Dann wurde im Beweis der \hyperref[satz37]{Dimensionsformel} ein Untervektorraum $V_2\subset V$ konstruiert mit $V_2 \cong \Ima(F)$, sodass $V = V_1\oplus V_2$. Wir zeigen im neuen Jahr, dass gilt $\Ima(F)\cong \bigslant{V}{V_2}$.
 		\end{bem}
+		\vspace{.25cm}
+		\noindent\textbf{Beispiel: } $V=\R^2$
+		\begin{figure}[H]
+			\begin{center}
+				\begin{tikzpicture}[dot/.style={circle,	inner sep=1pt, fill, label={#1}, name=#1, color=gray},>=latex, axes/.style={thick,=>}, scale=1]
+					\begin{axis}[axis x line=center,
+								 axis y line=center,
+								 xmin = -3,
+								 xmax = 7,
+								 ymin = -1,
+								 ymax = 5,
+								 xlabel={$x_1$},
+								 ylabel={$x_2$},
+								 xlabel style={below right},
+								 ylabel style={above left},
+								 ticks=none]
+								 \draw[color = red!75!black]  (axis cs: -2, -1) to (axis cs: 6,  3) node[above, color=black]{$W$};
+								 \draw[color = blue!75!black] (axis cs:-4, 2) to (axis cs:1.5, -.75) node[above, color=black]{$U$};
+								 \draw node[below] at (axis cs:-.15, 0) {$0$};
+								 \draw node at (axis cs: 5, 4.5) {$U+W=V$};
+								 \draw node[dot=$x$, right] at (axis cs: 3, .5) {};
+								 \draw node[anchor=center, text width=3.5cm, right] at (axis cs: 3.20, .6) { $=u+w$, $u\in U$\\[0cm]\vspace{-.15cm} \hspace{1.5cm}$v\in V$};
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{figure}
+		\noindent Jeden Vektor in $U$ kann man folgendermaßen mit einem Vektor in $\bigslant{V}{W}$ identifizieren: $$p(x) = p(u+w) = p(u)+p(w) = p(u) + 0 = p(u)$$ Für $p(x)$ ist dann nur der Anteil von $W$ ausschlaggebend. $p\big|_V$ ist dann auch injektiv, denn $p(u)=0\Leftrightarrow u=0$, denn $p(y)=0\Leftrightarrow y\in W$ und $W\cap U=\{0\}$.
 	\end{definition}
 	
+	\begin{satz}[Homomorphiesatz]
+		\label{satz315}
+		\IN{Homomorphiesatz}
+		Es seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$. Dann existiert genau eine lineare Abbildung $\xoverline{F}: \bigslant{V}{\ker(F)}\to \Ima(F)$ mit $F(x) = \left(\xoverline{F}\circ p\right)(x)$ für alle $x\in V$. Diese Abbildung $\xoverline{F}$ ist ein Vektorraumisomorphismus.
+		\begin{proof}
+			Wir betrachten $\widetilde{F}\in\Hom_K(V, F(V))$ mit $\widetilde{F}(x)=F(x)$ für alle $x\in V$ und $p:U\to\bigslant{V}{\ker(F)}$ die Quotientenabbildung. 		
+			Zu $y\in \bigslant{V}{\ker(F)}$ sei $x\in p^{-1}\left(\{y\}\right)$. Wir setzen dann $\xoverline{F}(y)\stackrel{\ast}{=}\widetilde{F}$. Die Wohldefiniertheit folgt aus $$p(x)=p(\tilde{x}\Leftrightarrow x-\tilde{x}\in\ker(F)\Leftrightarrow F(x-\tilde{x})=0\Leftrightarrow \widetilde{F}(x-\tilde{x})=0\Leftrightarrow \xoverline{F}=\widetilde{F}.$$ $(\ast)$ hängt also nicht von der Wahl des Repräsentanten $x\in p^{-1}\left(\{y\}\right)$ ab und ist dank der Surjektivität von $p^{-1}$ auch nie leer. Damit definiert $(\ast)$ eine Abbildung $\xoverline{F}:\bigslant{V}{\ker(F)}\to \Ima(F)$. Die gewünschten Eigenschaften aus $\xoverline{F}$ folgen:
+			\begin{enumerate}
+				\item $\xoverline{F}$ ist linear, denn $\xoverline{F}(y+y')=\widetilde{F}(x+x') = \widetilde{F}(x)+\widetilde{F}(x')=\xoverline{F}(y)+\xoverline{F}(y')$ mit $x\in p^{-1}\left(\{y\}\right)$ und $x'\in p^{-1}\left(\{y'\}\right)$. Ebenso folgt $\lb \xoverline{F}(y) = \xoverline{F}(\lb y)$.
+				\item $\xoverline{F}$ ist surjektiv, denn $\widetilde{F}$ war surjektiv.
+				\item $\xoverline{F}$ ist injektiv, denn $\xoverline{F}(y)=0\Rightarrow \widetilde{F}(x)=0\Rightarrow y=p(x)=[x]=0$.
+			\end{enumerate}
+		\end{proof}
+	
+		\noindent\vspace{.2cm}\textbf{Bild: }
+		\begin{figure}[H]
+			\begin{center}
+				\begin{tikzpicture}
+				\matrix (m) [matrix of math nodes,row sep=5em,column sep=7em,minimum width=3em]
+				{
+					V & \Ima(F)\subset W \\
+					\bigslant{V}{\ker(F)} & \text{ } \\};
+				\path[-stealth]
+				(m-1-1) edge node [left] {$p$} (m-2-1)
+				edge node [above] {$F$} (m-1-2)
+				(m-2-1) edge node [above] {$\xoverline{F}$} (m-1-2);
+				\end{tikzpicture}
+			\end{center}
+		\end{figure}
+		\begin{bem}$ $
+			\begin{enumerate}
+				\item Man sagt, $F$ induziert den Isomorphismus $\xoverline{F}$.
+				\item Wir vergleichen mit der \hyperref[satz37]{Dimensionsformel} (bzw. deren Beweis), nämlich $\dim_K(V)=\dim_K(\ker(F))+\dim_K(\Ima(F))$. Wir konstruieren $V_2\cong \Ima(F)$, sodass $V_2\oplus \ker(F)=V$. Der Satz besagt, dass $V_2\cong\bigslant{V}{\ker(F)}$
+			\end{enumerate}
+		\end{bem}
+	\end{satz}
+	
+	\begin{satz}[Isomorphiesatz]
+		\IN{Isomorphiesatz}
+		$V$ sei ein $K$-Vektorraum, $V_1,V_2\subset V$ seien Untervektorräume. Dann gilt:
+		\begin{enumerate}
+			\item $\bigslant{(V_1+V_2)}{V_1}\cong \bigslant{V_2}{(V_1\cap V_2)}$
+			\item Falls außerdem gilt: $V_1\subset V_2\subset V$, so folgt: $$\bigbigslant{\bigslant{V}{V_2}}{\bigslant{V_2}{V_1}}\ \cong \ \bigslant{V}{V_2}$$
+		\end{enumerate}
+		{\color{white!35!black}
+		\textit{Beweis: } Übung.\\
+		\textit{Beweisideen:}
+		\begin{enumerate}
+			\item Wir benutzen $F:V_2\to \bigslant{(V_1+V_2)}{V_1}, x\mapsto[x]$. Zu zeigen ist dann: $\Ima(F)=\bigslant{(V_1+V_2)}{V_1}$, $\ker(F)=V_1\cap V_2$. Anwendung von \hyperref[satz315]{Satz \ref{satz315}} liefert das Ergebnis.
+			\item Sei $F:\bigslant{V}{V_1}\to\bigslant{V}{V_2}$ mit $[x] \mapsto[[x]]$. Zu zeigen ist, dass gilt: $\Ima(F) = \bigslant{V}{V_2}$, $\ker(F) = \bigslant{V_2}{V_1}$. Mit \hyperref[satz315]{Satz \ref{satz315}} folgt dann wieder die Aussage.
+		\end{enumerate}
+		}
+	\end{satz}
+	
+\chapter{Matrizen}
+	\begin{definition}[Matrizen]
+		\IN{Matrix}
+		Es sei $X$ eine Menge, $m,n\in\N$. Dann heißt ein rechteckiges Schema 
+		$$\qquad\qquad A=
+		\begin{pmatrix}
+			a_{11} & a_{12} & \cdots & a_{1n}\\
+			a_{21} & a_{22} & \cdots & a_{2n}\\
+			\vdots & \vdots	& \ddots& \vdots\\
+			a_{m1} & a_{m2} &\cdots & a_{mn}
+		\end{pmatrix}\quad\text{mit $a_{ij}\in X$}
+		$$
+		eine $m\times n$-Matrix. Die $a_{ij}$ heißen Einträge von $A$. Weiterhin heißt $(a_{i1}, a_{i2}, \ldots, a_{in})$ die $i$-te Zeile von $A$ und $(a_{1j}, a_{2j}, \ldots, a_{mj})^\top$ die $j$-te Spalte von $A$. Dabei heißt $i$ Zeilenindex und $j$ Spaltenindex.\\
+		 
+		\noindent Mit $\Mat_X(m\times n)$ bezeichnen wir die Menge aller $m\times n$-Matrizen mit Einträgen aus $X$. Im Folgenden sei $K$ ein Körper.
+	\end{definition}
+	
+	\begin{satz}
+		$\Mat_X(m\times n)$ trägt die Struktur eines $K$-Vektorraums, sodass gilt: 
+		$$ K^{m\cdot n} \cong\Mat_K(m\times n)\cong\Hom_K\left(K^n, K^m\right) $$
+	\end{satz}
+	
+
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}]
