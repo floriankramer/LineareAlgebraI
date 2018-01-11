@@ -2328,26 +2328,169 @@
 	
 \chapter{Matrizen}
 	\begin{definition}[Matrizen]
-		\IN{Matrix}
-		Es sei $X$ eine Menge, $m,n\in\N$. Dann heißt ein rechteckiges Schema 
-		$$\qquad\qquad A=
-		\begin{pmatrix}
-			a_{11} & a_{12} & \cdots & a_{1n}\\
-			a_{21} & a_{22} & \cdots & a_{2n}\\
-			\vdots & \vdots	& \ddots& \vdots\\
-			a_{m1} & a_{m2} &\cdots & a_{mn}
-		\end{pmatrix}\quad\text{mit $a_{ij}\in X$}
-		$$
-		eine $m\times n$-Matrix. Die $a_{ij}$ heißen Einträge von $A$. Weiterhin heißt $(a_{i1}, a_{i2}, \ldots, a_{in})$ die $i$-te Zeile von $A$ und $(a_{1j}, a_{2j}, \ldots, a_{mj})^\top$ die $j$-te Spalte von $A$. Dabei heißt $i$ Zeilenindex und $j$ Spaltenindex.\\
-		 
-		\noindent Mit $\Mat_X(m\times n)$ bezeichnen wir die Menge aller $m\times n$-Matrizen mit Einträgen aus $X$. Im Folgenden sei $K$ ein Körper.
-	\end{definition}
-	
-	\begin{satz}
-		$\Mat_X(m\times n)$ trägt die Struktur eines $K$-Vektorraums, sodass gilt: 
-		$$ K^{m\cdot n} \cong\Mat_K(m\times n)\cong\Hom_K\left(K^n, K^m\right) $$
-	\end{satz}
-	
+	    \IN{Matrix}
+        Es sei $X$ eine Menge, $m,n\in\N$. Dann heißt ein rechteckiges Schema 
+        $$\qquad\qquad A=
+        \begin{pmatrix}
+            a_{11} & a_{12} & \cdots & a_{1n}\\
+            a_{21} & a_{22} & \cdots & a_{2n}\\
+            \vdots & \vdots    & \ddots& \vdots\\
+            a_{m1} & a_{m2} &\cdots & a_{mn}
+        \end{pmatrix}\quad\text{mit $a_{ij}\in X$}
+        $$
+        eine $m\times n$-Matrix. Die $a_{ij}$ heißen Einträge von $A$. Weiterhin heißt $(a_{i1}, a_{i2}, \ldots, a_{in})$ die $i$-te Zeile von $A$ und $(a_{1j}, a_{2j}, \ldots, a_{mj})^\top$ die $j$-te Spalte von $A$. Dabei heißt $i$ Zeilenindex und $j$ Spaltenindex.\\
+         
+        \noindent Mit $\Mat_X(m\times n)$ bezeichnen wir die Menge aller $m\times n$-Matrizen mit Einträgen aus $X$. Im Folgenden sei $K$ ein Körper.
+    \end{definition}
+    
+    \begin{satz}[Matrizen sind lineare Abbildungen]
+        $\Mat_X(m\times n)$ trägt die Struktur eines $K$-Vektorraums, sodass gilt: 
+        $$ K^{m\cdot n} \cong\Mat_K(m\times n)\cong\Hom_K\left(K^n, K^m\right) $$
+        \textit{Beweis:}\\
+        Auf \(Mat_K(mxn)\) definieren wir Addition und Skalarmultiplikation
+        Eintragweise. Wir sehen sofort, dass \(Mat_K(mxn)\) damit zu einem
+        K-Vektorraum wird. F\"ur die Isomorphie zu \(K^{nm}\) betrachten wir
+        die Abbildung\\
+        \(Mat_K(mxn)) \to K^{mn}\)\\
+        \(a_{ij} \mapsto \ve{a_{11}\\a_{21}\\\vdots\\a_{n1}\\\vdots\\a_{nm}}\)\\
+        Diese Abbildung ist ein Isomorphismus.\\
+        F\"ur die Isomorphie zu \(Hom_K(K^n, K^m)\) ben\"otigen wir\\
+        \(Mat_K(mxn)) \to Hom_K(K^n, K^m)\).\\
+        \(A \mapsto F_A\),\\
+        wobei \(F_A(x) = Ax\) mit \\
+        \((Ax)_i = \sum_{j=1}^n a_{ij}x_j\), \(i = 1 \dots m\).\\
+        Linearit\"at l\"asst sich leicht nachrechnen. Damit ist
+        \(A \mapsto F_A\) ein K-Vektorraum Homomorphismus.\\
+        Injektivit\"at: Es sei \(F_A=0\) in \(Hom_K(K^n, K^m)\). Damit folgt
+        sofort, dass\\
+        \(0 = F_A(e_j) = \ve{a_{1k}\\\vdots\\a_{mk}}\) f\"ur alle \(k=1\dots n\)
+        (mit \(e_j\) als j-ter kanonischer Einheitsvektor).\\
+        Damit folgt \(a_{ij} = 0\) f\"ur \(i = 1, \dots m, j = 1, \dots, n)\).
+        Somit ist die Abbildung injektiv.\\
+        \textit{Surjektivit\"at}: Es sei \(F \in Kom_K(K^n, K^m)\). Wir sehen
+        \(F(e_k) = \ve{a_{1k}\\\vdots\\a_{mk}} \in K^m\) f\"ur
+        \(k = 1, \dots, n\)\\
+        Die Matrix A sei nun die Matrix mit den Spaltenvektoren
+        \(\ve{a_{1k}\\\vdots\\a_{mk}}\) und sehen, dass gilt \(F_A = F\), denn
+        \(F_A\) und F stimmen auf einer Basis des \(K^n\) \"uberein und sind
+        somit gleich (nach Satz 3.3).\\
+        \textit{Bemerkungen}:\\
+        \begin{enumerate}
+            \item {
+                Die Spaltenvektoren von A sind die Bilder der Basisvektoren
+                \(e_i\) des \(K^n\).
+            }
+            \item {
+                Die Nacheinanderausf\"uhrung linearer Abbildungen entspricht der
+                Matrixmultiplikation.\\
+                Seien \(F_A : K^n \to K^m, F_B K^m \to K^l\), linear. Dann ist
+                durch \(F_B \circ F_A\) eine lineare Abbildung \(K^n\to K^l\)
+                definiert.\\
+                Es gilt \(F_b \circ F_A = F_C\) mit \(C = c_{ij},
+                c_{ij} = \sum_{s=1}^n a_{is} b_{sj}\).\\
+                Wir schreiben \(C = B \cdot A\).\\
+                Die Formel f\"ur das Matrixprodukt wurde in den \"Ubungen
+                hergeleitet.
+            }
+            \item {
+                Mit der Nacheinanerausf\"urung bilden die Endomorphismen von
+                \(K^n \to K^n\) einen Ring, also gilt dass ebenso f\"ur nxn
+                Matrizen mit dem Matrixprodukt.
+            }
+            \item {
+              Falle'sche Regel?\\
+              \hspace*{2.9cm}
+              \(
+              \begin{pmatrix}
+                  b_{11} & \dots & b_{1m}\\
+                  \vdots & & \vdots\\
+                  b_{n1} & \dots & b_{nm}
+              \end{pmatrix}
+              \\
+              \begin{pmatrix}
+                  a_{11} & \dots & a_{1m}\\
+                  \vdots & & \vdots\\
+                  a_{n1} & \dots & a_{nm}
+              \end{pmatrix}
+              \begin{pmatrix}
+                  c_{11} & \dots & c_{1m}\\
+                  \vdots & & \vdots\\
+                  c_{n1} & \dots & c_{nm}
+              \end{pmatrix}
+              \)
+            }
+          \item {
+              Matrixmultiplikation von A und B ist nur m\"oglich, wenn A so
+              viele Spalten besitzt, wie B Zeilen. (Insbesondere ist nur dann
+              \(F_A \circ F_B\) definitert).
+          }
+          \item {
+              Spezialfall \(\Mat_K(nx1) = K^n\). F\'ur \(x \in \Mat(nx1), 
+              A \in \Mat_k(mxn)\) ist \(A \cdot x = F_A(x)\).
+          }
+          \item {
+              \(E_n = 
+              \begin{pmatrix}
+                1 & 0 & 0\\
+                0 &   & 0\\
+                0 & 0 & 1
+              \end{pmatrix}\) hei\ss{}t Einheitsmatrix und es gilt \(F_{E_n} = 
+              id_{K^N}\).
+          }
+        \end{enumerate}
+    \end{satz}
+    \begin{definition}[Transponierte und Inverse Matrizen]
+        Es seien \(m, n \in \N\).
+        \begin{enumerate}
+            \item {
+                Sei \(A \in \Mat_k(mxn)\), mit Eintr\"agen \(a_{ij}\). Die
+                Matrix \(A^T \in \Mat_k(nxm)\) mit Eintr\"agen \(a_{ji}\) ist
+                die zu A transponierte Matrix.\\
+            }
+            \item {
+                \(A \in \Mat_k(nxn)\) hei\ss{}t invertierbar, falls eine Matrix
+                \(A^{-1} \in MatK(nxn)\) mit \(A^{-1} A = E_n\). 
+            }
+        \end{enumerate}
+        \textit{Bemerkungen}
+        \begin{enumerate}
+          \item {
+              \(A \in \Mat_K(nxn)\) ist invertierbar \(\Leftrightarrow\) \(F_A
+              \in Hom_K(K^n, K^n)\) isomorphismus.
+          }
+          \item {
+              Wir schreiben \(rg(A) = rg(F_A)\).\\
+              \(\Im(A) = \Ima(f_a), \ker(A) = \ker(F_A)\).
+          }
+        \end{enumerate}
+    \end{definition}
+    Als lineares Gleichungssytem (\"uber K) bezeichnen wir einen Ausdruch der
+    Form \[Ax = b\] mit \(b \in K, A \in \Mat_K(mxn)\) und gesuchten
+    \(x \in K^n\).\\
+    Alle Aussagen zu lin. Gleichungssystemen aus Kapitel 0 gelten f\"ur lineare
+    Gleichungssysteme \"uber K.
+    \textit{Bemerkung}
+    \begin{enumerate}
+      \item {
+          Ist A invertierbar, so gilt \(x = A^{-1}b\) ist die
+          eindeutige L\"osung des Gleichungssystems.
+      }
+      \item {
+          Im allgemeinen Fall ist die L\'Osungsmenge des linearen
+          Gleichungssystems gegeben durch \(F_A^{-1}(\{b\})\).
+      }
+      \item {
+          Ebenfalls wir in Kapitel 0 l\"asst sich jede Matrix \"uber K durch
+          Zeilenoperationen und Spaltenvertausch auf Normalform bringen. Die
+          L\"osungsmenge eines linearen Gleichungssystems kann man durch
+          Betrachtung der erweiterten Koeffizientenmatrix bestimmen.
+      }
+      \item {
+          Zeilenoperationen lassen sich als Anwendung von sogenannten
+          Elementarmatrizen schreiben. Diese Elementarmatrizen sind
+          invertierbar. (siehe \"Ubungsblatt).
+      }
+    \end{enumerate}
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
