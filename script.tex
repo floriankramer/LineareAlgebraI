@@ -20,7 +20,13 @@
 \usepackage{etoolbox}
 \usepackage{float}
 
-\usetikzlibrary{matrix}
+\tikzset{
+	node style sp/.style={draw,circle,minimum size=1cm},
+	node style ge/.style={circle,minimum size=1cm},
+	arrow style mul/.style={draw,sloped,midway,fill=white},
+	arrow style plus/.style={midway,sloped,fill=white},
+}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing}
 \usepackage[a4paper, top = 2cm, left = 2.5cm, right = 2.5cm, bottom = 2cm]{geometry}
 
 \makeindex[columns=2, title=Stichwortverzeichnis, intoc]
@@ -67,9 +73,12 @@
 \DeclareMathOperator{\Ima}{Im}
 \DeclareMathOperator{\rg}{rg}
 \DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\Id}{Id}
 
 % increase line height
 \renewcommand{\baselinestretch}{1.2}
+
+\renewcommand*\descriptionlabel[1]{\hspace\labelsep\textsl{#1}}
 
 % define environments
 \newtheoremstyle{customdef} % name of the style to be used
@@ -304,6 +313,7 @@
 	
 	\begin{definitionn}[Lineare Gleichungssysteme]
 		\IN{Lineare Gleichungssysteme}
+		\label{deflingl}
 		Eine lineare Gleichung über \mR ist ein Ausdruck der Form: $\alpha_1x_1 + \alpha_2 x_2 + \dots \alpha_n x_n = \beta$ für reelle Zahlen $\beta, \alpha_1, \dots, \alpha_n \in \R$. Einen Vektor, $\xi = \left(\xi_1, \dots, \xi_n\right) \in \Rn$ nennen wir Lösung, wenn die reellen Zahlen  $\xi_1, \ \dots\ , \xi_n$ eingesetzt in $x_1, \dots, x_n$ die Gleichung erfüllen.\\
 		Ein lineares Gleichungssystem G ist ein System der Form
 		
@@ -314,7 +324,7 @@
 		a_{m1} x_1 &+ a_{m2} x_2  &+\ \dots\ +\ & a_{mn} x_n &= b_m\\
 		\end{alignat*}
 		
-		\noindent Die einzelnen Komponenten lassen sich auch zusammenfassen als $$\sum_{j=1}^n a_{i,j} x_j = b_i \quad i\in\{1,\dots,m\}$$
+		 Die einzelnen Komponenten lassen sich auch zusammenfassen als $$\sum_{j=1}^n a_{i,j} x_j = b_i \quad i\in\{1,\dots,m\}$$
 		oder, noch kürzer, in Matrixschreibweise:
 		$$Ax=b$$\\
 		Dabei bezeichnet $A$ eine sog. Matrix mit den Einträgen $a_{i,j},\ i\in[0,\ \dots\ , m],\ j\in[0,\ \dots\ , n]$, wir schreiben\\
@@ -332,6 +342,7 @@
 	
 	\begin{definitionn}[Normalform]
 		\IN{Lineare Gleichungssysteme!Normalform}
+		\label{defnormalform}
 		Ein Gleichungssystem $Ax=b$ ist in Normalform, falls $A$ die Gestalt \\
 		$$\hspace{3cm}
 		\left(
@@ -406,7 +417,7 @@
 		%Denn für Zeile $i, i=k+1, \dots, n$ lautet das Gleichungssystem $0x_1 + \dots + 0x_n = b_i = 0$ und \\
 		%Für Zeile $i, i =1, \dots, k$ 
 		%$$a_{i, i} x_i + \sum_{j=k+1}^n a_{i,j} x_j = b_i$$
-		\noindent Beispiel:
+		 Beispiel:
 		$$
 		\begin{pmatrix}
 		1 & 0 & 3\\
@@ -547,7 +558,7 @@
 		\begin{bem}
 			Ein einzelner Vektor $a$ gilt als linear unabhängig, solange $a \neq 0$. Die leere Kollektion von Vektoren $(n=0)$ bezeichnen wir ebenfalls als linear unabhängig.
 		\end{bem}
-		\noindent Vor dem Beweis des \hyperref[satz12]{Satzes \ref*{satz12}} noch ein paar Feststellungen:
+		 Vor dem Beweis des \hyperref[satz12]{Satzes \ref*{satz12}} noch ein paar Feststellungen:
 		\begin{enumerate}
 			\item Die Tatsache, dass $(\xi_1, \dots, \xi_n)$ Lösung eines linearen Gleichungssystems ist, lässt sich als lineare Abhängigkeit 
 			$\xi_1a_1 + \dots + \xi_n a_n = b$ ausdrücken, wobei $a_i$ eine Spalte der Matrix des Gleichungssystems ist.
@@ -824,7 +835,7 @@
 		\begin{bem}
 			Es gilt $\N \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}$\\
 		\end{bem}
-		\noindent\textbf{Teilmengen mit Eigenschaften}\\
+		\textbf{Teilmengen mit Eigenschaften}\\
 		Aus einer Menge können wir Teilmengen auswählen, welche durch bestimme Eigenschaften charakterisiert werden. Wir schreiben
 		$$X' = \{x \in X : x \text{ hat Eigenschaft }E\}$$ oder auch $$X' = \{x \in X\ |\ x \text{ hat Eigenschaft E}\}.$$
 	\end{definition}
@@ -894,7 +905,7 @@
 				\item $f^{-1}(\{-1\}) = \emptyset$
 			\end{itemize}
 		\end{minipage}
-		\noindent
+		
 		\textbf{Achtung:} $f^{-1}(N)$ ist nur definiert für Mengen $N \subset Y$. Insbesondere ist $f^{-1}$ (zumindest jetzt) keine Abbildung von $Y$ nach $X$.
 	\end{definition}
 	
@@ -1115,7 +1126,7 @@
 			$X \to \bigslant{x}{\sim}, a \mapsto A_a$ (nach \hyperref[prop122]{Proposition \ref*{prop122}} eindeutig zugeordnete Äquivalenzklasse).
 			Ein solches $a$ heißt dann Repräsentant der Äquivalenzklasse $A_a$.\\
 		\end{bem}
-		\noindent\textbf{Beispiel: }
+		\textbf{Beispiel: }
 		Sei $X = \N$. Wir schreiben $X \sim y$, falls sowohl $x$ als auch $y$ gerade bzw. ungerade Zahlen sind.
 		Sei $a \in X$. Die zugehörige Äquivalenzklasse ist gegeben durch:
 		\begin{enumerate}[leftmargin=3cm]
@@ -1137,7 +1148,7 @@
 			Oft schreiben wir einfach $a \ast b$ für $\ast(a, b)$.\\
 		\end{bem}
 		\vspace{1cm}
-		\noindent\textbf{Beispiele:}
+		\textbf{Beispiele:}
 		\begin{enumerate}[leftmargin=2cm]
 			\itemsep0cm
 			\item $G = \N$, $ \ast(a, b) = a \cdot b$
@@ -1163,7 +1174,7 @@
 		\begin{bem}
 			Wir schreiben oft einfach $a \cdot b$ bzw. $ab$ für $a \ast b$.\\
 		\end{bem}
-		\noindent
+		
 		\textbf{Beispiele}
 		\begin{enumerate}
 			\item $G = \Z$, $\ast(a, b) = a + b$. Dabei ist $e = 0$ und $a' = -a$ 
@@ -1408,7 +1419,7 @@
 		\end{proof}
 		
 		
-		\noindent\textbf{Beispiele:}
+		\textbf{Beispiele:}
 		\begin{enumerate}
 			\item$(\Q, +, \cdot), (\R, +, \cdot)$.
 			\item \IN{Komplexe Zahlen}
@@ -1478,7 +1489,7 @@
 		\end{bem}		
 		
 		\vspace{.25cm}
-		\noindent\textbf{Beispiel:}
+		\textbf{Beispiel:}
 		Auf $\bigslant{\Z}{m\Z}$ ist bereits eine Addition definiert, mit der $\bigslant{\Z}{m\Z}$ eine Gruppe wird. Mit der Multiplikation $$\xoverline{a} \cdot \xoverline{b} = \overline{ab}$$
 		für $\xoverline{a}, \xoverline{b} \in \bigslant{\Z}{m\Z}$ und Repräsentanten $a$ und $b$ wird $\bigslant{\Z}{m\Z}$ zu einem Ring.
 		Wie für die Addition zeigen wir Unabhängigkeit von der Wahl der Repräsentanten, Assoziativität und Distributivgesetz sind leicht nachzurechnen. Der Ring ist kommutativ.
@@ -1489,7 +1500,7 @@
 		
 		\begin{proof}
 			Falls $m$ nicht prim ist, gilt $m = k \cdot l$ mit $1 < k, l < m$. Damit gilt $\xoverline{k} \neq \xoverline{0}, \xoverline{l} \neq \xoverline{0}$, aber $\xoverline{k} \xoverline{l}= \xoverline{kl} = \xoverline{m} = \xoverline{0}$.\\
-			\noindent
+			
 			Umgekehrt: Sei $m$ prim und $\xoverline{k} \xoverline{l} = 0$. Dann gilt $k \cdot l= r \cdot m$, für ein $r \in \Z$. Damit gilt aber, dass mindestens einer der Faktoren $k, l$ einen Faktor $m$ enthält. Also ist $\xoverline{k} = 0$ oder $\xoverline{l} = 0$.
 		\end{proof}
 	\end{satz}
@@ -1550,7 +1561,7 @@
 			\item $1 x = x$\hfill Einselement
 		\end{enumerate}
 		
-		\noindent
+		
 		Zu beachten ist hierbei, was Addition der Gruppe, was Multiplikation des Körpers und was die speziell definierte Abbildung ist. Dies ergibt sich jedoch eindeutig aus den Typen der verknüpften Elemente.\\
 		Wir nennen die Abbildung $(\lb, v) \mapsto \lb v$ skalare Multiplikation. Die Gruppe $(V, +)$ mit der skalaren Multiplikation  heißt dann $K$-Vektorraum.
 		
@@ -1568,7 +1579,7 @@
 				$K = \C$ : komplexe Vektorräume
 			\end{enumerate}
 		\end{bem}
-		\noindent
+		
 		\textbf{Beispiele:}
 		\begin{enumerate}
 			\item \mRn, siehe \hyperref[kap0]{Kapitel 0}
@@ -1619,7 +1630,7 @@
 			\item $v \in W, \lb \in K \implies \lb v \in W$
 		\end{enumerate}
 		
-		\noindent\textbf{Beispiel:}
+		\textbf{Beispiel:}
 		$V = R^2, W = \{v = (v_1, v_2) \in V : v_1 = 0\}$\\
 		\textbf{Gegenbeispiel:}
 		$V = R^2$, $W = \{v = (v_1, v_2) \in V : v_2 = 1\}$ ist kein Untervektorraum von $V$
@@ -1727,7 +1738,7 @@
 		\begin{bem}
 			Es sei $I = \{1, 2, 3, \dots, n\}$. Dann gilt $\R^I = \R^{\{1, 2, \dots, n\}} = \R^n$. Die Abbildung ist hier $1 \mapsto x_1$, $2 \mapsto x_2$, $\ldots$, $n \mapsto x_n$.
 			
-			\noindent Für $I = \N$ is $\R^\N$ die Menge der reellen Folgen.
+			 Für $I = \N$ is $\R^\N$ die Menge der reellen Folgen.
 		\end{bem}
 	\end{definition}
 	
@@ -1822,7 +1833,7 @@
 		\IN{Basis}
 		Eine Familie $(v_i)_{i\in I}$ mit $v_i \in V$ für alle $i \in I$ heißt Basis von $V$, falls $(v_i)_{i\in I}$ ein linear unabhängiges Erzeugendensystem von V ist.\\
 		
-		\noindent
+		
 		\textbf{Beispiel: } $V = K^n$, Eine Basis ist gegeben durch $e_i = (0, \ldots, 0, 1, 0, \ldots, 0)^\top$, wobei der $i$-te Eintrag 1 beträgt.
 		Diese $(e_i)_{i \in \{1, \dots, n\}}$ heißt kanonische (oder Standard-) Basis von $K^n$.
 		\begin{bem}
@@ -1967,7 +1978,7 @@
 	\begin{satz}[Existenz einer Basis]
 		Jeder Vektorraum besitzt eine Basis.\\
 		
-		\noindent\textbf{Beweisidee: }	Es sei $V$ ein $K$-Vektorraum. Es sei $\mathfrak{M} = \{A \subset V : A$ linear unabhängig$\} \subset 2^V$. Auf $\mathfrak{M}$ definiert "`$\subset$"' eine Halbordnung, d.h. es gilt 
+		\textbf{Beweisidee: }	Es sei $V$ ein $K$-Vektorraum. Es sei $\mathfrak{M} = \{A \subset V : A$ linear unabhängig$\} \subset 2^V$. Auf $\mathfrak{M}$ definiert "`$\subset$"' eine Halbordnung, d.h. es gilt 
 		\begin{enumerate}[leftmargin=5cm]
 			\item $A \subset A$
 			\item $A \subset B \land B \subset A \implies A = B$
@@ -1975,7 +1986,7 @@
 		\end{enumerate}
 		Wir betrachten nun Teilmengen $U \subset \mathfrak{M}$, welche total geordnet sind, d.h. für $A, B \in U$ gilt immer $A \subset B$ oder $B \subset A$.\\
 		
-		\noindent Ein kurzes Beispiel aus $2^\R$ für $U$ ist $U = \{(-j, j), j \in \N\}$. Solche Teilmengen von $\mathfrak{M}$ heißen auch Ketten. Nun sei $\mathcal{M}(U) = \bigcup_{A \in U} A$. Es gilt nun:
+		 Ein kurzes Beispiel aus $2^\R$ für $U$ ist $U = \{(-j, j), j \in \N\}$. Solche Teilmengen von $\mathfrak{M}$ heißen auch Ketten. Nun sei $\mathcal{M}(U) = \bigcup_{A \in U} A$. Es gilt nun:
 		\begin{enumerate}
 			\item $\mathcal{M}(U) \subset V$
 			\item Für alle $A \in U : A \subset \mathcal{M}(U)$
@@ -1984,13 +1995,13 @@
 		\end{enumerate}
 		Anders gesagt: jede Kette in $\mathfrak{M}$ besitzt eine obere Schranke in $\mathfrak{M}$.\\
 		
-		\noindent Wir benutzen nun das Lemma von Zorn: Es sei $\mathfrak{M}$ eine Menge mit Halbordnung "`$\subset$"', so dass jede Kette in  $\mathfrak{M}$ eine obere Schranke in $\mathfrak{M}$ besitzt. Dann existiert ein maximales Element $m$ in  $\mathfrak{M}$, d.h. ein Element $m$, so dass gilt $B \in  \mathfrak{M}, m \subset B \implies B = m$.\\
+		 Wir benutzen nun das Lemma von Zorn: Es sei $\mathfrak{M}$ eine Menge mit Halbordnung "`$\subset$"', so dass jede Kette in  $\mathfrak{M}$ eine obere Schranke in $\mathfrak{M}$ besitzt. Dann existiert ein maximales Element $m$ in  $\mathfrak{M}$, d.h. ein Element $m$, so dass gilt $B \in  \mathfrak{M}, m \subset B \implies B = m$.\\
 		
-		\noindent Angewendet auf unseren Fall ergibt sich sofort ein maximales Element aus $\mathfrak{M} = \{A \in V : A$ linear unabhängig$\}$, also eine maximale lineare unabhängige Familie, d.h. eine Basis.\\
+		 Angewendet auf unseren Fall ergibt sich sofort ein maximales Element aus $\mathfrak{M} = \{A \in V : A$ linear unabhängig$\}$, also eine maximale lineare unabhängige Familie, d.h. eine Basis.\\
 		
-		\noindent Das Lemma von Zorn ist (in der üblichen Mengenlehre nach Zermelo und Fraenkel, welche man in der Logik kennenlernt) äquivalent zum Auswahlaxiom (auch kennenzulernen in der Logik), welches besagt:
+		 Das Lemma von Zorn ist (in der üblichen Mengenlehre nach Zermelo und Fraenkel, welche man in der Logik kennenlernt) äquivalent zum Auswahlaxiom (auch kennenzulernen in der Logik), welches besagt:
 		
-		\noindent Sei $X = \{U_i, i \in I\}$ eine Menge von Mengen, dann existiert eine sogenannte Auswahlfunktion $$F : X \to \bigcup_{i \in I} U_i\ \text{ mit }\ F(U_i) = a_i \in U_i.$$
+		 Sei $X = \{U_i, i \in I\}$ eine Menge von Mengen, dann existiert eine sogenannte Auswahlfunktion $$F : X \to \bigcup_{i \in I} U_i\ \text{ mit }\ F(U_i) = a_i \in U_i.$$
 	\end{satz}
 	
 	
@@ -2035,7 +2046,7 @@
 		\end{bem}
 		Beweise : Siehe Übung.\\
 		
-		\noindent\textbf{Beispiele: }
+		\textbf{Beispiele: }
 		\begin{enumerate}
 			\item Matrizen induzieren lineare Abbildungen
 			\item 
@@ -2079,7 +2090,7 @@
 		\label{satz33}
 		Es seien $V, W$ $K$-Vektorräume, $I$ eine Indexmenge, $(v_i)_{i \in I}$ eine Basis von $V$. Weiterhin sei $(w_j)_{j \in I} \in W^I$ eine Familie von Vektoren in $W$. Dann existiert genau eine $K$-lineare Abbildung $F : V \to W$ mit $f(v_j) = w_j$ für alle $j \in I$.\\
 		
-		\noindent Dieses $F$ erfüllt weiterhin
+		 Dieses $F$ erfüllt weiterhin
 		\begin{enumerate}[leftmargin = 4cm]
 			\item $\Ima(F) = \Span(\{w_j : j \in I\})$
 			\item $F$ injektiv $\iff (w_j)_{j \in I}$ linear unabhängig.
@@ -2123,7 +2134,7 @@
 		\begin{proof}
 			Nach dem \hyperref[satz218]{Basisergänzungssatz} existiert eine Basis $(v_1,\ldots, v_n)$ von $V$. Weiterhin sei $(e_1, \ldots, e_n)$ die Standardbasis von $K^n$. Dann gilt nach \hyperref[satz33]{Satz \ref*{satz33}}, dass für genau eine $K$-lineare Abbildung ein $F$ existiert mit $F(v_i)=e_i$ für $i=1, \ldots, n$. $F$ ist surjektiv, denn $\Ima(F)=F(V)=\Span(\{e_1, \ldots, e_n\})=K^n$. \\
 			$F$ ist injektiv, denn $(e_1, \ldots, e_n)$ ist linear unabhängig, der Schluss folgt mit \hyperref[satz33]{Satz \ref*{satz33}.2}.\\
-			\noindent Ebenso für $V\cong W$.\\
+			 Ebenso für $V\cong W$.\\
 		\end{proof}
 		\vspace{.5cm}
 		\begin{bem}
@@ -2247,7 +2258,7 @@
 			Es sei $F:V\to W$ linear, $V_1 = \ker(F)$. Dann wurde im Beweis der \hyperref[satz37]{Dimensionsformel} ein Untervektorraum $V_2\subset V$ konstruiert mit $V_2 \cong \Ima(F)$, sodass $V = V_1\oplus V_2$. Wir zeigen im neuen Jahr, dass gilt $\Ima(F)\cong \bigslant{V}{V_2}$.
 		\end{bem}
 		\vspace{.25cm}
-		\noindent\textbf{Beispiel: } $V=\R^2$
+		\textbf{Beispiel: } $V=\R^2$
 		\begin{figure}[H]
 			\begin{center}
 				\begin{tikzpicture}[dot/.style={circle,	inner sep=1pt, fill, label={#1}, name=#1, color=gray},>=latex, axes/.style={thick,=>}, scale=1]
@@ -2272,7 +2283,7 @@
 				\end{tikzpicture}
 			\end{center}
 		\end{figure}
-		\noindent Jeden Vektor in $U$ kann man folgendermaßen mit einem Vektor in $\bigslant{V}{W}$ identifizieren: $$p(x) = p(u+w) = p(u)+p(w) = p(u) + 0 = p(u)$$ Für $p(x)$ ist dann nur der Anteil von $W$ ausschlaggebend. $p\big|_V$ ist dann auch injektiv, denn $p(u)=0\iff u=0$, denn $p(y)=0\iff y\in W$ und $W\cap U=\{0\}$.
+		 Jeden Vektor in $U$ kann man folgendermaßen mit einem Vektor in $\bigslant{V}{W}$ identifizieren: $$p(x) = p(u+w) = p(u)+p(w) = p(u) + 0 = p(u)$$ Für $p(x)$ ist dann nur der Anteil von $W$ ausschlaggebend. $p\big|_V$ ist dann auch injektiv, denn $p(u)=0\iff u=0$, denn $p(y)=0\iff y\in W$ und $W\cap U=\{0\}$.
 	\end{definition}
 	
 	\begin{satz}[Homomorphiesatz]
@@ -2289,7 +2300,7 @@
 			\end{enumerate}
 		\end{proof}
 		
-		\noindent\vspace{.2cm}\textbf{Bild: }
+		\vspace{.2cm}\textbf{Bild: }
 		\begin{figure}[H]
 			\begin{center}
 				\begin{tikzpicture}
@@ -2346,163 +2357,130 @@
 		$$
 		eine $m\times n$-Matrix. Die $a_{ij}$ heißen Einträge von $A$. Weiterhin heißt $(a_{i1}, a_{i2}, \ldots, a_{in})$ die $i$-te Zeile von $A$ und $(a_{1j}, a_{2j}, \ldots, a_{mj})^\top$ die $j$-te Spalte von $A$. Dabei heißt $i$ Zeilenindex und $j$ Spaltenindex.\\
 		
-		\noindent Mit $\Mat_X(m\times n)$ bezeichnen wir die Menge aller $m\times n$-Matrizen mit Einträgen aus $X$. Im Folgenden sei $K$ ein Körper.
+		 Mit $\Mat_X(m\times n)$ bezeichnen wir die Menge aller $m\times n$-Matrizen mit Einträgen aus $X$. Im Folgenden sei $K$ ein Körper.
 	\end{definition}
-	
-	\begin{satz}[Matrizen sind lineare Abbildungen]
-		$\Mat_K(m\times n)$ trägt die Struktur eines $K$-Vektorraums, sodass gilt: 
-		$$ K^{m\cdot n} \cong\Mat_K(m\times n)\cong\Hom_K\left(K^n, K^m\right) $$
-	\end{satz}
-    
+	    
     \begin{satz}[Matrizen sind lineare Abbildungen]
-        $\Mat_X(m\times n)$ trägt die Struktur eines $K$-Vektorraums, sodass gilt: 
+        $\Mat_K(m\times n)$ trägt die Struktur eines $K$-Vektorraums, sodass gilt: 
         $$ K^{m\cdot n} \cong\Mat_K(m\times n)\cong\Hom_K\left(K^n, K^m\right) $$
-        \textit{Beweis:}\\
-        Auf \(Mat_K(mxn)\) definieren wir Addition und Skalarmultiplikation
-        Eintragweise. Wir sehen sofort, dass \(Mat_K(mxn)\) damit zu einem
-        K-Vektorraum wird. F\"ur die Isomorphie zu \(K^{nm}\) betrachten wir
-        die Abbildung\\
-        \(Mat_K(mxn)) \to K^{mn}\)\\
-        \(a_{ij} \mapsto \ve{a_{11}\\a_{21}\\\vdots\\a_{n1}\\\vdots\\a_{nm}}\)\\
-        Diese Abbildung ist ein Isomorphismus.\\
-        F\"ur die Isomorphie zu \(Hom_K(K^n, K^m)\) ben\"otigen wir\\
-        \(Mat_K(mxn)) \to Hom_K(K^n, K^m)\).\\
-        \(A \mapsto F_A\),\\
-        wobei \(F_A(x) = Ax\) mit \\
-        \((Ax)_i = \sum_{j=1}^n a_{ij}x_j\), \(i = 1 \dots m\).\\
-        Linearit\"at l\"asst sich leicht nachrechnen. Damit ist
-        \(A \mapsto F_A\) ein K-Vektorraum Homomorphismus.\\
-        Injektivit\"at: Es sei \(F_A=0\) in \(Hom_K(K^n, K^m)\). Damit folgt
-        sofort, dass\\
-        \(0 = F_A(e_j) = \ve{a_{1k}\\\vdots\\a_{mk}}\) f\"ur alle \(k=1\dots n\)
-        (mit \(e_j\) als j-ter kanonischer Einheitsvektor).\\
-        Damit folgt \(a_{ij} = 0\) f\"ur \(i = 1, \dots m, j = 1, \dots, n)\).
-        Somit ist die Abbildung injektiv.\\
-        \textit{Surjektivit\"at}: Es sei \(F \in Kom_K(K^n, K^m)\). Wir sehen
-        \(F(e_k) = \ve{a_{1k}\\\vdots\\a_{mk}} \in K^m\) f\"ur
-        \(k = 1, \dots, n\)\\
-        Die Matrix A sei nun die Matrix mit den Spaltenvektoren
-        \(\ve{a_{1k}\\\vdots\\a_{mk}}\) und sehen, dass gilt \(F_A = F\), denn
-        \(F_A\) und F stimmen auf einer Basis des \(K^n\) \"uberein und sind
-        somit gleich (nach Satz 3.3).\\
-        \textit{Bemerkungen}:\\
-        \begin{enumerate}
-            \item {
-                Die Spaltenvektoren von A sind die Bilder der Basisvektoren
-                \(e_i\) des \(K^n\).
-            }
-            \item {
-                Die Nacheinanderausf\"uhrung linearer Abbildungen entspricht der
-                Matrixmultiplikation.\\
-                Seien \(F_A : K^n \to K^m, F_B K^m \to K^l\), linear. Dann ist
-                durch \(F_B \circ F_A\) eine lineare Abbildung \(K^n\to K^l\)
-                definiert.\\
-                Es gilt \(F_b \circ F_A = F_C\) mit \(C = c_{ij},
-                c_{ij} = \sum_{s=1}^n a_{is} b_{sj}\).\\
-                Wir schreiben \(C = B \cdot A\).\\
-                Die Formel f\"ur das Matrixprodukt wurde in den \"Ubungen
-                hergeleitet.
-            }
-            \item {
-                Mit der Nacheinanerausf\"urung bilden die Endomorphismen von
-                \(K^n \to K^n\) einen Ring, also gilt dass ebenso f\"ur nxn
-                Matrizen mit dem Matrixprodukt.
-            }
-            \item {
-              Falle'sche Regel?\\
-              \hspace*{2.9cm}
-              \(
-              \begin{pmatrix}
-                  b_{11} & \dots & b_{1m}\\
-                  \vdots & & \vdots\\
-                  b_{n1} & \dots & b_{nm}
-              \end{pmatrix}
-              \\
-              \begin{pmatrix}
-                  a_{11} & \dots & a_{1m}\\
-                  \vdots & & \vdots\\
-                  a_{n1} & \dots & a_{nm}
-              \end{pmatrix}
-              \begin{pmatrix}
-                  c_{11} & \dots & c_{1m}\\
-                  \vdots & & \vdots\\
-                  c_{n1} & \dots & c_{nm}
-              \end{pmatrix}
-              \)
-            }
-          \item {
-              Matrixmultiplikation von A und B ist nur m\"oglich, wenn A so
-              viele Spalten besitzt, wie B Zeilen. (Insbesondere ist nur dann
-              \(F_A \circ F_B\) definitert).
-          }
-          \item {
-              Spezialfall \(\Mat_K(nx1) = K^n\). F\'ur \(x \in \Mat(nx1), 
-              A \in \Mat_k(mxn)\) ist \(A \cdot x = F_A(x)\).
-          }
-          \item {
-              \(E_n = 
-              \begin{pmatrix}
-                1 & 0 & 0\\
-                0 &   & 0\\
-                0 & 0 & 1
-              \end{pmatrix}\) hei\ss{}t Einheitsmatrix und es gilt \(F_{E_n} = 
-              id_{K^N}\).
-          }
-        \end{enumerate}
-    \end{satz}
-    \begin{definition}[Transponierte und Inverse Matrizen]
-        Es seien \(m, n \in \N\).
-        \begin{enumerate}
-            \item {
-                Sei \(A \in \Mat_k(mxn)\), mit Eintr\"agen \(a_{ij}\). Die
-                Matrix \(A^T \in \Mat_k(nxm)\) mit Eintr\"agen \(a_{ji}\) ist
-                die zu A transponierte Matrix.\\
-            }
-            \item {
-                \(A \in \Mat_k(nxn)\) hei\ss{}t invertierbar, falls eine Matrix
-                \(A^{-1} \in MatK(nxn)\) mit \(A^{-1} A = E_n\). 
-            }
-        \end{enumerate}
-        \textit{Bemerkungen}
-        \begin{enumerate}
-          \item {
-              \(A \in \Mat_K(nxn)\) ist invertierbar \(\Leftrightarrow\) \(F_A
-              \in Hom_K(K^n, K^n)\) isomorphismus.
-          }
-          \item {
-              Wir schreiben \(rg(A) = rg(F_A)\).\\
-              \(\Im(A) = \Ima(f_a), \ker(A) = \ker(F_A)\).
-          }
-        \end{enumerate}
-    \end{definition}
-    Als lineares Gleichungssytem (\"uber K) bezeichnen wir einen Ausdruch der
-    Form \[Ax = b\] mit \(b \in K, A \in \Mat_K(mxn)\) und gesuchten
-    \(x \in K^n\).\\
-    Alle Aussagen zu lin. Gleichungssystemen aus Kapitel 0 gelten f\"ur lineare
-    Gleichungssysteme \"uber K.
-    \textit{Bemerkung}
-    \begin{enumerate}
-      \item {
-          Ist A invertierbar, so gilt \(x = A^{-1}b\) ist die
-          eindeutige L\"osung des Gleichungssystems.
-      }
-      \item {
-          Im allgemeinen Fall ist die L\'Osungsmenge des linearen
-          Gleichungssystems gegeben durch \(F_A^{-1}(\{b\})\).
-      }
-      \item {
-          Ebenfalls wir in Kapitel 0 l\"asst sich jede Matrix \"uber K durch
-          Zeilenoperationen und Spaltenvertausch auf Normalform bringen. Die
-          L\"osungsmenge eines linearen Gleichungssystems kann man durch
-          Betrachtung der erweiterten Koeffizientenmatrix bestimmen.
-      }
-      \item {
-          Zeilenoperationen lassen sich als Anwendung von sogenannten
-          Elementarmatrizen schreiben. Diese Elementarmatrizen sind
-          invertierbar. (siehe \"Ubungsblatt).
-      }
-    \end{enumerate}
+        \begin{proof}
+        	Auf $\Mat_K(m\times n)$ definieren wir Addition und Skalarmultiplikation eintragsweise. Wir sehen sofort, dass $\Mat_K(m\times n)$ damit zu einem $K$-Vektorraum wird. Für die Isomorphie zu $K^{n\cdot m}$ betrachten wir die Abbildung $$\Mat_K(m\times n) \to K^{n\cdot m},\quad a_{ij} \mapsto \begin{pmatrix}a_{11}\\a_{21}\\\vdots\\a_{n1}\\\vdots\\a_{nm}\end{pmatrix}$$
+        	Diese Abbildung ist ein Isomorphismus.\\
+        	
+        	Für die Isomorphie zu $\Hom_K(K^n, K^m)$ benötigen wir $$\Mat_K(m\times n),\quad A\mapsto F_A,$$ wobei $F_A(x) = Ax$ mit $(Ax)_i = \sum_{j=0}^{n}a_{ij}x_j,\quad i=1,\ldots, n$. Linearität lässt sich leicht nachrechnen. Damit ist $A\mapsto F_A$ ein Vektorraumhomomorphismus über $K$. Wir zeigen nun Bijektivität:
+        	\begin{description}
+        		\item [Injektivität: ] Es sei $F_A=0$ in $\Hom_K(K^n, K^m)$. Damit folgt sofort, dass $0=F_A(e_j) = (a_{1k}, \ldots, a_{mk})^\top$, wobei $e_j$ der $j$-te kanonische Einheitsvektor ist und $k=1, \ldots, n$. Damit folgt $a_{ij} = 0$ für $i=1, \ldots, m$, $j=1,\ldots n$. Somit ist die Abbildung injektiv.
+        		\item[Surjektivität: ] Es sei $F\in\Hom_K(K^n, K^m)$. Wir sehen $F(e_k) = (a_{1k}, \ldots, a_{mk})^\top$ für $k=1, \ldots, n$. Die Matrix $A$ sei nun die Matrix mit den Spaltenvektoren  $(a_{1k}, \ldots, a_{mk})^\top$. Man sieht, dass $F_A=F$, denn $F_A$ und $F$ stimmen auf einer Basis des $K^n$ überein und sind nach \hyperref[satz33]{Satz \ref*{satz33}} gleich.
+        	\end{description}
+        \end{proof}
+        
+        \begin{bem}$ $
+        	\begin{enumerate}[label = \roman*)]
+        		\item Die Spaltenvektoren von $A$ sind die Bilder der Basisvektoren $e_i$ des $K^n$
+        		\item Die Nacheinanderausführung linearer Abbildung entspricht der Matrixmultiplikation: Seien $F_A: K^n \to K^m$, $F_B: K^m \to K^l$ linear. Dann ist durch $F_B\circ F_A$ eine lineare Abbildung $K^n\to K^l$ definiert. Es gilt $$F_B\circ F_A = F_C\quad\text{mit}\quad C=c_{ij} = \sum_{s=1}^{n}a_{is}b_{sj}.$$ Wir schreiben $C=B\cdot A$. Die Formel für das Matrixprodukt wurde in den Übungen hergeleitet.
+        		\item Mit der Nacheinanderausführung bilden die Endomorphismen von $K^n \to K^n$ einen Ring, also gilt dass ebenso für $n\times n$-Matrizen mit dem Matrixprodukt.
+        		\item Die Falksche Regel bietet eine Möglichkeit, Matrizen übersichtlich miteinander zu multiplizieren\footnote{Quelle (modifiziert): \href{http://www.texample.net/tikz/examples/matrix-multiplication/}{texample.net}}:
 
+        		\begin{figure}[H]
+        			\begin{center}
+		        		\begin{tikzpicture}[>=latex]
+		        		\matrix (A) [matrix of math nodes,%
+		        		nodes = {node style ge}, left delimiter  = (, right delimiter = )] at (0,0)
+		        		{
+		        			a_{11} & a_{12} & \ldots & a_{1n}  \\
+		        			|[node style sp]| a_{21} & |[node style sp]| a_{22} & \ldots & |[node style sp]| {a_{2n}} \\
+		        			\vdots & \vdots & \ddots & \vdots  \\
+		        			a_{m1} & a_{m2} & \ldots & a_{mn}  \\
+		        		};
+		        		\node [draw,below=10pt] at (A.south) 
+		        		{$A$: $n$ Spalten, $m$ Zeilen};
+		        		
+		        		\matrix (B) [matrix of math nodes,%
+		        		nodes = {node style ge},%
+		        		left delimiter  = (,%
+		        		right delimiter =)] at (6cm,6cm)
+		        		{%
+		        			b_{11} & |[node style sp]| b_{12} & \ldots & b_{1l} \\
+		        			b_{21} & |[node style sp]| b_{22} & \ldots & b_{2l} \\
+		        			\vdots & \vdots & \ddots & \vdots \\
+		        			b_{n1} & |[node style sp]| b_{n2} & \ldots & b_{nl}  \\
+		        		};
+		        		\node [draw,above=10pt] at (B.north) 
+		        		{$B$: $l$ Spalten, $n$ Zeilen};
+		        		
+		        		\matrix (C) [matrix of math nodes,%
+		        		nodes = {node style ge},%
+		        		left delimiter  = (,%
+		        		right delimiter = )] at (6cm ,0)
+		        		{%
+		        			c_{11} & c_{12}  & \ldots & c_{1l} \\
+		        			c_{21} & |[node style sp,red]| c_{22} & \ldots & c_{2l} \\
+		        			\vdots & \vdots  & \ddots & \vdots \\
+		        			c_{m1} & c_{m2}  & \ldots & c_{ml} \\
+		        		};
+		        		
+		        		\draw[blue] (A-2-1.north) -- (C-2-2.north);
+		        		\draw[blue] (A-2-1.south) -- (C-2-2.south);
+		        		\draw[blue] (B-1-2.west)  -- (C-2-2.west);
+		        		\draw[blue] (B-1-2.east)  -- (C-2-2.east);
+		        		\draw[<->,red](A-2-1) to[in=180,out=90] node[arrow style mul] (x) {$a_{21}\cdot b_{12}$} (B-1-2);
+		        		\draw[<->,red](A-2-2) to[in=180,out=90] node[arrow style mul] (y) {$a_{22}\cdot b_{22}$} (B-2-2);
+		        		\draw[<->,red](A-2-4) to[in=180,out=90] node[arrow style mul] (z) {$a_{2n}\cdot b_{n2}$} (B-4-2);
+		        		\draw[red,->] (x) to node[arrow style plus] {$+$} (y) to node[arrow style plus] {$+\raisebox{.5ex}{\ldots}+$} (z) to (C-2-2.north west);
+
+		        		\node [draw,below=10pt] at (C.south) 
+		        		{$C=A\cdot B$: $l$ Spalten, $m$ Zeilen};
+		        		\end{tikzpicture}
+	        		\end{center}
+		        \end{figure}
+        		
+        		\item Matrixmultiplikation von $A$ und $B$ ist nur möglich, wenn $A$ genauso viele Spalten besitzt wie $B$ Zeilen. Insbesondere ist nur dann $F_A\circ F_B$ definiert.
+				\item Spezialfall: $\Mat_K(n\times 1) = K^n$. Für $x\in\Mat_K(n\times 1)$, $A\in \Mat_K(m\times n)$ ist $A\cdot x = F_A(x)$.
+				\item Die Matrix $$E_n \quad = \quad
+				\begin{pmatrix} 
+				1      & 0      & \cdots & 0\\
+				0      & 1      & \ddots & \vdots\\ 
+				\vdots & \ddots & \ddots & 0\\ 
+				0      & \cdots & 0      & 1 
+				\end{pmatrix}
+        		$$
+        		heißt Einheitsmatrix (manchmal auch mit $\mathcal{I}$ bezeichnet) und es gilt $F_{E_n} = \Id_{K^n}$.
+        	\end{enumerate}
+        \end{bem}
+    \end{satz}
+    
+    \begin{definition}[Transponierte und inverse Matrizen],
+    	\IN{Matrix!Invertierte}
+    	\IN{Matrix!Transponierte}
+        Es seien $m, n \in \N$.
+        \begin{enumerate}
+            \item Sei $A \in \Mat_K(m\times n)$, mit Einträgen $a_{ij}$. Die Matrix $A^\top \in \Mat_K(n\times m)$ mit Einträgen $a_{ji}$ ist die zu $A$ transponierte Matrix.
+            \item $A \in \Mat_K(n\times n)$ heißt invertierbar, falls eine Matrix $A^{-1} \in Mat_K(n\times n)$ mit $A^{-1}\cdot A = E_n$.
+        \end{enumerate}
+        
+        \begin{bem}$ $
+        	\begin{enumerate}[label = \roman*)]
+        		\item $A \in \Mat_K(nxn)$ ist invertierbar $\iff F_A \in \Hom_K(K^n, K^n)$ ist isomorph.
+        		\item Wir schreiben $\rg(A) = \rg(F_A)$, $\Ima(A) = \Ima(F_A)$, $\ker(A) = \ker(F_A)$.
+        	\end{enumerate}
+        \end{bem}
+        
+        \vspace{.5cm}
+        \textbf{Zusatz:}\\
+        Als lineares Gleichungssystem (über $K$) bezeichnen wir einen Ausdruck der Form $$Ax = b $$ mit $b \in K$, $A \in \Mat_K(m\times n)$ und gesuchtem $x \in K^n$.\\
+        
+        Alle Aussagen zu linearen Gleichungssystemen aus \hyperref[deflingl]{Kapitel 0} (dort nur über $\R$ definiert) gelten auch für lineare Gleichungssysteme über $K$.\\
+        
+        \begin{bem}$ $
+        	\begin{enumerate}[label = \roman*)]
+        		\item Ist $A$ invertierbar, so ist $x = A^{-1}b$ die eindeutige Lösung des Gleichungssystems.
+        		\item Im allgemeinen Fall ist die Lösungsmenge des linearen Gleichungssystems gegeben durch $F_A^{-1}(\{b\})$.
+        		\item Ebenfalls lässt sich jede Matrix über $K$ wie in \hyperref[deflingl]{Kapitel 0} durch        			Zeilenoperationen und Spaltenvertauschung auf \hyperref[defnormalform]{Normalform} bringen. Die Lösungsmenge eines linearen Gleichungssystems kann man durch Betrachtung der erweiterten Koeffizientenmatrix bestimmen.
+        		\item Zeilenoperationen lassen sich als Anwendung von sogenannten Elementarmatrizen schreiben. Diese Elementarmatrizen sind invertierbar (siehe Übungsblatt).
+        	\end{enumerate}
+        \end{bem}
+    \end{definition}
+    
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}]
