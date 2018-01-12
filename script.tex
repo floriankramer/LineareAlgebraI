@@ -20,26 +20,32 @@
 \usepackage{etoolbox}
 \usepackage{float}
 
+% configure tikz circles & nodes
 \tikzset{
 	node style sp/.style={draw,circle,minimum size=1cm},
 	node style ge/.style={circle,minimum size=1cm},
 	arrow style mul/.style={draw,sloped,midway,fill=white},
 	arrow style plus/.style={midway,sloped,fill=white},
 }
+% tikz dependencies:
 \usetikzlibrary{matrix,arrows,decorations.pathmorphing}
-\usepackage[a4paper, top = 2cm, left = 2.5cm, right = 2.5cm, bottom = 2cm]{geometry}
 
+% page size & margins:
+\usepackage[a4paper, top = 2cm, left = 2.25cm, right = 2.25cm, bottom = 2cm]{geometry}
+
+% defines index commands with hyperref
 \makeindex[columns=2, title=Stichwortverzeichnis, intoc]
 \newcommand{\BH}[1]{\textbf{\hyperpage{#1}}}
 \newcommand{\IN}[1]{\index{#1|BH}}
 
 \title{Lineare Algebra I\\Mitschrieb}
 
+% title formatting of sections
 \titleformat{\chapter}[block]
 {\normalfont\huge\bfseries}{\Huge \thechapter. }{0em}{\Huge}
-\titlespacing*{\chapter}{-7pt}{-15pt}{20pt}
-\titlespacing*{\section}{-7pt}{0pt}{10pt}
-\titlespacing*{\subsection}{-7pt}{0pt}{10pt}
+\titlespacing*{\chapter}{0pt}{-15pt}{20pt}
+\titlespacing*{\section}{0pt}{0pt}{10pt}
+\titlespacing*{\subsection}{0pt}{0pt}{10pt}
 
 
 % ease of use commands
@@ -78,21 +84,25 @@
 % increase line height
 \renewcommand{\baselinestretch}{1.2}
 
+% redefines description label for alternative enumeration in description environement
 \renewcommand*\descriptionlabel[1]{\hspace\labelsep\textsl{#1}}
 
-% define environments
+% define main environment used for lemmas, definitions, corollaries, ...
+\makeatletter
 \newtheoremstyle{customdef} % name of the style to be used
 {12pt}        % measure of space to leave above the theorem. E.g.: 3pt
 {12pt}        % measure of space to leave below the theorem. E.g.: 3pt
-{\normalfont} % name of font to use in the body of the theorem
+{\normalfont\addtolength{\@totalleftmargin}{7pt}\addtolength{\linewidth}{-7pt}\parshape 1 7pt\linewidth} % name of font to use in the body of the theorem
 {-7pt}        % measure of space to indent
 {\bfseries}   % name of head font
 { \\[.125cm] }% punctuation between head and body
 { }           % space after theorem head; " " = normal interword space
 {\thmname{#1}\thmnumber{ #2} {\normalfont\thmnote{ -- \hspace{1pt}  #3}}}
+\makeatother
 
+% define side environment used for remarks
 \newtheoremstyle{customrem} % name of the style to be used
-{-3pt}        % measure of space to leave above the theorem. E.g.: 3pt
+{0pt}         % measure of space to leave above the theorem. E.g.: 3pt
 {0pt}         % measure of space to leave below the theorem. E.g.: 3pt
 {}            % name of font to use in the body of the theorem
 {}            % measure of space to indent
@@ -101,8 +111,13 @@
 {.5em}        % space after theorem head; " " = normal interword space
 {}
 
+% define remarks:
 \theoremstyle{customrem}
-\newtheorem*{bem}{Bemerkung\textnormal:}
+\newtheorem*{bemerkung}{Bemerkung\textnormal:}
+\newtheorem*{bemerkung2}{Bemerkungen\textnormal:}
+\newenvironment{bemerkungen}[1][]{\begin{bemerkung2}[#1]\leavevmode}{\end{bemerkung2}}
+
+% define definition environment names
 \theoremstyle{customdef}
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem*{definitionn}{Definition} % without numbering
@@ -113,12 +128,12 @@
 \newtheorem*{satz*}{Satz} % without numbering
 \renewenvironment{proof}{\paragraph{Beweis: }}{\qed}
 
-
+% disables autoindent
 \setlength{\parindent}{0em}
 
 % defines lists of theorems:
-\makeatletter
 
+\makeatletter
 \AtBeginDocument{\addtocontents{loe}{\protect\thmlopatch@chapter {0}}} % fixes chapter 0 not showing by patching this shit to the beginning of the .loe
 \patchcmd\thmtlo@chaptervspacehack
 {\addtocontents{loe}{\protect\addvspace{10\p@}}}
@@ -218,11 +233,13 @@
 	\fi}
 \makeatother
 
-% defines bigslant for quotient
+% defines bigslant for quotient (and bigbigslant for single nested quotients)
 \newcommand{\bigslant}[2]{{\raisebox{.1em}{$#1$}\hspace{-.2em}\left/\raisebox{-.1em}{$#2$}\right.}}
 \newcommand{\bigbigslant}[2]{{\raisebox{.4em}{$#1$}\hspace{-.2em}\left/\raisebox{-.4em}{$#2$}\right.}}
 
 \begin{document}
+	
+	
 	\begin{titlepage}
 		\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 		\centering
@@ -441,9 +458,9 @@
 		\IN{Lineare Gleichungssysteme!Zeilenoperationen}
 		Eine Zeilenoperation macht aus einem Gleichungssystem ein neues Gleichungssystem durch Multiplikation  der $i$-ten Zeile mit einer Zahl $\lb \in \R \setminus 0$ oder durch Addieren des \mlb-fachen der $i$-ten Zeile zur $j$-ten Zeile $(i \neq j)$. Wir bezeichnen diese Operationen mit $Z_i^\lb$ bzw. $Z_{i,j}^\lb$.\\
 		Die Umkehrung von $Z_i^\lb = Z_i^{\frac{1}{\lb}}$, die Umkehrung von $Z_{i,j}^\lb = Z_{i,j}^{-\lb}$
-		\begin{bem}
+		\begin{bemerkung}
 			Die Zeilenoperationen sind umkehrbar.
-		\end{bem}
+		\end{bemerkung}
 	\end{definitionn}
 	
 	\begin{lemma}
@@ -521,9 +538,9 @@
 		Eine Kollektion $a_1, \dots, a_n$ von Vektoren in $\R^m$ heißt linear unabhängig, wenn sich keiner der Vektoren als Linearkombination der anderen Vektoren schreiben lässt.
 	\end{definition}
 	
-	\begin{bem}
+	\begin{bemerkung}
 		Als Linearkombination von $a_1, \dots, a_n$ bezeichnen  wir einen Ausdruck der Form $\al_1a_1 + \al_2 a_2 + \ldots + \al_n a_n = \sum_{j=1}^n \al_j a_j$ für $\al_1, \dots, \al_n \in \R$
-	\end{bem}
+	\end{bemerkung}
 	
 	\begin{lemma}
 		\label{lem10}
@@ -552,12 +569,12 @@
 	\begin{satz}[Konsistenz des Ranges]
 		\label{satz12}
 		Wenn man ein Gleichungssystem durch Zeilenoperationen und Spaltenvertauschungen auf Normalform bringt, so erhält man immer denselben Rang.		
-		\begin{bem}
+		\begin{bemerkung}
 			Man kann damit vom Rang eines Gleichungssystems (bzw. einer Matrix) sprechen, auch wenn dieses nicht in Normalform ist.
-		\end{bem}
-		\begin{bem}
+		\end{bemerkung}
+		\begin{bemerkung}
 			Ein einzelner Vektor $a$ gilt als linear unabhängig, solange $a \neq 0$. Die leere Kollektion von Vektoren $(n=0)$ bezeichnen wir ebenfalls als linear unabhängig.
-		\end{bem}
+		\end{bemerkung}
 		 Vor dem Beweis des \hyperref[satz12]{Satzes \ref*{satz12}} noch ein paar Feststellungen:
 		\begin{enumerate}
 			\item Die Tatsache, dass $(\xi_1, \dots, \xi_n)$ Lösung eines linearen Gleichungssystems ist, lässt sich als lineare Abhängigkeit 
@@ -598,9 +615,9 @@
 		\end{enumerate}
 	\end{definition}
 	
-	\begin{bem}
+	\begin{bemerkung}
 		Der Richtungsraum $\R v$ einer Geraden $g$ ist durch diese eindeutig bestimmt als Menge der Differenzen $x - y$ aus Vektoren in $g$.
-	\end{bem}
+	\end{bemerkung}
 	
 	\begin{lemma}
 		\IN{Gerade!Gleichheit}
@@ -625,9 +642,9 @@
 	\begin{definition}[Ebenen]
 		\IN{Ebene}
 		Eine (affine) Ebene ist eine Menge der Form $a + \R v + \R w$ für linear unabhängige Vektoren $v, w$.
-		\begin{bem}
+		\begin{bemerkung}
 			Auch hier gilt, das der Raum $\R v + \R w$ eindeutig bestimmt ist als Menge aller Differenzen von Punkten in der Ebene.
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{lemma}
@@ -692,9 +709,9 @@
 			$0 \le (a + \lb b, a + \lb b) = (a, a) + 2 (\lb a, b) + \lb^2 (b, b)$.	Für $\lb = -\frac{(a,b)}{(b, b)}$ ergibt sich $0 \le (a, a) - 2 \frac{(a, b)^2}{(b, b)} + \frac{(a, b)^2}{(b, b)}$.
 			Für $b = 0$ ist die Aussage des Lemmas klar. Es folgt $(a,b)^2 \le (a, a)(b,b)$\\
 		\end{proof} 
-		\begin{bem}
+		\begin{bemerkung}
 			Falls a und b linear unabhängig sind so folgt $|(a,b)| < ||a||||b||$, denn dann ist $a + \lb b \neq 0$ (für jedes $\lb \in \R$) und die Ungleichung ist strikt (d.h. mit "`$<$"').
-		\end{bem}
+		\end{bemerkung}
 	\end{lemma}
 	
 	\begin{lemma}[Dreiecksungleichung]
@@ -787,12 +804,12 @@
 			\end{tabular}
 		\end{center}
 		Um die Aussage $A \implies B$ zu zeigen, können wir annehmen, das $A$ wahr ist und müssen folgern, das $B$ ebenfalls wahr ist.\\
-		\begin{bem} De Morgansche Gesetze
+		\begin{bemerkung} De Morgansche Gesetze
 			\begin{enumerate}
 				\item\ $(\neg A \lor \neg B) = \neg (A \land B)$
 				\item\ $(\neg A \land \neg B)$ = $\neg (A \lor B)$
 			\end{enumerate}
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	
@@ -810,13 +827,13 @@
 			\item Eine Menge Y heißt Teilmenge von X, wenn aus $x \in Y$ immer folgt $x \in X$. Wir schreiben $Y \subset X$.
 			\item Wir sagen $X=Y$ genau dann, wenn $X \subset Y$ und $X \supset Y$\ d.h. zwei Mengen sind gleich, wenn sie die gleichen Elemente enthalten. ("`Extensionalitätsprinzip"')
 		\end{enumerate}
-		\begin{bem}$ $
+		\begin{bemerkungen}
 			\begin{enumerate}
 				\item $\emptyset \subset M$, für jede Menge M
 				\item $M \subset M$, für jede Menge M
 				\item Wenn gilt $M \subset N$, aber nicht $M = N$, dann heißt $M$ "`echte Teilmenge"' von $N$, wir schreiben dann $M \subsetneq N$. (Die ISO-Vorschrift sieht hier $\subset$ für "`echte Teilmenge"' und $\subseteq$ für "`Teilmenge"' vor, dies wird jedoch selten benutzt.)
 			\end{enumerate}
-		\end{bem}
+		\end{bemerkungen}
 		\textbf{Die Natürlichen Zahlen}\\
 		\IN{Natürliche Zahlen}
 		Die einfachste unendliche Menge ist die der natürlichen Zahlen $$\N = \{1, 2, 3, \ldots\},$$ deren Existenz wir annehmen, zusammen mit den üblichen Rechenregeln.
@@ -832,9 +849,9 @@
 		\IN{Ganze Zahlen}
 		Durch Erweiterung von Zahlbereichen können wir aus \mN auch die ganzen Zahlen $\mathbb{Z}$, die rationalen Zahlen $\mathbb{Q}$ sowie die reellen Zahlen \mR konstruieren 
 		(ebenso die komplexen Zahlen $\mathbb{C}$).\\
-		\begin{bem}
+		\begin{bemerkung}
 			Es gilt $\N \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}$\\
-		\end{bem}
+		\end{bemerkung}
 		\textbf{Teilmengen mit Eigenschaften}\\
 		Aus einer Menge können wir Teilmengen auswählen, welche durch bestimme Eigenschaften charakterisiert werden. Wir schreiben
 		$$X' = \{x \in X : x \text{ hat Eigenschaft }E\}$$ oder auch $$X' = \{x \in X\ |\ x \text{ hat Eigenschaft E}\}.$$
@@ -911,13 +928,13 @@
 	
 	\begin{definition}[Einschränkung von Funktionen]
 		Es sei $f : X \to Y$ eine Abbildung, $M \subset X $. Die Einschränkung von $f$ auf $M$ ist die Abbildung\linebreak $f|_M = M \to Y, x \mapsto f(x)$.
-		\begin{bem}
+		\begin{bemerkung}
 			Der Unterschied zu $f$ ist nur der eingeschränkte Definitionsbereich.\\
 			$$f  :\R \to \R,\ x \mapsto f(x) = x^2$$$$
 			M = R^+_0 = \{x \in \R : x \ge 0\}$$$$
 			(f|_M)^{-1}(\{1\}) = \{1\}
 			$$
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{definition}[Injektivität, Surjektivität, Bijektivität]
@@ -941,9 +958,9 @@
 		\IN{Umkehrabbildung}
 		\label{def1.9}
 		Es sei $f : X \to Y$ bijektiv. Wir schreiben dann $f^{-1} : Y \to X, f^{-1}(y) = x$ mit dem eindeutig definierten $x \in X$, sodass gilt $f(x) = y$.\\
-		\begin{bem}
+		\begin{bemerkung}
 			Die Sinnhaftigkeit der \hyperref[def1.9]{Definition \ref*{def1.9}} folgt sofort aus der \hyperref[def1.8]{Definition von Bijektivität}.
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{satz}[Eigenschaften von Funktionen über endliche Mengen]
@@ -955,10 +972,10 @@
 			\item $f$ ist bijektiv
 		\end{enumerate}
 		
-		\begin{bem}
+		\begin{bemerkung}
 			Für nicht endliche Mengen haben wir einfache Gegenbeispiele:
 			$$f : \N \to \N,\ x \mapsto f(x) = 2x$$
-		\end{bem}
+		\end{bemerkung}
 		
 		\begin{proof}
 			$X$ ist eine endliche Menge, wir schreiben $X = \{x_1, \dots, x_n\}$ mit paarweise verschiedenen $x_j$.
@@ -978,13 +995,13 @@
 		\IN{Abbildung!Komposition}
 		Es seien $X, Y, Z$ Mengen, $f: X \to Y,\ g : Y \to Z$ Abbildungen.
 		Dann definiert $g \circ f : X \to Z, x \mapsto g(f(x)) = (g \circ f)(x)$ die Komposition von Abbildungen.
-		\begin{bem}
+		\begin{bemerkung}
 			Es gilt Assoziativität: $(h \circ g) \circ f = h \circ (g \circ f)$ für $f : X \to Y, g : Y \to Z , h : Z \to A$\\
 			aber \textit{nicht} Kommutativität, d.h. im Allgemeinen gilt nicht  $f\circ g = g \circ f$ für $f : X \to X, g : X \to X$, denn \\
 			$$f : \R \to R, f(x) = x + 1$$$$
 			g : \R \to \R, f(x) = x^2$$
 			ist ein Gegenbeispiel, denn im Allgemeinen gilt \textit{nicht}, dass $(x + 1)^2 = x^2 + 1$.
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{definition}[Identische Abbildung]
@@ -1015,24 +1032,24 @@
 	\begin{definition}[Menge aller Abbildungen]
 		\IN{Menge aller Abbildungen}
 		Seien $X$, $Y$ Mengen. Mit $\abb(X, Y)$ bezeichnen wir die Menge aller Abbildungen von $X$ nach $Y$.
-		\begin{bem}
+		\begin{bemerkung}
 			$\{ f \in \abb(X, Y) :\ f \text{ surjektiv}\}$ ist nun ebenfalls definiert.
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{definition}[Mächtigkeit von Mengen]
 		Es seien $X$, $Y$ Mengen. Wir sagen $X$ ist gleichmächtig wie $Y$, falls eine bijektive Abbildung von $X$ nach $Y$ existiert.\\
-		\begin{bem}
+		\begin{bemerkung}
 			Für endliche  Mengen $M$ gilt $\#M = m$ genau dann, wenn $M$ gleichmächtig wie $\{1, 2, \dots, m\}$ ist.
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{definition}[Potenzmenge]
 		\IN{Potenzmenge}
 		Sei $M$ eine Menge. Die Menge aller Teilmengen von $M$ heißt Potenzmenge von $M$, kurz $2^M$.
-		\begin{bem}
+		\begin{bemerkung}
 			Für eine (beliebige nicht notwendigerweise bijektive) Abbildung $f : X \to Y$ ist $f^{-1}$ eine Abbildung von $2^Y$ nach $2^X$.
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{satz}[Mächtigkeit von $2^M$]
@@ -1121,11 +1138,11 @@
 	\begin{definition}[Quotientenmenge]
 		\IN{Quotientenmenge}
 		Es sei X eine Menge mit Äquivalenzrelation $\sim$. Die Menge der Äquivalenzklassen in $X$ bezeichnen wir  als Quotientenmenge und schreiben für diese Menge $\bigslant{X}{\sim}$.\\
-		\begin{bem}
+		\begin{bemerkung}
 			Wir können eine Abbildung definieren, welche jedem $a \in X$ dessen Äquivalenzklasse zuordnet:
 			$X \to \bigslant{x}{\sim}, a \mapsto A_a$ (nach \hyperref[prop122]{Proposition \ref*{prop122}} eindeutig zugeordnete Äquivalenzklasse).
 			Ein solches $a$ heißt dann Repräsentant der Äquivalenzklasse $A_a$.\\
-		\end{bem}
+		\end{bemerkung}
 		\textbf{Beispiel: }
 		Sei $X = \N$. Wir schreiben $X \sim y$, falls sowohl $x$ als auch $y$ gerade bzw. ungerade Zahlen sind.
 		Sei $a \in X$. Die zugehörige Äquivalenzklasse ist gegeben durch:
@@ -1144,9 +1161,9 @@
 		\ast :\ & G \times G &&\to G\\
 		&(a, b) &&\mapsto \ast(a, b)
 		\end{alignat*}
-		\begin{bem}
+		\begin{bemerkung}
 			Oft schreiben wir einfach $a \ast b$ für $\ast(a, b)$.\\
-		\end{bem}
+		\end{bemerkung}
 		\vspace{1cm}
 		\textbf{Beispiele:}
 		\begin{enumerate}[leftmargin=2cm]
@@ -1171,9 +1188,9 @@
 		\end{enumerate}
 		\IN{Gruppe!abelsche}
 		Die Gruppe heißt abelsch, falls zusätzlich gilt $$a \ast b = b \ast a\text{ für alle $a, b \in G$}$$\vspace{-.5cm}
-		\begin{bem}
+		\begin{bemerkung}
 			Wir schreiben oft einfach $a \cdot b$ bzw. $ab$ für $a \ast b$.\\
-		\end{bem}
+		\end{bemerkung}
 		
 		\textbf{Beispiele}
 		\begin{enumerate}
@@ -1200,7 +1217,7 @@
 			Sei nun $\hat{a}'$ ein weiteres inverses Element, dann folgt 
 			$\hat{a}' = \hat{a}' e = \hat{a}' (aa') = (\hat{a}'a)a' = ea' = a'$\\
 		\end{proof}\vspace{.25cm}
-		\begin{bem} $ $
+		\begin{bemerkung} $ $
 			\begin{enumerate}
 				\itemsep0cm
 				\item Wir schreiben $a^{-1}$ für das (nun) eindeutig bestimmte inverse Element zu a.
@@ -1212,7 +1229,7 @@
 					\item $\hat{y}a = ya \implies y = \hat{y}$
 				\end{enumerate}
 			\end{enumerate}
-		\end{bem}
+		\end{bemerkung}
 	\end{proposition}
 	
 	\begin{definition}[Rechts- und Linkstranslation]
@@ -1240,7 +1257,7 @@
 			\end{enumerate}
 		\end{proof}
 		\vspace{.25cm}
-		\begin{bem}$ $
+		\begin{bemerkungen}
 			\begin{enumerate}
 				\item Falls die Gefahr der Verwechslung besteht, schreiben wir gerne $(G, \ast)$ für eine Gruppe $G$ mit Verknüpfung $\ast$, 
 				beispielsweise $(\Q, +)$ für \mQ mit Addition, oder $(\Q \setminus \{0\}, \cdot)$ für $\Q \setminus \{0\}$ mit Multiplikation.
@@ -1263,7 +1280,7 @@
 					\end{tabular}
 				\end{center}
 			\end{enumerate}
-		\end{bem}
+		\end{bemerkungen}
 	\end{lemma}
 	
 	\begin{definition}[Untergruppen]
@@ -1390,9 +1407,9 @@
 			\item $K^\ast$ sei gegeben durch $K \setminus \{0\}$. Dann ist $(K^\ast, \cdot)$ eine abelsche Gruppe.
 			\item Für $a, b, c \in K$ gilt  $a (b+c) = ab + bc$ und $(b+c) a = ba + ca$
 		\end{enumerate}
-		\begin{bem}
+		\begin{bemerkung}
 			Das neutrale Element der Multiplikation bezeichnen wir mit Eins $( = 1)$, das Inverse zu $a$ bezüglich der Multiplikation mit $a^{-1}$ oder $\frac{1}{a}$, bezüglich der Addition mit $-a$.
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{proposition}[Rechenregeln für Körper]
@@ -1484,9 +1501,9 @@
 		Ein Ring $(R, +, \cdot)$ heißt nullteilerfrei, falls für $a, b \in R$ gilt $$ab = 0 \implies a = 0 \lor b = 0.$$
 		
 		\vspace{.1cm}
-		\begin{bem}
+		\begin{bemerkung}
 			Wir sehen, dass jeder Körper bereits ein nullteilerfreier Ring ist.
-		\end{bem}		
+		\end{bemerkung}		
 		
 		\vspace{.25cm}
 		\textbf{Beispiel:}
@@ -1565,7 +1582,7 @@
 		Zu beachten ist hierbei, was Addition der Gruppe, was Multiplikation des Körpers und was die speziell definierte Abbildung ist. Dies ergibt sich jedoch eindeutig aus den Typen der verknüpften Elemente.\\
 		Wir nennen die Abbildung $(\lb, v) \mapsto \lb v$ skalare Multiplikation. Die Gruppe $(V, +)$ mit der skalaren Multiplikation  heißt dann $K$-Vektorraum.
 		
-		\begin{bem}$ $
+		\begin{bemerkungen}
 			\begin{enumerate}
 				\item Ist $(R, +, \cdot)$ ein Ring, $(V, +)$ eine abelsche Gruppe mit Abbildung $R \times V \to V$, $(\lb, v) \mapsto \lb v$, welche die Bedingungen aus \hyperref[def21]{Definition \ref*{def21}} erfüllt. Dann ist $V$ ein $R$-Modul (bzw. Links-$R$-Modul).	Rechts-$R$-Moduln analog mit der Skalarmultiplikation von rechts.
 				\item
@@ -1578,7 +1595,7 @@
 				$K = \R$ : reelle Vektorräume\\
 				$K = \C$ : komplexe Vektorräume
 			\end{enumerate}
-		\end{bem}
+		\end{bemerkungen}
 		
 		\textbf{Beispiele:}
 		\begin{enumerate}
@@ -1614,9 +1631,9 @@
 				\item $x + (-1) x = 1x + (-1) x = (1 - 1)  x = 0 x = 0$
 			\end{enumerate}
 		\end{proof}
-		\begin{bem}
+		\begin{bemerkung}
 			Es sei $(G. +)$ eine Gruppe, $y \in G$. Falls gilt $y = y + y$, so folgt $y = 0$, denn die Kürzungsregel besagt $a + \hat{x} = a+x \implies x = \hat{x}$. Mit $x = 0, \hat{x} = y, a = y$. Also $y +y = y + 0 = y \implies y = 0$.
-		\end{bem}
+		\end{bemerkung}
 	\end{proposition}
 	
 	\begin{definition}[Untervektorräume]
@@ -1648,13 +1665,13 @@
 			Damit ist $W$ ein Vektorraum.\\
 		\end{proof}
 		\vspace{.3cm}
-		\begin{bem}
+		\begin{bemerkung}
 			Es sei $I$ eine Menge und für jedes $a \in I$ sei $M_a$ wieder eine Menge. So ein $I$ nennen wir Indexmenge. Nun verallgemeinern wir Schnittmenge und Vereinigung:
 			\begin{align*}
 			\bigcap_{a\in I} M_a &= \{x : x \in M_a \text{ für jedes\ } a \in I\}\\
 			\bigcup_{a\in I} M_a &= \{x : x \in M_a \text{ für ein\ } a \in I\}
 			\end{align*}
-		\end{bem}
+		\end{bemerkung}
 	\end{satz}
 	
 	\begin{lemma}
@@ -1735,11 +1752,11 @@
 	\begin{definition}[Familien von Elementen]
 		\IN{Familie}
 		Seien $X$, $I$ Mengen. Für jedes $j \in I$ sei $e_j \in X$. Dann bezeichnen wir die Abbildung $I \to X, j \mapsto e_j$ als "`durch $I$ induzierte Familie von Elementen von $X$"'. Wir schreiben $(e_j)_{j \in I} \in X^I = \abb(I, X)$.\\
-		\begin{bem}
+		\begin{bemerkung}
 			Es sei $I = \{1, 2, 3, \dots, n\}$. Dann gilt $\R^I = \R^{\{1, 2, \dots, n\}} = \R^n$. Die Abbildung ist hier $1 \mapsto x_1$, $2 \mapsto x_2$, $\ldots$, $n \mapsto x_n$.
 			
 			 Für $I = \N$ is $\R^\N$ die Menge der reellen Folgen.
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{definition}[Minimale und linear unabhängige Erzeugendensysteme]
@@ -1749,9 +1766,9 @@
 			\item $(v_i)_{i \in I}$ heißt minimales Erzeugendensystem von $V$, falls $E = \{v_i, i \in I\}$ ein Erzeugendensystem von $V$ ist und gilt $(J \subsetneq I) \implies \Span(v_j, j \in J) \neq V$
 			\item $(v_i)_{i \in I}$ heißt lineare unabhängig, falls gilt:\\
 			Es sei $(\lb_i)_{i \in I} \in K^I$ (eine durch I induzierte Menge von Skalaren) mit $\lb_i \neq 0$ für endlich viele $i \in I$ und $\sum_{i \in I} \lb_i v_i = 0$, dann folgt $\lb_i = 0$ für alle $i \in I$. Nicht linear unabhängige Familien heißen linear abhängig.
-			\begin{bem}
+			\begin{bemerkung}
 				Für $I = \emptyset$ ist $(v_i)_{i \in I}$ stets linear unabhängig.
-			\end{bem}
+			\end{bemerkung}
 		\end{enumerate}
 		\textbf{Beispiele:} Siehe \hyperref[deflineareunab]{Kapitel 0}.
 	\end{definition}
@@ -1836,9 +1853,9 @@
 		
 		\textbf{Beispiel: } $V = K^n$, Eine Basis ist gegeben durch $e_i = (0, \ldots, 0, 1, 0, \ldots, 0)^\top$, wobei der $i$-te Eintrag 1 beträgt.
 		Diese $(e_i)_{i \in \{1, \dots, n\}}$ heißt kanonische (oder Standard-) Basis von $K^n$.
-		\begin{bem}
+		\begin{bemerkung}
 			Die kanonische Basis wurde hier aus Platzgründen zeilenweise statt vektoriell geschrieben.
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{satz}[Basisauswahlsatz]
@@ -1957,9 +1974,9 @@
 				\item Angenommen $(w_1, \dots, w_m)$ sind linear unabhängig in $W$. Dann sind sie auch in $V$ linear unabhängig. Damit folgt $m \leq n = \dim_K(V)$. Es folgt $\dim_K(W) \leq n$. Falls $\dim_K(W) = \dim_K(V)$ dann ist eine Basis von $W$ nach 1. auch eine Basis von $V$. Also folgt sofort $V = W$.
 			\end{enumerate}
 		\end{proof}
-		\begin{bem}
+		\begin{bemerkung}
 			Es gibt nicht nur endlich erzeugte Vektorräume.\\
-		\end{bem}
+		\end{bemerkung}
 		\begin{minipage}{\textwidth}
 			\textbf{Beispiele: }
 			\begin{enumerate}
@@ -2032,7 +2049,7 @@
 			\item $\Aut_K(V) = \{F \in \End_K(V) : F \text{ bijektiv}\}$ sind die Vektorraum-Automorphismen von $V$
 		\end{enumerate}
 		\vspace{.1cm}
-		\begin{bem}$ $
+		\begin{bemerkungen}
 			\begin{enumerate}
 				\item $\hat{V} \subset V$ ein Untervektorraum, dann ist die Inklusion $i : \hat{V} \to V, i(x) = x$ ein Vektorraumhomomorphismus
 				\item $\Hom_K(V, W) \subset \abb(V, W)$ ist ein Untervektorraum
@@ -2043,7 +2060,7 @@
 				
 				\item $\Aut_K(V)$ ist eine Gruppe (mit Nacheinanderausführung als Verknüpfung). Aber: $\Aut_K(V)$ ist kein Vektorraum, außer $V = \{0\}$
 			\end{enumerate}
-		\end{bem}
+		\end{bemerkungen}
 		Beweise : Siehe Übung.\\
 		
 		\textbf{Beispiele: }
@@ -2057,9 +2074,9 @@
 			Dann ist $D : V \to W$, $f \mapsto f'$ eine lineare Abbildung.
 		\end{enumerate}
 		
-		\begin{bem}
+		\begin{bemerkung}
 			Das Lösen von reellen linearen Gleichungssystemen $Ax = b$ entspricht also der Bestimmung der Menge $A^{-1}(\{b\})$, wobei $A$ sowohl als (Koeffizienten-) Matrix als auch als lineare Abbildung aufgefasst werden kann.
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{lemma}[Eigenschaften linearer Abbildungen]
@@ -2081,9 +2098,9 @@
 			\item $\dim(\Ima(F)) \leq \dim(V)$
 		\end{enumerate}
 		Beweis: Übungen.\\
-		\begin{bem}
+		\begin{bemerkung}
 			Es gilt natürlich auch $(F (v_i))_{i \in I}$ linear unabhängig $\implies (v_i)_{i \in I}$ linear unabhängig	
-		\end{bem}
+		\end{bemerkung}
 	\end{lemma}
 	
 	\begin{satz}[Definition linearer Abbildung durch Basis]
@@ -2116,9 +2133,9 @@
 			\end{enumerate}
 		\end{proof}
 		
-		\begin{bem}
+		\begin{bemerkung}
 			Der \hyperref[satz33]{Satz \ref*{satz33}} besagt, dass man eine lineare Abbildung bereits kennt, wenn man ihre Wirkung auf alle Basisvektoren kennt. 
-		\end{bem}
+		\end{bemerkung}
 	\end{satz}
 	
 	\begin{proposition}
@@ -2137,20 +2154,20 @@
 			 Ebenso für $V\cong W$.\\
 		\end{proof}
 		\vspace{.5cm}
-		\begin{bem}
+		\begin{bemerkung}
 			Der $K^n$ ist also in einem gewissen Sinn der einzige $n$-dimensionale $K$-Vektorraum. Der Isomorphismus hängt von der Wahl der Basis in $V$ ab, ist also nicht eindeutig bestimmt (man sagt, er ist nicht kanonisch).\\
-		\end{bem}
-		\begin{bem}
+		\end{bemerkung}
+		\begin{bemerkung}
 			Das Korollar hilft bei Fragen wie "`Was ist die Lösungsmenge von $F(x)=0$"' mit $F:V\to W$ linear, $\dim_K(V) = n<\infty$ endlich, $\dim_K(W) = m<\infty$, denn wir haben einen Isomorphismus $G:U\to K^n$, $H:W\to K^m$ und berechnen $F(x)=0\ \iff\ \widetilde{F}(G(x)) = H(0)$ mit einer Abbildung $\widetilde{F}:K^n\to K^m,\ \widetilde{F}(v_i) = H(F(G^{-1}(e_i)))$ und es folgt mit \hyperref[lem32]{Lemma \ref*{lem32}}: $\dim_K(\ker(F)) = \dim_K(\ker(\widetilde{F}))$.\\
-		\end{bem}
+		\end{bemerkung}
 	\end{korrolar}
 	
 	\begin{definition}[Rang]
 		\IN{Rang}
 		Seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$. Dann heißt $$\rg(F)=\dim_K(F(V)) = \dim_K(\Ima(F))$$ der Rang von $F$.\\
-		\begin{bem}
+		\begin{bemerkung}
 			Falls $G$, $\widetilde{G}$ Isomorphismen sind, so gilt $\rg(F) = \rg(F\cong G) = \rg(\widetilde{G}\cong F)$ mit $F:V\to W,\ G:\widetilde{V}\to V,\ \widetilde{G}: W\to\widetilde{W}$. Die Reihenfolge von Isomorphismenschaltungen ändert also den Rang nicht.\\
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	
 	\begin{satz}[Dimensionsformel]
@@ -2183,9 +2200,9 @@
 			\item Wir schreiben $V_1+V_2=\Span(V_1\cup V_2)$
 			\item $W=V_1\oplus V_2$, falls $W=V_1+V_2$ und $V_1\cap V_2 = \{0\}$. $W$ heißt dann direkte Summe von $V_1$ und $V_2$. $V_1$ und $V_2$ heißen dann komplementär.
 		\end{enumerate}
-		\begin{bem}
+		\begin{bemerkung}
 			Seien $M_1$, $M_2$ Teilmengen von $V$. Also ist $M_1 + M_2 = \{x:y\in M_1,\ z\in M_2,\ y+z=x\}$. Sind $M_1$ und $M_2$ Untervektorräume, so ist "`$+$"' das gleiche wie die \hyperref[def38]{direkte Summe}.
-		\end{bem}
+		\end{bemerkung}
 	\end{definition}
 	\vspace{.1cm}
 	\begin{korrolar}		
@@ -2220,9 +2237,9 @@
 			Zur linearen Unabhängigkeit: Sei $0=\sum_{i\in I}\lb_i u_i + \sum_{j\in J} \mu_j v_j + \sum_{l\in L} \kappa_l w_l$. Wir setzen $v = \sum_{i\in I} \lb_i u_i + \sum_{j \in J} \mu_j v_j\in V_1$. Es gilt aber $-v = \sum_{l\in L}\kappa_l w_l\in V_2$. Damit gilt $v\in V_1 \cup V_2$ und somit $v=\sum_{i\in I}\lb_i'u_i$. Die Linearkombination in $V_1$ aus $(u_1, \ldots, u_n, v_1, \ldots, v_m)$ ist aber eindeutig, also folgt: $\lb_i = \lb_i'$, $i = 1, \ldots, n$ und $\mu_j = 0$, $j =1, \ldots, m$. Damit ist aber auch $\kappa_l=0$, $l=1, \ldots, k$ und $\lb_i=0$ für $i=1, \ldots, n$.
 		\end{proof}
 		\vspace{.75cm}
-		\begin{bem}
+		\begin{bemerkung}
 			In der Summenschreibweise ist das Weglassen der Indizes nicht unüblich.
-		\end{bem}
+		\end{bemerkung}
 	\end{satz}
 	
 	\begin{satz}
@@ -2254,9 +2271,9 @@
 	\begin{definition}[Quotientenvektorraum]
 		\IN{Quotientenvektorraum}
 		Sei $\widetilde{V}$ wie in \hyperref[satz313]{Satz \ref*{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt Quotientenvektorraum $\widetilde{V} = \bigslant{V}{W}$.\\
-		\begin{bem}
+		\begin{bemerkung}
 			Es sei $F:V\to W$ linear, $V_1 = \ker(F)$. Dann wurde im Beweis der \hyperref[satz37]{Dimensionsformel} ein Untervektorraum $V_2\subset V$ konstruiert mit $V_2 \cong \Ima(F)$, sodass $V = V_1\oplus V_2$. Wir zeigen im neuen Jahr, dass gilt $\Ima(F)\cong \bigslant{V}{V_2}$.
-		\end{bem}
+		\end{bemerkung}
 		\vspace{.25cm}
 		\textbf{Beispiel: } $V=\R^2$
 		\begin{figure}[H]
@@ -2315,12 +2332,12 @@
 				\end{tikzpicture}
 			\end{center}
 		\end{figure}
-		\begin{bem}$ $
+		\begin{bemerkungen}
 			\begin{enumerate}
 				\item Man sagt, $F$ induziert den Isomorphismus $\xoverline{F}$.
 				\item Wir vergleichen mit der \hyperref[satz37]{Dimensionsformel} (bzw. deren Beweis), nämlich $\dim_K(V)=\dim_K(\ker(F))+\dim_K(\Ima(F))$. Wir konstruieren $V_2\cong \Ima(F)$, sodass $V_2\oplus \ker(F)=V$. Der Satz besagt, dass $V_2\cong\bigslant{V}{\ker(F)}$
 			\end{enumerate}
-		\end{bem}
+		\end{bemerkungen}
 	\end{satz}
 	
 	\begin{satz}[Isomorphiesatz]
@@ -2374,7 +2391,7 @@
         	\end{description}
         \end{proof}
         
-        \begin{bem}$ $
+        \begin{bemerkungen}
         	\begin{enumerate}[label = \roman*)]
         		\item Die Spaltenvektoren von $A$ sind die Bilder der Basisvektoren $e_i$ des $K^n$
         		\item Die Nacheinanderausführung linearer Abbildung entspricht der Matrixmultiplikation: Seien $F_A: K^n \to K^m$, $F_B: K^m \to K^l$ linear. Dann ist durch $F_B\circ F_A$ eine lineare Abbildung $K^n\to K^l$ definiert. Es gilt $$F_B\circ F_A = F_C\quad\text{mit}\quad C=c_{ij} = \sum_{s=1}^{n}a_{is}b_{sj}.$$ Wir schreiben $C=B\cdot A$. Die Formel für das Matrixprodukt wurde in den Übungen hergeleitet.
@@ -2446,10 +2463,10 @@
         		$$
         		heißt Einheitsmatrix (manchmal auch mit $\mathcal{I}$ bezeichnet) und es gilt $F_{E_n} = \Id_{K^n}$.
         	\end{enumerate}
-        \end{bem}
+        \end{bemerkungen}
     \end{satz}
     
-    \begin{definition}[Transponierte und inverse Matrizen],
+    \begin{definition}[Transponierte und inverse Matrizen]
     	\IN{Matrix!Invertierte}
     	\IN{Matrix!Transponierte}
         Es seien $m, n \in \N$.
@@ -2458,12 +2475,12 @@
             \item $A \in \Mat_K(n\times n)$ heißt invertierbar, falls eine Matrix $A^{-1} \in Mat_K(n\times n)$ mit $A^{-1}\cdot A = E_n$.
         \end{enumerate}
         
-        \begin{bem}$ $
+        \begin{bemerkungen}
         	\begin{enumerate}[label = \roman*)]
         		\item $A \in \Mat_K(nxn)$ ist invertierbar $\iff F_A \in \Hom_K(K^n, K^n)$ ist isomorph.
         		\item Wir schreiben $\rg(A) = \rg(F_A)$, $\Ima(A) = \Ima(F_A)$, $\ker(A) = \ker(F_A)$.
         	\end{enumerate}
-        \end{bem}
+        \end{bemerkungen}
         
         \vspace{.5cm}
         \textbf{Zusatz:}\\
@@ -2471,16 +2488,16 @@
         
         Alle Aussagen zu linearen Gleichungssystemen aus \hyperref[deflingl]{Kapitel 0} (dort nur über $\R$ definiert) gelten auch für lineare Gleichungssysteme über $K$.\\
         
-        \begin{bem}$ $
+        \begin{bemerkungen}
         	\begin{enumerate}[label = \roman*)]
         		\item Ist $A$ invertierbar, so ist $x = A^{-1}b$ die eindeutige Lösung des Gleichungssystems.
         		\item Im allgemeinen Fall ist die Lösungsmenge des linearen Gleichungssystems gegeben durch $F_A^{-1}(\{b\})$.
         		\item Ebenfalls lässt sich jede Matrix über $K$ wie in \hyperref[deflingl]{Kapitel 0} durch        			Zeilenoperationen und Spaltenvertauschung auf \hyperref[defnormalform]{Normalform} bringen. Die Lösungsmenge eines linearen Gleichungssystems kann man durch Betrachtung der erweiterten Koeffizientenmatrix bestimmen.
         		\item Zeilenoperationen lassen sich als Anwendung von sogenannten Elementarmatrizen schreiben. Diese Elementarmatrizen sind invertierbar (siehe Übungsblatt).
         	\end{enumerate}
-        \end{bem}
+        \end{bemerkungen}
     \end{definition}
-    
+        
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}]
