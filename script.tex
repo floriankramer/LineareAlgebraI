@@ -28,7 +28,7 @@
 	arrow style plus/.style={midway,sloped,fill=white},
 }
 % tikz dependencies:
-\usetikzlibrary{matrix,arrows,decorations.pathmorphing}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing, decorations.markings, positioning}
 
 % page size & margins:
 \usepackage[a4paper, top = 2cm, left = 2.25cm, right = 2.25cm, bottom = 2cm]{geometry}
@@ -71,6 +71,9 @@
 \newcommand{\vthree}[3]{\begin{pmatrix}#1 \\ #2 \\ #3 \end{pmatrix}}
 \newcommand{\ve}[1]{{\begin{pmatrix}#1 \end{pmatrix}}}
 \renewcommand{\v}{\ve}
+\newcommand{\baseb}{\mathcal{B}}
+\newcommand{\basea}{\mathcal{A}}
+
 \DeclareMathOperator{\abb}{Abb}
 \DeclareMathOperator{\Span}{span}
 \DeclareMathOperator{\Hom}{Hom}
@@ -80,6 +83,9 @@
 \DeclareMathOperator{\rg}{rg}
 \DeclareMathOperator{\Mat}{Mat}
 \DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\En}{En}
+\DeclareMathOperator{\M}{M}
 
 % increase line height
 \renewcommand{\baselinestretch}{1.2}
@@ -474,6 +480,7 @@
 	\end{lemma}
 	
 	\begin{satz}[Gauß-Jordan-Elimination]
+		\label{satzgaussjordan}
 		\IN{Lineare Gleichungssysteme!Gauß-Jordan-Elimination}
 		Jedes lineare Gleichungssystem lässt sich durch Zeilenoperationen und Vertauschungen von Variablen (d.h. Vertauschung von Spalten) in Normalform bringen.\\[.5cm]
 		\begin{proof}
@@ -2037,16 +2044,16 @@
 		\IN{Lineare Abbildung}
 		Es seien $V$, $W$ $K$-Vektorräume.
 		\begin{enumerate}
-			\item Eine Abbildung $F : V \to W$ heißt $K$-linear (oder Vektorraumhomomorphismus) falls gilt:
+			\item Eine Abbildung $F : V \to W$ heißt $K$-linear (oder \textsl{Vektorraumhomomorphismus}) falls gilt:
 			\begin{enumerate}[leftmargin=5cm]
 				\item $F(x + y) = F(x) + F(y)$
 				\item $F(\lb x) = \lb F(x)$
 			\end{enumerate}
 			für alle $x, y \in V, \lb \in K$ und wir schreiben $F \in \Hom_K(V, W)$
 			
-			\item Falls $V = W$, so heißt $F \in \Hom_K(V, W) = \End_K(V)$ Vektorraumendomorphismus
-			\item Ein Vektorraum-Komorphismus ist ein bijektiver Vektorraumhomomorphismus. Falls ein solcher Komorphismus von $V$ nach $W$ existiert, nennen wir $W$ und $V$ isomorph, und schreiben $V \cong W$
-			\item $\Aut_K(V) = \{F \in \End_K(V) : F \text{ bijektiv}\}$ sind die Vektorraum-Automorphismen von $V$
+			\item Falls $V = W$, so heißt $F \in \Hom_K(V, W) = \End_K(V)$ \textsl{Vektorraumendomorphismus}
+			\item Ein Vektorraum-\textsl{Komorphismus} ist ein bijektiver Vektorraumhomomorphismus. Falls ein solcher Komorphismus von $V$ nach $W$ existiert, nennen wir $W$ und $V$ isomorph, und schreiben $V \cong W$
+			\item $\Aut_K(V) = \{F \in \End_K(V) : F \text{ bijektiv}\}$ sind die Vektorraum-\textsl{Automorphismen} von $V$
 		\end{enumerate}
 		\vspace{.1cm}
 		\begin{bemerkungen}
@@ -2164,7 +2171,7 @@
 	
 	\begin{definition}[Rang]
 		\IN{Rang}
-		Seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$. Dann heißt $$\rg(F)=\dim_K(F(V)) = \dim_K(\Ima(F))$$ der Rang von $F$.\\
+		Seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$. Dann heißt $$\rg(F)=\dim_K(F(V)) = \dim_K(\Ima(F))$$ der \textsl{Rang} von $F$.\\
 		\begin{bemerkung}
 			Falls $G$, $\widetilde{G}$ Isomorphismen sind, so gilt $\rg(F) = \rg(F\cong G) = \rg(\widetilde{G}\cong F)$ mit $F:V\to W,\ G:\widetilde{V}\to V,\ \widetilde{G}: W\to\widetilde{W}$. Die Reihenfolge von Isomorphismenschaltungen ändert also den Rang nicht.\\
 		\end{bemerkung}
@@ -2198,7 +2205,7 @@
 		Es sei $V$ ein $K$-Vektorraum, $V_1$, $V_2$ Untervektorräume.
 		\begin{enumerate}
 			\item Wir schreiben $V_1+V_2=\Span(V_1\cup V_2)$
-			\item $W=V_1\oplus V_2$, falls $W=V_1+V_2$ und $V_1\cap V_2 = \{0\}$. $W$ heißt dann direkte Summe von $V_1$ und $V_2$. $V_1$ und $V_2$ heißen dann komplementär.
+			\item $W=V_1\oplus V_2$, falls $W=V_1+V_2$ und $V_1\cap V_2 = \{0\}$. $W$ heißt dann \textsl{direkte Summe} von $V_1$ und $V_2$. $V_1$ und $V_2$ heißen dann komplementär.
 		\end{enumerate}
 		\begin{bemerkung}
 			Seien $M_1$, $M_2$ Teilmengen von $V$. Also ist $M_1 + M_2 = \{x:y\in M_1,\ z\in M_2,\ y+z=x\}$. Sind $M_1$ und $M_2$ Untervektorräume, so ist "`$+$"' das gleiche wie die \hyperref[def38]{direkte Summe}.
@@ -2270,7 +2277,7 @@
 	
 	\begin{definition}[Quotientenvektorraum]
 		\IN{Quotientenvektorraum}
-		Sei $\widetilde{V}$ wie in \hyperref[satz313]{Satz \ref*{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt Quotientenvektorraum $\widetilde{V} = \bigslant{V}{W}$.\\
+		Sei $\widetilde{V}$ wie in \hyperref[satz313]{Satz \ref*{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt \textsl{Quotientenvektorraum} $\widetilde{V} = \bigslant{V}{W}$.\\
 		\begin{bemerkung}
 			Es sei $F:V\to W$ linear, $V_1 = \ker(F)$. Dann wurde im Beweis der \hyperref[satz37]{Dimensionsformel} ein Untervektorraum $V_2\subset V$ konstruiert mit $V_2 \cong \Ima(F)$, sodass $V = V_1\oplus V_2$. Wir zeigen im neuen Jahr, dass gilt $\Ima(F)\cong \bigslant{V}{V_2}$.
 		\end{bemerkung}
@@ -2372,7 +2379,7 @@
 			\end{pmatrix}
 			\quad\text{mit $a_{ij}\in X$}
 		$$
-		eine $m\times n$-Matrix. Die $a_{ij}$ heißen Einträge von $A$. Weiterhin heißt $(a_{i1}, a_{i2}, \ldots, a_{in})$ die $i$-te Zeile von $A$ und $(a_{1j}, a_{2j}, \ldots, a_{mj})^\top$ die $j$-te Spalte von $A$. Dabei heißt $i$ Zeilenindex und $j$ Spaltenindex.\\
+		eine $(m\times n)$-\textsl{Matrix}. Die $a_{ij}$ heißen Einträge von $A$. Weiterhin heißt $(a_{i1}, a_{i2}, \ldots, a_{in})$ die $i$-te Zeile von $A$ und $(a_{1j}, a_{2j}, \ldots, a_{mj})^\top$ die $j$-te Spalte von $A$. Dabei heißt $i$ Zeilenindex und $j$ Spaltenindex.\\
 		
 		 Mit $\Mat_X(m\times n)$ bezeichnen wir die Menge aller $m\times n$-Matrizen mit Einträgen aus $X$. Im Folgenden sei $K$ ein Körper.
 	\end{definition}
@@ -2453,7 +2460,7 @@
         		
         		\item Matrixmultiplikation von $A$ und $B$ ist nur möglich, wenn $A$ genauso viele Spalten besitzt wie $B$ Zeilen. Insbesondere ist nur dann $F_A\circ F_B$ definiert.
 				\item Spezialfall: $\Mat_K(n\times 1) = K^n$. Für $x\in\Mat_K(n\times 1)$, $A\in \Mat_K(m\times n)$ ist $A\cdot x = F_A(x)$.
-				\item Die Matrix $$E_n \quad = \quad
+				\item Die Matrix $$\En \quad = \quad
 				\begin{pmatrix} 
 				1      & 0      & \cdots & 0\\
 				0      & 1      & \ddots & \vdots\\ 
@@ -2461,7 +2468,7 @@
 				0      & \cdots & 0      & 1 
 				\end{pmatrix}
         		$$
-        		heißt Einheitsmatrix (manchmal auch mit $\mathcal{I}$ bezeichnet) und es gilt $F_{E_n} = \Id_{K^n}$.
+        		heißt Einheitsmatrix (manchmal auch mit $\mathcal{I}$ bezeichnet) und es gilt $F_{\En} = \Id_{K^n}$.
         	\end{enumerate}
         \end{bemerkungen}
     \end{satz}
@@ -2471,14 +2478,29 @@
     	\IN{Matrix!Transponierte}
         Es seien $m, n \in \N$.
         \begin{enumerate}
-            \item Sei $A \in \Mat_K(m\times n)$, mit Einträgen $a_{ij}$. Die Matrix $A^\top \in \Mat_K(n\times m)$ mit Einträgen $a_{ji}$ ist die zu $A$ transponierte Matrix.
-            \item $A \in \Mat_K(n\times n)$ heißt invertierbar, falls eine Matrix $A^{-1} \in Mat_K(n\times n)$ mit $A^{-1}\cdot A = E_n$.
+            \item Sei $A \in \Mat_K(m\times n)$, mit Einträgen $a_{ij}$. Die Matrix $A^\top \in \Mat_K(n\times m)$ mit Einträgen $a_{ji}$ ist die zu $A$ \textsl{transponierte Matrix}.
+            \item $A \in \Mat_K(n\times n)$ heißt \textsl{invertierbar}, falls eine Matrix $A^{-1} \in Mat_K(n\times n)$ mit $A^{-1}\cdot A = \En$.
         \end{enumerate}
         
         \begin{bemerkungen}
         	\begin{enumerate}[label = \roman*)]
         		\item $A \in \Mat_K(nxn)$ ist invertierbar $\iff F_A \in \Hom_K(K^n, K^n)$ ist isomorph.
         		\item Wir schreiben $\rg(A) = \rg(F_A)$, $\Ima(A) = \Ima(F_A)$, $\ker(A) = \ker(F_A)$.
+        		\item Die Einträge der Einheitsmatrix $\En$ sind gegeben durch $1$, falls Zeilenindex = Spaltenindex, 0 sonst. Eine alternative Schreibweise bietet das Kronecker-delta:
+        		$$\delta_{ij}=
+        		\begin{cases}
+	        		1, &\text{ falls } i=j\\
+	        		0  &\text{ sonst.}
+        		\end{cases}
+        		$$
+        		\item Verfahren zum Finden der inversen Matrix: Gegeben sei $A\in\Mat_K(n\times n)$ invertierbar. Wir lösen nun die Gleichungssysteme
+        		\begin{alignat*}{3}
+	        		& Ax_1 &= e_1 &&= (1, 0, 0, \ldots, 0)^\top\\
+	        		& Ax_2 &= e_2 &&= (0, 1, 0, \ldots, 0)^\top\\
+	        		&\quad \vdots & \vdots \ &&\vdots\hspace{1.25cm} \\
+	        		& Ax_n &= e_n &&= (0, 0, 0, \ldots, 1)^\top
+        		\end{alignat*}
+        		Mittels des \hyperref[satzgaussjordan]{Gauß-Jordan-Verfahren} ist diese Lösung eindeutig. Nun sei $B=(x_1, x_2, \ldots, x_n)$. Dann gilt $A\cdot B =\En$, also ist $B=A^{-1}$, denn für invertierbare Matrizen $A$ mit Inversem $A^{-1}$ gilt $AA^{-1}=A^{-1}A=\En$.
         	\end{enumerate}
         \end{bemerkungen}
         
@@ -2497,7 +2519,122 @@
         	\end{enumerate}
         \end{bemerkungen}
     \end{definition}
-        
+    
+    
+    \begin{definition}[Allgemeine lineare Gruppe]
+    	Die Gruppe der invertierbaren $n\times n$-Matrizen über einem Körper $K$ bezeichnet man als \textsl{allgemeine lineare Gruppe}, geschrieben $\GL_K(n)$.\\
+    	
+    	\begin{bemerkung}
+    		Die Gruppe ist bezüglich Matrixmultiplikation zu verstehen. Dies ist dieselbe Gruppe wie die der linearen Abbildungen von $K^n$ nach $K^m$.\\
+    	\end{bemerkung}
+    \end{definition}
+    
+\section{Lineare Abbildungen zwischen allgemeinen Vektorräumen und deren Matrixdarstellung}
+
+Es sei $V$ ein $n$-dimensionaler $K$-Vektorraum. Dann gilt $V\cong K^n$. Für eine gegebene Basis von $V$ können wir auch einen kanonischen Isomorphismus von $V$ nach $K^n$ mit $I:v_j\mapsto e_j$ finden. Wir bemerken zunächst, dass $\Mat_K(l\times n)\cong \left(K^l\right)^{\{1, \ldots, m\}}$. Mit dieser Identifikation ergibt sich die Matrixmultiplikation als
+\begin{alignat*}{2}
+	\left(K^l\right)^{\{1, \ldots, m\}} &\times \Mat_K(m\times n) &&\to \left(K^l\right)^{\{1, \ldots, n\}}\\
+							  (b_1, \ldots, b_m) &\times (a_{ij}) &&\mapsto \left(\sum_{i=1}^{m}a_{i1}b_i, \sum_{i=1}^{m}a_{i2}b_i, \ldots, \sum_{i=1}^{m}a_{in}b_i\right)
+\end{alignat*}
+
+Wir verallgemeinern dies folgendermaßen:
+	
+	\begin{definition}
+		\label{def45}
+		Es sei $W$ ein $K$-Vektorraum, $m,n\in\N$. Dann setzen wir
+		\begin{alignat*}{2}
+			W^{\{1,\ldots, m\}} &\times \Mat_K(m\times n) &&\to W\\
+			(w_1,\ldots, w_m) &\times (a_{ij}) &&\mapsto \left(\sum_{i=1}^{m}a_{i1}w_i, \sum_{i=1}^{m}a_{i2}w_i, \ldots, \sum_{i=1}^{m}a_{in}w_i\right)\\
+			&\text{kurz:}\quad (\baseb, A) &&\mapsto \baseb\cdot A,
+		\end{alignat*}
+		falls $\baseb=(w_1,\ldots, w_m)\in W^{\{1, \ldots, m\}}$, $A=(a_{ij})\in\Mat_K(m\times n)$.\\
+		
+		Nun seien $V,W$ $K$-Vektorräume, $F\in\Hom_K(V,W)$, $\basea = (v_1,\ldots, v_n)$ eine Basis von $V$, $\baseb=(w_1, \ldots, w_m)$ eine Basis von $W$. Dann existieren $a_{ij} \in K$ mit $F(v_j) = \sum_{i=1}^{m}a_{ij}w_i$ für alle $j=1,\ldots, n$. Nach \hyperref[satz33]{Satz \ref*{satz33}} ist die Darstellung eindeutig. Mit $A=(a_{ij})\in\Mat_K(m\times n)$ gilt $F(\basea) = (F(v_1), \ldots, F(v_n))=\baseb\cdot A$ im Sinne der \hyperref[def45]{Definition}. 
+		\begin{description}
+			\item[Spezialfall:] $V=W$, $F=\Id$, $(v_1, \ldots, v_m) =(w_1, \ldots, w_m)\cdot(a_{ij})$ ist kurz für $v_j = \sum_{i=1}^{m}a_{ij}w_i$ für alle $j=1,\ldots m$. Wir stellen also den $j$-ten Basisvektor $v_j$ als Linearkombination in einer anderen Basis dar.
+		\end{description}
+	\end{definition}
+	
+	\begin{definition}[Darstellende Matrix, Basiswechselmatrix]
+		Seien $V,W$ $K$-Vektorräume, $\basea=(v_1, \ldots, v_n)$ eine Basis von $V$, $\baseb = (w_1,\ldots w_m)$ eine Basis von $W$.
+		\begin{enumerate}
+			\item Für $F\in\Hom_K(V, W)$, $F(v_j) = \sum_{i=1}^{m}a_{ij}w_i$ für $j=1, \ldots, n$ und $a_{ij}\in K$ bezeichnet $$\M(\baseb, F, \basea) = (a_{ij})_{\substack{j=1,\ldots, n\;\\i=1, \ldots, m}}\in\Mat_K(m\times n)$$ die \textsl{darstellende Matrix} von $F$ bezüglich der Basen $\basea$ und $\baseb$
+			\item Falls $V=W$, $F=\Id\in\End_K(V)$, dann heißt $\M(\baseb, \basea) = \M(\baseb, F, \basea)$ die \textsl{Basiswechselmatrix} von $\basea$ nach $\baseb$.
+		\end{enumerate}
+		
+		\begin{bemerkung}
+			Wir kennen die kanonischen Isomorphismen $I_\basea:V\to K^n, v_i\mapsto e_i\in K^n$ und $I_\baseb:V\mapsto K^m, v_j\mapsto e_j\in K^m$ mit $i=1, \ldots, n$, $j=1,\ldots, m$. Dann gilt 
+			\begin{align*}
+				I_\baseb\circ F\circ I_\basea^{-1}(e_i) &= I_\baseb(F(v_i))\\
+																  &= I_\baseb\left(\sum_{i=1}^{m}a_{ji}w_j\right) \\
+																  &= \sum_{j=1}^{m}a_{ji}e_j
+			\end{align*}
+			Dies ist die $j$-te Spalte von $A=(a_{ij})=\M(\baseb, F, \basea)$, also $$I_\baseb\circ F\circ \basea=F_{M(\baseb, F, \basea)}.$$ Wieder gilt: Die Spalten von $\M(\baseb, F, \basea)$ sind die Bilder der Basisvektoren, allerdings nun geschrieben durch Koeffizienten in der Basis $\baseb$. Nachdem $I_\basea, I_\baseb$ Isomorphismen sind, gilt $\rg(F)=\rg(F_{\M(\baseb, F, \basea)})=\rg(\M(\baseb, F, \basea))$ (ebenso für $\dim(\ker(F))$). \\
+			
+			Für $V=K^n$, $W=K^m$, $\basea=(e_i)_{i=1,\ldots n}$, $\baseb=(e_j)_{j=1, \ldots, m}$ Standardbasen von $V, W$, $B\in\Mat_K(m\times n)$ gilt: $\M(\baseb, F, A)=B$. Als Diagramm:
+			
+			\begin{figure}[H]
+				\begin{center}
+					\begin{tikzpicture}
+						\matrix (m) [matrix of math nodes,row sep=5em,column sep=6em,minimum width=2em]
+						{
+							V   & W   \\
+							K^n & K^m \\};
+						\matrix (m2) [matrix of math nodes,row sep=5em,column sep=11em,minimum width=2em]
+						{
+							v_j & w_i\\
+							e_j & e_i \\};
+						\path[-stealth]
+						(m-1-1) edge[->] node [left] {$I_\basea$} (m-2-1)
+						edge[->] node [above] {$F$} node [below] {\tiny$v_j\mapsto\sum_{i=1}^ma_{ij}w_i$} (m-1-2)
+						(m-2-1.east|-m-2-2) edge[->] node [below] {$I_\baseb\circ F\circ I_\basea^{-1}$} (m-2-2)
+						(m-1-2) edge[->] node [right] {$I_\baseb$} (m-2-2);
+						
+						\path[-stealth]
+						(m2-1-1) edge[|->, decoration={markings,mark=at position 1 with {\arrow[scale=1.7]{>}}},
+						postaction={decorate}, shorten >=0.4pt] (m2-2-1) (m2-1-2) edge[|->, decoration={markings,mark=at position 1 with {\arrow[scale=1.7]{>}}}, postaction={decorate}, shorten >=0.4pt] (m2-2-2);
+					\end{tikzpicture}
+				\end{center}
+			\end{figure}
+			
+		\end{bemerkung}
+		\begin{bemerkung}
+			Im Basiswechselfall $V=W$, $F=\Id$, $\M(\baseb, F, \basea)=\M(\baseb, \basea) = (a_{ij})$ eine Basiswechselmatrix, so ist die Standardfrage:
+			
+			\begin{quote}
+				"`Angenommen, $x=\sum_{j=1}^m\lb_jv_j$ -- also $x$ dargestellt als Linearkombination der Basisvektoren mit Koeffizienten $\lb_j$ -- wie lauten die Koeffizienten $\mu_i$ von $x$ bezüglich der anderen Basis $\baseb$?"'
+			\end{quote}
+			
+			Antwort:
+			
+			\begin{figure}[H]
+				\begin{center}$ $\hspace{3cm}
+					\begin{tikzpicture}
+					\matrix (m) [matrix of math nodes,row sep=5em,column sep=6em,minimum width=2em] at (0, .6)
+					{
+						W   & W   \\
+						K^n & K^m \\};
+					\matrix (m2) [matrix of math nodes,row sep=5em,column sep=10.5em,minimum width=2em] at (0,0)
+					{
+						x=\sum_{i=1}^{m}\lb_iv_i & x=\sum_{i=1}^{m}\mu_iw_i\\
+						\ve{\lb_1\\\vdots\\\lb_n} & \ve{\mu_1\\\vdots\\\mu_m} \\};
+					\path[-stealth]
+					(m-1-1) edge[->] node [left, xshift=-.45cm] {$I_\basea$} (m-2-1)
+					edge[->] node [above] {$\Id$} (m-1-2)
+					(m-2-1.east|-m-2-2) edge[->] node [below] {$F_{\M(\baseb, \basea)}$} node [above] {$I_\baseb\circ I_\basea^{-1}$} (m-2-2)
+					(m-1-2) edge[->] node [right, xshift=.45cm] {$I_\baseb$} (m-2-2);
+					
+					\draw node[right=.5ex of m2-2-2] {$=\ \M(\baseb, \basea)\cdot\ve{\lb_1\\\vdots\\\lb_m}$};
+					\draw node at (0, -3) {$\implies \mu_i=\sum_{j=1}^{m}a_{ij}\lb_j$};
+					\path[-stealth]
+					(m2-1-1) edge[|->, decoration={markings,mark=at position 1 with {\arrow[scale=1.7]{>}}},
+					postaction={decorate}, shorten >=0.4pt] (m2-2-1) (m2-1-2) edge[|->, decoration={markings,mark=at position 1 with {\arrow[scale=1.7]{>}}}, postaction={decorate}, shorten >=0.4pt] (m2-2-2);
+					\end{tikzpicture}
+				\end{center}
+			\end{figure}
+		\end{bemerkung}
+	\end{definition}
+
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}]
