@@ -2639,7 +2639,7 @@ Wir verallgemeinern dies folgendermaßen:
 	
 	\begin{satz}
 		\label{satz47}
-		Es seien $V,W$ Vektorräume über $K$ mit Basen $\basea = (v_1,\ldots, v_n)$, $\baseb=(w_1,\ldots, w_m)$, $F\in\Hom_K(V,W)$. Dann gilt für alle Spaltenvektoren $x\in K^n=\Mat_K(n* 1)$: 
+		Es seien $V,W$ Vektorräume über $K$ mit Basen $\basea = (v_1,\ldots, v_n)$, $\baseb=(w_1,\ldots, w_m)$, $F\in\Hom_K(V,W)$. Dann gilt für alle Spaltenvektoren $x\in K^n=\Mat_K(n\times 1)$: 
 		$$F(\basea\cdot x)=\baseb\cdot \M(\baseb, F, \basea)x$$
 		\begin{proof}
 			$\basea\cdot x=(v_1,\ldots, v_n)\cdot(x_1,\ldots, x_n)^\top=\sum_{j=1}^nx_jv_j$ nach \hyperref[def45]{Definition \ref*{def45}}, also gilt $F(\basea\cdot x) = \sum_{j=1}^n x_jF(v_j) = (F(v_1),\ldots, F(v_n))\cdot(x_1,\ldots x_n)^\top = F(\basea)\cdot x$. Mit \hyperref[def46]{Definition \ref*{def46}} ist das genau $\baseb\cdot \M(\baseb, F,\basea)x$.
