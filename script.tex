@@ -2000,6 +2000,7 @@
 	\end{lemma}
 	
 	\begin{satz}[Existenz einer Basis]
+		\label{satz220}
 		Jeder Vektorraum besitzt eine Basis.\\
 		
 		\textbf{Beweisidee: }	Es sei $V$ ein $K$-Vektorraum. Es sei $\mathfrak{M} = \{A \subset V : A$ linear unabhängig$\} \subset 2^V$. Auf $\mathfrak{M}$ definiert "`$\subset$"' eine Halbordnung, d.h. es gilt 
@@ -2316,7 +2317,7 @@
 		Es seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$. Dann existiert genau eine lineare Abbildung $\xoverline{F}: \bigslant{V}{\ker(F)}\to \Ima(F)$ mit $F(x) = \left(\xoverline{F}\circ p\right)(x)$ für alle $x\in V$. Diese Abbildung $\xoverline{F}$ ist ein Vektorraumisomorphismus.
 		\begin{proof}
 			Wir betrachten $\widetilde{F}\in\Hom_K(V, F(V))$ mit $\widetilde{F}(x)=F(x)$ für alle $x\in V$ und $p:U\to\bigslant{V}{\ker(F)}$ die Quotientenabbildung. 		
-			Zu $y\in \bigslant{V}{\ker(F)}$ sei $x\in p^{-1}\left(\{y\}\right)$. Wir setzen dann $\xoverline{F}(y)\stackrel{\ast}{=}\widetilde{F}$. Die Wohldefiniertheit folgt aus $$p(x)=p(\tilde{x}\iff x-\tilde{x}\in\ker(F)\iff F(x-\tilde{x})=0\iff \widetilde{F}(x-\tilde{x})=0\iff \xoverline{F}=\widetilde{F}.$$ $(\ast)$ hängt also nicht von der Wahl des Repräsentanten $x\in p^{-1}\left(\{y\}\right)$ ab und ist dank der Surjektivität von $p^{-1}$ auch nie leer. Damit definiert $(\ast)$ eine Abbildung $\xoverline{F}:\bigslant{V}{\ker(F)}\to \Ima(F)$. Die gewünschten Eigenschaften aus $\xoverline{F}$ folgen:
+			Zu $y\in \bigslant{V}{\ker(F)}$ sei $x\in p^{-1}\left(\{y\}\right)$. Wir setzen dann $\xoverline{F}(y)\stackrel{\ast}{=}\widetilde{F}$. Die Wohldefiniertheit folgt aus $$p(x)=p(\tilde{x})\iff x-\tilde{x}\in\ker(F)\iff F(x-\tilde{x})=0\iff \widetilde{F}(x-\tilde{x})=0\iff \xoverline{F}=\widetilde{F}.$$ $(\ast)$ hängt also nicht von der Wahl des Repräsentanten $x\in p^{-1}\left(\{y\}\right)$ ab und ist dank der Surjektivität von $p^{-1}$ auch nie leer. Damit definiert $(\ast)$ eine Abbildung $\xoverline{F}:\bigslant{V}{\ker(F)}\to \Ima(F)$. Die gewünschten Eigenschaften aus $\xoverline{F}$ folgen:
 			\begin{enumerate}
 				\item $\xoverline{F}$ ist linear, denn $\xoverline{F}(y+y')=\widetilde{F}(x+x') = \widetilde{F}(x)+\widetilde{F}(x')=\xoverline{F}(y)+\xoverline{F}(y')$ mit $x\in p^{-1}\left(\{y\}\right)$ und $x'\in p^{-1}\left(\{y'\}\right)$. Ebenso folgt $\lb \xoverline{F}(y) = \xoverline{F}(\lb y)$.
 				\item $\xoverline{F}$ ist surjektiv, denn $\widetilde{F}$ war surjektiv.
@@ -2333,9 +2334,9 @@
 					V & \Ima(F)\subset W \\
 					\bigslant{V}{\ker(F)} & \text{ } \\};
 				\path[-stealth]
-				(m-1-1) edge node [left] {$p$} (m-2-1)
-				edge node [above] {$F$} (m-1-2)
-				(m-2-1) edge node [above] {$\xoverline{F}$} (m-1-2);
+				(m-1-1) edge[->] node [left] {$p$} (m-2-1)
+				edge[->] node [above] {$F$} (m-1-2)
+				(m-2-1) edge[->] node [above] {$\xoverline{F}$} (m-1-2);
 				\end{tikzpicture}
 			\end{center}
 		\end{figure}
@@ -2360,13 +2361,13 @@
 			\textit{Beweisideen:}
 			\begin{enumerate}
 				\item Wir benutzen $F:V_2\to \bigslant{(V_1+V_2)}{V_1}, x\mapsto[x]$. Zu zeigen ist dann: $\Ima(F)=\bigslant{(V_1+V_2)}{V_1}$, $\ker(F)=V_1\cap V_2$. Anwendung von \hyperref[satz315]{Satz \ref*{satz315}} liefert das Ergebnis.
-				\item Sei $F:\bigslant{V}{V_1}\to\bigslant{V}{V_2}$ mit $[x] \mapsto[[x]]$. Zu zeigen ist, dass gilt: $\Ima(F) = \bigslant{V}{V_2}$, $\ker(F) = \bigslant{V_2}{V_1}$. Mit \hyperref[satz315]{Satz \ref*{satz315}} folgt dann wieder die Aussage.
+				\item Sei $F:\bigslant{V}{V_1}\to\bigslant{V}{V_2}$ mit $[x] \mapsto[x]$. Zu zeigen ist, dass gilt: $\Ima(F) = \bigslant{V}{V_2}$, $\ker(F) = \bigslant{V_2}{V_1}$. Mit \hyperref[satz315]{Satz \ref*{satz315}} folgt dann wieder die Aussage.
 			\end{enumerate}
 		}
 	\end{satz}
 	
 \chapter{Matrizen}
-
+\section{Definition und grundlegende Eigenschaften}
 	\begin{definition}[Matrizen]
 		\IN{Matrix}
 		Es sei $X$ eine Menge, $m,n\in\N$. Dann heißt ein rechteckiges Schema 
@@ -2556,6 +2557,7 @@ Wir verallgemeinern dies folgendermaßen:
 	\end{definition}
 	
 	\begin{definition}[Darstellende Matrix, Basiswechselmatrix]
+		\label{def46}
 		Seien $V,W$ $K$-Vektorräume, $\basea=(v_1, \ldots, v_n)$ eine Basis von $V$, $\baseb = (w_1,\ldots w_m)$ eine Basis von $W$.
 		\begin{enumerate}
 			\item Für $F\in\Hom_K(V, W)$, $F(v_j) = \sum_{i=1}^{m}a_{ij}w_i$ für $j=1, \ldots, n$ und $a_{ij}\in K$ bezeichnet $$\M(\baseb, F, \basea) = (a_{ij})_{\substack{j=1,\ldots, n\;\\i=1, \ldots, m}}\in\Mat_K(m\times n)$$ die \textsl{darstellende Matrix} von $F$ bezüglich der Basen $\basea$ und $\baseb$
@@ -2610,30 +2612,160 @@ Wir verallgemeinern dies folgendermaßen:
 			\begin{figure}[H]
 				\begin{center}$ $\hspace{3cm}
 					\begin{tikzpicture}
-					\matrix (m) [matrix of math nodes,row sep=5em,column sep=6em,minimum width=2em] at (0, .6)
-					{
-						W   & W   \\
-						K^n & K^m \\};
-					\matrix (m2) [matrix of math nodes,row sep=5em,column sep=10.5em,minimum width=2em] at (0,0)
-					{
-						x=\sum_{i=1}^{m}\lb_iv_i & x=\sum_{i=1}^{m}\mu_iw_i\\
-						\ve{\lb_1\\\vdots\\\lb_n} & \ve{\mu_1\\\vdots\\\mu_m} \\};
-					\path[-stealth]
-					(m-1-1) edge[->] node [left, xshift=-.45cm] {$I_\basea$} (m-2-1)
-					edge[->] node [above] {$\Id$} (m-1-2)
-					(m-2-1.east|-m-2-2) edge[->] node [below] {$F_{\M(\baseb, \basea)}$} node [above] {$I_\baseb\circ I_\basea^{-1}$} (m-2-2)
-					(m-1-2) edge[->] node [right, xshift=.45cm] {$I_\baseb$} (m-2-2);
-					
-					\draw node[right=.5ex of m2-2-2] {$=\ \M(\baseb, \basea)\cdot\ve{\lb_1\\\vdots\\\lb_m}$};
-					\draw node at (0, -3) {$\implies \mu_i=\sum_{j=1}^{m}a_{ij}\lb_j$};
-					\path[-stealth]
-					(m2-1-1) edge[|->, decoration={markings,mark=at position 1 with {\arrow[scale=1.7]{>}}},
-					postaction={decorate}, shorten >=0.4pt] (m2-2-1) (m2-1-2) edge[|->, decoration={markings,mark=at position 1 with {\arrow[scale=1.7]{>}}}, postaction={decorate}, shorten >=0.4pt] (m2-2-2);
+						\matrix (m) [matrix of math nodes,row sep=5em,column sep=6em,minimum width=2em] at (0, .6)
+						{
+							W   & W   \\
+							K^n & K^m \\};
+						\matrix (m2) [matrix of math nodes,row sep=5em,column sep=10.5em,minimum width=2em] at (0,0)
+						{
+							x=\sum_{i=1}^{m}\lb_iv_i & x=\sum_{i=1}^{m}\mu_iw_i\\
+							\ve{\lb_1\\\vdots\\\lb_n} & \ve{\mu_1\\\vdots\\\mu_m} \\};
+						\path[-stealth]
+						(m-1-1) edge[->] node [left, xshift=-.45cm] {$I_\basea$} (m-2-1)
+						edge[->] node [above] {$\Id$} (m-1-2)
+						(m-2-1.east|-m-2-2) edge[->] node [below] {$F_{\M(\baseb, \basea)}$} node [above] {$I_\baseb\circ I_\basea^{-1}$} (m-2-2)
+						(m-1-2) edge[->] node [right, xshift=.45cm] {$I_\baseb$} (m-2-2);
+						
+						\draw node[right=.5ex of m2-2-2] {$=\ \M(\baseb, \basea)\cdot\ve{\lb_1\\\vdots\\\lb_m}$};
+						\draw node at (0, -3) {$\implies \mu_i=\sum_{j=1}^{m}a_{ij}\lb_j$};
+						\path[-stealth]
+						(m2-1-1) edge[|->, decoration={markings,mark=at position 1 with {\arrow[scale=1.7]{>}}},
+						postaction={decorate}, shorten >=0.4pt] (m2-2-1) (m2-1-2) edge[|->, decoration={markings,mark=at position 1 with {\arrow[scale=1.7]{>}}}, postaction={decorate}, shorten >=0.4pt] (m2-2-2);
 					\end{tikzpicture}
 				\end{center}
 			\end{figure}
 		\end{bemerkung}
 	\end{definition}
+	
+	\begin{satz}
+		\label{satz47}
+		Es seien $V,W$ Vektorräume über $K$ mit Basen $\basea = (v_1,\ldots, v_n)$, $\baseb=(w_1,\ldots, w_m)$, $F\in\Hom_K(V,W)$. Dann gilt für alle Spaltenvektoren $x\in K^n=\Mat_K(n\times 1)$: 
+		$$F(\basea\cdot x)=\baseb\cdot \M(\baseb, F, \basea)x$$
+		\begin{proof}
+			$\basea\cdot x=(v_1,\ldots, v_n)\cdot(x_1,\ldots, x_n)^\top=\sum_{j=1}^nx_jv_j$ nach \hyperref[def45]{Definition \ref*{def45}}, also gilt $F(\basea\cdot x) = \sum_{j=1}^n x_jF(v_j) = (F(v_1),\ldots, F(v_n))\cdot(x_1,\ldots x_n)^\top = F(\basea)\cdot x$. Mit \hyperref[def46]{Definition \ref*{def46}} ist das genau $\baseb\cdot \M(\baseb, F,\basea)x$.
+		\end{proof}
+	\end{satz}
+	
+	\begin{korrolar}
+		Es sei $V$ ein $K$-Vektorraum mit Basen $\basea = (v_1,\ldots, v_n), \widetilde{\basea} = (\tilde{v}_1,\ldots, \tilde{v}_n)$, $W$ ein $K$-Vektorraum mit Basen $\baseb=(w_1,\ldots, w_m), \widetilde{\baseb}=(\tilde{w}_1,\ldots,\tilde{w}_n)$ und es sei $F\in\Hom_K(V,W)$. Dann gilt $$\M(\widetilde{\baseb}, F, \widetilde{\basea})=\M(\widetilde{\baseb},\baseb)\cdot\M(\baseb, F, \basea) \cdot \M(\basea,\widetilde{\basea}).$$
+		
+		\begin{proof}
+			Wir setzen die Spalten von $\M(\basea, \widetilde{\basea})$ in \hyperref[satz47]{Satz \ref*{satz47}} ein und erhalten $\M(\baseb, F, \basea)\cdot \M(\basea, \widetilde{\basea})=\M(\baseb, F, \widetilde{\basea})$, denn $\basea\cdot x_j=\tilde{v}_j$, wenn $x_j$ die $j$-te Spalte von $\M(\basea, \widetilde{\basea})$ ist. Der nächste Schritt folgt analog.\linebreak
+		\end{proof}
+				
+		Als Diagramm:
+		
+		\begin{figure}[H]
+			\begin{center}
+				\begin{tikzpicture}
+				\matrix (m) [matrix of math nodes,row sep=7em,column sep=14em,minimum width=2em]
+				{
+					K^n & K^m   \\
+					K^n & K^m \\};
+				\draw node at (-1, 0) (V) {$V$};
+				\draw node at ( 1, 0) (W) {$W$};
+				\path[-stealth]
+				(m-1-1) edge[->] node [above] {$F_{\M(\baseb, F, \basea)}$} (m-1-2)
+				(m-1-2) edge[->] node [right] {$F_{\M(\widetilde{\baseb}, \baseb)}$} (m-2-2)
+				(m-2-1) edge[->] node [below] {$F_{\M(\widetilde{\baseb}, F, \widetilde{\basea})}$} (m-2-2)
+				(m-2-1) edge[->] node [left] {$F_{\M(\basea, \widetilde{\basea})}$} (m-1-1)
+				(V) edge[->] node[above]{$F$} (W) edge[->] node[above, xshift=1ex]{$I_\basea$} (m-1-1) edge[->] node[below, xshift=1ex]{$I_{\widetilde{\basea}}$} (m-2-1)
+				(W) edge[->] node[above, xshift=-1ex]{$I_\baseb$} (m-1-2) edge[->] node[below, xshift=-1ex] {$I_{\widetilde{\baseb}}$} (m-2-2);
+				\end{tikzpicture}
+			\end{center}
+		\end{figure}
+		
+		
+		\begin{bemerkungen}
+			\begin{enumerate}[label = \roman*)]
+				\item Es gilt $\M(\basea, \widetilde{\basea})=(\M(\widetilde{\basea}, \basea))^{-1}$, insbesondere sind diese Matrizen invertierbar (siehe Übung)
+				\item Sind $U, V, W$ $K$-Vektorräume mit Basen $\basea, \baseb, \mathcal{C}$, $F\in\Hom_K(V, W), G\in\Hom_K(U, V)$, dann gilt $$\M(\mathcal{C}, F\circ G, \basea) = \M(\mathcal{C}, F, \baseb)\cdot \M(\baseb, G, \basea).$$
+				\item Die Ergebnisse aus der Rechnung mit Matrizen lassen sich nun auf die linearen Abbildungen übertragen. Insbesondere gibt es zu $F\in\Hom_K(V, W)$ Basen $\basea$ von $V$, $\baseb$ von $W$, sodass gilt:
+				$$\M(\baseb, F, \basea) = \left(
+				\begin{matrix}
+				
+				
+				\multicolumn{1}{c|}{
+				
+				\begin{matrix}
+					1 & 	  & 0\\
+					  &\ddots &\\
+					0 &		  & 1\\
+				\end{matrix}}
+				&
+				\left.\vphantom{
+				\begin{matrix}
+					1 & 	  & 0\\
+					  &\ddots &\\
+					0 &		  & 1\\
+				\end{matrix}}\right\}\text{\scriptsize $r$}\hspace{2cm}
+				\\\cline{1-1}
+				\hspace{2cm}
+				&
+				\vphantom{
+					\begin{matrix}
+					1 & 	  & 0\\
+					&\ddots &\\
+					0 &		  & 1\\
+					\end{matrix}}\kern-2\nulldelimiterspace
+				\mbox{\Huge 0}
+				\end{matrix}
+				\hspace{.15cm}
+				\right), \quad r=\rg(F)$$
+			\end{enumerate}
+		\end{bemerkungen}
+	\end{korrolar}
+\chapter{Dualräume}
+$K$ sei wie immer ein Körper. Wir betrachten den $K$-Vektorraum $V$ mit Basis $\basea=(v_1,\ldots, v_n)$ und\linebreak $I_\basea:V\to K^n, I_\basea(x_1v_1+\ldots+x_nv_n)=(x_1,\ldots, x_n)^\top$ wie gehabt. Nun sei für $j=1,\ldots, n$ $$V_j^\ast:V\to K,\quad V_j^\ast(x_1v_1+\ldots+x_nv_n)=x_j.$$
+Es ist leicht zu sehen, dass $V_j^\ast\in\Hom_K(V, K)$. Weiterhin ist $(v_1^\ast, \ldots, v_n^\ast)$ eine Basis von $\Hom_K(V, W)$.
+\begin{proof}
+	\begin{description}
+		\item[Erzeugendensystem:] Sei $F\in\Hom_K(V, K)$. Wir setzen $F(v_j)=\lb_j$, dann ist $F=\sum_{j=1}^n\lb_jv_j^\ast$, dank der Linearität von $F$.
+		\item[Lineare Unabhängigkeit:] Es sei $\sum_{j=1}^{n}\lb_jv_j^\ast=0$, dann gilt $0=\left(\sum_{j=1}^{n}\lb_jv_j^\ast\right)(v_i)=\lb_i$ für alle $i=1,\ldots, n$.
+	\end{description}
+\end{proof}
+
+	\begin{definition}[Dualräume]
+		$V$ sei ein $K$-Vektorraum. 
+		\begin{enumerate}[label=\roman*)]
+			\item $V^\ast =\Hom_K(V, K)$ heißt \textsl{Dualraum} (bzw. \textsl{algebraischer Dualraum}) von $V$
+			\item Falls $\basea=(v_1,\ldots, v_n)$ eine Basis von $V$ ist, so heißt $(v_1^\ast, \ldots, v_n^\ast)$ mit $v_j^\ast\in V^\ast$, $v_j^\ast(v_i)=\delta_{ji}$ für alle $i,j=1,\ldots, n$ die zu $\basea$ \textsl{duale Basis}
+		\end{enumerate}
+		\begin{bemerkung}
+			Vektoren in $V^\ast$ heißen \textsl{Linearformen}
+		\end{bemerkung}
+	\end{definition}
+	
+	\begin{satz}
+		\label{satz52}
+		Sei $\dim_K(V)=n<\infty$, dann gilt
+		\begin{enumerate}[label=\roman*)]
+			\item Zu jeder Basis $\basea$ von $V$ existiert eine eindeutige duale Basis und diese ist eine Basis von $V^\ast$
+			\item $V$ und $V^\ast$ sind isomorph, insbesondere ist $\dim_K(V^\ast)=n$
+		\end{enumerate}
+		\begin{proof}
+			klar.
+		\end{proof}
+		
+		\vspace{.2cm}
+		\textbf{Beispiele:}
+		\begin{enumerate}[label=\roman*)]
+			\item $V=\R^n$. Dann ist $\al=(\al_1,\ldots, \al_n)\in\Mat_\R(1\times n)$ eine Linearform, denn $\al(x)=(\al_1,\ldots, \al_n)\cdot(x_1,\ldots, x_n)^\top = \sum_{j=1}^{n}\al_jx_j\in\R$. Nach Satz \hyperref[satz52]{Satz \ref*{satz52}} sehen alle Linearformen in $(\R^n)^\ast$ so aus.
+			\item $K^n$ ebenso.
+			\item $V=\R^\R=\abb(\R, \R)$, dann ist $\al_1(f)=f(1)$ eine Linearform.
+			\item $V=\mathcal{C}^0(\R, \R)$, dann ist $\al_2(f)=\int_0^1f(t)\mathrm{d}t$ eine Linearform.
+			\item $V=\mathcal{C}^\infty(\R, \R)$, dann ist $\al_3(f)=f'(1)$ eine Linearform.
+		\end{enumerate}
+	\end{satz}
+	
+	\begin{satz}
+		Sei $V$ ein $K$-Vektorraum, $x\in V\setminus\{0\}$. Dann existiert ein $\al\in V^\ast$, sodass $\al(x)\neq 0$.
+		\begin{proof}
+			Falls $\dim_K(V)<\infty$, ergänzen wir $x$ zu einer Basis von $V$, nämlich $\basea=(v_1=x, v_2,\ldots, v_n)$ und setzen $\al(v_1)=1$, $\al(v_j)=0$ für $j\neq 1$.\\
+			
+			Im unendlichdimensionalen Fall kann man -- analog zum \hyperref[satz220]{Existenzbeweis der Basis} eine Basis $(v_a)_{a\in I}$ finden, sodass $a_0\in I$ existiert mit $x=v_a$. Der Rest folgt analog zum endlichdimensionalen Fall. 
+		\end{proof}
+	\end{satz}
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
