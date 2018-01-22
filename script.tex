@@ -2557,6 +2557,8 @@ Wir verallgemeinern dies folgendermaßen:
 	\end{definition}
 	
 	\begin{definition}[Darstellende Matrix, Basiswechselmatrix]
+		\IN{Matrix!Darstellende}
+		\IN{Matrix!Basiswechsel-}
 		\label{def46}
 		Seien $V,W$ $K$-Vektorräume, $\basea=(v_1, \ldots, v_n)$ eine Basis von $V$, $\baseb = (w_1,\ldots w_m)$ eine Basis von $W$.
 		\begin{enumerate}
@@ -2726,6 +2728,7 @@ Es ist leicht zu sehen, dass $V_j^\ast\in\Hom_K(V, K)$. Weiterhin ist $(v_1^\ast
 \end{proof}
 
 	\begin{definition}[Dualräume]
+		\IN{Dualraum}
 		$V$ sei ein $K$-Vektorraum. 
 		\begin{enumerate}[label=\roman*)]
 			\item $V^\ast =\Hom_K(V, K)$ heißt \textsl{Dualraum} (bzw. \textsl{algebraischer Dualraum}) von $V$
@@ -2753,8 +2756,8 @@ Es ist leicht zu sehen, dass $V_j^\ast\in\Hom_K(V, K)$. Weiterhin ist $(v_1^\ast
 			\item $V=\R^n$. Dann ist $\al=(\al_1,\ldots, \al_n)\in\Mat_\R(1\times n)$ eine Linearform, denn $\al(x)=(\al_1,\ldots, \al_n)\cdot(x_1,\ldots, x_n)^\top = \sum_{j=1}^{n}\al_jx_j\in\R$. Nach Satz \hyperref[satz52]{Satz \ref*{satz52}} sehen alle Linearformen in $(\R^n)^\ast$ so aus.
 			\item $K^n$ ebenso.
 			\item $V=\R^\R=\abb(\R, \R)$, dann ist $\al_1(f)=f(1)$ eine Linearform.
-			\item $V=\mathcal{C}^0(\R, \R)$, dann ist $\al_2(f)=\int_0^1f(t)\mathrm{d}t$ eine Linearform.
-			\item $V=\mathcal{C}^\infty(\R, \R)$, dann ist $\al_3(f)=f'(1)$ eine Linearform.
+			\item $V=\mathcal{C}^0(\R, \R)$ der Raum der 0-mal stetig differenzierbaren Funktionen, dann ist $\al_2(f)=\int_0^1f(t)\mathrm{d}t$ eine Linearform.
+			\item $V=\mathcal{C}^\infty(\R, \R)$ der Raum der $\infty$-oft stetig differenzierbaren Funktionen, dann ist $\al_3(f)=f'(1)$ eine Linearform.
 		\end{enumerate}
 	\end{satz}
 	
