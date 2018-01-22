@@ -34,7 +34,7 @@
 \usepackage[a4paper, top = 2cm, left = 2.25cm, right = 2.25cm, bottom = 2cm]{geometry}
 
 % defines index commands with hyperref
-\makeindex[columns=2, title=Stichwortverzeichnis, intoc]
+\makeindex[columns=3, title=Stichwortverzeichnis, intoc]
 \newcommand{\BH}[1]{\textbf{\hyperpage{#1}}}
 \newcommand{\IN}[1]{\index{#1|BH}}
 
@@ -86,12 +86,14 @@
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\En}{En}
 \DeclareMathOperator{\M}{M}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\sign}{sign}
 
 % increase line height
 \renewcommand{\baselinestretch}{1.2}
 
 % redefines description label for alternative enumeration in description environement
-\renewcommand*\descriptionlabel[1]{\hspace\labelsep\textsl{#1}}
+\renewcommand*\descriptionlabel[1]{\hspace\labelsep\emph{#1}}
 
 % define main environment used for lemmas, definitions, corollaries, ...
 \makeatletter
@@ -103,7 +105,7 @@
 {\bfseries}   % name of head font
 { \\[.125cm] }% punctuation between head and body
 { }           % space after theorem head; " " = normal interword space
-{\thmname{#1}\thmnumber{ #2} {\normalfont\thmnote{ -- \hspace{1pt}  #3}}}
+{\thmname{#1}\thmnumber{ #2} {\normalfont\thmnote{ -- \hspace{1pt}  \defemph{#3}}}}
 \makeatother
 
 % define side environment used for remarks
@@ -127,12 +129,16 @@
 \theoremstyle{customdef}
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem*{definitionn}{Definition} % without numbering
+\newtheorem{definitionnn}[definition]{Alternative Definition}
 \newtheorem{proposition}[definition]{Proposition}
 \newtheorem{lemma}[definition]{Lemma}
 \newtheorem{korrolar}[definition]{Korollar}
 \newtheorem{satz}[definition]{Satz}
 \newtheorem*{satz*}{Satz} % without numbering
 \renewenvironment{proof}{\paragraph{Beweis: }}{\qed}
+
+% define definition emphasis
+\newcommand{\defemph}[1]{\textsc{#1}}
 
 % disables autoindent
 \setlength{\parindent}{0em}
@@ -165,6 +171,13 @@
 }
 
 \def\ll@definitionn{%
+	\protect\thmtopatch@numbernametext
+	\ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+	{\csname the\thmt@envname\endcsname}%
+	{\thmt@thmname}%
+}
+
+\def\ll@definitionnn{%
 	\protect\thmtopatch@numbernametext
 	\ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
 	{\csname the\thmt@envname\endcsname}%
@@ -2045,16 +2058,16 @@
 		\IN{Lineare Abbildung}
 		Es seien $V$, $W$ $K$-Vektorräume.
 		\begin{enumerate}
-			\item Eine Abbildung $F : V \to W$ heißt $K$-linear (oder \textsl{Vektorraumhomomorphismus}) falls gilt:
+			\item Eine Abbildung $F : V \to W$ heißt $K$-linear (oder \defemph{Vektorraumhomomorphismus}) falls gilt:
 			\begin{enumerate}[leftmargin=5cm]
 				\item $F(x + y) = F(x) + F(y)$
 				\item $F(\lb x) = \lb F(x)$
 			\end{enumerate}
 			für alle $x, y \in V, \lb \in K$ und wir schreiben $F \in \Hom_K(V, W)$
 			
-			\item Falls $V = W$, so heißt $F \in \Hom_K(V, W) = \End_K(V)$ \textsl{Vektorraumendomorphismus}
-			\item Ein Vektorraum-\textsl{Komorphismus} ist ein bijektiver Vektorraumhomomorphismus. Falls ein solcher Komorphismus von $V$ nach $W$ existiert, nennen wir $W$ und $V$ isomorph, und schreiben $V \cong W$
-			\item $\Aut_K(V) = \{F \in \End_K(V) : F \text{ bijektiv}\}$ sind die Vektorraum-\textsl{Automorphismen} von $V$
+			\item Falls $V = W$, so heißt $F \in \Hom_K(V, W) = \End_K(V)$ \defemph{Vektorraumendomorphismus}
+			\item Ein Vektorraum-\defemph{Komorphismus} ist ein bijektiver Vektorraumhomomorphismus. Falls ein solcher Komorphismus von $V$ nach $W$ existiert, nennen wir $W$ und $V$ isomorph, und schreiben $V \cong W$
+			\item $\Aut_K(V) = \{F \in \End_K(V) : F \text{ bijektiv}\}$ sind die Vektorraum-\defemph{Automorphismen} von $V$
 		\end{enumerate}
 		\vspace{.1cm}
 		\begin{bemerkungen}
@@ -2147,6 +2160,7 @@
 	\end{satz}
 	
 	\begin{proposition}
+		\label{prop34}
 		Es gilt $G\in\Hom_K(V, W)$ ist injektiv genau dann, wenn $\ker(G)=\{0\}$.\\
 		\begin{proof}
 			Wurde bereits im Beweis von \hyperref[satz33]{Satz \ref*{satz33}} gezeigt. 
@@ -2172,7 +2186,7 @@
 	
 	\begin{definition}[Rang]
 		\IN{Rang}
-		Seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$. Dann heißt $$\rg(F)=\dim_K(F(V)) = \dim_K(\Ima(F))$$ der \textsl{Rang} von $F$.\\
+		Seien $V$, $W$ $K$-Vektorräume, $F\in\Hom_K(V, W)$. Dann heißt $$\rg(F)=\dim_K(F(V)) = \dim_K(\Ima(F))$$ der \defemph{Rang} von $F$.\\
 		\begin{bemerkung}
 			Falls $G$, $\widetilde{G}$ Isomorphismen sind, so gilt $\rg(F) = \rg(F\cong G) = \rg(\widetilde{G}\cong F)$ mit $F:V\to W,\ G:\widetilde{V}\to V,\ \widetilde{G}: W\to\widetilde{W}$. Die Reihenfolge von Isomorphismenschaltungen ändert also den Rang nicht.\\
 		\end{bemerkung}
@@ -2206,7 +2220,7 @@
 		Es sei $V$ ein $K$-Vektorraum, $V_1$, $V_2$ Untervektorräume.
 		\begin{enumerate}
 			\item Wir schreiben $V_1+V_2=\Span(V_1\cup V_2)$
-			\item $W=V_1\oplus V_2$, falls $W=V_1+V_2$ und $V_1\cap V_2 = \{0\}$. $W$ heißt dann \textsl{direkte Summe} von $V_1$ und $V_2$. $V_1$ und $V_2$ heißen dann komplementär.
+			\item $W=V_1\oplus V_2$, falls $W=V_1+V_2$ und $V_1\cap V_2 = \{0\}$. $W$ heißt dann \defemph{direkte Summe} von $V_1$ und $V_2$. $V_1$ und $V_2$ heißen dann komplementär.
 		\end{enumerate}
 		\begin{bemerkung}
 			Seien $M_1$, $M_2$ Teilmengen von $V$. Also ist $M_1 + M_2 = \{x:y\in M_1,\ z\in M_2,\ y+z=x\}$. Sind $M_1$ und $M_2$ Untervektorräume, so ist "`$+$"' das gleiche wie die \hyperref[def38]{direkte Summe}.
@@ -2278,7 +2292,7 @@
 	
 	\begin{definition}[Quotientenvektorraum]
 		\IN{Quotientenvektorraum}
-		Sei $\widetilde{V}$ wie in \hyperref[satz313]{Satz \ref*{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt \textsl{Quotientenvektorraum} $\widetilde{V} = \bigslant{V}{W}$.\\
+		Sei $\widetilde{V}$ wie in \hyperref[satz313]{Satz \ref*{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt \defemph{Quotientenvektorraum} $\widetilde{V} = \bigslant{V}{W}$.\\
 		\begin{bemerkung}
 			Es sei $F:V\to W$ linear, $V_1 = \ker(F)$. Dann wurde im Beweis der \hyperref[satz37]{Dimensionsformel} ein Untervektorraum $V_2\subset V$ konstruiert mit $V_2 \cong \Ima(F)$, sodass $V = V_1\oplus V_2$. Wir zeigen im neuen Jahr, dass gilt $\Ima(F)\cong \bigslant{V}{V_2}$.
 		\end{bemerkung}
@@ -2380,7 +2394,7 @@
 			\end{pmatrix}
 			\quad\text{mit $a_{ij}\in X$}
 		$$
-		eine $(m\times n)$-\textsl{Matrix}. Die $a_{ij}$ heißen Einträge von $A$. Weiterhin heißt $(a_{i1}, a_{i2}, \ldots, a_{in})$ die $i$-te Zeile von $A$ und $(a_{1j}, a_{2j}, \ldots, a_{mj})^\top$ die $j$-te Spalte von $A$. Dabei heißt $i$ Zeilenindex und $j$ Spaltenindex.\\
+		eine $(m\times n)$-\defemph{Matrix}. Die $a_{ij}$ heißen Einträge von $A$. Weiterhin heißt $(a_{i1}, a_{i2}, \ldots, a_{in})$ die $i$-te Zeile von $A$ und $(a_{1j}, a_{2j}, \ldots, a_{mj})^\top$ die $j$-te Spalte von $A$. Dabei heißt $i$ Zeilenindex und $j$ Spaltenindex.\\
 		
 		 Mit $\Mat_X(m\times n)$ bezeichnen wir die Menge aller $m\times n$-Matrizen mit Einträgen aus $X$. Im Folgenden sei $K$ ein Körper.
 	\end{definition}
@@ -2479,8 +2493,8 @@
     	\IN{Matrix!Transponierte}
         Es seien $m, n \in \N$.
         \begin{enumerate}
-            \item Sei $A \in \Mat_K(m\times n)$, mit Einträgen $a_{ij}$. Die Matrix $A^\top \in \Mat_K(n\times m)$ mit Einträgen $a_{ji}$ ist die zu $A$ \textsl{transponierte Matrix}.
-            \item $A \in \Mat_K(n\times n)$ heißt \textsl{invertierbar}, falls eine Matrix $A^{-1} \in Mat_K(n\times n)$ mit $A^{-1}\cdot A = \En$.
+            \item Sei $A \in \Mat_K(m\times n)$, mit Einträgen $a_{ij}$. Die Matrix $A^\top \in \Mat_K(n\times m)$ mit Einträgen $a_{ji}$ ist die zu $A$ \defemph{transponierte Matrix}.
+            \item $A \in \Mat_K(n\times n)$ heißt \defemph{invertierbar}, falls eine Matrix $A^{-1} \in Mat_K(n\times n)$ mit $A^{-1}\cdot A = \En$.
         \end{enumerate}
         
         \begin{bemerkungen}
@@ -2523,7 +2537,7 @@
     
     
     \begin{definition}[Allgemeine lineare Gruppe]
-    	Die Gruppe der invertierbaren $n\times n$-Matrizen über einem Körper $K$ bezeichnet man als \textsl{allgemeine lineare Gruppe}, geschrieben $\GL_K(n)$.\\
+    	Die Gruppe der invertierbaren $n\times n$-Matrizen über einem Körper $K$ bezeichnet man als \defemph{allgemeine lineare Gruppe}, geschrieben $\GL_K(n)$.\\
     	
     	\begin{bemerkung}
     		Die Gruppe ist bezüglich Matrixmultiplikation zu verstehen. Dies ist dieselbe Gruppe wie die der linearen Abbildungen von $K^n$ nach $K^m$.\\
@@ -2562,8 +2576,8 @@ Wir verallgemeinern dies folgendermaßen:
 		\label{def46}
 		Seien $V,W$ $K$-Vektorräume, $\basea=(v_1, \ldots, v_n)$ eine Basis von $V$, $\baseb = (w_1,\ldots w_m)$ eine Basis von $W$.
 		\begin{enumerate}
-			\item Für $F\in\Hom_K(V, W)$, $F(v_j) = \sum_{i=1}^{m}a_{ij}w_i$ für $j=1, \ldots, n$ und $a_{ij}\in K$ bezeichnet $$\M(\baseb, F, \basea) = (a_{ij})_{\substack{j=1,\ldots, n\;\\i=1, \ldots, m}}\in\Mat_K(m\times n)$$ die \textsl{darstellende Matrix} von $F$ bezüglich der Basen $\basea$ und $\baseb$
-			\item Falls $V=W$, $F=\Id\in\End_K(V)$, dann heißt $\M(\baseb, \basea) = \M(\baseb, F, \basea)$ die \textsl{Basiswechselmatrix} von $\basea$ nach $\baseb$.
+			\item Für $F\in\Hom_K(V, W)$, $F(v_j) = \sum_{i=1}^{m}a_{ij}w_i$ für $j=1, \ldots, n$ und $a_{ij}\in K$ bezeichnet $$\M(\baseb, F, \basea) = (a_{ij})_{\substack{j=1,\ldots, n\;\\i=1, \ldots, m}}\in\Mat_K(m\times n)$$ die \defemph{darstellende Matrix} von $F$ bezüglich der Basen $\basea$ und $\baseb$
+			\item Falls $V=W$, $F=\Id\in\End_K(V)$, dann heißt $\M(\baseb, \basea) = \M(\baseb, F, \basea)$ die \defemph{Basiswechselmatrix} von $\basea$ nach $\baseb$.
 		\end{enumerate}
 		
 		\begin{bemerkung}
@@ -2717,6 +2731,8 @@ Wir verallgemeinern dies folgendermaßen:
 			\end{enumerate}
 		\end{bemerkungen}
 	\end{korrolar}
+	
+
 \chapter{Dualräume}
 $K$ sei wie immer ein Körper. Wir betrachten den $K$-Vektorraum $V$ mit Basis $\basea=(v_1,\ldots, v_n)$ und\linebreak $I_\basea:V\to K^n, I_\basea(x_1v_1+\ldots+x_nv_n)=(x_1,\ldots, x_n)^\top$ wie gehabt. Nun sei für $j=1,\ldots, n$ $$V_j^\ast:V\to K,\quad V_j^\ast(x_1v_1+\ldots+x_nv_n)=x_j.$$
 Es ist leicht zu sehen, dass $V_j^\ast\in\Hom_K(V, K)$. Weiterhin ist $(v_1^\ast, \ldots, v_n^\ast)$ eine Basis von $\Hom_K(V, W)$.
@@ -2731,11 +2747,11 @@ Es ist leicht zu sehen, dass $V_j^\ast\in\Hom_K(V, K)$. Weiterhin ist $(v_1^\ast
 		\IN{Dualraum}
 		$V$ sei ein $K$-Vektorraum. 
 		\begin{enumerate}[label=\roman*)]
-			\item $V^\ast =\Hom_K(V, K)$ heißt \textsl{Dualraum} (bzw. \textsl{algebraischer Dualraum}) von $V$
-			\item Falls $\basea=(v_1,\ldots, v_n)$ eine Basis von $V$ ist, so heißt $(v_1^\ast, \ldots, v_n^\ast)$ mit $v_j^\ast\in V^\ast$, $v_j^\ast(v_i)=\delta_{ji}$ für alle $i,j=1,\ldots, n$ die zu $\basea$ \textsl{duale Basis}
+			\item $V^\ast =\Hom_K(V, K)$ heißt \defemph{Dualraum} (bzw. \defemph{algebraischer Dualraum}) von $V$
+			\item Falls $\basea=(v_1,\ldots, v_n)$ eine Basis von $V$ ist, so heißt $(v_1^\ast, \ldots, v_n^\ast)$ mit $v_j^\ast\in V^\ast$, $v_j^\ast(v_i)=\delta_{ji}$ für alle $i,j=1,\ldots, n$ die zu $\basea$ \defemph{duale Basis}
 		\end{enumerate}
 		\begin{bemerkung}
-			Vektoren in $V^\ast$ heißen \textsl{Linearformen}
+			Vektoren in $V^\ast$ heißen \defemph{Linearformen}
 		\end{bemerkung}
 	\end{definition}
 	
@@ -2760,19 +2776,151 @@ Es ist leicht zu sehen, dass $V_j^\ast\in\Hom_K(V, K)$. Weiterhin ist $(v_1^\ast
 			\item $V=\mathcal{C}^\infty(\R, \R)$ der Raum der $\infty$-oft stetig differenzierbaren Funktionen, dann ist $\al_3(f)=f'(1)$ eine Linearform.
 		\end{enumerate}
 	\end{satz}
-	
-	\begin{satz}
+	\pagebreak[4]
+	\begin{korrolar}
+		\label{kor53}
 		Sei $V$ ein $K$-Vektorraum, $x\in V\setminus\{0\}$. Dann existiert ein $\al\in V^\ast$, sodass $\al(x)\neq 0$.
 		\begin{proof}
 			Falls $\dim_K(V)<\infty$, ergänzen wir $x$ zu einer Basis von $V$, nämlich $\basea=(v_1=x, v_2,\ldots, v_n)$ und setzen $\al(v_1)=1$, $\al(v_j)=0$ für $j\neq 1$.\\
 			
 			Im unendlichdimensionalen Fall kann man -- analog zum \hyperref[satz220]{Existenzbeweis der Basis} eine Basis $(v_a)_{a\in I}$ finden, sodass $a_0\in I$ existiert mit $x=v_a$. Der Rest folgt analog zum endlichdimensionalen Fall. 
 		\end{proof}
+	\end{korrolar}
+	
+	\begin{satz}
+		$V, W$ seien $K$-Vektorräume, $F\in\Hom_K(V, W)$, $\al\in W^\ast$. Wir schreiben $F^\top(\al)=\al\circ F$. Dann gilt:
+		\begin{enumerate}[label=\roman*)]
+			\item $F^\top(al)\in V^\ast$ und $F^\top\in\Hom_K(W^\ast, V^\ast)$
+			\item Die Abbildung $F\mapsto F^\top$ ist ein injektiver Vektorraumhomomorphismus über $K$ mit $\Hom_K(V, W)\to\Hom_K(W^\ast, V^\ast)$
+			\item Falls $V, W$ eindlichdimensional sind, so ist $F\mapsto F^\top$ ein Isomorphismus.
+		\end{enumerate}
+		\begin{proof}
+			\begin{enumerate}[label=\roman*)]
+				\item Folgt mit \hyperref[lem32]{Lemma \ref*{lem32}} und den üblichen Rechenregeln für lineare Abbildungen.
+				\item
+				\begin{description}
+					\item[K-Linearität:] Wir rechnen mit der Linearität von $\al$:
+					\begin{align*}
+						(F+G)^\top(\al) &= \al\circ(F+G)\\
+										&= \al\circ F+\al\circ G\\
+										&= F^\top(\al)+G^\top(\al)\\
+										&= (F^\top+G^\top)(\al)
+					\end{align*}
+					Die Skalarmultiplikation folgt komplett analog.
+					\item[Injektivität:] Wir betrachten \hyperref[prop34]{Proposition \ref*{prop34}}, also $F$ injektiv $\iff$ $\ker(F)$ trivial.
+					
+					Sei also $F\neq 0$, dann existiert ein $x\in V$ mit $y=F(x)\neq 0$. Nach \hyperref[kor53]{Korollar \ref*{kor53}} existiert ein $\al\in W^\ast$ mit $\al(y)\neq 0$. Damit folgt aber $(F^\top(\al))(x)=(\al\circ F)(x)=\al(y)\neq 0$. Damit ist $F^\top(x)\neq 0$, folglich auch $F^\top\neq 0$.
+				\end{description}
+				\item Es sei $\dim_K(V)=n$, $\dim_K(W)=m$. Damit gilt $\dim_K(\Hom_K(V, W))=n\cdot m$. Ebenso ist aber nach \hyperref[satz52]{Satz \ref*{satz52}} $\dim_K(\Hom_K(V, W))=n\cdot m$. Damit ist die Abbildung nach der \hyperref[satz37]{Dimensionsformel} surjektiv.
+			\end{enumerate}
+		\end{proof}
 	\end{satz}
+	
+	\begin{definition}[Dualer Homomorphismus]
+		\IN{Homomorphismus!dualer}
+		\IN{Homomorphismus!transponierter}
+		$F^\top$ definiert wie oben heißt der zu $F$ \defemph{duale Homomorphismus}, bzw. der zu $F$ \defemph{transponierte Homomorphismus}.
+		
+		\begin{bemerkung}
+			Wir erinnern uns an die transponierte Matrix $A^\top$ mit Einträgen $(a^\top_{ij})=(a_{ji})$.
+		\end{bemerkung}
+	\end{definition}
+	
+	\begin{satz}
+		$V, W$ seien $K$-Vektorräume mit Basen $\basea$ und $\baseb$ respektive, $F\in\Hom_K(V, W)$. Dann gilt:
+		$$\M(\baseb, F, \basea)^\top=\M(\basea^\ast, F^\top, \baseb^\ast)$$
+		\textit{Beweis:} Übung.
+	\end{satz}
+	\pagebreak[3]
+	\begin{satz}
+		\IN{Bidualraum}
+		\IN{Isomorphismus!kanonischer}
+		$V, W$ seien $K$-Vektorräume. Dann gilt:
+		\begin{enumerate}[label = \roman*)]
+			\item Die Abbildung $V\to \big(V^\ast\big)^\ast, x\mapsto \big(x^\top\big)^\top$ mit $\big(x^\top\big)^\top(\al)=\al(x)$ ist ein injektiver Vektorraumhomomorphismus über $K$, der im Fall endlicher Dimension von $V$ surjektiv und damit ein Vektorraumisomorphismus ist. 
+			
+			Die Abbildung wird als \defemph{kanonische Injektion}, bzw. \defemph{kanonischer Isomorphismus}, von $V$ nach $\big(V^\ast\big)^\ast$ bezeichnet.
+			\item Falls $F\in\Hom_K(V, W)$, dann gilt für $F^{\top\top}\equiv\big(F^\top\big)^\top$, dass $(F(x))^{\top\top}=F^{\top\top}(x^{\top\top})$. Im endlichdimensionalen Fall gilt also (bis auf kanonische Isomorphismen $F(x)\mapsto F(x)^{\top\top}, x\mapsto x^{\top\top}$), dass $F$ mit $F^{\top\top}$ übereinstimmt.
+		\end{enumerate}
+		
+		\begin{proof}
+			\begin{enumerate}[label=\roman*)]
+				\item
+				\begin{description}
+					\item[Linearität:] Wir rechnen erneut mit der Linearität von $\al$:
+					\begin{align*}
+						(x+y)^{\top\top}(\al) &= \al(x+y)\\
+											  &= \al(x)+\al(y)\\
+											  &= x^{\top\top}(\al)+y^{\top\top}(\al)\\
+											  &= (x^{\top\top}+y{\top\top})(\al)
+					\end{align*}
+					Die Skalarmultiplikation folgt komplett analog.
+					\item[Injektivität:] Es sei $x\neq 0$, dann existiert nach \hyperref[kor53]{Korollar \ref*{kor53}} ein $\al\in V^\ast$, also folgt $x^{\top\top}(\al))\al(x)\neq 0$. Damit ist der Kern trivial und die Abbildung injektiv.
+					\item[Surjektivität:] Im Fall $\dim_K(V)=n<\infty$ folgt Surjektivität mit der \hyperref[satz37]{Dimensionsformel}. 
+				\end{description}
+				\item Es gilt für $F\in\Hom_K(V, W)$, $x\in V$, $\al\in V^\ast$, dass
+				\begin{align*}
+					(F(x))^{\top\top}(\al) &= \al(F(x))\\
+										   &=(a\circ F)(x)\\
+										   &=(F^\top(\al))(x)\\
+										   &=x^{\top\top}(F^\top(\al))\\
+										   &=(x^{\top\top}\circ F^{\top\top})(\al)\\
+										   &=(F^{\top\top}(x^{\top\top}))(\al).
+				\end{align*}
+				 
+			\end{enumerate}
+		\end{proof}
+		\begin{bemerkung}
+			$V^{\ast\ast}\equiv \big(V^\ast\big)^\ast$ heißt \defemph{Bidualraum} von $V$.
+		\end{bemerkung}
+	\end{satz}
+	
+\chapter{Determinanten}
+
+\section{Permutationen und ihre Signatur}
+
+	\begin{definition}[Permutation, Symmetrische Gruppe]
+		\IN{Permutation}
+		\IN{Gruppe!Symmetrische}
+		Es sei $X$ eine endliche Menge. Mit $\Sym(x)$ bezeichnen wir die Menge $$\Sym(x)\equiv\{\pi\in\abb(X, X):\ \pi\ \text{ bijektiv}\}.$$ Eine solche Abbildung $\pi\in\Sym(X)$ heißt \defemph{Permutation}, $\Sym(X)$ heißt \defemph{Symmetrische Gruppe} über $X$.\linebreak
+		
+		\begin{bemerkung}
+			Die Symmetrische Gruppe ist eine Gruppe bezüglich Hintereinanderausführung.
+		\end{bemerkung}
+		
+		Wir wählen nun eine Orientierung von zweielementigen Teilmengen von $X$, $s:X\times X\to\{-1, 1, 0\}$ mit 
+		\begin{align*}
+			s(x, y)&=-s(y, x)\\\text{und }
+			s(x, y)&=0\iff x=y.
+		\end{align*}
+	\end{definition}
+	
+	\begin{definition}[Signatur, Fehlstand]
+		\IN{Signatur}
+		\IN{Fehlstand}
+		Es sei $\pi\in\Sym(X)$, dann ist $$\sign(\pi)=\prod \frac{s(\pi(x), \pi(y))}{s(x, y)}$$ definiert als die \defemph{Signatur} von $\pi$. Dabei wird das Produkt über alle ungeordneten Paare $x,y$ gebildet, d.h. über alle zweielementigen Teilmengen $\{x,y:x\neq y\}\subset X$.\\
+	
+		\textbf{Beispiel:}\ $x=\{1,2,3\}$, $s(1,2)=1, s(1,3), s(2,3)=1$, $\pi(1)=3, \pi(2)=2, \pi(1)=3$. Dann ist $$\sign(\pi)=\frac{s(\pi(1), \pi(2)}{s(1, 2)}\cdot \frac{s(\pi(2), \pi(3))}{s(2, 3)}\cdot\frac{s(\pi(1), \pi(3))}{s(1, 3)} = -1.$$
+		
+		\begin{bemerkung}
+			Die Signatur von $\pi$ hängt nicht von der Wahl der Orientierung ab: Sei $t$ eine andere Orientierung auf $X^2\equiv X\times X$, welche sich auf $n$ ungeordneten Paaren unterscheidet. Dann gilt: 
+			$$\prod\frac{t(x, y)}{s(x, y)}=\prod\frac{t(\pi(x), \pi(y))}{s(\pi(x), \pi(y)}=(-1)^n$$
+			Damit gilt aber auch:
+			\begin{align*}
+				\sign(\pi) &= \prod\frac{s(\pi(x), \pi(y))}{s(x, y)} = \prod\frac{t(\pi(x), \pi(y))\cdot s(\pi(x), \pi(y))\cdot t(x, y)}{t(\pi(x), \pi(y))\cdot s(x, y)\cdot t(x, y)}\\&=\prod\frac{t(\pi(x), \pi(y))}{t(x, y)}=(-1)^n(-1)^n=1
+			\end{align*}
+		\end{bemerkung}
+		
+		Wir bezeichnen eine zweielementige Menge $\{x, y\}$ als sog. \defemph{Fehlstand} von $\pi$, falls $s(x, y)\neq s(\pi(x), \pi(y))$. Wir bekommen damit die alternative Definition:
+	\end{definition}
+	
+	\begin{definitionnn}[Signatur]
+		$$\sign(\pi) = \Big(-1\Big)^{\substack{\text{Anzahl Fehlstände}\\\text{von $\pi$\hspace{1.55cm}}}}$$
+	\end{definitionnn}
 
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
-\listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}]
+\listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={definitionnn}]
 \addcontentsline{toc}{chapter}{Satz- und Definitionsverzeichnis}
 \newpage
 \printindex
