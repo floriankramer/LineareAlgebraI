@@ -2790,7 +2790,7 @@ Es ist leicht zu sehen, dass $V_j^\ast\in\Hom_K(V, K)$. Weiterhin ist $(v_1^\ast
 	\begin{satz}
 		$V, W$ seien $K$-Vektorräume, $F\in\Hom_K(V, W)$, $\al\in W^\ast$. Wir schreiben $F^\top(\al)=\al\circ F$. Dann gilt:
 		\begin{enumerate}[label=\roman*)]
-			\item $F^\top(al)\in V^\ast$ und $F^\top\in\Hom_K(W^\ast, V^\ast)$
+			\item $F^\top(\al)\in V^\ast$ und $F^\top\in\Hom_K(W^\ast, V^\ast)$
 			\item Die Abbildung $F\mapsto F^\top$ ist ein injektiver Vektorraumhomomorphismus über $K$ mit $\Hom_K(V, W)\to\Hom_K(W^\ast, V^\ast)$
 			\item Falls $V, W$ eindlichdimensional sind, so ist $F\mapsto F^\top$ ein Isomorphismus.
 		\end{enumerate}
@@ -2900,7 +2900,7 @@ Es ist leicht zu sehen, dass $V_j^\ast\in\Hom_K(V, K)$. Weiterhin ist $(v_1^\ast
 		\IN{Fehlstand}
 		Es sei $\pi\in\Sym(X)$, dann ist $$\sign(\pi)=\prod \frac{s(\pi(x), \pi(y))}{s(x, y)}$$ definiert als die \defemph{Signatur} von $\pi$. Dabei wird das Produkt über alle ungeordneten Paare $x,y$ gebildet, d.h. über alle zweielementigen Teilmengen $\{x,y:x\neq y\}\subset X$.\\
 	
-		\textbf{Beispiel:}\ $x=\{1,2,3\}$, $s(1,2)=1, s(1,3), s(2,3)=1$, $\pi(1)=3, \pi(2)=2, \pi(1)=3$. Dann ist $$\sign(\pi)=\frac{s(\pi(1), \pi(2)}{s(1, 2)}\cdot \frac{s(\pi(2), \pi(3))}{s(2, 3)}\cdot\frac{s(\pi(1), \pi(3))}{s(1, 3)} = -1.$$
+		\textbf{Beispiel:}\ $x=\{1,2,3\}$, $s(1,2)=1, s(1,3)=1, s(2,3)=1$, $\pi(1)=3, \pi(2)=2, \pi(1)=3$. Dann ist $$\sign(\pi)=\frac{s(\pi(1), \pi(2)}{s(1, 2)}\cdot \frac{s(\pi(2), \pi(3))}{s(2, 3)}\cdot\frac{s(\pi(1), \pi(3))}{s(1, 3)} = -1.$$
 		
 		\begin{bemerkung}
 			Die Signatur von $\pi$ hängt nicht von der Wahl der Orientierung ab: Sei $t$ eine andere Orientierung auf $X^2\equiv X\times X$, welche sich auf $n$ ungeordneten Paaren unterscheidet. Dann gilt: 
@@ -2910,6 +2910,7 @@ Es ist leicht zu sehen, dass $V_j^\ast\in\Hom_K(V, K)$. Weiterhin ist $(v_1^\ast
 				\sign(\pi) &= \prod\frac{s(\pi(x), \pi(y))}{s(x, y)} = \prod\frac{t(\pi(x), \pi(y))\cdot s(\pi(x), \pi(y))\cdot t(x, y)}{t(\pi(x), \pi(y))\cdot s(x, y)\cdot t(x, y)}\\&=\prod\frac{t(\pi(x), \pi(y))}{t(x, y)}=(-1)^n(-1)^n=1
 			\end{align*}
 		\end{bemerkung}
+		
 		
 		Wir bezeichnen eine zweielementige Menge $\{x, y\}$ als sog. \defemph{Fehlstand} von $\pi$, falls $s(x, y)\neq s(\pi(x), \pi(y))$. Wir bekommen damit die alternative Definition:
 	\end{definition}
