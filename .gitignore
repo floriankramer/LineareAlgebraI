@@ -1,0 +1,10 @@
+*.log
+*.toc
+*.aux
+*.out
+*.synctex.gz
+*.the
+*.loe
+*.ind
+*.idx
+*.ilg
