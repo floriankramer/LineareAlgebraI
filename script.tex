@@ -129,7 +129,7 @@
 \theoremstyle{customdef}
 \newtheorem{definition}{Definition}[chapter]
 \newtheorem*{definitionn}{Definition} % without numbering
-\newtheorem{definitionnn}[definition]{Alternative Definition}
+\newtheorem{altdefinition}[definition]{Alternative Definition}
 \newtheorem{proposition}[definition]{Proposition}
 \newtheorem{lemma}[definition]{Lemma}
 \newtheorem{korrolar}[definition]{Korollar}
@@ -177,7 +177,7 @@
 	{\thmt@thmname}%
 }
 
-\def\ll@definitionnn{%
+\def\ll@altdefinition{%
 	\protect\thmtopatch@numbernametext
 	\ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
 	{\csname the\thmt@envname\endcsname}%
@@ -1552,8 +1552,7 @@
 		\end{proof}
 	\end{satz}
 	
-	\vspace{.2cm}
-	
+	\pagebreak[4]
 	\begin{definition}[Charakteristik eines Ringes]
 		\IN{Ring!Charakteristik}
 		Es sei \(R\) ein Ring mit Einselement \(1\). Die Charakteristik von \(R\) ist gegeben durch\\
@@ -1568,8 +1567,9 @@
 	\end{definition}
 	
 	\begin{lemma}[Charakteristik von Körpern]
+		\label{lem142}
 		\IN{Körper!Charakteristik}
-		Ist K ein Körper, so gilt \(\chi(K)\) ist entweder  Null, oder eine Primzahl.\\
+		Ist \(K \) ein Körper, so gilt \(\chi(K)\) ist entweder  Null, oder eine Primzahl.\\
 		\begin{proof}
 			Angenommen, \(\chi(K) = m = k \cdot l \neq 0\) mit  \(1 < k, l < m\) (also \(m\) nicht prim). Es folgt  \(0 = m \cdot 1 = (k \cdot l) 1 = (k \cdot 1)(l \cdot 1)\). Wegen Nullteilerfreiheit folgt \(k \cdot 1 = 0\) oder \(l \cdot 1\) = 0, und somit ein Widerspruch.
 		\end{proof}
@@ -2915,13 +2915,134 @@ Es ist leicht zu sehen, dass \(V_j^\ast\in\Hom_K(V, K)\). Weiterhin ist \((v_1^\
 		Wir bezeichnen eine zweielementige Menge \(\{x, y\}\) als sog. \defemph{Fehlstand} von \(\pi\), falls \(s(x, y)\neq s(\pi(x), \pi(y))\). Wir bekommen damit die alternative Definition:
 	\end{definition}
 	
-	\begin{definitionnn}[Signatur]
+	\begin{altdefinition}[Signatur]
 		\[\sign(\pi) = \Big(-1\Big)^{\substack{\text{Anzahl Fehlstände}\\\text{von \(\pi\)\hspace{1.55cm}}}}\]
-	\end{definitionnn}
-
+	\end{altdefinition}
+	
+	\begin{satz}
+		Die Signaturabbildung \(\sign:\Sym(X)\to \{-1,1\}\) ist ein Gruppenhomomorphismus mit \(-1,1\) als übliche multiplikative Gruppe.\\
+		
+		\begin{proof}
+			Wir rechnen:
+			\begin{align*}
+				\sign(\pi\circ\sigma) 	&= \prod\frac{s(\pi(\sigma(x)), \pi(\sigma(y)))}{s(x, y)}\\
+										&= \prod\frac{s(\pi(\sigma(x)), \pi(\sigma(y)))\cdot s(\sigma(x),\sigma(y)}{s(x,y)\cdot s(\sigma(x), \sigma(y)}\\
+										&= \prod\frac{s(\pi(\sigma(x)), \pi(\sigma(y))}{s(\sigma(x), \sigma(y))}\prod\frac{s(\sigma(x), \sigma(y)}{s(x,y)}\\
+										&= \sign(\pi)\sign(\sigma)
+			\end{align*}
+		\end{proof}
+	\end{satz}
+	
+	\begin{definitionn}[Zyklus]
+		\IN{Zyklus}
+		Wir betrachten \(x_1,\ldots, x_k\) paarweise verschiedene Elemente in \(X\). Ein \defemph{Zyklus} ist eine Abbildung (mit \(\Sym(X)\)), welche \(x_1\) auf \(x_2\), \(x_2\) auf \(x_3\), \ldots, \(x_k\) auf \(x_1\) abbildet, alle anderen Elemente in \(X\) bleiben gleich. 
+		\begin{bemerkung}
+			Wir sehen, dass ein Zyklus der Länge \(k\) die Signatur \((-1)^{k-1}\) besitzt, denn die Fehlstände eines Zyklus' sind leicht zu sehen.
+		\end{bemerkung}
+	\end{definitionn}
+	
+	\begin{satz}
+		Jede Permutation ist (bis auf Reihenfolge) eindeutig als Produkt disjunkter Zyklen darstellbar.
+		\begin{proof}
+			Sei \(\pi\in\Sym(X)\). Wir zerlegen \(X\) in sogenannte Bahnen von \(\pi\). Aufgrund der Endlichkeit von \(X\) und Bijektivität von \(\pi\) können \[x, \pi(x), \pi^2\equiv(\pi\circ\pi)(x), \pi^3(x), \ldots\] nicht verschieden sein. Nun sei \(n\in\N\) die kleinste Zahl, sodass \(\pi^n(x)=\{x, \pi(x),\ldots, \pi^{n-1}(x)\}\) ist. Dann gilt aber \(\pi^n(x)=x\) und wir schreiben \(B=\{x, \pi(x),\ldots, \pi^{n-1}(x) \}\) ist eine Bahn von \(\pi \). 
+			
+			Auf der Menge \(B\) operiert \(\pi \) immer wie ein Zyklus \[\sigma_B(x, \pi(x), \ldots, \pi^{n-1}(x)).\] Damit ist \[\pi =\prod\sigma_B.\]
+		\end{proof}
+	\end{satz}
+	
+	\begin{korrolar}
+		\IN{Transposition}
+		Jede Permutation ist ein Produkt von Transpositionen (d.h. Zyklen der Länge 2).
+		\begin{proof}
+			\[(x_1,\ldots, x_k) = (x_k, x_1)(x_{k-1}, x_1)\ldots(x_2, x_1) \]
+		\end{proof}
+	\end{korrolar}
+	
+	\begin{satz}
+		\(\sign\) ist der einzige nicht-triviale Gruppenhomomorphismus \(\Sym(X)\to \{-1,1\}\).
+		\begin{proof}
+			Wir betrachten zwei Transpositionen \((x,y)\), \((x',y')\) und eine beliebige Permutation \(\pi\) mit \(\pi(x)=x', \pi(y)=y'\). Dann folgt \((x',y') = \pi^{-1}\circ(x,y)\circ\pi\).
+			
+			Sei nun \(S:\Sym(X)\to\{-1,1\}\) ein Gruppenhomomorphismus. Dann gilt \(S(x', y')=S(\pi^{-1})\cdot S((x,y))\cdot S(\pi)=S((x,y))\). Nun gibt es aber zwei Fälle:
+			\begin{enumerate}
+				\item \(S(\tau)=1\) für alle Transpositionen \(\tau\), es folgt \(S(\pi) = 1\) für alle \(\pi\in\Sym(X)\)
+				\item \(S(\tau)=-1\), dann gilt \(S(\pi)=(-1)^n\), wenn \(\pi\) als Produkt von \(n\) Transpositionen geschrieben werden kann. Dies ist aber die Signaturabbildung, denn \(n\) ist gerade die Anzahl an Fehlständen von \(\pi \).
+			\end{enumerate}
+		\end{proof}
+	\end{satz}
+	
+\section[$k$-Formen]{k-Formen}
+	
+	\begin{definition}[Multilineare Abbildung]
+		\IN{Abbildung!multilineare}
+		Sei \(V\) ein \(k\)-Vektorraum. \(\mu:V^k\to K\) heißt \(k\)-stellige \defemph{multilineare Abbildung} (bzw. \defemph{Multilinearform}), wenn sie linear in jedem Argument ist, d.h.: 
+		\begin{align*}
+			\mu(x_1, \ldots, \lb x_j+y_j, \ldots, x_k) =&\ \; \lb\mu(x_1,\ldots, x_j, \ldots x_k)\\
+														&+ \mu(x_1, \ldots, y_j, \ldots, x_k)
+		\end{align*}
+	\end{definition}
+	
+	\begin{definition}[k-Form]
+		\IN{k-Form}
+		Eine \(k \)-stellige Multilinearform \(\mu:V^k\to K \) heißt \defemph{alternierende Multilinearform} oder \defemph{k-Form}, wenn die beiden folgenden (äquivalenten) Bedingungen erfüllt sind:
+		\begin{enumerate}
+			\item \(\mu(x_1,\ldots, x_k)=0 \), falls in dem Tupel \(x_1,\ldots, x_k \) ein Vektor zweimal vorkommt
+			\item \(\mu(x_1,\ldots, x_i+\lb x_j,\ldots, x_k)=\mu(x_1,\ldots, x_i,\ldots, x_k)\text{ mit }\lb\in K, 1<i\neq j<k \)
+		\end{enumerate}
+		\begin{bemerkung}
+			Die Äquivalenz folgt aus der Multilinearität, denn
+			\begin{align*}
+				\mu(x_1,\ldots, x_i+\lb x_j,\ldots, x_k) =	& \qquad\mu(x_1,\ldots, x_i,\ldots, x_j,\ldots, x_k)\\
+															&+\lb\underbrace{\mu(x_1,\ldots, x_j,\ldots, x_j, \ldots, x_k)}_{=0}
+			\end{align*}
+		\end{bemerkung}
+	\end{definition}
+	
+	\begin{lemma}\hfill
+		\vspace{-.75cm} % ????????????????????????
+		\begin{enumerate}[label = \roman*)]
+			\item Linearkombinationen von \(k \)-Formen sind wieder \(k \)-Formen.
+			\item Sei \(F_V\to U \) linear, \(\mu \) eine \(k\)-Form auf \(U \). Dann ist \[\mu^F(x_1,\ldots, x_k) = \mu(F(x_1),\ldots, F(x_k)) \] eine Linearform auf \(V \).
+		\end{enumerate}
+		\begin{bemerkung}
+			Mit \(\Lambda^kV \) bezeichnen wir den Vektorraum der \(k \)-Formen auf \(V \). Insbesondere gilt \(\Lambda^1V=V^\ast \).
+		\end{bemerkung}
+	\end{lemma}
+	
+	\begin{lemma}
+		Sei \(\mu\in\Lambda^kV \), dann gilt für \(x_1,\ldots x_k\in V \), \(1\leq i<j\leq k \), dass \[\mu(x_1,\ldots, x_i,\ldots, x_j,\ldots, x_k) = -\mu(x_1,\ldots, x_j,\ldots, x_i,\ldots, x_k).\]
+		\begin{proof}
+			\begin{alignat*}{2}
+				\mu(x_1,\ldots, x_i, \ldots, x_j, \ldots, x_k) 	&=  &&\mu(x_1, \ldots,  x_i, \ldots, x_j+x_i, \ldots x_k)\\
+																&=  &&\mu(x_1, \ldots, -x_j, \ldots, x_j+x_i, \ldots, x_k)\\
+																&=  &&\mu(x_1, \ldots, -x_j, \ldots, x_i, \ldots, x_k)\\
+																&= -&&\mu(x_1, \ldots,  x_j, \ldots, x_i, \ldots, x_k)
+			\end{alignat*}
+		\end{proof}
+		\begin{bemerkung}
+			Angenommen, die \hyperref[lem142]{Charakteristik} eines Körpers \(\chi(K)\neq 2 \), dann ist jede Multilinearform mit der Eigenschaft aus dem Lemma auch alternierend, denn
+			\begin{align*}
+				\mu(x_1, \ldots, x_i, \ldots, x_i, \ldots, x_k) =	& -\mu(x_1, \ldots, x_i, \ldots, x_i, \ldots, x_k)\\
+														\implies 0=	&\  \mu(x_1, \ldots, x_i, \ldots, x_i, \ldots, x_k)
+			\end{align*}
+			für \(\chi(K)\neq 2 \)
+		\end{bemerkung}
+	\end{lemma}
+	
+	\begin{korrolar}
+		Sei \(\mu \) eine \(k \)-Form auf \(V \), \(\tau:\{1,\ldots, k\}\to\{1,\ldots, k\} \) und \(x_1,\ldots, x_k\in V \), dann gilt: \[\mu(x_{\tau(1)},\ldots, x_{\tau(k)}) = \sign(\tau)\cdot \mu(x_1,\ldots, x_k), \] wobei \(\sign(\tau)=0 \), falls \(\tau\notin\Sym(\{1,\ldots, k\})\).
+		\begin{proof}
+			Ist \(\tau \) nicht bijektiv, so existiert ein \(i\neq j \) mit \(\tau(i)=\tau(j) \), also \(\mu(x_{\tau(1)},\ldots, x_{\tau(k)}) = 0 \). Sonst ist \(\tau \) ein Produkt von Transpositionen, von welchen jede ein Vorzeichen \(-1 \) abgibt.
+		\end{proof}
+	\end{korrolar}
+	
+	\begin{korrolar}
+		Sei \((v_1, \ldots, v_n) \) eine Basis von \(V \). Dann ist \(n \) festgelegt durch die Werte \(\mu\big(v_{i_1},\ldots, v_{i_k}\big) \) für alle \(1\leq i_1 < i_2 < \ldots < i_k \leq n\).
+	\end{korrolar}
+	
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
-\listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={definitionnn}]
+\listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
 \addcontentsline{toc}{chapter}{Satz- und Definitionsverzeichnis}
 \newpage
 \printindex
