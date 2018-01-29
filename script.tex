@@ -2944,9 +2944,9 @@ Es ist leicht zu sehen, dass \(V_j^\ast\in\Hom_K(V, K)\). Weiterhin ist \((v_1^\
 	\begin{satz}
 		Jede Permutation ist (bis auf Reihenfolge) eindeutig als Produkt disjunkter Zyklen darstellbar.
 		\begin{proof}
-			Sei \(\pi\in\Sym(X)\). Wir zerlegen \(X\) in sogenannte Bahnen von \(\pi\). Aufgrund der Endlichkeit von \(X\) und Bijektivität von \(\pi\) können \[x, \pi(x), \pi^2\equiv(\pi\circ\pi)(x), \pi^3(x), \ldots\] nicht verschieden sein. Nun sei \(n\in\N\) die kleinste Zahl, sodass \(\pi^n(x)=\{x, \pi(x),\ldots, \pi^{n-1}(x)\}\) ist. Dann gilt aber \(\pi^n(x)=x\) und wir schreiben \(B=\{x, \pi(x),\ldots, \pi^{n-1}(x) \}\) ist eine Bahn von \(\pi \). 
+			Sei \(\pi\in\Sym(X)\). Wir zerlegen \(X\) in sogenannte Bahnen von \(\pi\). Aufgrund der Endlichkeit von \(X\) und Bijektivität von \(\pi\) können \[x, \pi(x), \pi^2\equiv(\pi\circ\pi)(x), \pi^3(x), \ldots\] nicht verschieden sein. Nun sei \(n\in\N\) die kleinste Zahl, sodass \(\pi^n(x)=\{x, \pi(x),\ldots, \pi^{n-1}(x)\}\) ist. Dann gilt aber \(\pi^n(x)=x\) und wir schreiben \(B=\{x, \pi(x),\ldots, \pi^{n-1}(x) \}\) ist eine Bahn von \(\pi\). 
 			
-			Auf der Menge \(B\) operiert \(\pi \) immer wie ein Zyklus \[\sigma_B(x, \pi(x), \ldots, \pi^{n-1}(x)).\] Damit ist \[\pi =\prod\sigma_B.\]
+			Auf der Menge \(B\) operiert \(\pi\) immer wie ein Zyklus \[\sigma_B(x, \pi(x), \ldots, \pi^{n-1}(x)).\] Damit ist \[\pi =\prod\sigma_B.\]
 		\end{proof}
 	\end{satz}
 	
@@ -2966,7 +2966,7 @@ Es ist leicht zu sehen, dass \(V_j^\ast\in\Hom_K(V, K)\). Weiterhin ist \((v_1^\
 			Sei nun \(S:\Sym(X)\to\{-1,1\}\) ein Gruppenhomomorphismus. Dann gilt \(S(x', y')=S(\pi^{-1})\cdot S((x,y))\cdot S(\pi)=S((x,y))\). Nun gibt es aber zwei Fälle:
 			\begin{enumerate}
 				\item \(S(\tau)=1\) für alle Transpositionen \(\tau\), es folgt \(S(\pi) = 1\) für alle \(\pi\in\Sym(X)\)
-				\item \(S(\tau)=-1\), dann gilt \(S(\pi)=(-1)^n\), wenn \(\pi\) als Produkt von \(n\) Transpositionen geschrieben werden kann. Dies ist aber die Signaturabbildung, denn \(n\) ist gerade die Anzahl an Fehlständen von \(\pi \).
+				\item \(S(\tau)=-1\), dann gilt \(S(\pi)=(-1)^n\), wenn \(\pi\) als Produkt von \(n\) Transpositionen geschrieben werden kann. Dies ist aber die Signaturabbildung, denn \(n\) ist gerade die Anzahl an Fehlständen von \(\pi\).
 			\end{enumerate}
 		\end{proof}
 	\end{satz}
@@ -2984,10 +2984,10 @@ Es ist leicht zu sehen, dass \(V_j^\ast\in\Hom_K(V, K)\). Weiterhin ist \((v_1^\
 	
 	\begin{definition}[k-Form]
 		\IN{k-Form}
-		Eine \(k \)-stellige Multilinearform \(\mu:V^k\to K \) heißt \defemph{alternierende Multilinearform} oder \defemph{k-Form}, wenn die beiden folgenden (äquivalenten) Bedingungen erfüllt sind:
+		Eine \(k\)-stellige Multilinearform \(\mu:V^k\to K\) heißt \defemph{alternierende Multilinearform} oder \defemph{k-Form}, wenn die beiden folgenden (äquivalenten) Bedingungen erfüllt sind:
 		\begin{enumerate}
-			\item \(\mu(x_1,\ldots, x_k)=0 \), falls in dem Tupel \(x_1,\ldots, x_k \) ein Vektor zweimal vorkommt
-			\item \(\mu(x_1,\ldots, x_i+\lb x_j,\ldots, x_k)=\mu(x_1,\ldots, x_i,\ldots, x_k)\text{ mit }\lb\in K, 1<i\neq j<k \)
+			\item \(\mu(x_1,\ldots, x_k)=0\), falls in dem Tupel \(x_1,\ldots, x_k\) ein Vektor zweimal vorkommt
+			\item \(\mu(x_1,\ldots, x_i+\lb x_j,\ldots, x_k)=\mu(x_1,\ldots, x_i,\ldots, x_k)\text{ mit }\lb\in K, 1<i\neq j<k\)
 		\end{enumerate}
 		\begin{bemerkung}
 			Die Äquivalenz folgt aus der Multilinearität, denn
@@ -2999,18 +2999,19 @@ Es ist leicht zu sehen, dass \(V_j^\ast\in\Hom_K(V, K)\). Weiterhin ist \((v_1^\
 	\end{definition}
 	
 	\begin{lemma}\hfill
+		\label{lem610}
 		\vspace{-.75cm} % ????????????????????????
 		\begin{enumerate}[label = \roman*)]
-			\item Linearkombinationen von \(k \)-Formen sind wieder \(k \)-Formen.
-			\item Sei \(F_V\to U \) linear, \(\mu \) eine \(k\)-Form auf \(U \). Dann ist \[\mu^F(x_1,\ldots, x_k) = \mu(F(x_1),\ldots, F(x_k)) \] eine Linearform auf \(V \).
+			\item Linearkombinationen von \(k\)-Formen sind wieder \(k\)-Formen.
+			\item Sei \(F_V\to U\) linear, \(\mu\) eine \(k\)-Form auf \(U\). Dann ist \[\mu^F(x_1,\ldots, x_k) = \mu(F(x_1),\ldots, F(x_k)) \] eine Linearform auf \(V\).
 		\end{enumerate}
 		\begin{bemerkung}
-			Mit \(\Lambda^kV \) bezeichnen wir den Vektorraum der \(k \)-Formen auf \(V \). Insbesondere gilt \(\Lambda^1V=V^\ast \).
+			Mit \(\Lambda^kV\) bezeichnen wir den Vektorraum der \(k\)-Formen auf \(V\). Insbesondere gilt \(\Lambda^1V=V^\ast\).
 		\end{bemerkung}
 	\end{lemma}
 	
 	\begin{lemma}
-		Sei \(\mu\in\Lambda^kV \), dann gilt für \(x_1,\ldots x_k\in V \), \(1\leq i<j\leq k \), dass \[\mu(x_1,\ldots, x_i,\ldots, x_j,\ldots, x_k) = -\mu(x_1,\ldots, x_j,\ldots, x_i,\ldots, x_k).\]
+		Sei \(\mu\in\Lambda^kV\), dann gilt für \(x_1,\ldots x_k\in V\), \(1\leq i<j\leq k\), dass \[\mu(x_1,\ldots, x_i,\ldots, x_j,\ldots, x_k) = -\mu(x_1,\ldots, x_j,\ldots, x_i,\ldots, x_k).\]
 		\begin{proof}
 			\begin{alignat*}{2}
 				\mu(x_1,\ldots, x_i, \ldots, x_j, \ldots, x_k) 	&=  &&\mu(x_1, \ldots,  x_i, \ldots, x_j+x_i, \ldots x_k)\\
@@ -3020,25 +3021,154 @@ Es ist leicht zu sehen, dass \(V_j^\ast\in\Hom_K(V, K)\). Weiterhin ist \((v_1^\
 			\end{alignat*}
 		\end{proof}
 		\begin{bemerkung}
-			Angenommen, die \hyperref[lem142]{Charakteristik} eines Körpers \(\chi(K)\neq 2 \), dann ist jede Multilinearform mit der Eigenschaft aus dem Lemma auch alternierend, denn
+			Angenommen, die \hyperref[lem142]{Charakteristik} eines Körpers \(\chi(K)\neq 2\), dann ist jede Multilinearform mit der Eigenschaft aus dem Lemma auch alternierend, denn
 			\begin{align*}
 				\mu(x_1, \ldots, x_i, \ldots, x_i, \ldots, x_k) =	& -\mu(x_1, \ldots, x_i, \ldots, x_i, \ldots, x_k)\\
 														\implies 0=	&\  \mu(x_1, \ldots, x_i, \ldots, x_i, \ldots, x_k)
 			\end{align*}
-			für \(\chi(K)\neq 2 \)
+			für \(\chi(K)\neq 2\)
 		\end{bemerkung}
 	\end{lemma}
 	
 	\begin{korrolar}
-		Sei \(\mu \) eine \(k \)-Form auf \(V \), \(\tau:\{1,\ldots, k\}\to\{1,\ldots, k\} \) und \(x_1,\ldots, x_k\in V \), dann gilt: \[\mu(x_{\tau(1)},\ldots, x_{\tau(k)}) = \sign(\tau)\cdot \mu(x_1,\ldots, x_k), \] wobei \(\sign(\tau)=0 \), falls \(\tau\notin\Sym(\{1,\ldots, k\})\).
+		Sei \(\mu\) eine \(k\)-Form auf \(V\), \(\tau:\{1,\ldots, k\}\to\{1,\ldots, k\}\) und \(x_1,\ldots, x_k\in V\), dann gilt: \[\mu(x_{\tau(1)},\ldots, x_{\tau(k)}) = \sign(\tau)\cdot \mu(x_1,\ldots, x_k), \] wobei \(\sign(\tau)=0\), falls \(\tau\notin\Sym(\{1,\ldots, k\})\).
 		\begin{proof}
-			Ist \(\tau \) nicht bijektiv, so existiert ein \(i\neq j \) mit \(\tau(i)=\tau(j) \), also \(\mu(x_{\tau(1)},\ldots, x_{\tau(k)}) = 0 \). Sonst ist \(\tau \) ein Produkt von Transpositionen, von welchen jede ein Vorzeichen \(-1 \) abgibt.
+			Ist \(\tau\) nicht bijektiv, so existiert ein \(i\neq j\) mit \(\tau(i)=\tau(j)\), also \(\mu(x_{\tau(1)},\ldots, x_{\tau(k)}) = 0\). Sonst ist \(\tau\) ein Produkt von Transpositionen, von welchen jede ein Vorzeichen \(-1\) abgibt.
 		\end{proof}
 	\end{korrolar}
 	
+	\begin{satz}
+		\label{satz613}
+		Sei \((v_1, \ldots, v_n)\) eine Basis von \(V\). Dann ist \(n\) festgelegt durch die Werte \(\mu\big(v_{i_1},\ldots, v_{i_k}\big)\) für alle \(1\leq i_1 < i_2 < \ldots < i_k \leq n\).
+		\begin{proof}
+			Um \(\mu\) eindeutig zu bestimmen, reicht es -- wie bei den linearen Abbildungen auch -- aus, die Werte auf der Basis zu kennen, also die \(\al_j =  \mu(v_{j_1}, \ldots, v_{j_k})\), mit \(j_k\in\{1,\ldots, n\}\).\\
+			
+			Falls die \(j_i\) paarweise verschieden sind, so können wir diese mit einer Permutation \(\pi\) aufsteigend sortiert aufschreiben als \(i_j,\ldots, i_k\) und erhalten \(a_j = \sign(\pi)\cdot\mu(v_{i_1}, \ldots, v_{i_k})\). \\
+			
+			Sind die \(j_i\) nicht paarweise verschieden, so gilt automatisch \(a_j=0\).
+		\end{proof}
+	\end{satz}
+	
 	\begin{korrolar}
-		Sei \((v_1, \ldots, v_n) \) eine Basis von \(V \). Dann ist \(n \) festgelegt durch die Werte \(\mu\big(v_{i_1},\ldots, v_{i_k}\big) \) für alle \(1\leq i_1 < i_2 < \ldots < i_k \leq n\).
+		Falls \(n<k\), so ist 0 die einzige \(k\)-Form auf \(V\), falls \(\dim_K(V)=n\).
 	\end{korrolar}
+	
+\section{Determinanten}
+
+	\begin{satz}
+		Sei \(v_1,\ldots, v_n\) eine Basis von \(V\), \(V\) ein \(K\)-Vektorraum und \(\beta\in K\). Dann existiert genau eine \(n\)-Form \(\mu\) auf \(V^n\) mit \(\mu(v_1,\ldots, v_n) = \beta\).
+		\begin{proof}
+			Eindeutigkeit folgt mit \(k=n\) aus \hyperref[satz613]{Satz \ref*{satz613}}. Wir konstruieren nun \(\mu\) mit den richtigen Eigenschaften, also \(\mu(v_{\tau(1)}, \ldots, v_{\tau(n)}) = \sign(\tau)\beta\) für alle \(\tau:\{1,\ldots, n\}\to \{1, \ldots, n\}\). Wir betrachten für ein festes \(\pi\in\Sym(\{1,\ldots, n\})\) die Multilinearform \(\nu(x_1,\ldots, x_n) = \mu(x_{\pi(1)},\ldots, x_{\pi(n)})\). Es gilt:
+			\begin{align*}
+			\nu(v_{\tau(1)},\ldots, v_{\tau(n)})	&= \mu(v_{\tau(\pi(1))},\ldots, v_{\tau(\pi(n))})\\
+													&= \sign(\tau\circ\pi)\cdot\beta \\
+													&= \sign(\tau)\sign(\pi)\beta
+			\end{align*}
+			Damit folgt aber, dass \(\mu(x_{\pi(1)},\ldots, x_{\pi(n)}) = \sign(\pi)\mu(x_1,\ldots, x_n)\). Falls also \(\chi(K)\neq 2\), so ist \(\mu\) alternierend. \\
+			
+			Ist \(\chi(K)=2\), müssen wir zeigen, dass \(\mu\neq 0\), falls zweimal der gleiche Vektor eingesetzt wird. Wir nehmen der Einfachheit halber an, dass dies im ersten und zweiten Argument geschieht. Zu zeigen ist also \(\mu(a,a, v_{i_3},\ldots, v_{i_n}) = \mu(a,a,\ldots) = 0\).
+			
+			Es sei \(a=\sum_{j=1}^{n} \lb_jv_j\), also 
+			\[
+				\mu(a,a,\ldots) = \sum_{j=1}^{n}\lb_j^2\mu(v_j, v_i,\ldots) + \sum_{i<j} \lb_i\lb_j \mu(v_i, v_j,\ldots) + \lb_i\lb_j\mu(v_j, b_i,\ldots) = 0,
+			\]
+			denn \(\mu(v_j, v_j,\ldots)=0\) und \(\mu(v_i,v_j,\ldots) + \mu(v_j, v_i,\ldots) = 0\).
+		\end{proof}
+	\end{satz}
+	
+	\begin{korrolar}
+		Sei \(V\) ein \(K\)-Vektorraum mit \(\dim_K(V)=n\) und \(\mu\) sei eine nicht-triviale (d.h. \(\mu\) ist nicht die Nullabbildung) \(n\)-Form auf \(V\). \(\nu\) sei eine weitere \(n\)-Form auf \(V\). Dann existiert ein \(\beta\in K\), sodass \(\nu=\beta\mu\).
+	\end{korrolar}
+	
+	\begin{definition}[Standard-$n$-Form]
+		\IN{Standard-$n$-Form}
+		Sei \((e_1,\ldots, e_n)\) die Standardbasis des \(K^n\). Dann heißt die eindeutige \(n\)-Form \(\mu_0\) mit \(\mu_0(e_1,\ldots, e_n) = 1\) \defemph{Standard-\(n\)-Form des} \(K^n\).
+	\end{definition}
+	
+	\begin{definition}[Determinante]
+		\IN{Determinante}
+		Es sei \(A\in\Mat_K(n\times n)\) mit Spalten \(a_j\). Dann ist \[\det(A) = \mu_0(a_1,\ldots, a_n)\] die \defemph{Determinante} von \(A\).
+		\begin{bemerkung}
+			In anderen Worten: Die Determinante von \(A\) ist eine alternierende Form in den Spalten von \(A\), festgelegt durch \(\det(\En) = 1\).
+		\end{bemerkung}
+	\end{definition}
+	
+	\begin{lemma}[Leibniz-Formel]
+		\IN{Leibniz-Formel}
+		Sei \((a_{ij})_{i,j=1,\ldots, n}\), dann gilt \[\hspace{1.5cm}\det(A) = \sum_{\pi\in\mathrm{S}_n}\sign(\pi)\prod_{j=1}^{n}a_{\pi(j),j},\quad \text{mit \(\mathrm{S}_n\equiv\Sym(\{1,\ldots, n\})\)}.\]
+		\begin{proof}
+			Dies ist eine Konkretisierung von \hyperref[satz613]{Satz \ref*{satz613}} für \(k=n\). Wir rechnen:
+			\begin{align*}
+				\det(A) &= \mu_0(v_1,\ldots, v_n)\\
+						&= \mu_0\left({\textstyle \sum_{i=1}^{n}a_{i1}e_i,\ldots, \sum_{i=1}^{n}a_{in}e_i}\right)\\
+						&= \sum_{\tau} \mu_0(a_{\tau(1),1}e_{\tau(1)},\ldots, a_{\tau(n), n}e_{\tau(n)})\\
+						&= \sum_{\tau}\prod_{j=1}^{n}a_{\tau(j), j}\mu_0(e_{\tau(1)},\ldots, e_{\tau(n)})\\
+						&= \sum_{\tau}\prod_{j=1}^{n}a_{\tau(j), j}\sign(\tau)\\
+						&=  \sum_{\pi\in\mathrm{S}_n}\sign(\pi)\prod_{j=1}^{n}a_{\pi(j),j}
+			\end{align*}
+		\end{proof}
+		
+		
+		\textbf{Beispiele:}
+		\begin{enumerate}[label=\roman*)]
+			\item \(n=1\): \(\det((a))=a\)
+			\item \(n=2\): \[\det\ve{a_{11} & a_{12}\\a_{21} & a_{22}} = 1\cdot a_{11}\cdot a_{22}+(-1)\cdot a_{21}\cdot a_{12}\]
+			\item \(n=3\):
+			\[\hspace{.7cm}
+				\det\ve{a_{11} & a_{12} & a_{13}\\a_{21} & a_{22} & a_{23}\\a_{31} & a_{32} & a_{33}} = 
+				\begin{array}{c}
+					\phantom{-} a_{11}a_{22}a_{33} + a_{21}a_{32}a_{13} + a_{31}a_{12}a_{23}\\
+					- a_{21}a_{12}a_{33}-a_{11}a_{32}a_{23} -a_{31}a_{22}a_{13}
+				\end{array}
+			\]
+			\item Eine obere Dreiecksmatrix hat die Form 
+			\IN{Dreicksmatrix}
+			\[\hspace{3cm}
+			\begin{pmatrix}
+				a_{11} 	& a_{12} & a_{13} & \ldots   & a_{1n}  \\
+						& a_{22} & a_{23} & \ldots   & a_{2n}  \\
+						&		 & \ddots  & \ddots  & \vdots   \\
+						&\makebox(0,0){\text{\huge0}}&         & \ddots & a_{n-1\; n}\\
+						&        &         &         & a_{nn}
+			\end{pmatrix},\quad\text{ also \(a_{ij}=0\) für \(i>j\).}
+			\]
+			Es gilt dann: \[\det(A) = \prod_{j=1}^{n}a_{jj}\]
+			\item Aus den Übungen kennen wir die Elementarmatrizen \(E_i^\lb, E_{ij}^\lb\) (zu den Zeilenoperationen \(Z_i^\lb, Z_{ij}^\lb\)). Für die Determinanten gilt dann: \[\det(E_i^\lb) = \lb,\quad \det(E_{ij}^\lb) = 1\]
+			\item Für \(A\in\Mat_K(m\times m), B\in\Mat_K(m\times n), C\in\Mat_K(n\times n)\) ist
+			\[\det\ve{A & B\\ 0 & C} = \det(A)\cdot\det(C),\] analog zur obigen Dreiecksmatrix. 
+		\end{enumerate}
+	\end{lemma}
+	
+	\begin{satz}\( \)\vspace{-.5cm} %??????????????????????
+		\begin{enumerate}
+			\item \(\det(A\cdot B) = \det(A)\cdot\det(B)\) für \(A,B\in\Mat_K(n\times n)\)
+			\item \(\det(A) = 0\iff A\text{ singulär}\)
+		\end{enumerate}
+		\begin{bemerkung}
+			Folgende Aussagen sind äquivalent:
+			\begin{enumerate}[leftmargin=6cm]
+				\item \(A\) ist singulär
+				\item \(A\) ist nicht regulär
+				\item \(A\) ist nicht invertierbar
+				\item \(F_A\) ist nicht bijektiv
+			\end{enumerate} 
+		\end{bemerkung}
+		\begin{proof}
+			\begin{enumerate}
+				\item Seien \(b_1,\ldots, b_n\) die Spalten von \(B\). Wir setzen \(\mu(b_1,\ldots, b_n) = \det(Ab_1,\ldots, Ab_n) = \det(A\cdot B)\). Dann ist laut \hyperref[lem610]{Lemma \ref*{lem610}} \(\mu\) eine \(n\)-Form auf \(K^n\); aber \(\mu(e_1,\ldots, e_n) = \det(Ae_1,\ldots, Ae_n) = \det(a_1,\ldots, a_n) = \det(A)\). Also gilt \(\mu=\det(A)\mu_0\) und damit ist \(\det(A\cdot B) = \det(A)\mu_0(b_1,\ldots, b_n)=\det(A)\cdot\det(B)\).
+				\item Ist \(A\) regulär, dann gilt \(AA^{-1}=\En\), also \(\det(A^{-1})\cdot\det(A)=1\), folglich ist \(\det(A)\neq 0\).
+				
+				Ist \(A\) nicht regulär, sind die Spaltenvektoren linear abhängig, die \(n\)-Form "`\(\det\)"' ist also gleich Null.
+			\end{enumerate}
+		\end{proof}
+	\end{satz}
+	
+	\begin{satz}\( \)\vspace{-.5cm} %??????????????????????
+		\begin{enumerate}
+			\item \(\det(A^\top) = \det(A)\) für \(A\in\Mat_K(n\times n)\)
+			\item "`\(\det\)"' ist eine \(n\)-Form in den Zeilen von \(A\)
+		\end{enumerate}
+	\end{satz}
 	
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
