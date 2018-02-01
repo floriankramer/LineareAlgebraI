@@ -28,13 +28,13 @@
 	arrow style plus/.style={midway,sloped,fill=white},
 }
 % tikz dependencies:
-\usetikzlibrary{matrix,arrows,decorations.pathmorphing, decorations.markings, positioning}
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing, decorations.markings, positioning, tikzmark}
 
 % page size & margins:
 \usepackage[a4paper, top = 2cm, left = 2.25cm, right = 2.25cm, bottom = 2cm]{geometry}
 
 % defines index commands with hyperref
-\makeindex[columns=3, title=Stichwortverzeichnis, intoc]
+\makeindex[columns=3, title=Stichwortverzeichnis, intoc=true,options={-s index_style.ist}]
 \newcommand{\BH}[1]{\textbf{\hyperpage{#1}}}
 \newcommand{\IN}[1]{\index{#1|BH}}
 
@@ -88,6 +88,10 @@
 \DeclareMathOperator{\M}{M}
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\adj}{adj}
+\DeclareMathOperator{\vol}{vol}
+\DeclareMathOperator{\PE}{PE}
 
 % increase line height
 \renewcommand{\baselinestretch}{1.2}
@@ -3168,6 +3172,171 @@ Es ist leicht zu sehen, dass \(V_j^\ast\in\Hom_K(V, K)\). Weiterhin ist \((v_1^\
 			\item \(\det(A^\top) = \det(A)\) für \(A\in\Mat_K(n\times n)\)
 			\item "`\(\det\)"' ist eine \(n\)-Form in den Zeilen von \(A\)
 		\end{enumerate}
+		
+		\begin{proof}
+			Es gilt
+			\[
+			\prod_{i=1}^{n}a_{i,\pi(i)} = \prod_{i=1}^{n}a_{\pi^{-1}(i)},
+			\] 
+			damit ist
+			\begin{align*}
+				\det(A^\top)	&= \sum_{\pi}\sign(\pi)\cdot\prod_{i=1}^{n}a_{i,\pi(i)}\\
+								&= \sum_{\pi}\sign(\pi)\prod_{i=1}^{n}a_{\pi^{-1}(i), i}\\
+								&= \sum_{\pi}\sign(\pi)\prod_{i=1}^{n}a_{\pi(i), i}\\
+								&= \det(A).
+			\end{align*}
+		\end{proof}
+		
+		\begin{bemerkungen}
+			\begin{enumerate}
+				\item\IN{Gruppe!spezielle lineare} \(\SL_K(n)\equiv\{A\in\GL_K(n):\det(A)=1\}\), die \defemph{spezielle lineare Gruppe}, ist eine Gruppe
+				\item Man schreibt oft \(\det(A)=|A|\)
+			\end{enumerate}
+		\end{bemerkungen}
+	\end{satz}
+	
+\section{Der Laplacesche Entwicklungssatz}
+	
+	\begin{satz}[Cramersche Regel]
+		\IN{Cramersche Regel}
+		Es gelte \(Ax=b\), mit \(A\in\GL_K(n)\), d.h. \(x\in K^n\) ist die einzige Lösung des linearen Gleichungssystems. Dann gilt: \[x_j = \frac{1}{\det(A)} \det(a_1, a_2, \ldots, a_{j-1}, b, a_{j+1}, \ldots, a_n)\]
+		
+		\begin{proof}
+			Es gilt \(a_1x_1+a_2x_2+\ldots+a_nx_n = b\), also ist
+			\begin{align*}
+				\det(a_1,\ldots, a_{j-1}, b, a_{j+1}, \ldots, a_n) 	&= \det(a_1,\ldots, a_{j-1}, {\textstyle\sum_{i=1}^{n}x_ia_i}, a_{j+1}, \ldots, a_n)\\
+																	&= \sum_{i=1}^{n}x_i\det(a_1,\ldots, a_{j-1}, a_i, a_{j+1}, \ldots, a_n)\\
+																	&= x_j\det(A).
+			\end{align*}
+		\end{proof}
+		
+		\emph{Notation}: Es sei \(A\in\Mat_K(n\times n)\). Mit \(A_{ij}\in\Mat_K((n-1)\times(n-1)\) bezeichnen wir die Matrix, die aus \(A\) entsteht, wenn die \(i\)-te Zeile und die \(j\)-te Spalte entfernt wird.
+	\end{satz}
+	
+	\begin{satz}[Laplacescher Entwicklungssatz]
+		\label{satz623}
+		\IN{Laplacescher Entwicklungssatz}
+		Es sei \(A\in\Mat_K(n\times n)\), \(j_0\in\{1,\ldots, n\}\). Dann gilt \[\det(A) = \sum_{i=1}^{n}(-1)^{i+j_0}\cdot\det(A_{ij_0})\cdot a_{ij_0}.\]
+		
+		\begin{proof}
+			Wir schreiben \[\det(A) = \det(\tikzmark{column1}(a_1,\ldots, a_n)\tikzmark{column2})\quad\text{ und }\quad a_{j_0}=\sum_{i=1}^{n}a_{ij_0}\tikzmark{base}\ee_i,\]
+			\begin{tikzpicture}[remember picture,overlay]
+				\draw[decorate,decoration={brace,mirror}, gray]
+				([yshift=-3pt, xshift=1pt] pic cs:column1) -- node (temp) {} ([yshift=-3pt, xshift=-1pt]pic cs:column2);
+				\draw[->,>=latex, gray] (temp) |- ++(-15pt,-10pt) node[left] {Spalten von $A$};  
+				\draw[->,>=latex, gray] ([shift={(3pt,-4pt)}]pic cs:base) |- ++(10pt,-10pt) node[right] {Standardbasis};
+			\end{tikzpicture}
+			also
+			\[\det(a_1,\ldots, a_{j_0},\ldots, a_n) = \sum_{i=1}^{n}a_{ij}\det(a_1,\ldots, e_i,\ldots, a_n).\]
+			Wir führen Permutationen \((1,\ldots, j_0)\) in den Spalten und \((1,\ldots, i)\) in den Zeilen aus, sodass die Matrix die Form
+			\[A'=
+			\begin{pmatrix}
+				\multicolumn{1}{c|}{1} 	&\hspace{.5cm}	& \ast 	&\hspace{.5cm}\tikzmark{row}\\\cline{1-4}
+				\multicolumn{1}{c|}{
+				\begin{matrix}0\\\vdots\\0
+				\end{matrix}}			&				&\makebox(0,0){\text{\Large $A_{ij_0}$}} &\tikzmark{remainder}\\
+			\end{pmatrix}\phantom{A'=}
+			\]
+			\begin{tikzpicture}[remember picture,overlay]
+				\draw ([shift={(8pt, 2pt)}]pic cs:row) node[right] {Zeile};
+				\draw ([shift={(16pt, 5pt)}]pic cs:remainder) node[right] {Rest};
+			\end{tikzpicture}
+			besitzt. Es gilt
+			\begin{align*}
+				\det(a_1,\ldots, e_i,\ldots, a_n)	&= (-1)^{(i-1)+(j_0-1)}\cdot\det(A')\\
+													&= (-1)^{i+j_0}\cdot\det(A_{ij_0}).
+			\end{align*}
+			Dies ergibt dann die Behauptung.
+		\end{proof}
+	\end{satz}
+	
+	\begin{definition}[Adjunkte Matrix]
+		\IN{Matrix!Adjunkte}
+		Es sei \(A\in\Mat_K(n\times n)\). Wir definieren die \defemph{adjunkte}, bzw. \defemph{adjungierte Matrix} zu \(A\) als Matrix 
+		\begin{align*}
+			\hspace{3cm}\adj(A)		&= (g_{ij})\\
+			\text{und}\quad g_{ij}	&=(-1)^{i-j}A_{ij}\quad\text{mit}\quad i, j=1,\ldots, n.
+		\end{align*}
+	\end{definition}
+	
+	\begin{satz}[Cramersche Regel Teil II]
+		Es gilt \[\adj(A)\cdot A = \det(A)\cdot\En.\]
+		
+		\begin{proof}
+			Es sei \(c_j\) die \(j\)-te Zeile von \(\adj(A)\). Mit \hyperref[satz623]{Laplace} folgt für \(b\in\Mat_K(n\times 1)\) --- also einen Spaltenvektor, dass 
+			\begin{align*}
+				c_j\cdot b	&= \sum_{i=1}^{n}(c_j)_ib_i\\
+							&= \det(a_1,\ldots, a_{j-1}, b, a_{j+1},\ldots, a_n)\\
+							&= \delta_{ij}\det(A) = 
+							\begin{cases}
+								\det(A),	&\text{falls $i=j$}\\
+								0,			&\text{sonst}
+							\end{cases}.
+			\end{align*}
+			Damit folgt die Behauptung, denn mit \(\adj(A)\cdot A = (m_{ij})\) gilt \(m_{ij} = c_j\cdot a_i\).
+		\end{proof}
+		\vspace{.2cm}		
+		\begin{bemerkungen}
+			\begin{enumerate}[label = \roman*)]
+				\item Für reguläre \(A\) gilt also \(A^{-1} = \frac{\adj(A)}{\det(A)}\), zum Beispiel:
+				\[
+				\begin{pmatrix}
+					a	& b\\
+					c	& d
+				\end{pmatrix}^{-1}
+				 = \frac{1}{ad-cb}\cdot
+				\begin{pmatrix}
+					d	& -b\\
+					-c	& a
+				\end{pmatrix}
+				\]
+				\item Man sieht ebenso, dass \(A\cdot\adj(A) = \det(A)\cdot\En\).
+			\end{enumerate}
+		\end{bemerkungen}
+	\end{satz}
+	
+\section{Volumen und Endomorphismen}
+Für \(a_1,\ldots, a_n\in\R\) sei \(\vol(a_1,\ldots, a_n)\) das Volumen des Objekts \(\PE(a_1,\ldots, a_n) = \{\lb_1a_1+\ldots+\lb_na_n:0\leq\lb_j\leq1,j=1,\ldots,n\}\).
+
+	\begin{satz}[Volumen eines Parallelepipeds]
+		Für das Volumen eines Parallelepipeds gilt \(\vol(a_1,\ldots, a_n) = |\det(a_1,\ldots, a_n)|\).\\
+		
+		\pagebreak[2]\textit{Beweisidee}:
+		\begin{enumerate}[label = \roman*)]
+			\item Sind \((a_1,\ldots, a_n)\) linear abhängig, so gilt \(\vol(a_1,\ldots, a_n) = 0\).
+			\item \(\vol(\ee_1,\ldots, \ee_n) = 1\)
+			\item Multilinearität ist klar.
+		\end{enumerate}
+	\end{satz}
+	
+\begin{bemerkung}
+	Es sei \(\baseb = (v_1,\ldots, v_n)\) eine Basis von \(V\). Wir sagen, dass \(B\) \defemph{positiv orientiert} ist, falls \(\det(v_1,\ldots, v_n) > 0\).
+\end{bemerkung}
+
+	\begin{definition}[Volumenform]\( \)\vspace{-.5cm} %?????????????????
+		\IN{Volumenform}
+		\begin{enumerate}[label = \roman*)]
+			\item Es sei \(V\) ein \(n\)-dimensionaler \(K\)-Vektorraum. Eine \defemph{Volumenform} ist eine nicht-triviale \(n\)-Form auf \(V\).
+			\item Sei \(\mu\) eine Volumenform auf \(V\), \(F\in\End_K(V)\). Dann ist \(\det(F)\) durch \(\mu^F = \det(F)\cdot\mu\) definiert.
+		\end{enumerate}
+	\end{definition}
+	
+	\begin{satz}
+		Im \(K^n\) gilt: \[\det(F_A) = \det(A)\]
+		\begin{proof}
+			Spalten von \(A\) sind Bilder der Standardbasis, also gilt 
+			\begin{align*}
+				\det(A)	&=\mu_0(F_A(\ee_1),\ldots, F_A(\ee_n))\\
+						&= \det{(F_A)}.
+			\end{align*}
+		\end{proof}
+		
+		\begin{bemerkungen}
+			\begin{enumerate}[label = \roman*)]
+				\item Es folgt damit auch, dass \(\det(F\circ G) = \det(F)\cdot\det(G)\).
+				\item Es gilt auch, dass \(\det(F) = \det(\M(\basea, F, \basea))\), falls \(\basea\) eine Basis von \(V\) ist, denn die Determinante ist unter dem Basiswechsel invariant.
+			\end{enumerate}
+		\end{bemerkungen}
 	\end{satz}
 	
 \newpage
