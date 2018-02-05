@@ -3364,6 +3364,187 @@ Für \(a_1,\ldots, a_n\in\R\) sei \(\vol(a_1,\ldots, a_n)\) das Volumen des Obje
 		\end{bemerkungen}
 	\end{satz}
 	
+\chapter{Lineare Algebra II - Vorschau}
+\textit{Anmerkung: Ab dem 05.02.2018 wird die Vorlesung von Prof. Dr. Martin-Pizarro gehalten. Inhaltlich soll dabei eine Vorschau der Veranstaltung Lineare Algebra II, die im Sommersemester '18 stattfinden soll, gegeben werden. Aufgrund des Dozentenwechsels können u.U. Konflikte mit der bisher üblichen Notation auftreten.}\\
+
+	Sei \(V\) ein endlichdimensionaler Vektorraum über \(K\), \(F:V\to V\) eine lineare Abbildung, \(B = (v_1,\ldots, v_n)\) eine Basis von \(V\). Stelle nun \(F\) bezüglich der Basis \(B\) dar: \[F(v_j)=\sum a_{ij}v_j \tag*{$1\leq j\leq n$}\]
+	Die zugehörige Matrix ist dann 
+	\[A = 
+	\begin{pmatrix}
+		a_{11}	& \dots	& a_{1n}\\
+		\vdots	&\ddots	& \vdots\\
+		a_{n1} 	&\dots	& a_{nn}
+	\end{pmatrix}.\]
+	Definiere nun \(\det(F) = \det(A)\).
+	\begin{bemerkung}
+		\(\det(F)\) hängt nicht von der Basis ab: Gegeben \(B'\) eine andere Basis von \(V\). Sei \(C\) die Basiswechselmatrix von \(B'\) nach \(B\). Die Darstellungsmatrix von \(F\) bezüglich der Basis \(B'\) ist \(C'\cdot A \cdot C\). Es gilt: \[\det(C'\cdot A \cdot C) = \det(C') \cdot\det(A)\cdot\det(C) = \det(C)^{-1}\det(A)\det(C) = \det(A)\]
+	\end{bemerkung}
+	
+	\begin{definitionn}
+		Seien \(V\) ein \(K\)-Vektorraum, \(U, W\) Untervektorräume bezüglich \(V\). \(V\) ist die direkte Summe von \(U\) und \(W\): \(V=U\oplus W\), falls \(V = U + W = \Span(U\cup W)\) und \(U\cap W = \{0\}\). 
+		
+		Äquivalent dazu: Falls jeder Vektor \(v\) aus \(V\) sich eindeutig schreiben lässt als \(v = u + w\) (mit \(u\in U, w\in W\)). 
+		
+		Allgemeiner: Gegeben eine Familie \(\{U_i\}_{i\in I}\) von Untervektorräumen, ist \[V = \bigoplus_{i\in I}U_i,\quad\text{falls}\]
+		\begin{enumerate}
+			\item \(V = \sum_{i\in I}U_i = \Span\left(\bigcup_{i\in I}U_i\right)\)
+			\item \(\forall i\in I: U_i\cap \left(\sum_{j\in I}U_j\right) = \{0\}\).
+		\end{enumerate}
+		Äquivalent dazu: Falls jeder Vektor \(v\in V\) sich \emph{eindeutig} schreiben lässt als \(v=\sum_{i\in I_0}\tikzmark{marker1} u_i\) mit \(I_0\subset I\).
+		\begin{tikzpicture}[remember picture,overlay]
+			\draw ([shift={(10pt, 10pt)}] pic cs:marker1) node[above, rotate = 90] {$\in$};
+			\draw ([shift={(4pt, 12pt)}] pic cs:marker1) node[above] {$U_i$};
+		\end{tikzpicture}
+		\begin{proof}
+			\begin{description}
+				\item["`\(\implies\)"'\textnormal:] Es ist klar, dass jeder Vektor aus \(V\) sich als Linearkombination der Vektoren der Familie \(\{u_i\}_{i\in I}\) schreiben lässt. Angenommen: \(v = \sum_{i\in I_0} u_i = \sum_{i\in \widetilde{I}_0}u_j',\ I_0, \widetilde{I}_0\subset I\). oBdA können wir annehmen, dass \(I_0 = \widetilde{I}_0\): \(U_i\ni \sum_{i\in I_0}u_i = v = \sum_{j\in I_0}v_j'\).
+				
+				Sei \(i\in I_0\), so folgt: \[u_i'\tikzmark{marker2}-u_i = \underbrace{\sum_{\substack{j\in I_0\\j\neq i}}\underbrace{u_j-u_j'}_{\in U_j}}_{\displaystyle\Span\left(\bigcup_{\substack{j\in I_0\\j\neq i}}u_j\right)\tikzmark{marker3}}\]
+				\begin{tikzpicture}[remember picture,overlay]
+					\draw ([shift={(7pt, -6pt)}] pic cs:marker2) node[rotate = 270] {$\in$};
+					\draw ([shift={(8pt, -16pt)}] pic cs:marker2) node {$U_i$};
+					\draw ([shift={(0pt, 4pt)}] pic cs:marker3) node[right] {$\stackrel{2.}{\implies}u_j'-u_i=0$};
+				\end{tikzpicture}
+				Die Formulierung ist somit eindeutig.
+				\item["`\(\impliedby\)"'\textnormal:]
+				\begin{enumerate}
+					\item[1.] Ist klar, da jedem Vektor \(v\in V\) im von der Familie \(\{u_i\}_{i\in I}\) erzeugten Vektorraum liegt.
+					\item[2.] Sei \(v\in U_i\cap \sum_{\substack{j\in I\\i\neq j}}U_j\implies \exists I_0\subset I: \tikzmark{marker4} v=\sum_{\substack{j\in I_0\\i\neq j}}v_j\). Es gilt:
+					\begin{align*}
+						v	&= \tikzmark{marker5}v+\sum_{\substack{j\in I_0\\j\neq i}}\tikzmark{marker6}0\\
+							&= \tikzmark{marker7}0+\sum_{\substack{j\in I_0\\j\neq i}}\tikzmark{marker8}u_j\implies v=0
+					\end{align*}
+					\begin{tikzpicture}[remember picture,overlay]
+						\draw ([shift={(3pt, -6pt)}] pic cs:marker4) node[rotate = 270] {$\in$};
+						\draw ([shift={(4pt, -16pt)}] pic cs:marker4) node {$U_i$};
+						\draw ([shift={(3pt, -6pt)}] pic cs:marker7) node[rotate = 270] {$\in$};
+						\draw ([shift={(4pt, -16pt)}] pic cs:marker7) node {$U_i$};
+						\draw ([shift={(4pt, -6pt)}] pic cs:marker8) node[rotate = 270] {$\in$};
+						\draw ([shift={(5pt, -16pt)}] pic cs:marker8) node {$U_j$};
+						\draw ([shift={(3pt, -6pt)}] pic cs:marker5) node[rotate = 270] {$\in$};
+						\draw ([shift={(4pt, -16pt)}] pic cs:marker5) node {$U_i$};
+						\draw ([shift={(3pt, -6pt)}] pic cs:marker6) node[rotate = 270] {$\in$};
+						\draw ([shift={(4pt, -16pt)}] pic cs:marker6) node {$U_j$};
+					\end{tikzpicture}
+				\end{enumerate}
+			\end{description}
+		\end{proof}
+	\end{definitionn}
+	
+	\begin{bemerkung}
+		Falls \(V=\bigoplus_{i\in I}U_i\), dann besitzt \(V\) eine Basis, welche aus der Vereinigung der Basen \(B_i\) von \(U_i\) besteht.
+		\begin{proof}
+			Es ist klar, dass die Menge \(\bigcup_{i\in I}B_i\) ein Erzeugendensystem für \(V\) ist. 
+			\begin{align*}
+				\tikzmark{marker9}\lb_1^iv_1^i + \ldots + \lb_n^iv_n^i + \ldots	\tikzmark{marker10}&= 0\quad\text{mit}\quad B_i=(v_1^i, \ldots, v_n^i)\\\\
+				\lb_1^iv_1^i + \ldots + \lb_n^iv_n^i	&\in \textstyle\sum_{\substack{j\in I\\i\neq j}}U_j\\
+				\stackrel{2.}{\implies}\lb_1^iv_1^i + \ldots + \lb_n^iv_n^i	&= 0\\
+			\overset{v_i\text{ lin.}}{\underset{\text{unabh.}}{\implies}} \lb_1^i, \ldots, \lb_n^i	&= 0
+			\end{align*}
+			\begin{tikzpicture}[remember picture,overlay]
+				\draw[decorate,decoration={brace,mirror}]
+				([yshift=-3pt, xshift=1pt] pic cs:marker9) -- node (temp) {} ([yshift=-3pt, xshift=-1pt]pic cs:marker10);
+				\draw[->,>=latex] (temp) |- ++(-15pt,-10pt) node[left, yshift = -4.5pt] {$\sum_{\substack{j\in I\\i\neq j}}U_j\ni$};
+			\end{tikzpicture}
+		\end{proof}
+	\end{bemerkung}
+	
+	\begin{definitionn}[Eigenwerte, Eigenvektoren]
+		\IN{Eigenwert}
+		\IN{Eigenvektor}
+		Sei \(V\) ein \(K\)-Vektorraum, \(F:V\to V\) eine lineare Abbildung. Ein nicht-trivialer Vektor \(v\in V\) ist ein \defemph{Eigenvektor} für \(F\), falls es ein \(\lb\in K\) gibt, mit \(F(v)=\lb v\). Ein Element \(\lb\) aus \(K\) ist ein \defemph{Eigenwert} von \(F\), falls es einen nicht-trivialen Vektor \(v\in V\) gibt mit \(F(v)=\lb v\).\\
+		
+		\textbf{Beispiele:}
+		\begin{enumerate}
+			\item Jedes nicht-triviale Element von \(\ker(F)\) ist Eigenvektor zum Eigenwert \(0\).
+			\item Sei \(F:\R^2\to\R^2, (x,y)\mapsto(-y,x)\). Die Darstellung als Matrix lautet dann
+			
+			\[{\renewcommand*{\arraystretch}{1.25}
+			\begin{pmatrix}
+				0	& -1\\
+				1	& \phantom{-}0\\
+			\end{pmatrix}}
+			\]
+			Frage: Hat \(F\) Eigenwerte? Es soll gelten: \((-y, x) = F(x, y) = \lb(x, y)\)
+			\begin{alignat*}{2}
+				\implies -y	&= \lb x\qquad	&&\text{(I)}\\
+						  x	&= \lb y		&&\text{(II)}
+			\end{alignat*}
+			\[\text{(I)}\cdot\text{(II)} = -y\tikzmark{marker11}x = \lb^2 x\tikzmark{marker12}y\implies\lb^2=-1\implies\lb\notin\R\]
+			\begin{tikzpicture}[remember picture,overlay]
+				\draw[->,>=latex] ([shift={(0pt,-4pt)}]pic cs:marker11) |- ++(45pt,-10pt) node[right] {$\neq 0$};
+				\draw ([shift={(0pt,-4pt)}]pic cs:marker12) -- ++(0pt, -10pt);
+			\end{tikzpicture}
+		\end{enumerate}
+	\end{definitionn}
+	
+	\begin{bemerkung}
+		Falls \(v\) ein Eigenvektor der linearen Abbildung \(F\) ist, dann ist der entsprechende Eigenwert eindeutig bestimmt. 
+		\begin{proof}
+			Seien \(\lb,\mu\in K\), sodass \(\mu v = F(v) = \lb v \implies (\lb-\mu)v = 0\implies \mu=\lb\).
+		\end{proof}
+	\end{bemerkung}
+	
+	\begin{definitionn}[Eigenraum]
+		\IN{Eigenraum}
+		Sei \(V\) ein \(K\)-Vektorraum, \(F:V\to V\) eine lineare Abbildung, \(\lb\in K\). Der \defemph{Eigenraum} von \(F\) bezüglich \(\lb\) ist dann \[V(\lb)\equiv\{v\in V:F(v)=\lb v\}.\]
+	\end{definitionn}
+	
+	\begin{bemerkung}
+		\(V(\lb)\) ist ein Untervektorraum bezüglich \(V\).
+		
+		\(v_1,v_2\in V(\lb),\ \mu_1,\mu_2\in K\). Zu zeigen: \(\mu_1v_1+\mu_2v_2\in V(\lb)\).
+		\[F(\mu_1v_1+\mu_2v_2) \overset{F\text{ lin.}}{=}\mu_1F(v_1)+\mu_2F(v_2) = \lb_1\mu_1v_1+\lb_2\mu_2v_2\]
+	\end{bemerkung}
+	
+	\begin{definitionn}
+		Eigenvektoren, -werte und -räume einer quadratischen Matrix werden durch die entsprechenden Begriffe der linearen Abbildung definiert.
+	\end{definitionn}
+	
+	\begin{bemerkung}
+		Sei \(V\) ein \(K\)-Vektorraum, \(F:V\to V\) ein Endomorphismus, \(\lb_1,\ldots, \lb_n\) verschiedene Eigenwerte von \(F\). 
+		
+		\[\textstyle\implies V(\lb_i)\cap\left(\sum_{\substack{j=1\\j\neq i}}^{n}V(\lb_j)\right)=\{0\}\]
+		\begin{proof}
+			Induktion über \(n\):
+			\begin{description}
+				\item[\(n=2\)\textnormal:] \(\lb_1\neq\lb_2\) \(v\in V(\lb_1)\cap V(\lb_2)\implies v=0\), da \(v\) Eigenvektor zu mehreren verschiedenen Eigenwerten ist
+				\item[\(n\geq 3\)\textnormal:] \(v\in V(\lb_i)\cap\left(\sum_{\substack{j=1\\j\neq i}}^{n}V(\lb_j)\right)\)
+				\begin{alignat*}{2}%pls dont attempt to decrypt this
+					V(\lb_i)\ni \tikzmark{marker13} v	&= \sum_{\substack{j=1\\j\neq i}}^{n}\tikzmark{marker14}v_j\\\\
+					\tikzmark{marker15} F(v)	&= \sum_{\substack{j=1\\j\neq i}}^{n}F(v_j)\tikzmark{marker18} \hspace{2cm}&&\tikzmark{marker17} \sum_{\substack{j=1\\j\neq i}}^{n}\lb_jv_j\\\\
+					&\hphantom{=}\ \lb_i\tikzmark{marker16}\cdot v  &&\\\\
+					&\hphantom{=}\hspace{.2cm} \sum_{\substack{j=1\\j\neq i}}^{n}\lb_iv_j\tikzmark{marker19}	&& \tikzmark{marker20}\sum_{\substack{j=1\\j\neq i}}^{n}(\lb_j-\lb_i)v_j=0
+				\end{alignat*}
+				\begin{tikzpicture}[remember picture,overlay] % i am fully aware of the shittyness edit: should have done this in tikz directly holy shit
+					\draw ([shift={(9pt, 10pt)}] pic cs:marker14) node[rotate = 45] {$\in$};
+					\draw ([shift={(17pt, 17pt)}] pic cs:marker14) node {$U_j$};
+					\node (a) at ([shift={(-2pt, 10pt)}]pic cs:marker15) {};
+					\node (b) at (pic cs:marker13) {};
+					\node (c) at (pic cs:marker17) {};
+					\node (d) at ([shift={(0pt, 2pt)}] pic cs:marker18) {};
+					\node (e) at ([shift={(0pt, 2pt)}] pic cs:marker19) {};
+					\node (f) at ([shift={(2pt, 10pt)}] pic cs:marker20) {};
+					\node (g) at ([shift={(25pt, -10pt)}] pic cs:marker17) {};
+					\node (h) at ([shift={(2pt, 20pt)}] pic cs:marker20) {};
+					\draw[->] (b) -- (b |- a);
+					\draw[->] (d) -- (d -| c);
+					\draw[->] (e) -- (e -| f);
+					\draw[->] (g) -- (g |- h);
+					\draw (pic cs:marker16) node[rotate = 90, xshift = 18pt, yshift = -1pt]{$=$};
+					\draw (pic cs:marker16) node[rotate = 270, xshift = 18pt, yshift = 1pt]{$=$};
+				\end{tikzpicture}
+				Sei \(j_0\neq i\) fest. \[V(\lb_{j_0})\ni
+				v_{j_0} = \underbrace{\sum_{\substack{j=1\\j\neq i}}^{n}-\frac{\lb_j\lb_i}{\lb_{j_0}-\lb_i}\tikzmark{marker21}v_j}_{\in\sum_{\substack{j=1\\j\neq j_0\\j\neq i}}^{n}V(\lb_j)}\hspace{3cm}
+				\]
+				\begin{tikzpicture}[remember picture,overlay]
+					\draw ([shift={(9pt, -10pt)}] pic cs:marker21) node[rotate = 315] {$\in$};
+					\draw ([shift={(25pt, -20pt)}] pic cs:marker21) node {$V(\lb_j)$};	
+				\end{tikzpicture}
+			\end{description}
+			Aus der Induktion folgt \(v_j=0, j=i, v=0\).
+		\end{proof}
+	\end{bemerkung}
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
