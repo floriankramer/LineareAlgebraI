@@ -149,11 +149,13 @@
 
 % defines lists of theorems:
 
+\let\Chaptermark\chaptermark
+\def\chaptermark#1{\def\Chaptername{#1}\Chaptermark{#1}}
 \makeatletter
-\AtBeginDocument{\addtocontents{loe}{\protect\thmlopatch@chapter {0}}} % fixes chapter 0 not showing by patching this shit to the beginning of the .loe
+\AtBeginDocument{\addtocontents{loe}{\protect\thmlopatch@chapter{0 - Lineare Gleichungssysteme und der n-dimensionale reelle Raum}}} % fixes chapter 0 not showing by patching this shit to the beginning of the .loe
 \patchcmd\thmtlo@chaptervspacehack
 {\addtocontents{loe}{\protect\addvspace{10\p@}}}
-{\addtocontents{loe}{\protect\thmlopatch@endchapter\protect\thmlopatch@chapter{\thechapter}}}
+{\addtocontents{loe}{\protect\thmlopatch@endchapter\protect\thmlopatch@chapter{\thechapter\space-\space\Chaptername}}}
 {}{}
 \AtEndDocument{\addtocontents{loe}{\protect\thmlopatch@endchapter}}
 \long\def\thmlopatch@chapter#1#2\thmlopatch@endchapter{%
