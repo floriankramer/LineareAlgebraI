@@ -1,0 +1,22 @@
+CC := /opt/mingw64/bin/x86_64-w64-mingw32-g++ 
+LD := /opt/mingw64/bin/x86_64-w64-mingw32-ld
+CFLAGS := -std=c++11 -g -Dwindows -D_REENTRANT -DSDL_MAIN_HANDLED -DGLEW_STATIC -Wall -I/opt/mingw64/include/freetype2
+CINCLUDE := -Iinclude -Iinclude/warp -Isrc 
+LDFLAGS := -Llib -Llib/win -L/opt/mingw64/lib -lwarp -lSDL2main -lSDL2 -Wl,-Bstatic -lglew32 -Wl,-Bstatic -lopengl32 -lfreetype -lpng -lz -lOpenAL32 -lvorbisfile -lvorbis -logg
+CPP_FILES := $(wildcard src/*.cpp) $(wildcard src/*/*.cpp)
+#OBJ_FILES := $(addprefix obj/,$(notdir $(CPP_FILES:.cpp=.o)))
+OBJ_FILES := $(patsubst src/%.cpp, winobj/%.o, $(CPP_FILES))
+
+windebug/ant.exe: $(OBJ_FILES)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+winobj/%.o: src/%.cpp
+	$(CC) $(CFLAGS) $(CINCLUDE) -c -o $@ $<
+
+info:
+	@echo $(OBJ_FILES)
+	@echo $(CPP_FILES)
+
+clean:
+	rm -r -f winobj/*
+	rm -f windebug/ant.exe
