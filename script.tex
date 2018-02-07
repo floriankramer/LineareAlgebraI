@@ -344,19 +344,23 @@
 	\label{kap0}
 	Für gegebenes \(n \in \N\) definieren wir:\\
 	\[\R^n = \{x = (x_1, x_2, \dots, x_n): x_1, \dots, x_n \in \R\}\]
-	Hierbei ist \((x_1, \dots, x_n)\) ein geordnetes \(n\)-Tupel, die Reihenfolge beim Vergleich Elemente dieser Art ist wichtig.\\
-	Weiterhin gilt: \(x, y, \in \R : x = y \iff x_1 = y_1, x_2 = y_2,\ \dots \ x_n, = y_n\)\\
+	Hierbei ist \((x_1, \dots, x_n)\) ein geordnetes \(n\)-Tupel, die Reihenfolge beim Vergleich Elemente dieser Art ist wichtig. Weiterhin gilt: \[x, y, \in \R : x = y \iff x_1 = y_1, x_2 = y_2,\ \dots \ x_n, = y_n\]
 	Wir nennen diese \(n\)-Tupel auch Vektoren im \mRn.\\
+	
 	Mit \(\R^0\) bezeichnen wir die Menge \(\{0\}\), welche nur das Nullelement enthält. Allgemein übertragen sich die Rechenregeln von \mR. Wir schreiben:
+	
 	\begin{align*}
 	x + y =& (x_1 + y_1, \dots, x_n + y_n)\text{ für } x, y \in \Rn\qquad \tag*{Vektoraddition}\\
 	\lb x = &(\lb x_1, \dots, \lb x_n)\qquad \tag*{Skalarmultiplikation}
 	\end{align*}
 	
+	\vspace{.2cm}
+	
 	\begin{definitionn}[Lineare Gleichungssysteme]
 		\IN{Lineare Gleichungssysteme}
 		\label{deflingl}
-		Eine lineare Gleichung über \mR ist ein Ausdruck der Form: \(\alpha_1x_1 + \alpha_2 x_2 + \dots \alpha_n x_n = \beta\) für reelle Zahlen \(\beta, \alpha_1, \dots, \alpha_n \in \R\). Einen Vektor, \(\xi = \left(\xi_1, \dots, \xi_n\right) \in \Rn\) nennen wir Lösung, wenn die reellen Zahlen  \(\xi_1, \ \dots\ , \xi_n\) eingesetzt in \(x_1, \dots, x_n\) die Gleichung erfüllen.\\
+		Eine lineare Gleichung über \mR\ ist ein Ausdruck der Form: \(\alpha_1x_1 + \alpha_2 x_2 + \dots \alpha_n x_n = \beta\) für reelle Zahlen \(\beta, \alpha_1, \dots, \alpha_n \in \R\). Einen Vektor, \(\xi = \left(\xi_1, \dots, \xi_n\right) \in \Rn\) nennen wir \defemph{Lösung}, wenn die reellen Zahlen  \(\xi_1, \ \dots\ , \xi_n\) eingesetzt in \(x_1, \dots, x_n\) die Gleichung erfüllen. \pagebreak[3]
+		
 		Ein lineares Gleichungssystem G ist ein System der Form
 		
 		\begin{alignat*}{4}
@@ -369,7 +373,7 @@
 		 Die einzelnen Komponenten lassen sich auch zusammenfassen als \[\sum_{j=1}^n a_{i,j} x_j = b_i \quad i\in\{1,\dots,m\}\]
 		oder, noch kürzer, in Matrixschreibweise:
 		\[Ax=b\]\\
-		Dabei bezeichnet \(A\) eine sog. Matrix mit den Einträgen \(a_{i,j},\ i\in[0,\ \dots\ , m],\ j\in[0,\ \dots\ , n]\), wir schreiben\\
+		Dabei bezeichnet \(A\) eine sog. \defemph{Matrix} mit den Einträgen \(a_{i,j},\ i\in[0,\ \dots\ , m],\ j\in[0,\ \dots\ , n]\), wir schreiben\\
 		\[A =
 		\begin{pmatrix}
 		a_{11} & \dots  & a_{1n}\\
@@ -379,13 +383,14 @@
 		\]\\
 		\(Ax\) für \(x \in \Rn\) ist dann eine Kurzform für \(\sum_{i=1}^na_{ij}x_j\) mit einem Vektor \(x = (x_1, \dots, x_n) \in \Rn\). Das Ergebnis ist ein Vektor \(b = (b_1, \dots, b_m) \in \R^m\) für eine Matrix \(A\) mit \(m\) Zeilen und \(n\) Spalten.\\
 		Der Vektor \(b\) heißt rechte Seite des linearen Gleichungssystems, \(A\) heißt Koeffizientenmatrix des linearen Gleichungssystems. Eine Spalte, bzw. Zeile von \(A\) kann mit einem Vektor im \(\R^m\) bzw. im \(\R^n\) identifiziert werden. Wir sprechen von Spalten-, bzw. Zeilenvektoren der Matrix \(A\).\\
+		
 		Eine Matrix mit \(m\) Zeilen und \(n\) Spalten nennen wir \(m\times n\) - Matrix. Für \(x  \in \Rn \), \(A\) eine \(m\times n\) - Matrix und \(B\) eine \(l\times m\) - Matrix gilt die Rechenregel \(BAx = B(Ax)\). Ein Gleichungssystem \(Ax=b\) heißt homogen, falls \(b\) der Nullvektor \((0, \dots, 0)\) ist und quadratisch für  \(m = n\) (eine quadratische Matrix A).\\
 	\end{definitionn}
 	
 	\begin{definitionn}[Normalform]
 		\IN{Lineare Gleichungssysteme!Normalform}
 		\label{defnormalform}
-		Ein Gleichungssystem \(Ax=b\) ist in Normalform, falls \(A\) die Gestalt \\
+		Ein Gleichungssystem \(Ax=b\) ist in \defemph{Normalform}, falls \(A\) die Gestalt \\
 		\[\hspace{3cm}
 		\left(
 		\begin{matrix}
@@ -450,6 +455,7 @@
 		0 & 0\\
 		\end{pmatrix}\text{\hspace{.75cm} Ist in Normalform mit \(k = 0\).}
 		\]
+		
 		Wir nennen \(k\) den Rang der Matrix \(A\) (bzw. des Gleichungssystems). Es gilt \(0 \le k \le \min(m, n) \).
 		Ein Gleichungssystem ist genau dann lösbar,  wenn gilt: \(b_{k+1} = b_{k+2} = \ldots = b_m = 0\). 
 		In diesem Fall lässt sich eine Lösung \(\xi \in \Rn\) bestimmen,  indem man \(\xi_{k+1}, \dots, \xi_n\) beliebig wählt, und danach \(\xi_i = b_i -  \sum_{j=k+1}^n a_{i,j} \xi_j, \ i\in\{1,\dots,n\}\) wählt. Wir sagen die Lösungsmenge ist \\
@@ -481,21 +487,27 @@
 	
 	\begin{definitionn}[Zeilenoperationen]
 		\IN{Lineare Gleichungssysteme!Zeilenoperationen}
-		Eine Zeilenoperation macht aus einem Gleichungssystem ein neues Gleichungssystem durch Multiplikation  der \(i\)-ten Zeile mit einer Zahl \(\lb \in \R \setminus 0\) oder durch Addieren des \mlb-fachen der \(i\)-ten Zeile zur \(j\)-ten Zeile \((i \neq j)\). Wir bezeichnen diese Operationen mit \(Z_i^\lb\) bzw. \(Z_{i,j}^\lb\).\\
-		Die Umkehrung von \(Z_i^\lb = Z_i^{\frac{1}{\lb}}\), die Umkehrung von \(Z_{i,j}^\lb = Z_{i,j}^{-\lb}\)
+		Eine \defemph{Zeilenoperation} macht aus einem Gleichungssystem ein neues Gleichungssystem durch Multiplikation  der \(i\)-ten Zeile mit einer Zahl \(\lb \in \R \setminus 0\) oder durch Addieren des \mlb-fachen der \(i\)-ten Zeile zur \(j\)-ten Zeile \((i \neq j)\). Wir bezeichnen diese Operationen mit \(Z_i^\lb\) bzw. \(Z_{i,j}^\lb\).\\
+		
+		Die Umkehrung von \(Z_i^\lb\) ist \((Z_i^\lb)^{-1} = Z_i^{\frac{1}{\lb}}\), die Umkehrung von \(Z_{i,j}^\lb\) ist  \((Z_{i,j}^\lb)^{-1} = Z_{i,j}^{-\lb}\).
+		
+		
 		\begin{bemerkung}
 			Die Zeilenoperationen sind umkehrbar.
 		\end{bemerkung}
 	\end{definitionn}
 	
 	\begin{lemma}
-		Ein Gleichungssystem \(G'\), welches aus einem Gleichungssystem \(G\) durch Zeilenoperationen hervorgeht, besitzt die gleichen Lösungen wie \(G\).\\
-		Beweis:\\
-		Für \(Z_I^\lb: \) betrachten wir nur die \(i\)-te Zeile:
-		\[a_{i,1}x_1 + \dots + a_{i,n}x_n = b_i\]
-		Nach \(Z_i^\lb\):
-		\[\lb a_{i,1}x_1 + \dots + \lb a_{i,n}x_n = \lb b_i\]
-		Diese besitzen eindeutig die selbe Lösungen \(\xi_1, \dots, \xi_n\), ebenso für \(Z_{i,j}^\lb\).
+		\label{lem02}
+		Ein Gleichungssystem \(G'\), welches aus einem Gleichungssystem \(G\) durch Zeilenoperationen hervorgeht, besitzt die gleichen Lösungen wie \(G\).
+		\begin{proof}
+			Für \(Z_I^\lb: \) betrachten wir nur die \(i\)-te Zeile:
+			\[a_{i,1}x_1 + \dots + a_{i,n}x_n = b_i\]
+			Nach \(Z_i^\lb\):
+			\[\lb a_{i,1}x_1 + \dots + \lb a_{i,n}x_n = \lb b_i\]
+			Diese besitzen eindeutig die selbe Lösungen \(\xi_1, \dots, \xi_n\), ebenso für \(Z_{i,j}^\lb\).
+		\end{proof}
+		
 	\end{lemma}
 	
 	\begin{satz}[Gauß-Jordan-Elimination]
@@ -542,35 +554,35 @@
 			Das Verfahren terminiert, wenn die Matrix in Normalform ist, oder wenn \(\min(n, m)\) Schritte vollzogen sind. Auch in diesem Fall ist die Matrix in Normalform.
 		\end{proof}
 	\end{satz}
-	\vspace{.2cm}
+	
 	\begin{korrolar}
-		Sei \(A\) eine Matrix mit \(m\) Zeilen und \(n\) Spalten. Weiter sei \(k\) der Rang einer Normalform von \(A\) (d.h. einer Matrix in Normalform, welche aus \(A\) durch Zeilenoperationen und Spaltenvertauschungen hervorgeht). Ein Gleichungssystem  mit Matrix \(A\) besitzt dann entweder keine Lösung, oder ein \((n-k)\)-parametriges Lösungssystem. Es gilt \(k=n\) genau dann, wenn jedes Gleichungssystem \(Ax=b\) höchstens eine Lösung besitzt und \(k=m\) genau dann, wenn jedes Gleichungssystem \(Ax=b\) mindestens eine Lösung besitzt.\\
+		Sei \(A\) eine Matrix mit \(m\) Zeilen und \(n\) Spalten. Weiter sei \(k\) der \defemph{Rang} einer Normalform von \(A\) (d.h. einer Matrix in Normalform, welche aus \(A\) durch Zeilenoperationen und Spaltenvertauschungen hervorgeht). Ein Gleichungssystem  mit Matrix \(A\) besitzt dann entweder keine Lösung, oder ein \((n-k)\)-parametriges Lösungssystem. Es gilt \(k=n\) genau dann, wenn jedes Gleichungssystem \(Ax=b\) \textit{höchstens} eine Lösung besitzt und \(k=m\) genau dann, wenn jedes Gleichungssystem \(Ax=b\) \textit{mindestens} eine Lösung besitzt.\\
 		\begin{proof}
-			Folgt aus Lemma 0.2 und daraus, dass Zeilen-, bzw. Spaltenoperationen die Lösungsmenge (modulo Variablentausch) nicht ändern.
+			Folgt aus \hyperref[lem02]{Lemma \ref*{lem02}} und daraus, dass Zeilen-, bzw. Spaltenoperationen die Lösungsmenge (modulo Variablentausch) nicht ändern.
 		\end{proof}
 	\end{korrolar}
 	\vspace{.2cm}
 	\begin{korrolar}
 		\label{kor5}
-		Ein homogenes Gleichungssystem mit weniger Gleichungen als Variablen hat mindestens eine nicht triviale Lösung.\\
+		Ein homogenes Gleichungssystem mit weniger Gleichungen als Variablen hat mindestens eine nicht triviale Lösung.
 		\begin{proof}
 			Es gibt für homogene Gleichungssysteme immer die triviale Lösung. Der Rang der Matrix des Gleichungssystems in Normalform sei k. Damit existiert ein \((n-k)\)-parametriges Lösungssystem, aber \(k \le \min(n, m) \le m \le (n-1)\). Somit existiert mindestens eine weitere Lösung.
 		\end{proof}
 	\end{korrolar}
-	\vspace{.2cm}
+	
 	\begin{definition}[Lineare Unabhängigkeit]
 		\IN{Lineare Unabhängigkeit}
 		\label{deflineareunab}
-		Eine Kollektion \(a_1, \dots, a_n\) von Vektoren in \(\R^m\) heißt linear unabhängig, wenn sich keiner der Vektoren als Linearkombination der anderen Vektoren schreiben lässt.
+		Eine Kollektion \(a_1, \dots, a_n\) von Vektoren in \(\R^m\) heißt \defemph{linear unabhängig}, wenn sich keiner der Vektoren als Linearkombination der anderen Vektoren schreiben lässt.\\
+		
+		\begin{bemerkung}
+			Als Linearkombination von \(a_1, \dots, a_n\) bezeichnen  wir einen Ausdruck der Form \[\al_1a_1 + \al_2 a_2 + \ldots + \al_n a_n = \sum_{j=1}^n \al_j a_j\quad\text{für}\quad\al_1, \dots, \al_n \in \R.\]
+		\end{bemerkung}
 	\end{definition}
-	
-	\begin{bemerkung}
-		Als Linearkombination von \(a_1, \dots, a_n\) bezeichnen  wir einen Ausdruck der Form \(\al_1a_1 + \al_2 a_2 + \ldots + \al_n a_n = \sum_{j=1}^n \al_j a_j\) für \(\al_1, \dots, \al_n \in \R\)
-	\end{bemerkung}
-	
+		
 	\begin{lemma}
 		\label{lem10}
-		Vektoren \(a_1, \dots, a_n\) sind genau dann linear unabhängig, wenn für alle \(\xi_1, \dots, \xi_n \in\R\) gilt: Falls \(\xi_1a_1 + \dots + \xi_na_n = 0\), dann gilt \(\xi_1 = \dots = \xi_n = 0\).\\
+		Vektoren \(a_1, \dots, a_n\) sind genau dann linear unabhängig, wenn für alle \(\xi_1, \dots, \xi_n \in\R\) gilt: \[\text{Falls }\ \xi_1a_1 + \dots + \xi_na_n = 0,\ \text{ dann gilt }\ \xi_1 = \ldots = \xi_n = 0.\]
 		\begin{proof}
 			\begin{enumerate}
 				\itemsep-.125cm
@@ -582,40 +594,46 @@
 	
 	\begin{lemma}
 		\label{lem11}
-		Es seien \(a_1, \dots, a_n \in \R^m\)  linear unabhängig und es gelte \(b = \lb_1a_1 + \dots + \lb_n a_n\), mit \(\lb_1, \dots, \lb_n \in \R\). Dann ist diese Linearkombination eindeutig.\\
-		\textbf{Beweis:} Es sei auch \(b = \mu_1 a_1 + \dots + \mu_n a_n\). Für Eindeutigkeit ist nun zu zeigen, dass \(\mu_i = \lb_i, 1 \le i \le n\).
-		Wir ziehen die Gleichungen voneinander ab, und erhalten:
-		\[
-		b - b= (\lb_1 - \mu_1) a_1 + \ldots + (\lb_n - \mu_n) a_n\]\[
-		\iff \ 0 = (\lb_1 - \mu_1) a_1 + \ldots + (\lb_n - \mu_n) a_n
-		\]
-		Mit \hyperref[lem10]{Lemma \ref*{lem10}} folgt die Aussage.
+		Es seien \(a_1, \dots, a_n \in \R^m\)  linear unabhängig und es gelte \(b = \lb_1a_1 + \dots + \lb_n a_n\), mit \(\lb_1, \dots, \lb_n \in \R\). Dann ist diese Linearkombination eindeutig.
+		
+		\begin{proof}
+			Es sei auch \(b = \mu_1 a_1 + \dots + \mu_n a_n\). Für Eindeutigkeit ist nun zu zeigen, dass \(\mu_i = \lb_i, 1 \le i \le n\).
+			Wir ziehen die Gleichungen voneinander ab, und erhalten:
+			\[
+			b - b= (\lb_1 - \mu_1) a_1 + \ldots + (\lb_n - \mu_n) a_n\]\[
+			\iff \ 0 = (\lb_1 - \mu_1) a_1 + \ldots + (\lb_n - \mu_n) a_n
+			\]
+			Mit \hyperref[lem10]{Lemma \ref*{lem10}} folgt die Aussage.
+		\end{proof}
 	\end{lemma}
 	
 	\begin{satz}[Konsistenz des Ranges]
 		\label{satz12}
-		Wenn man ein Gleichungssystem durch Zeilenoperationen und Spaltenvertauschungen auf Normalform bringt, so erhält man immer denselben Rang.		
+		Wenn man ein Gleichungssystem durch Zeilenoperationen und Spaltenvertauschungen auf Normalform bringt, so erhält man immer denselben Rang.\\
+		
 		\begin{bemerkung}
 			Man kann damit vom Rang eines Gleichungssystems (bzw. einer Matrix) sprechen, auch wenn dieses nicht in Normalform ist.
 		\end{bemerkung}
 		\begin{bemerkung}
-			Ein einzelner Vektor \(a\) gilt als linear unabhängig, solange \(a \neq 0\). Die leere Kollektion von Vektoren \((n=0)\) bezeichnen wir ebenfalls als linear unabhängig.
+			Ein einzelner Vektor \(a\) gilt als linear unabhängig, solange \(a \neq 0\). Die leere Kollektion von Vektoren \((n=0)\) bezeichnen wir ebenfalls als linear unabhängig.\\
 		\end{bemerkung}
+		
 		 Vor dem Beweis des \hyperref[satz12]{Satzes \ref*{satz12}} noch ein paar Feststellungen:
 		\begin{enumerate}
-			\item Die Tatsache, dass \((\xi_1, \dots, \xi_n)\) Lösung eines linearen Gleichungssystems ist, lässt sich als lineare Abhängigkeit 
-			\(\xi_1a_1 + \dots + \xi_n a_n = b\) ausdrücken, wobei \(a_i\) eine Spalte der Matrix des Gleichungssystems ist.
+			\item Die Tatsache, dass \((\xi_1, \ldots, \xi_n)\) Lösung eines linearen Gleichungssystems ist, lässt sich als lineare Abhängigkeit 
+			\(\xi_1a_1 + \ldots + \xi_n a_n = b\) ausdrücken, wobei \(a_i\) eine Spalte der Matrix des Gleichungssystems ist.
 			\item Ist das Gleichungssystem in Normalform, so sind die ersten k Spaltenvektoren linear unabhängig. Die folgenden \(n-k\) Spaltenvektoren lassen sich aber als Linearkombination der ersten \(k\) darstellen, also
 			\[
-			\lb_{1,i}a_1 + \dots + \lb_{k,i}a_k = a_i \text{ für } k < i \le n
+			\lb_{1,i}a_1 + \ldots + \lb_{k,i}a_k = a_i \text{ für } k < i \le n
 			\text{ mit }  \lb_{1,i} = a_{1,i}, \dots
 			\]
-			\item Falls das Gleichungssystem lösbar ist, kann man dank \(\xi_1a_1 + \dots + \xi_n a_n = b\) auch \(b\) als solche Linearkombination schreiben. Wegen \hyperref[lem11]{Lemma \ref*{lem11}} sind diese Linearkombinationen auch eindeutig.
+			\item Falls das Gleichungssystem lösbar ist, kann man dank \(\xi_1a_1 + \ldots + \xi_n a_n = b\) auch \(b\) als solche Linearkombination schreiben. Wegen \hyperref[lem11]{Lemma \ref*{lem11}} sind diese Linearkombinationen auch eindeutig.
 		\end{enumerate}
 		\begin{proof}
 			Wir bemerken zunächst, dass Zeilenoperationen und Spaltenvertauschung die Anzahl linear unabhängiger Spaltenvektoren nicht ändern.
-			Wir überlegen uns nun, dass der Rang eines linearen Gleichungssystems nichts anderes als die maximale Anzahl linear unabhängiger Spaltenvektoren der Matrix ist.\\
-			Die ersten k Spalten sind linear unabhängig, da die Matrix in Normalform ist. Seien also \(a_{i_1}, \dots, a_{i_{k+1}}\) beliebige Spaltenvektoren der Matrix des Gleichungssystems. Nachdem in diesen Vektoren alle Einträge ab dem \(k+1\)-ten Eintrag \(0\) sind, hat das Gleichungssystem \\
+			Wir überlegen uns nun, dass der Rang eines linearen Gleichungssystems nichts anderes als die maximale Anzahl linear unabhängiger Spaltenvektoren der Matrix ist.\linebreak
+			
+			Die ersten \(k\) Spalten sind linear unabhängig, da die Matrix in Normalform ist. Seien also \(a_{i_1}, \dots, a_{i_{k+1}}\) beliebige Spaltenvektoren der Matrix des Gleichungssystems. Nachdem in diesen Vektoren alle Einträge ab dem \(k+1\)-ten Eintrag \(0\) sind, hat das Gleichungssystem 
 			\[
 			x_1a_{i_1} + \dots + x_{k+1}a_{i_{k+1}} = 0
 			\]
@@ -637,12 +655,12 @@
 		\( \)\vspace{-.5cm}
 		\begin{enumerate}
 			\item Sei \(v \not= 0\) ein Vektor in \mRn. Mit \(\R v\) bezeichnen wir die Menge an Vektoren in \mRn der Form \(\R v = \{\lb v : \lb \in \R\}\)
-			\item Sei \(a \in \Rn, v \in \Rn, v \neq 0\). Als (affine) Gerade bezeichnen wir die Menge der Vektoren der Form \(g = \{a + \lb v : \lb \in \R\} = a + \R v\)
+			\item Sei \(a \in \Rn, v \in \Rn, v \neq 0\). Als (affine) \defemph{Gerade} bezeichnen wir die Menge der Vektoren der Form \(g = \{a + \lb v : \lb \in \R\} = a + \R v\)
 		\end{enumerate}
 	\end{definition}
 	
 	\begin{bemerkung}
-		Der Richtungsraum \(\R v\) einer Geraden \(g\) ist durch diese eindeutig bestimmt als Menge der Differenzen \(x - y\) aus Vektoren in \(g\).
+		Der \defemph{Richtungsraum} \(\R v\) einer Geraden \(g\) ist durch diese eindeutig bestimmt als Menge der Differenzen \(x - y\) aus Vektoren in \(g\).
 	\end{bemerkung}
 	
 	\begin{lemma}
@@ -651,43 +669,46 @@
 		\begin{proof}
 			Sei also  \(x = a + \R v\), d.h. \(x = a + \lb v\) für ein \(\lb \in \R\). Nach Annahme gilt \(\R v = \R w\). Damit existiert ein \(\mu \in \R\) mit \(\lb v = \mu w\) und somit \(x = a + \mu w\). Weiterhin haben wir nach Annahme, dass \(a-b \in \R v\), also existiert ein \(\xi \in \R\) mit \(a - b = \xi w\), also \(x = a - (a - b) + \xi w + \mu w\) und somit \(x = b + (\xi + \mu) w\).
 			Es ist also \(x \in b + \R w\).\\
+			
 			Die Umkehrung, also die Behauptung, dass sich ein Punkt \(y \in b + \R w\) auch als Punkt in \(a + \R v\) schreiben lässt, folgt analog.
 		\end{proof}
 	\end{lemma}
 	\vspace{.2cm}
 	\begin{lemma}
 		Durch zwei verschiedene Punkte in \mRn geht genau eine Gerade.\\
-		\textbf{Beweis: } Übung
+		\textit{Beweis: } Übung
 	\end{lemma}
 	
 	\begin{definition}[Parallelität]
 		\IN{Gerade!Parallelität}
-		Zwei Geraden heißen parallel, wenn sie die gleichen Richtungsräume haben.
+		Zwei Geraden heißen \defemph{parallel}, wenn sie die gleichen Richtungsräume haben.
 	\end{definition}
 	
 	\begin{definition}[Ebenen]
 		\IN{Ebene}
-		Eine (affine) Ebene ist eine Menge der Form \(a + \R v + \R w\) für linear unabhängige Vektoren \(v, w\).
+		Eine (affine) \defemph{Ebene} ist eine Menge der Form \(a + \R v + \R w\) für linear unabhängige Vektoren \(v, w\).
 		\begin{bemerkung}
 			Auch hier gilt, das der Raum \(\R v + \R w\) eindeutig bestimmt ist als Menge aller Differenzen von Punkten in der Ebene.
 		\end{bemerkung}
 	\end{definition}
 	
 	\begin{lemma}
-		Zwei nicht-parallele Geraden, die in einer Ebene liegen, schneiden sich.\\
+		Zwei nicht-parallele Geraden, die in einer Ebene liegen, schneiden sich.
 		\begin{proof}
 			Es sei \(E = c + \R v_1 + \R v_2\) eine Ebene, \(g_1 = a_1 + \R b_1\), \(g_2 = a_2 + \R b_2\) zwei Geraden in E.\\
-			Wir suchen \(\xi_1,\ \xi_1\), so dass \(a_1 + \xi_1 w_1 = a_2 + \xi_2 w_2\). Nun schreiben wir \(a_i = c + \beta_{1,i} v_1 + \beta_{2,i} v_2\) und \(w_i = \al_{1,i} v_1 + \al_{2,i} v_2\) für \(i =1,2\).\\
-			Das führt auf das Gleichungssystem\\
-			\[
-			\al_{1,1} \xi_1 - \al_{1,2} \xi_2 = - \beta_{1,1} + \beta_{1,2}\]\[
-			\al_{2,1} \xi_1 - \al_{2,2} \xi_2 = - \beta_{2,1} + \beta_{2,2}
-			\]\\
-			Nachdem \(g_1, g_2\) nicht parallel sind, sind \(w_1, w_2\) linear unabhängig. Damit sind aber die Spaltenvektoren der Matrix \(
-			\begin{pmatrix}
-			\al_{1,1} & -\al_{1,2}\\
-			\al_{2,1} & -\al_{2,2}
-			\end{pmatrix}
+			Wir suchen \(\xi_1,\ \xi_1\), so dass \(a_1 + \xi_1 w_1 = a_2 + \xi_2 w_2\). Nun schreiben wir \(a_i = c + \beta_{1,i} v_1 + \beta_{2,i} v_2\) und \(w_i = \al_{1,i} v_1 + \al_{2,i} v_2\) für \(i =1,2\).
+			
+			Das führt auf das Gleichungssystem
+			\begin{align*}
+				\al_{1,1} \xi_1 - \al_{1,2} \xi_2	&= - \beta_{1,1} + \beta_{1,2}\\
+				\al_{2,1} \xi_1 - \al_{2,2} \xi_2 	&= - \beta_{2,1} + \beta_{2,2}
+			\end{align*}
+			
+			Nachdem \(g_1, g_2\) nicht parallel sind, sind \(w_1, w_2\) linear unabhängig. Damit sind aber die Spaltenvektoren der Matrix \(\left(
+			\begin{smallmatrix}
+			\al_{11} & -\al_{12}\\
+			\al_{21} & -\al_{22}
+			\end{smallmatrix}\right)
 			\) ebenfalls linear unabhängig. Damit besitzt das Gleichungssystem eine Lösung (da \(k = m\)) nach \hyperref[satz12]{Satz \ref*{satz12}}.
 		\end{proof}
 	\end{lemma}
@@ -697,7 +718,7 @@
 	
 	\begin{definition}[Skalarprodukt]
 		\IN{Skalarprodukt}
-		Das Skalarprodukt von \(a\) und \(b\) ist definiert als \((a, b) = \sum_{j=1}^n a_j b_j\).
+		Das \defemph{Skalarprodukt} von \(a\) und \(b\) ist definiert als \((a, b) = \sum_{j=1}^n a_j b_j\).
 	\end{definition}
 	
 	\begin{lemma}
@@ -732,7 +753,7 @@
 	
 	\begin{lemma}[Cauchy-Schwarzsche Ungleichung]
 		\IN{Cauchy-Schwarzsche Ungleichung}
-		Es gilt \(|(a, b)| \le ||a||\cdot||b||\).\\
+		Es gilt \(|(a, b)| \le ||a||\cdot||b||\).
 		\begin{proof}
 			Es gilt für jedes beliebiges \(\lb \in \R\):
 			\(0 \le (a + \lb b, a + \lb b) = (a, a) + 2 (\lb a, b) + \lb^2 (b, b)\).	Für \(\lb = -\frac{(a,b)}{(b, b)}\) ergibt sich \(0 \le (a, a) - 2 \frac{(a, b)^2}{(b, b)} + \frac{(a, b)^2}{(b, b)}\).
@@ -745,23 +766,21 @@
 	
 	\begin{lemma}[Dreiecksungleichung]
 		\IN{Dreicksungleichung}
-		Es gilt \[||a+b|| \le ||a|| + ||b||.\]\\
-		\begin{proof}
+		Es gilt \[||a+b|| \le ||a|| + ||b||.\]
+		\begin{proof} Wir rechnen:
 			\begin{align*}
-			||a+b||^2 &= (a+b, a+b)\\
-			&= ||a||^2 + 2(a,b) + ||b||^2 \\
-			&\leq ||a||^2 + 2 ||a||\cdot||b|| + ||b||^2 \\
-			&= (||a|| + ||b||)^2
+			||a+b||^2	&= (a+b, a+b)\\
+						&= ||a||^2 + 2(a,b) + ||b||^2 \\
+						&\leq ||a||^2 + 2 ||a||\cdot||b|| + ||b||^2 \\
+						&= (||a|| + ||b||)^2
 			\end{align*}
-			%			\( ||a+b||^2 = (a+b, a+b)= ||a||^2 + 2(a,b) + ||b||^2 \le ||a||^2 + 2 ||a||||b|| + ||b||^2 = (||a|| + ||b||)^2\)
 		\end{proof}
 		
 	\end{lemma}
-	\vspace{.2cm}
 	\begin{korrolar}[Metrik]
 		\IN{Metrik}
 		\label{metrikkor}
-		Der \mRn\ mit dem Abstand \(d(x, y) = ||x - y||\) ist ein sogenannter metrischer Raum. Das bedeutet folgendes:
+		Der \mRn\ mit dem Abstand \(d(x, y) = ||x - y||\) ist ein sogenannter \defemph{metrischer Raum}. Das bedeutet folgendes:
 		\begin{enumerate}[leftmargin=4.5cm, rightmargin=2.5cm]
 			\itemsep0cm
 			\item \(d(x, y) \geq 0\hfill\text{(Positivität)}\)
@@ -846,6 +865,7 @@
 	\IN{Menge}
 	Problem: Der Begriff der Menge ist sehr schwer zu definieren (Vgl. Russelsche Antinomie).\
 	Endliche Mengen kann man durch Auflistung aller Elemente angeben, z.B. \(X = \{x_1, x_2, x_3\}\).\ \(x_1, x_2, x_3\) heißen dann Elemente von \(X\) und wir schreiben \(x_1 \in X\).\\
+	
 	Reihenfolge der Elemente und Mehrfachauflistung sind nicht relevant. Die Mächtigkeit einer Menge ist die Anzahl paarweise verschiedener Elemente. \(\{1, 2, 2, 3\}\) beispielsweise hat Mächtigkeit \(3\).
 	Die leere Menge \(\{\}\) oder \(\emptyset\) enthält kein Element.
 	
@@ -853,7 +873,7 @@
 		\IN{Teilmenge}
 		\begin{enumerate}
 			\itemsep0cm
-			\item Eine Menge \(Y\) heißt Teilmenge von \(X\), wenn aus \(x \in Y\) immer folgt \(x \in X\). Wir schreiben \(Y \subset X\).
+			\item Eine Menge \(Y\) heißt \defemph{Teilmenge} von \(X\), wenn aus \(x \in Y\) immer folgt \(x \in X\). Wir schreiben \(Y \subset X\).
 			\item Wir sagen \(X=Y\) genau dann, wenn \(X \subset Y\) und \(X \supset Y\)\ d.h. zwei Mengen sind gleich, wenn sie die gleichen Elemente enthalten. ("`Extensionalitätsprinzip"')
 		\end{enumerate}
 		
@@ -875,10 +895,12 @@
 			\item \(1 \in M\)
 			\item falls \(m \in M\), so ist auch \(n + 1 \in M\)
 		\end{enumerate}
-		Dann gilt \(M = \N\).\\
+		Dann gilt \(M = \N\).
+		
 		\IN{Rationale Zahlen}
 		\IN{Ganze Zahlen}
-		Durch Erweiterung von Zahlbereichen können wir aus \mN auch die ganzen Zahlen \(\mathbb{Z}\), die rationalen Zahlen \(\mathbb{Q}\) sowie die reellen Zahlen \mR konstruieren 
+		
+		Durch Erweiterung von Zahlbereichen können wir aus \mN \ auch die ganzen Zahlen \(\mathbb{Z}\), die rationalen Zahlen \(\mathbb{Q}\) sowie die reellen Zahlen \mR\ konstruieren 
 		(ebenso die komplexen Zahlen \(\mathbb{C}\)).\\
 		\begin{bemerkung}
 			Es gilt \(\N \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}\)\\
@@ -895,10 +917,10 @@
 		Sind \(X\), \(Y\) Mengen, so können wir bilden:
 		\begin{enumerate}
 			\itemsep0cm
-			\item Die Vereinigung \(X \cup Y\), ist die Menge aller Elemente, welche in \(X\) oder in \(Y\) sind.
-			\item Der Schnitt \(X \cap Y = \{x \in X : x \in Y\}\), ist die Menge aller Elemente, die sowohl in \(X\) als auch in \(Y\) sind.
-			\item Für \(Y \subset X\) schreiben wir \(X \setminus Y\) sprich "`\(X\) ohne \(Y\)"' für die Menge \(\{x \in X : x \not\in Y\}\)
-			\item Das "`kartesische Produkt"' \(X \times Y\) ist die Menge aller geordneten Tupel \(\{(x, y) : x\in X, y\in Y\}\)  
+			\item Die \defemph{Vereinigung} \(X \cup Y\), ist die Menge aller Elemente, welche in \(X\) oder in \(Y\) sind.
+			\item Der \defemph{Schnitt} \(X \cap Y = \{x \in X : x \in Y\}\), ist die Menge aller Elemente, die sowohl in \(X\) als auch in \(Y\) sind.
+			\item Für \(Y \subset X\) schreiben wir \(X \setminus Y\), sprich "`\(X\) ohne \(Y\)"', für die Menge \(\{x \in X : x \not\in Y\}\). \ \(X\setminus Y\) heißt dann \defemph{Komplement}.
+			\item Das \defemph{kartesische Produkt} \(X \times Y\) ist die Menge aller geordneten Tupel \(\{(x, y) : x\in X, y\in Y\}\)  
 		\end{enumerate}
 		\textbf{Beispiele:}
 		\begin{enumerate}
@@ -910,13 +932,13 @@
 	
 	\begin{definition}[Abbildungen]
 		\IN{Abbildung}
-		Seien \(X\), \(Y\) Mengen. Als Abbildung von \(X\) nach \(Y\) bezeichnen wir eine Vorschrift \(f\), welche jedem Element \(x\in X\) genau ein Element \(y\in Y\) zuordnet. Wir schreiben
+		Seien \(X\), \(Y\) Mengen. Als \defemph{Abbildung} von \(X\) nach \(Y\) bezeichnen wir eine Vorschrift \(f\), welche jedem Element \(x\in X\) genau ein Element \(y\in Y\) zuordnet. Wir schreiben
 		\[f : X \rightarrow Y,\quad x \mapsto f(x).\]
 	\end{definition}
 	
 	
 	\begin{definition}[Gleichheit von Abbildungen]
-		Zwei Abbildungen \(f : X \rightarrow Y,\ g : X \rightarrow Y\) heißen gleich, wenn für alle \(x \in X\) gilt: \(f(x) = g(x)\).
+		Zwei Abbildungen \(f : X \rightarrow Y,\ g : X \rightarrow Y\) heißen \defemph{gleich}, wenn für alle \(x \in X\) gilt: \(f(x) = g(x)\).
 	\end{definition}
 	
 	\begin{definition}[Bild und Urbild]
@@ -925,8 +947,8 @@
 		Sei \(f: X\rightarrow Y, M \subset X, N \subset Y\)
 		\begin{enumerate}
 			\itemsep0cm
-			\item Wir schreiben   \(f(M) = \{y \in Y : \) es existiert \(x \in M\) mit \(f(x) = y \} \subset Y\) Bild von \(M\)
-			\item \(f^{-1}(N) = \{x \in X : f(x) \in N\} \subset X\) Urbild von \(N\)
+			\item Wir schreiben   \(f(M) = \{y \in Y : \) es existiert \(x \in M\) mit \(f(x) = y \} \subset Y\)\hfill \defemph{Bild} von \(M\)
+			\item \(f^{-1}(N) = \{x \in X : f(x) \in N\} \subset X\)\hfill\defemph{Urbild} von \(N\)
 		\end{enumerate}
 		\textbf{Beispiele}:\\[.25cm]
 		\begin{minipage}[t]{.5\textwidth}
@@ -959,14 +981,13 @@
 	\end{definition}
 	
 	\begin{definition}[Einschränkung von Funktionen]
-		Es sei \(f : X \to Y\) eine Abbildung, \(M \subset X \). Die Einschränkung von \(f\) auf \(M\) ist die Abbildung\linebreak \(f|_M = M \to Y, x \mapsto f(x)\).
+		Es sei \(f : X \to Y\) eine Abbildung, \(M \subset X \). Die \defemph{Einschränkung} von \(f\) auf \(M\) ist die Abbildung\linebreak \(f|_M = M \to Y, x \mapsto f(x)\).
 		\begin{bemerkung}
 			Der Unterschied zu \(f\) ist nur der eingeschränkte Definitionsbereich.\\
-			\[f  :\R \to \R,\ x \mapsto f(x) = x^2\]\[
-			M = R^+_0 = \{x \in \R : x \ge 0\}\]\[
-			(f|_M)^{-1}(\{1\}) = \{1\}
-			\]
 		\end{bemerkung}
+		\textbf{Beispiel:} \(f  :\R \to \R,\ x \mapsto f(x) = x^2\):
+		\[M = R^+_0 = \{x \in \R : x \ge 0\}\]
+		\[(f|_M)^{-1}(\{1\}) = \{1\}\]
 	\end{definition}
 	
 	\begin{definition}[Injektivität, Surjektivität, Bijektivität]
@@ -976,11 +997,11 @@
 		\label{def1.8}
 		Es sei \(f : X \to Y\) eine Abbildung.
 		\begin{enumerate}
-			\item \(f\) heißt injektiv, falls gilt
+			\item \(f\) heißt \defemph{injektiv}, falls gilt
 			\[\left(x,\ x'\in X, f(x) = f(x')\right) \implies x = x'\]
-			\item \(f\) heißt surjektiv, falls gilt
+			\item \(f\) heißt \defemph{surjektiv}, falls gilt
 			\[f(X) = Y\]
-			\item  \(f\) heißt bijektiv, falls \(f\) injektiv und surjektiv ist.
+			\item  \(f\) heißt \defemph{bijektiv}, falls \(f\) injektiv und surjektiv ist.
 			
 		\end{enumerate}
 		\textbf{Beispiel: } \(f : \R \to \R, x \mapsto f(x) = x^2\) ist nicht injektiv, da \(f(-1) = f(1), 1 \neq -1\). \(f\) ist auch nicht surjektiv, da \(f(x) \ge 0\).\ \ \(f|_{\R^+_0} : \R^+_0 \to \R\) ist injektiv, aber nicht surjektiv.\ \ 		\(f|_{\R^+_0} : \R^+_0 \to \R^+_0\) ist injektiv, und surjektiv, also bijektiv.\\
@@ -989,7 +1010,7 @@
 	\begin{definition}[Umkehrfunktionen]
 		\IN{Umkehrabbildung}
 		\label{def1.9}
-		Es sei \(f : X \to Y\) bijektiv. Wir schreiben dann \(f^{-1} : Y \to X, f^{-1}(y) = x\) mit dem eindeutig definierten \(x \in X\), sodass gilt \(f(x) = y\).\\
+		Es sei \(f : X \to Y\) bijektiv. Wir schreiben dann \(f^{-1} : Y \to X,\ f^{-1}(y) = x\) mit dem eindeutig definierten \(x \in X\), sodass gilt \(f(x) = y\).\\
 		\begin{bemerkung}
 			Die Sinnhaftigkeit der \hyperref[def1.9]{Definition \ref*{def1.9}} folgt sofort aus der \hyperref[def1.8]{Definition von Bijektivität}.
 		\end{bemerkung}
@@ -1012,7 +1033,8 @@
 		\begin{proof}
 			\(X\) ist eine endliche Menge, wir schreiben \(X = \{x_1, \dots, x_n\}\) mit paarweise verschiedenen \(x_j\).
 			\begin{enumerate}
-				\item[i)] Wir zeigen zunächst \(1. \implies 2.\). Zu zeigen ist also: Falls \(f\) injektiv ist, so ist \(f\) auch surjektiv. Dies wird impliziert durch die Aussage "`Ist \(f\) \textit{nicht} surjektiv, so ist \(f\) auch \textit{nicht} injektiv"', welche wir zeigen:\\
+				\item[i)] Wir zeigen zunächst \(1. \implies 2.\). Zu zeigen ist also: Falls \(f\) injektiv ist, so ist \(f\) auch surjektiv. Dies wird impliziert durch die Aussage "`Ist \(f\) \textit{nicht} surjektiv, so ist \(f\) auch \textit{nicht} injektiv"', welche wir zeigen:
+				
 				Sei \(f\) also nicht surjektiv -- also \(f(X) \neq X\). Damit besteht \(f(X)\) aus \(m < n\) Elementen. Verteilt man aber \(n\) Elemente in \(m < n\) Schubladen, so muss eine Schublade existieren, in der mehr als ein Element ist. Damit kann \(f\) nicht injektiv sein (es existiert \(x \neq x'\) mit \(f(x') = f(x)\)).
 				\item[ii)] \(2. \implies 1.\): Sei \(f\) also nicht injektiv, dann existieren nach Definition \(x, x' \in X, x' \neq x\) aber \(f(x) = f(x')\). Damit kann aber \(f(X)\) höchstens \(n-1\) Elemente enthalten und \(f\) ist auch nicht surjektiv.
 				\item[iii)] \(3. \implies 1.\): trivial nach der Definition der Bijektivität
@@ -1026,7 +1048,7 @@
 	\begin{definition}[Komposition von Abbildungen]
 		\IN{Abbildung!Komposition}
 		Es seien \(X, Y, Z\) Mengen, \(f: X \to Y,\ g : Y \to Z\) Abbildungen.
-		Dann definiert \(g \circ f : X \to Z, x \mapsto g(f(x)) = (g \circ f)(x)\) die Komposition von Abbildungen.\\
+		Dann definiert \(g \circ f : X \to Z, x \mapsto g(f(x)) = (g \circ f)(x)\) die \defemph{Komposition} von Abbildungen.\\
 		
 		\begin{bemerkung}
 			Es gilt Assoziativität: \((h \circ g) \circ f = h \circ (g \circ f)\) für \(f : X \to Y, g : Y \to Z , h : Z \to A\)\\
@@ -1039,7 +1061,7 @@
 	
 	\begin{definition}[Identische Abbildung]
 		\IN{Abbildung!Identische}
-		Mit  \(\Id_X : X \to X\) bezeichnen wir die identische Abbildung \(x \mapsto x\).
+		Mit  \(\Id_X : X \to X\) bezeichnen wir die \defemph{identische Abbildung} \(x \mapsto x\).
 	\end{definition}
 	
 	\begin{lemma}[Identität und Surjektivität bzw. Injektivität]
@@ -1052,13 +1074,14 @@
 		\end{enumerate}
 		\begin{proof}
 			\begin{enumerate}
-				\item Sei \(f\) injektiv. Dann existiert zu jedem \(y \in f(X)\) genau ein \(x \in X\) mit \(f(x) = y\). Wir setzen \(g(y) = x\) für ebensolche \(y = f(x)\). Nun wählen wir \(x_0\in X\) beliebig und setzen \(g(y') = x_0\) für alle \(y' \in \setminus f(X)\). Dieses \(g\) erfüllt die Bedingung.\\
+				\item Sei \(f\) injektiv. Dann existiert zu jedem \(y \in f(X)\) genau ein \(x \in X\) mit \(f(x) = y\). Wir setzen \(g(y) = x\) für ebensolche \(y = f(x)\). Nun wählen wir \(x_0\in X\) beliebig und setzen \(g(y') = x_0\) für alle \(y' \in \setminus f(X)\). Dieses \(g\) erfüllt die Bedingung.
 				
 				Sei nun \(g : Y \to X\) mit \(g \circ f = \Id_X\). Seien \(x, x' \in X\) mit \(f(x) = f(x')\). Es gilt \(x = \Id_X(x) = (g \circ f)(x) = g(f(x)) = g(f(x')) = (g \circ f)(x') = \Id_X(x') = x'\). Also ist \(f\) injektiv.
-				\item Sei \(f\) surjektiv. Zu jedem \(y \in Y\) wählen wir ein \(x \in X\) mit \(f(x) = y\) und setzen \(g(y) = x\). Damit gilt \(f \circ g = \Id_Y\).\\
+				\item Sei \(f\) surjektiv. Zu jedem \(y \in Y\) wählen wir ein \(x \in X\) mit \(f(x) = y\) und setzen \(g(y) = x\). Damit gilt \(f \circ g = \Id_Y\).
 				
-				Umgekehrt, sei \(g : Y \to X\), so dass \(f \circ g = \Id_Y\). Sei \(y \in Y\), dann gilt \(y = f(g(y))\). Sei \(x' = g(y)\). Damit ist \(y = f(x'), x' \in X\) und \(y \in f(X)\). Damit ist f surjektiv.
-				\item Sei \(f\) bijektiv. Die nun definierte Abbildung \(f^{-1} : Y \to X\) erfüllt die Voraussetzung an \(g\).\\
+				Umgekehrt, sei \(g : Y \to X\), so dass \(f \circ g = \Id_Y\). Sei \(y \in Y\), dann gilt \(y = f(g(y))\). Sei \(x' = g(y)\). Damit ist \(y = f(x'), x' \in X\) und \(y \in f(X)\). Damit ist \(f\) surjektiv.
+				\item Sei \(f\) bijektiv. Die nun definierte Abbildung \(f^{-1} : Y \to X\) erfüllt die Voraussetzung an \(g\).
+				
 				Falls aber \(g\) existiert mit \(g \circ f = \Id_x\) und \(f \circ g = \Id_Y\), dann erfüllt \(g\) die Voraussetzungen von 1. und 2. und \(f\) ist sowohl injektiv als auch surjektiv. Es gilt dann auch \(g = f^{-1}\).
 			\end{enumerate}
 		\end{proof}
@@ -1082,7 +1105,7 @@
 	
 	\begin{definition}[Potenzmenge]
 		\IN{Potenzmenge}
-		Sei \(M\) eine Menge. Die Menge aller Teilmengen von \(M\) heißt Potenzmenge von \(M\), kurz \(2^M\).
+		Sei \(M\) eine Menge. Die Menge aller Teilmengen von \(M\) heißt \defemph{Potenzmenge} von \(M\), kurz \(2^M\).
 		\begin{bemerkung}
 			Für eine (beliebige nicht notwendigerweise bijektive) Abbildung \(f : X \to Y\) ist \(f^{-1}\) eine Abbildung von \(2^Y\) nach \(2^X\).
 		\end{bemerkung}
@@ -1105,7 +1128,7 @@
 				\item[Zu 1.:] Die einelementige Menge M schreiben wir als \(\{x\}\), die Teilmengen sind \(\emptyset, \{x\}\). Somit ist \[2^M = \{\emptyset, \{x\}\}\quad\text{mit}\quad\#2^M = 2 = 2^1.\]
 				\item[Zu 2.:] Es sei also \(\#M = m + 1\)  und \(M_m\) eine Menge mit \(\# M_m = m\). Wir dürfen annehmen, dass gilt \(\#2^{M_m} = 2^m\) und schreiben \(M\) als \(M_m \cup \{x\}, x \not\in M_m\). Wir schreiben
 				
-				\[2^M = \left\{\begin{matrix}\text{Menge aller Teilmengen von $M$,}\\\text{welche $x$ nicht enthalten}\hfill\end{matrix}\right\} \cup \left\{\begin{matrix}\text{Menge aller Teilmengen von $M$,}\\\text{welche $x$ enthalten}\hfill\end{matrix}\right\} = A \cup B\]
+				\[2^M = \left\{\begin{matrix}\text{Menge aller Teilmengen von $M$,}\\\text{welche $x$ nicht enthalten}\hfill\end{matrix}\right\} \bigcup \left\{\begin{matrix}\text{Menge aller Teilmengen von $M$,}\\\text{welche $x$ enthalten}\hfill\end{matrix}\right\} = A \cup B\]
 				
 				und es gilt \(\#2^M = \#A + \#B\), sowie \(\#A = \#2^{M_m} = m\), da \(A = 2^{M_m}\).\\
 				
@@ -1113,19 +1136,19 @@
 				Damit gilt die Aussage für \(m + 1\).
 			\end{description}
 		\end{proof}
-		Wir kennen bereits das \hyperref[defmengenoperationen]{direkte (bzw. kartesische) Produkt} zweier Mengen \(X \times Y = \{(x, y) : x\in X, y \in Y\}\).\\
+		
+		Wir kennen bereits das \hyperref[defmengenoperationen]{direkte (bzw. kartesische) Produkt} zweier Mengen \(X \times Y = \{(x, y) : x\in X, y \in Y\}\).
 	\end{satz}
 	
 	\begin{definition}[Graph einer Funktion]
 		\IN{Graph}
-		Es sei \(f : X \to Y\) eine Abbildung. Die Menge \(\Gamma_f = \{(x, f(x)) \in X \times Y\}\) nennen wir Graph von \(f\).
+		Es sei \(f : X \to Y\) eine Abbildung. Die Menge \(\Gamma_f = \{(x, f(x)) \in X \times Y\}\) nennen wir \defemph{Graph} von \(f\).
 	\end{definition}
 	
 	\begin{definition}[Relationen]
 		\IN{Relation}
-		Noch nützlicher ist das direkte Produkt, um eine sogenannte Relation zu definieren.
-		Eine Relation R auf einer Menge X ist eine Teilmenge von \(X \times X\).
-		Wir sagen für \(x, y \in X\), dass \(x \sim y\) genau dann, wenn \((x, y) \in R\).\\
+		Noch nützlicher ist das direkte Produkt, um eine sogenannte \defemph{Relation} zu definieren.
+		Eine Relation \(R\) auf einer Menge \(X\) ist eine Teilmenge von \(X \times X\). Wir sagen für \(x, y \in X\), dass \(x \sim y\) genau dann, wenn \((x, y) \in R\).\\
 		
 		\textbf{Beispiel:}
 		\begin{alignat*}{3}\hspace{2.15cm}
@@ -1137,23 +1160,24 @@
 	
 	\begin{definition}[Äquivalenzrelationen]
 		\IN{Äquivalenzrelation}
-		Eine Relation \(\sim\) auf \(X\) heißt Äquivalenzrelation, falls gilt:
+		Eine Relation \(\sim\) auf \(X\) heißt \defemph{Äquivalenzrelation}, falls gilt:
 		\begin{enumerate}[leftmargin=3cm, rightmargin=3cm]
 			\item \(x \sim x\)\hfill (Reflexivität)
 			\item \(x \sim y \implies y \sim x\)\hfill (Symmetrie)
 			\item \(x \sim y \land y \sim z \implies x \sim z\)\hfill (Transitivität)
 		\end{enumerate}
 		für alle \(x, y, z \in X\).\\
+		
 		\textbf{Beispiele:}
-		\begin{itemize}
+		\begin{enumerate}
 			\item "`\(=\)"' auf Zahlensystemen
-			\item Sei \(X = 2^N \). Für \(x, y \in X\) gelte \(x \sim y\) falls endliche Teilmengen \(A\), \(B\) von \(x\) und \(y\) mit \(x \setminus A = y \setminus B \) %TODO: check
-		\end{itemize}
+			\item Sei \(X = 2^N \). Für \(x, y \in X\) gelte \(x \sim y\), falls endliche Teilmengen \(A\subset x\) und \(B\subset y\) mit \(x \setminus A = y \setminus B \).
+		\end{enumerate}
 	\end{definition}
 	
 	\begin{definition}[Äquivalenzklassen]
 		\IN{Äquivalenzklasse}
-		Sei \(X\) eine Menge mit Äquivalenzrelation \(\sim\). Eine Menge \(A \subset X\) heißt Äquivalenzklasse bezüglich \(\sim\), falls gilt:
+		Sei \(X\) eine Menge mit Äquivalenzrelation \(\sim\). Eine Menge \(A \subset X\) heißt \defemph{Äquivalenzklasse} bezüglich \(\sim\), falls gilt:
 		\begin{enumerate}
 			\item \(A \neq \emptyset\) 
 			\item \(x, y \in A \implies x \sim y\)
@@ -1163,23 +1187,20 @@
 	
 	\begin{proposition}[Partitionierung in Äquivalenzklassen]
 		\label{prop122}
-		Sei \(X\) eine Menge mit Äquivalenzrelation \(\sim\). Dann gehört jedes \(a \in X\) zu genau einer Äquivalenzklasse \(A\) bezüglich \(\sim\). Für zwei Äquivalenzklassen \(A\), \(A'\) gilt entweder \(A = A'\) oder \(A\cap A' = \emptyset\).\\
+		Sei \(X\) eine Menge mit Äquivalenzrelation \(\sim\). Dann gehört jedes \(a \in X\) zu genau einer Äquivalenzklasse \(A\) bezüglich \(\sim\). Für zwei Äquivalenzklassen \(A\), \(A'\) gilt entweder \(A = A'\) oder \(A\cap A' = \emptyset\).
+		
 		\begin{proof}
 			Für \(a \in X\) definieren wir die Menge \(A = \{x \in X : a \sim x\}\).
-			Weil \(a \sim a\), gilt \(a \in A\), somit ist \(A \neq \emptyset\). 
-			Sind nun \(x, y \in A\), so gilt \(a \sim x \land a \sim y\). Damit folgt \(x \sim a\) und \(a \sim y\) und somit \(x \sim y\).
-			Für \(x \in A, y \in X\) mit \(x \sim y\). gilt \(a \sim x, x \sim y\) also \(a \sim y\) und somit \(y \in A\).
-			Damit ist \(A\) eine Äquivalenzklasse und \(a\) ist in \textit{mindestens} einer Äquivalenzklasse enthalten.\\[.125cm]
+			Weil \(a \sim a\), gilt \(a \in A\), somit ist \(A \neq \emptyset\).  Sind nun \(x, y \in A\), so gilt \(a \sim x \land a \sim y\). Damit folgt \(x \sim a\) und \(a \sim y\) und somit \(x \sim y\). Für \(x \in A, y \in X\) mit \(x \sim y\). gilt \(a \sim x, x \sim y\) also \(a \sim y\) und somit \(y \in A\).	Damit ist \(A\) eine Äquivalenzklasse und \(a\) ist in \textit{mindestens} einer Äquivalenzklasse enthalten.\\
+			
 			Es ist noch zu zeigen, dass zwei Äquivalenzklassen entweder gleich oder disjunkt sind.\\
 			Seien also \(A, A'\) Äquivalenzklassen mit \(A \cap A' \neq \emptyset\). Also existiert \(b \in A\cap A'\). Falls nun \(x \in A\), so gilt \(x \sim b\). Nachdem \(b\) auch in \(A'\) liegt, folgt aber \(x \in A'\). Damit folgt \(a \subset A'\). Die Umkehrung, also \(A' \subset A\), folgt ebenso.
 		\end{proof}
 	\end{proposition}
-	
-	\vspace{.25cm}
-	
+		
 	\begin{definition}[Quotientenmenge]
 		\IN{Quotientenmenge}
-		Es sei X eine Menge mit Äquivalenzrelation \(\sim\). Die Menge der Äquivalenzklassen in \(X\) bezeichnen wir  als Quotientenmenge und schreiben für diese Menge \(\bigslant{X}{\sim}\).\\
+		Es sei X eine Menge mit Äquivalenzrelation \(\sim\). Die Menge der Äquivalenzklassen in \(X\) bezeichnen wir  als \defemph{Quotientenmenge} und schreiben für diese Menge \(\bigslant{X}{\sim}\).\\
 		\begin{bemerkung}
 			Wir können eine Abbildung definieren, welche jedem \(a \in X\) dessen Äquivalenzklasse zuordnet:
 			\(X \to \bigslant{x}{\sim}, a \mapsto A_a\) (nach \hyperref[prop122]{Proposition \ref*{prop122}} eindeutig zugeordnete Äquivalenzklasse).
@@ -1198,7 +1219,7 @@
 	\section{Gruppen}
 	
 	\begin{definition}[Verknüpfungen]
-		Es sei \(G\) eine Menge. Eine Verknüpfung \(\ast\) auf \(G\) ist eine Abbildung:
+		Es sei \(G\) eine Menge. Eine \defemph{Verknüpfung} \(\ast\) auf \(G\) ist eine Abbildung:
 		\begin{alignat*}{3}
 			\ast :\ & G \times G	&&\to G\\
 					&(a, b) 		&&\mapsto \ast(a, b)
@@ -1220,7 +1241,7 @@
 	\begin{definition}[Gruppen]
 		\IN{Gruppe}
 		\label{def125}
-		Eine Menge \(G\) mit Verknüpfung \(\ast\) heißt Gruppe, falls gilt:
+		Eine Menge \(G\) mit Verknüpfung \(\ast\) heißt \defemph{Gruppe}, falls gilt:
 		\begin{enumerate}[leftmargin=3cm, rightmargin=1cm]
 			\item \((a \ast b) \ast c = a \ast (b \ast c)\) \hfill(Assoziativität)
 			\item Es existiert ein Element \(e \in G\), sodass gilt:
@@ -1316,7 +1337,8 @@
 						\(\vdots\) & \(\vdots\) & \(\ddots\)	& \(\vdots\)  \\
 						\(a_j\) 	 &\(a_j\)     & \(\cdots\)	& \(a_i * a_j\)
 					\end{tabular}
-				\end{center}				
+				\end{center}\pagebreak[2]
+					
 				\item Es gibt nur eine zweielementige Gruppe:
 				\begin{center}
 					\begin{tabular}{c || c | c}
@@ -1331,12 +1353,11 @@
 	
 	\begin{definition}[Untergruppen]
 		\IN{Untegruppe}
-		Es sei \((G, \cdot)\) eine Gruppe, \(G' \subset G\). \(G'\) heißt Untergruppe von G, falls für \(a, b \in G'\) auch gilt:\vspace{-.125cm}
-		\begin{enumerate}[leftmargin=3cm]
-			\itemsep0cm
-			\item \(ab \in G'\)
-			\item \(a^{-1} \in G'\)
-		\end{enumerate}
+		Es sei \((G, \cdot)\) eine Gruppe, \(G' \subset G\). \(G'\) heißt \defemph{Untergruppe} von \(G\), falls für \(a, b \in G'\) auch gilt:
+		\begin{align*}
+			1.&\quad ab \in G'\\
+			2.&\quad a^{-1} \in G'\hphantom{2.\quad}
+		\end{align*}
 	\end{definition}
 	
 	\begin{definition}[Homo- und Isomorphismen auf Gruppen]
@@ -1351,7 +1372,7 @@
 	\end{definition}
 	
 	\begin{proposition}[Untergruppen sind Gruppen]
-		Es sei \((G, \cdot)\) eine Gruppe, \(G'\) eine Untergruppe von G. Dann ist \((G', \cdot)\) selbst eine Gruppe.\\
+		Es sei \((G, \cdot)\) eine Gruppe, \(G'\) eine Untergruppe von \(G\). Dann ist \((G', \cdot)\) selbst eine Gruppe.
 		\begin{proof}
 			Assoziativität folgt sofort. Es existiert ein \(a^{-1}\) in \(G'\), somit auch \(e = aa^{-1} \in G'\).\\
 		\end{proof}
@@ -1376,11 +1397,11 @@
 		\textbf{Beispiele:}
 		\begin{enumerate}
 			\item \(G = (\R, +), H = (\{x \in \R : x > 0\}, \cdot)\)
-			\[\exp : \R \to \R^+_*, x \mapsto e^x\]
+			\[\exp : \R \to \R^+_*,\ x \mapsto e^x\]
 			ist ein Isomorphismus, denn \(e^{x + y} = e^x e^y\).
 			\item Wir betrachten \((\Z, +)\). Sei \(m \in \Z\). Dann ist \(\varphi_m : \Z \to \Z, a \mapsto ma\) ein Homomorphismus, denn \(m(a + b) = ma + mb\).\ Das Bild \(\phi_m(\Z) = m\Z = \{m a : a \in \Z\} \subset \Z\)  ist eine Untergruppe von \((\Z, +)\), denn \(ma + mb = m(a + b) \in m\Z\) und \(-(ma) = m(-a) \in m\Z\).\\	
 			
-			Dazu betrachten wir die Menge \(r + m\Z\) (für \(r \in \{0, 1, \dots, m-1\}\)) mit \(r + m\Z = \{r+ma : a \in \Z\}\). Dann gilt \(\Z = (0 +m\Z) \cup (1 + m\Z) \cup \dots \cup(m-1 \cup m\Z)\) und die Vereinigung ist disjunkt.\\	Für \(a \in \Z\) gilt \(\frac{a}{m} = k + \frac{r}{m}\) für \(k \in \Z, r \in \{0, \dots, m-1\}\) (Division mit Rest). Dann gilt \( a \in r + m\Z\). (denn \(a = km + r\)). Wir bezeichnen die Mengen \(r + m\Z\) auch als sogenannte "`\textit{Restklassen modulo \(m\)}"'.\\
+			Dazu betrachten wir die Menge \(r + m\Z\) (für \(r \in \{0, 1, \dots, m-1\}\)) mit \(r + m\Z = \{r+ma : a \in \Z\}\). Dann gilt \(\Z = (0 +m\Z) \cup (1 + m\Z) \cup \dots \cup(m-1 \cup m\Z)\) und die Vereinigung ist disjunkt.	Für \(a \in \Z\) gilt \(\frac{a}{m} = k + \frac{r}{m}\) für \(k \in \Z, r \in \{0, \dots, m-1\}\) (Division mit Rest). Dann gilt \( a \in r + m\Z\). (denn \(a = km + r\)). Wir bezeichnen die Mengen \(r + m\Z\) auch als sogenannte "`\textit{Restklassen modulo \(m\)}"'.\\
 			
 			Falls \(a, a'\) in derselben Klasse \(r +m\Z\) sind, gilt \(\frac{a-a'}{r} \in \Z\), und wir schreiben \(a \equiv a' \mod m\) (ist kongruent zu). Zu \(a \in \Z\) schreiben wir \(\xoverline{a} = a + m\Z\), die zu \(a\) gehörige Restklasse und wir definieren eine Addition \(\xoverline{a} + \xoverline{b} = \xoverline[.95]{a + b}\). Wir müssen sicherstellen, dass die Definition nicht von der Auswahl des Repräsentanten abhängt, das ist aber leicht zu sehen.\\ \(\xoverline{a} = \xoverline{a'}, \xoverline{b} = \xoverline{b'}\), dann folgt auch schon, dass gilt \(\xoverline[.95]{a + b} = \xoverline[.95]{a' + b'}\).
 		\end{enumerate}
@@ -1391,7 +1412,7 @@
 		Für \(m \in \N\)  sei \(\bigslant{\Z}{m\Z} = \{\xoverline{0}, \dots, \xoverline[.95]{m-1}\}\).	Dann gilt, dass \(\bigslant{\Z}{m\Z}, +\) (\(+\) definiert wie oben) eine abelsche Gruppe ist.
 		Die Abbildung \(\Z \to \bigslant{\Z}{m\Z}, a \mapsto \xoverline{a} = a + m\Z\) ist ein surjektiver Homomorphismus.
 		
-		Beweis: Übung.
+		\textit{Beweis}: Übung.
 		Wir nennen diese Gruppen die zyklischen Gruppen der Ordnung \(m\).
 	\end{satz*}
 	
@@ -1399,7 +1420,7 @@
 	
 	\begin{definition}[Ringe]
 		\IN{Ring}
-		Es sei \(R\) eine Menge, \(+ : R \times R \to R\) und \(\cdot : R \times R \to R\) Verknüpfungen. \((R, +, \cdot)\) heißt Ring, falls gilt:
+		Es sei \(R\) eine Menge, \(+ : R \times R \to R\) und \(\cdot : R \times R \to R\) Verknüpfungen. \((R, +, \cdot)\) heißt \defemph{Ring}, falls gilt:
 		\begin{enumerate}
 			\item \((R, +)\) ist eine abelsche Gruppe
 			\item Die Multiplikation ist \(\cdot\) assoziativ.
@@ -1438,8 +1459,8 @@
 	\begin{definition}[Unterring und Ringhomomorphismus]
 		\IN{Unterring}
 		\IN{Ringhomomorphismus}
-		Es sei \((R, +, \cdot)\) ein Ring, \(R' \subset R\). \((R', +, \cdot)\) heißt Unterring, falls \((R', +)\) eine Untergruppe von \((R, +)\) ist und gilt \(a, b \in R' \implies ab \in R'\).\\[.2cm]
-		Es seien \((R, +, \cdot)\), \((S, \hat{+}, \hat{\cdot})\) Ringe, \(\varphi : R \to S\) eine Abbildung. \(\varphi\) heißt Ringhomomorphismus, falls gilt:
+		Es sei \((R, +, \cdot)\) ein Ring, \(R' \subset R\). \((R', +, \cdot)\) heißt \defemph{Unterring}, falls \((R', +)\) eine Untergruppe von \((R, +)\) ist und gilt \(a, b \in R' \implies ab \in R'\).\\[.2cm]
+		Es seien \((R, +, \cdot)\), \((S, \hat{+}, \hat{\cdot})\) Ringe, \(\varphi : R \to S\) eine Abbildung. \(\varphi\) heißt \defemph{Ringhomomorphismus}, falls gilt:
 		\begin{alignat*}{3}
 		\varphi(a + b) &= \varphi(a) \ &&\hat{+}\ &&\varphi(b)\quad\text{und}\\
 		\varphi(a\cdot b) &= \varphi(a) &&\; \hat{\cdot} &&\varphi(b)
@@ -1449,7 +1470,7 @@
 	
 	\begin{definition}[Körper]
 		\IN{Körper}
-		Es sei \(K\) eine Menge, \(+ : K \times K \to K, \cdot : K \times K \to K\) Verknüpfungen. \((K, +, \cdot)\) heißt Körper, falls gilt:
+		Es sei \(K\) eine Menge, \(+ : K \times K \to K, \cdot : K \times K \to K\) Verknüpfungen. \((K, +, \cdot)\) heißt \defemph{Körper}, falls gilt:
 		\begin{enumerate}
 			\item \((K, +)\) ist eine abelsche Gruppe
 			\item \(K^\ast\) sei gegeben durch \(K \setminus \{0\}\). Dann ist \((K^\ast, \cdot)\) eine abelsche Gruppe.
@@ -1483,7 +1504,7 @@
 			\end{enumerate}
 		\end{proof}
 		
-		
+		\pagebreak[2]
 		\textbf{Beispiele:}
 		\begin{enumerate}
 			\item\((\Q, +, \cdot), (\R, +, \cdot)\).
@@ -1546,7 +1567,7 @@
 	\end{proposition}
 	
 	\begin{definition}[Nullteilerfreiheit von Ringen]
-		Ein Ring \((R, +, \cdot)\) heißt nullteilerfrei, falls für \(a, b \in R\) gilt \[ab = 0 \implies a = 0 \lor b = 0.\]
+		Ein Ring \((R, +, \cdot)\) heißt \defemph{nullteilerfrei}, falls für \(a, b \in R\) gilt \[ab = 0 \implies a = 0 \lor b = 0.\]
 		
 		\vspace{.1cm}
 		\begin{bemerkung}
@@ -1561,7 +1582,7 @@
 	\end{definition}
 	
 	\begin{satz}[Nullteilerfreiheit des Restklassenrings]
-		Der Restklassenring \((\bigslant{\Z}{m\Z}, +, \cdot)\) ist genau dann nullteilerfrei, wenn \(m\) eine Primzahl ist.\\
+		Der Restklassenring \((\bigslant{\Z}{m\Z}, +, \cdot)\) ist genau dann nullteilerfrei, wenn \(m\) eine Primzahl ist.
 		
 		\begin{proof}
 			Falls \(m\) nicht prim ist, gilt \(m = k \cdot l\) mit \(1 < k, l < m\). Damit gilt \(\xoverline{k} \neq \xoverline{0}, \xoverline{l} \neq \xoverline{0}\), aber \(\xoverline{k} \xoverline{l}= \xoverline{kl} = \xoverline{m} = \xoverline{0}\).\\
@@ -1570,10 +1591,9 @@
 		\end{proof}
 	\end{satz}
 	
-	\vspace{.2cm}
 	
 	\begin{satz}
-		Ein nullteilerfreier, kommutativer Ring \(K\) mit endlich vielen Elementen und Eins ist ein Körper.\\
+		Ein nullteilerfreier, kommutativer Ring \(K\) mit endlich vielen Elementen und Eins ist ein Körper.
 		
 		\begin{proof}
 			Nach \hyperref[lem128]{Lemma \ref*{lem128}} reicht es zu zeigen, dass die Abbildung \({}_{a}\tau : K^\ast \to K^\ast : {}_{a}\tau(x) = ax\) für jedes \(a \in K^\ast\) surjektiv ist. \(K^\ast\) ist eine endliche Menge, also folgt Surjektivität aus Injektivität. Sei also \({}_a\tau(x) = {}_a\tau(y)\), für \(x\), \(y\) aus \(K^\ast\). Es folgt \(ax = ay\), also \(a (x - y) = 0\). Damit gilt aber  (wegen Nullteilerfreiheit und \(a \in K^\ast\), also \(a \neq 0\)), dass \(x - y = 0\), also \(x = y\).
@@ -1583,26 +1603,26 @@
 	\pagebreak[4]
 	\begin{definition}[Charakteristik eines Ringes]
 		\IN{Ring!Charakteristik}
-		Es sei \(R\) ein Ring mit Einselement \(1\). Die Charakteristik von \(R\) ist gegeben durch\\
+		Es sei \(R\) ein Ring mit Einselement \(1\). Die \defemph{Charakteristik} von \(R\) ist gegeben durch\\
 		\[\chi(R) = 
 		\begin{cases}
 		0 & \text{ falls } n \cdot 1 \neq 0\ \forall n \neq 0\\
 		\min\left(n \in \N \setminus \{0\}\right) &\text{ falls } n \cdot 1 = 0
 		\end{cases}
 		\]
-		Statt \(\chi(R)\) wird auch \(\mathrm{char}(R)\) verwendet.\\
+		Statt \(\chi(R)\) wird auch \(\mathrm{char}(R)\) verwendet.
+		
 		\emph{Achtung}: Wir haben benutzt, dass \(n \cdot a = a + a + \dots + a\) (\(n\)-mal) mit \(a \in R, n \in \N\)
 	\end{definition}
 	
 	\begin{lemma}[Charakteristik von Körpern]
 		\label{lem142}
 		\IN{Körper!Charakteristik}
-		Ist \(K \) ein Körper, so gilt \(\chi(K)\) ist entweder  Null, oder eine Primzahl.\\
+		Ist \(K \) ein Körper, so gilt \(\chi(K)\) ist entweder  Null, oder eine Primzahl.
 		\begin{proof}
 			Angenommen, \(\chi(K) = m = k \cdot l \neq 0\) mit  \(1 < k, l < m\) (also \(m\) nicht prim). Es folgt  \(0 = m \cdot 1 = (k \cdot l) 1 = (k \cdot 1)(l \cdot 1)\). Wegen Nullteilerfreiheit folgt \(k \cdot 1 = 0\) oder \(l \cdot 1\) = 0, und somit ein Widerspruch.
 		\end{proof}
 	\end{lemma}
-	\vspace{.2cm}
 	\begin{definition}[Schiefkörper]
 		Ein Körper ohne Kommutativität bezüglich der Multiplikation nennen wir Schiefkörper (Beispiel: Quaternionen, siehe Übungsblatt).
 	\end{definition}
@@ -1628,7 +1648,7 @@
 		
 		
 		Zu beachten ist hierbei, was Addition der Gruppe, was Multiplikation des Körpers und was die speziell definierte Abbildung ist. Dies ergibt sich jedoch eindeutig aus den Typen der verknüpften Elemente.\\
-		Wir nennen die Abbildung \((\lb, v) \mapsto \lb v\) skalare Multiplikation. Die Gruppe \((V, +)\) mit der skalaren Multiplikation  heißt dann \(K\)-Vektorraum.
+		Wir nennen die Abbildung \((\lb, v) \mapsto \lb v\) skalare Multiplikation. Die Gruppe \((V, +)\) mit der skalaren Multiplikation  heißt dann \(K\)-\defemph{Vektorraum}.
 		
 		\begin{bemerkungen}
 			\begin{enumerate}
@@ -1686,7 +1706,7 @@
 	
 	\begin{definition}[Untervektorräume]
 		\IN{Untervektorraum}
-		Es sei \(K\) ein Körper, \(V\) ein \(K\)-Vektorraum. Weiteres sei \(W \subset V\). Dann heißt \(W\) Untervektorraum von \(V\), falls gilt:
+		Es sei \(K\) ein Körper, \(V\) ein \(K\)-Vektorraum. Weiteres sei \(W \subset V\). Dann heißt \(W\) \defemph{Untervektorraum} von \(V\), falls gilt:
 		
 		\begin{enumerate}[leftmargin=4cm]
 			\itemsep0cm
@@ -1702,7 +1722,7 @@
 	\end{definition}
 	
 	\begin{satz}[Untervektorräume sind Vektorräume]
-		Ein Untervektorraum ist (mit der induzierten Addition und Skalarmultiplikation) ein Vektorraum.\\
+		Ein Untervektorraum ist (mit der induzierten Addition und Skalarmultiplikation) ein Vektorraum.
 		
 		\begin{proof}
 			Sei \(V\) ein \(K\)-Vektorraum, \(W\) ein Untervektorraum von \(V\).
@@ -1712,8 +1732,8 @@
 			\end{enumerate}
 			Damit ist \(W\) ein Vektorraum.\\
 		\end{proof}
-		\vspace{.3cm}
 		\begin{bemerkung}
+			\IN{Indexmenge}
 			Es sei \(I\) eine Menge und für jedes \(a \in I\) sei \(M_a\) wieder eine Menge. So ein \(I\) nennen wir Indexmenge. Nun verallgemeinern wir Schnittmenge und Vereinigung:
 			\begin{align*}
 			\bigcap_{a\in I} M_a &= \{x : x \in M_a \text{ für jedes\ } a \in I\}\\
@@ -1728,7 +1748,7 @@
 			\item \(W = \bigcap_{a \in I} W_a\) ist ein Untervektorraum von V
 			\item Seien \(a, b \in I\), dann folgt \(\hat{W} = W_a \ \cup W_b\) ist ein Untervektorraum von \(V\) genau dann, wenn \(W_a \subset W_b\) oder \(W_b \subset W_a\)
 		\end{enumerate}
-		\textbf{Beispiele}
+		\textbf{Beispiele:}
 		\begin{enumerate}
 			\itemsep0cm 
 			\item \(V = R^3\), \(I = \{1, 2\}\)
@@ -1737,7 +1757,6 @@
 			\item \(W = W_1 \cap W_2 = \{v = (v_1, v_2, v_3) \in V : v_1 = v_2 = 0\}\) ist ein Untervektorraum.
 			\item \(W_1 \cup W_2 = \{v = (v_1, v_2, v_3) \in V : v_1 = 0 \lor v_2 = 0\}\) ist kein Untervektorraum von V, denn \(w_1 = (0, 1, 1) \in W_1, w_2 = (1, 0, 1) = W_2\), aber \(w_1 + w_2 = (1, 1, 2)\) ist nicht in \(W_1 \cup W_2\)
 		\end{enumerate}
-		\vspace{.25cm}
 		\begin{proof}
 			\begin{enumerate}
 				\item Es gilt \(0 \in W_a\) für jedes \(a \in I\), also gilt \(0 \in W\).
@@ -1758,10 +1777,14 @@
 		Es sei \(V\) ein \(K\)-Vektorraum, \(E \subset V\) eine Menge.
 		
 		\begin{enumerate}
-			\item Für jedes \(e \in E\) sei \(\lb_e \in K\), so dass nur endlich viele \(\lb_e \neq 0\) sind. Dann schreiben wir \[\sum_{e \in E}\lb_e \cdot e = \sum_{e\in E, \lb_e \neq 0} \lb_e \cdot e \in V\ \text{ und }\ \sum_{e \in V} \lb_e \cdot e\] heißt Linearkombination der \(e \in E\)
+			\item Für jedes \(e \in E\) sei \(\lb_e \in K\), so dass nur endlich viele \(\lb_e \neq 0\) sind. Dann schreiben wir 
+			\[
+			\sum_{e \in E}\lb_e \cdot e = \sum_{e\in E, \lb_e \neq 0} \lb_e \cdot e \in V\ \text{ und }\ \sum_{e \in V} \lb_e \cdot e
+			\]
+			heißt \defemph{Linearkombination} der \(e \in E\)
 			\item Ein beliebiges \(x \in V\) heißt darstellbar als Linearkombination der \(e \in E\), falls \(\lb_e \in k\) existieren, mit \(\lb_e \neq 0\) für endlich viele \(e \in E\) und es gilt \(x = \sum_{e \in E}\lb_e \cdot e\).
-			\item Spann oder Aufspann: \(\Span(E) = \{x \in V : x \text{ als Linearkombination der } e \in E \text{ darstellbar}\}\) (manchmal auch als lineare Hülle bezeichnet)
-			\item Falls gilt \(W = \Span(E)\), so heißt \(E \subset V\) Erzeugendensystem von \(W\).
+			\item \defemph{Spann} oder \defemph{Aufspann}: \(\Span(E) = \{x \in V : x \text{ als Linearkombination der } e \in E \text{ darstellbar}\}\) (manchmal auch als lineare Hülle bezeichnet)
+			\item Falls gilt \(W = \Span(E)\), so heißt \(E \subset V\) \defemph{Erzeugendensystem} von \(W\).
 			\item \(W \subset V\) heißt endlich erzeugt über \(K\), falls ein Erzeugendensystem für \(W\) mit nur endlich vielen Elementen existiert.
 		\end{enumerate}
 		\textbf{Beispiel: } 
@@ -1775,7 +1798,7 @@
 			\item \(\Span(E)\) ist ein Untervektorraum von \(V\)
 			\item Falls \(W \subset V\) ein Untervektorraum ist mit \(E \subset W\), so gilt \(\Span(E) \subset W\). Es folgt, dass \(\Span(E) \subset V\) der minimale Untervektorraum ist, der \(E\) enthält.
 		\end{enumerate}
-		\vspace{.2cm}
+		
 		\begin{proof}
 			\begin{enumerate}
 				\item Folgt sofort aus der Definition, denn 
@@ -1788,22 +1811,22 @@
 		\end{proof}
 	\end{lemma}
 	
-	\section{Basis und Dimension}
-	\hspace{-.25cm}\textbf{Ziel:} finde möglichst kleine Erzeugendensysteme für Vektorräume.
-	\begin{enumerate}[leftmargin=1.4cm]
-		\item[\textbf{Beispiel:}]Wir betrachten \(\R^2, e_1=(1, 0), e_2 = (0,1)\). Dann gilt \[\Span(\{e_1, e_2\})
-		= \{x \in \R^2 : x = (x_1, x_2),\ x_1 = \lb_1 e_1,\ x_2 = \lb_2 e_2,\ \lb_1,\ \lb_2 \in \R\} = \R^2.\] 
-		Allerdings nur \(\{e_1\}\) oder nur \(\{e_2\}\) ist kein Erzeugendensystem für \(\R^2\). Mit \(e_3 = \{1, 1\}\) ist \(\{e_1, e_2, e_3\}\) ein Erzeugendensystem für \(\R^2\), aber kein kleinstmögliches im obigen Sinne.
-	\end{enumerate}
-	\hspace{-.25cm}Im Folgenden sei stets \(K\) ein Körper und \(V\) ein \(K\)-Vektorraum.
+\section{Basis und Dimension}
+	\textbf{Ziel:} finde möglichst kleine Erzeugendensysteme für Vektorräume.\\
+	\textbf{Beispiel:}Wir betrachten \(\R^2, e_1=(1, 0), e_2 = (0,1)\). Dann gilt
+	 \[
+	 \Span(\{e_1, e_2\}) = \{x \in \R^2 : x = (x_1, x_2),\ x_1 = \lb_1 e_1,\ x_2 = \lb_2 e_2,\ \lb_1,\ \lb_2 \in \R\} = \R^2.
+	 \] 
+	Allerdings nur \(\{e_1\}\) oder nur \(\{e_2\}\) ist kein Erzeugendensystem für \(\R^2\). Mit \(e_3 = \{1, 1\}\) ist \(\{e_1, e_2, e_3\}\) ein Erzeugendensystem für \(\R^2\), aber kein kleinstmögliches im obigen Sinne.
+	Im Folgenden sei stets \(K\) ein Körper und \(V\) ein \(K\)-Vektorraum.
 	
 	\begin{definition}[Familien von Elementen]
 		\IN{Familie}
-		Seien \(X\), \(I\) Mengen. Für jedes \(j \in I\) sei \(e_j \in X\). Dann bezeichnen wir die Abbildung \(I \to X, j \mapsto e_j\) als "`durch \(I\) induzierte Familie von Elementen von \(X\)"'. Wir schreiben \((e_j)_{j \in I} \in X^I = \abb(I, X)\).\\
+		Seien \(X\), \(I\) Mengen. Für jedes \(j \in I\) sei \(e_j \in X\). Dann bezeichnen wir die Abbildung \(I \to X, j \mapsto e_j\) als "`durch \(I\) induzierte \defemph{Familie} von Elementen von \(X\)"'. Wir schreiben \((e_j)_{j \in I} \in X^I = \abb(I, X)\).\\
 		\begin{bemerkung}
 			Es sei \(I = \{1, 2, 3, \dots, n\}\). Dann gilt \(\R^I = \R^{\{1, 2, \dots, n\}} = \R^n\). Die Abbildung ist hier \(1 \mapsto x_1\), \(2 \mapsto x_2\), \(\ldots\), \(n \mapsto x_n\).
 			
-			 Für \(I = \N\) is \(\R^\N\) die Menge der reellen Folgen.
+			 Für \(I = \N\) ist \(\R^\N\) die Menge der reellen Folgen.
 		\end{bemerkung}
 	\end{definition}
 	
@@ -1813,6 +1836,7 @@
 		\begin{enumerate}
 			\item \((v_i)_{i \in I}\) heißt minimales Erzeugendensystem von \(V\), falls \(E = \{v_i, i \in I\}\) ein Erzeugendensystem von \(V\) ist und gilt \((J \subsetneq I) \implies \Span(v_j, j \in J) \neq V\)
 			\item \((v_i)_{i \in I}\) heißt lineare unabhängig, falls gilt:\\
+			
 			Es sei \((\lb_i)_{i \in I} \in K^I\) (eine durch I induzierte Menge von Skalaren) mit \(\lb_i \neq 0\) für endlich viele \(i \in I\) und \(\sum_{i \in I} \lb_i v_i = 0\), dann folgt \(\lb_i = 0\) für alle \(i \in I\). Nicht linear unabhängige Familien heißen linear abhängig.
 			\begin{bemerkung}
 				Für \(I = \emptyset\) ist \((v_i)_{i \in I}\) stets linear unabhängig.
@@ -1830,7 +1854,7 @@
 			\item Falls \(i, j \in I\) existieren, mit \(v_i = v_j\) dann ist \((v_i)_{i \in I}\) linear abhängig
 			\item Falls \(I = \{i\}\) ist, dann ist \((v_i)_{i \in I}\) linear unabhängig genau dann, wenn \(v_i \neq 0\)
 			\item Sind \((v_i)_{i \in I}\) linear unabhängig, dann gilt \((J \subset I) \implies (v_j)_{j \in J}\) ebenfalls als linear unabhängig
-			\item Sei \(I \neq \emptyset\), dann gilt \((v_i)_{i \in I}\) ist linear abhängig genau dann, wenn \(j_0 \in I\) existiert, sodass \(J \subset I \setminus \{j_0\}\), \(J\) ist eine endliche Menge und es existiert \((\mu_j)_{j \in J} \in K^I\), sodass \(\mu_{j_0} = \sum_{j \in J} \mu_j v_j \) \ (Ein Element lässt sich als Linearkombination der anderen schreiben)\\
+			\item Sei \(I \neq \emptyset\), dann gilt \((v_i)_{i \in I}\) ist linear abhängig genau dann, wenn \(j_0 \in I\) existiert, sodass \(J \subset I \setminus \{j_0\}\), \(J\) ist eine endliche Menge und es existiert \((\mu_j)_{j \in J} \in K^I\), sodass \(\mu_{j_0} = \sum_{j \in J} \mu_j v_j \) \ (Ein Element lässt sich als Linearkombination der anderen schreiben)
 		\end{enumerate}
 		
 		\begin{proof}
@@ -1896,7 +1920,7 @@
 	
 	\begin{definition}[Basis eines Vektorraums]
 		\IN{Basis}
-		Eine Familie \((v_i)_{i\in I}\) mit \(v_i \in V\) für alle \(i \in I\) heißt Basis von \(V\), falls \((v_i)_{i\in I}\) ein linear unabhängiges Erzeugendensystem von V ist.\\
+		Eine Familie \((v_i)_{i\in I}\) mit \(v_i \in V\) für alle \(i \in I\) heißt \defemph{Basis} von \(V\), falls \((v_i)_{i\in I}\) ein linear unabhängiges Erzeugendensystem von \(V\) ist.\\
 		
 		
 		\textbf{Beispiel: } \(V = K^n\), Eine Basis ist gegeben durch \(e_i = (0, \ldots, 0, 1, 0, \ldots, 0)^\top\), wobei der \(i\)-te Eintrag 1 beträgt.
@@ -1909,7 +1933,7 @@
 	\begin{satz}[Basisauswahlsatz]
 		\IN{Basisauswahlsatz}
 		\label{satz213}
-		Es sei \(N \in \N \cup \{0\}\), \(v_1, \dots, v_N \in V\) und \(v = span(\{v_1, \dots, v_N\})\). Dann existieren \(i_1, \dots, i_n \in \{1, \dots, N\}\), sodass \((v_{i_1}, \dots, v_{i_n})\) eine Basis von \(V\) bilden.\\
+		Es sei \(N \in \N \cup \{0\}\), \(v_1, \dots, v_N \in V\) und \(v = \Span(\{v_1, \dots, v_N\})\). Dann existieren \(i_1, \dots, i_n \in \{1, \dots, N\}\), sodass \((v_{i_1}, \dots, v_{i_n})\) eine Basis von \(V\) bilden.\\
 		
 		\begin{proof}
 			Wir verkleinern die Familie \((v_i)_{i \in \{1, \dots, N\}}\) schrittweise:
@@ -1924,7 +1948,7 @@
 	
 	\begin{lemma}
 		\label{lem214}
-		Sei \((v_1, \dots, v_n)\) eine Basis von \(V\), \(w = \lb_1v_1 + \dots +  \lb_n v_n\) mit \(\lb_a \neq 0\) für \(a \in \{1, \dots, n\}\). Dann gilt \((v_1, \dots, v_{a - 1}, w, v_{a+1}, \dots, v_n)\) ist eine Basis.\\
+		Sei \((v_1, \dots, v_n)\) eine Basis von \(V\), \(w = \lb_1v_1 + \dots +  \lb_n v_n\) mit \(\lb_a \neq 0\) für \(a \in \{1, \dots, n\}\). Dann gilt \((v_1, \dots, v_{a - 1}, w, v_{a+1}, \dots, v_n)\) ist eine Basis.
 		
 		\begin{proof}
 			Durch Umnummerierung der Basisvektoren können wir annehmen, dass gilt \(a = 1\). Sei also oBdA \(a = 1\). Zu zeigen ist nun, dass \((w, v_2, \dots, v_n)\) ein Erzeugendensystem (1.) und zusätzlich linear unabhängig (2.) ist.
@@ -1956,7 +1980,7 @@
 			\item \(m \leq n\)
 			\item \((v_1, \dots, v_n)\) kann so umnummeriert werden, dass \((w_1, \ldots, _m, v_{m + 1}, \ldots, v_n)\) eine Basis ist.
 		\end{enumerate}
-		\vspace{.25cm}
+		
 		\begin{proof} Erfolgt durch Induktion über \(m\):
 			\begin{enumerate}
 				\item[IA:] Für \(m = 0\) ist nichts zu zeigen.
@@ -2001,7 +2025,7 @@
 		Falls \(V\) endlich erzeugt ist, und \((w_i)_{i \in I}\) eine linear unabhängige Familie von Vektoren ist, dann existiert eine Basis von \(V\), die alle \(w_i\) enthält. Insbesondere besitzt jeder endlich erzeugte Vektorraum eine Basis.\\
 		
 		\begin{proof}
-			Es seien \(\{v_1, \dots, v_n\} \subset V\) mit \(n \in \N \setminus\{0\}\), mit \(\Span(\{v_1, \dots, v_n\}) = V\). Aus dem \hyperref[satz213]{Basisauswahlsatz} folgt sofort Existenz einer Basis. Der Rest folgt mit Basisergänzungssatz.\(^{\text{ [Literaturangabe benötigt]}}\)\\
+			Es seien \(\{v_1, \dots, v_n\} \subset V\) mit \(n \in \N \setminus\{0\}\), mit \(\Span(\{v_1, \dots, v_n\}) = V\). Aus dem \hyperref[satz213]{Basisauswahlsatz} folgt sofort Existenz einer Basis. Der Rest folgt mit Basisergänzungssatz.\(^{\text{ [Angabe benötigt]}}\)\\
 		\end{proof}
 	\end{satz}
 	
@@ -2037,8 +2061,8 @@
 				\item  \(\{x \in \R^\N, x = (x_1, x_2, \dots)\) mit endlich vielen \(x_i \neq 0\} \subset \R^\N\). Hier ist \(((1, 0, \dots), (0, 1, 0, \dots), \dots)\) eine Basis.
 			\end{enumerate}
 		\end{minipage}
-		
 	\end{lemma}
+	\vspace{.1cm}
 	
 	\begin{satz}[Existenz einer Basis]
 		\label{satz220}
@@ -2072,14 +2096,13 @@
 	
 	
 	
-	\chapter{Lineare Abbildungen}
-	\hspace{-.25cm}\begin{minipage}{1.05\textwidth}
-		Wir kennen schon lineare Abbildungen von \(\R^n\) nach \(\R^m\), nämlich diejenigen, welche durch Matrizen dargestellt werden.
-	\end{minipage}
+\chapter{Lineare Abbildungen}
+	Wir kennen schon lineare Abbildungen von \(\R^n\) nach \(\R^m\), nämlich diejenigen, welche durch Matrizen dargestellt werden.
+
 	\vspace{.5cm}
 	
-	\section{Definition und grundlegende Eigenschaften}
-	\hspace{-.25cm}Im Folgenden sei \(K\) ein Körper und \(V\) ein \(K\)-Vektorraum.
+\section{Definition und grundlegende Eigenschaften}
+	Im Folgenden sei \(K\) ein Körper und \(V\) ein \(K\)-Vektorraum.
 	
 	\begin{definition}[Lineare Abbildungen]
 		\label{def31}
@@ -2192,7 +2215,7 @@
 	
 	\begin{proposition}
 		\label{prop34}
-		Es gilt \(G\in\Hom_K(V, W)\) ist injektiv genau dann, wenn \(\ker(G)=\{0\}\).\\
+		Es gilt \(G\in\Hom_K(V, W)\) ist injektiv genau dann, wenn \(\ker(G)=\{0\}\).
 		\begin{proof}
 			Wurde bereits im Beweis von \hyperref[satz33]{Satz \ref*{satz33}} gezeigt. 
 		\end{proof}
@@ -2204,7 +2227,7 @@
 		\begin{proof}
 			Nach dem \hyperref[satz218]{Basisergänzungssatz} existiert eine Basis \((v_1,\ldots, v_n)\) von \(V\). Weiterhin sei \((e_1, \ldots, e_n)\) die Standardbasis von \(K^n\). Dann gilt nach \hyperref[satz33]{Satz \ref*{satz33}}, dass für genau eine \(K\)-lineare Abbildung ein \(F\) existiert mit \(F(v_i)=e_i\) für \(i=1, \ldots, n\). \(F\) ist surjektiv, denn \(\Ima(F)=F(V)=\Span(\{e_1, \ldots, e_n\})=K^n\). \\
 			\(F\) ist injektiv, denn \((e_1, \ldots, e_n)\) ist linear unabhängig, der Schluss folgt mit \hyperref[satz33]{Satz \ref*{satz33}.2}.\\
-			 Ebenso für \(V\cong W\).\\
+			 Ebenso für \(V\cong W\).
 		\end{proof}
 		\vspace{.5cm}
 		\begin{bemerkung}
@@ -2228,7 +2251,7 @@
 		\label{satz37}
 		Es seien \(V\), \(W\) \(K\)-Vektorräume, \(F\in\Hom_K(V, W)\), \(\dim_K(V)\) endlich. Dann gilt \[\dim_K(V) = \dim_K(\ker(F))+\rg(F).\]
 		\begin{proof}
-			Nach \hyperref[lem32]{Lemma \ref*{lem32}} ist \(\ker(F)\subset V\) ein Untervektorraum, also endlichdimensional \({}^\text{[Literaturangabe benötigt]}\). Weiter ist \(\Ima(F)\subset W\) ein Untervektorraum, also mit \(\dim_K(\Ima(F))\) endlichdimensional \({}^\text{[Literaturangabe benötigt]}\). Sei also \((v_1, \ldots v_m)\) eine Basis von \(\ker(F)\), \((w_1,\ldots, w_r)\) eine Basis von \(\Ima(F)\) und es seien \(u_1,\ldots, u_r\) Vektoren in \(V\) mit \(F(u_j)=w_j\) für \(j=1, \ldots, r\).
+			Nach \hyperref[lem32]{Lemma \ref*{lem32}} ist \(\ker(F)\subset V\) ein Untervektorraum, also endlichdimensional \({}^\text{[Angabe benötigt]}\). Weiter ist \(\Ima(F)\subset W\) ein Untervektorraum, also mit \(\dim_K(\Ima(F))\) endlichdimensional \({}^\text{[Angabe benötigt]}\). Sei also \((v_1, \ldots v_m)\) eine Basis von \(\ker(F)\), \((w_1,\ldots, w_r)\) eine Basis von \(\Ima(F)\) und es seien \(u_1,\ldots, u_r\) Vektoren in \(V\) mit \(F(u_j)=w_j\) für \(j=1, \ldots, r\).
 			
 			Zu zeigen ist nun, dass \(m+r=\dim_K(V)\) ist. Wir beweisen, dass \((v_1, \ldots, v_m, u_1, \ldots, u_r)\) eine Basis von \(V\) ist:
 			\begin{enumerate}
@@ -2284,11 +2307,17 @@
 			
 			Zu zeigen ist nun, dass \(\dim_K(V_1 + V_2) = (n+m) + (n+k) -n = n+m+k\) ist. Wir zeigen, dass \((u_1, \ldots u_n, v_1, \ldots v_m,  w_1, \ldots, w_k)\) eine Basis von \(V_1 + V_2\) ist. Sicherlich ist die Familie ein Erzeugendensystem, denn sei \(x\in V_1 + V_2\), dann gilt \(x = \sum_{i\in I}\lb_i x_i^1 + \sum_{j\in J} \mu_j x_j^2\) mit \(x_i^1\in V_1\) und \(x_j^2\in V_2\).\\
 			
-			Jedes \(x_i^1\), \(x_j^2\) kann man als Linearkombination von Vektoren \((u_1,\ldots, u_n, v_1, \ldots, v_m)\) geschrieben werden, insbesondere ist \(x\) eine Linearkombination von \((u_i, v_j, w_l)\), \(i = 1,\ldots, n\), \(j=1, \ldots, m\), \(l = 1, \ldots, k\). 
+			Jedes \(x_i^1\), \(x_j^2\) kann man als Linearkombination von Vektoren \((u_1,\ldots, u_n, v_1, \ldots, v_m)\) geschrieben werden, insbesondere ist \(x\) eine Linearkombination von \((u_i, v_j, w_l)\), \(i = 1,\ldots, n\), \(j=1, \ldots, m\), \(l = 1, \ldots, k\). \\
 			
-			Zur linearen Unabhängigkeit: Sei \(0=\sum_{i\in I}\lb_i u_i + \sum_{j\in J} \mu_j v_j + \sum_{l\in L} \kappa_l w_l\). Wir setzen \(v = \sum_{i\in I} \lb_i u_i + \sum_{j \in J} \mu_j v_j\in V_1\). Es gilt aber \(-v = \sum_{l\in L}\kappa_l w_l\in V_2\). Damit gilt \(v\in V_1 \cup V_2\) und somit \(v=\sum_{i\in I}\lb_i'u_i\). Die Linearkombination in \(V_1\) aus \((u_1, \ldots, u_n, v_1, \ldots, v_m)\) ist aber eindeutig, also folgt: \(\lb_i = \lb_i'\), \(i = 1, \ldots, n\) und \(\mu_j = 0\), \(j =1, \ldots, m\). Damit ist aber auch \(\kappa_l=0\), \(l=1, \ldots, k\) und \(\lb_i=0\) für \(i=1, \ldots, n\). %TODO: make readable
+			Zur linearen Unabhängigkeit: Sei 
+			\begin{align*}
+				0	&= \sum_{i\in I}\lb_i u_i + \sum_{j\in J} \mu_j v_j + \sum_{l\in L} \kappa_l w_l.\\\text{Wir setzen }\quad
+				v	&= \sum_{i\in I} \lb_i u_i + \sum_{j \in J} \mu_j v_j\in V_1.\\\text{Es gilt aber}\quad
+				-v 	&= \sum_{l\in L}\kappa_l w_l\in V_2,
+			\end{align*}
+			damit gilt \(v\in V_1 \cup V_2\) und somit \(v=\sum_{i\in I}\lb_i'u_i\). Die Linearkombination in \(V_1\) aus \((u_1, \ldots, u_n, v_1, \ldots, v_m)\) ist aber eindeutig, also folgt: \(\lb_i = \lb_i'\), \(i = 1, \ldots, n\) und \(\mu_j = 0\), \(j =1, \ldots, m\). Damit ist aber auch \(\kappa_l=0\), \(l=1, \ldots, k\) und \(\lb_i=0\) für \(i=1, \ldots, n\). 
 		\end{proof}
-		\vspace{.75cm}
+		\vspace{.2cm}
 		\begin{bemerkung}
 			In der Summenschreibweise ist das Weglassen der Indizes nicht unüblich.
 		\end{bemerkung}
