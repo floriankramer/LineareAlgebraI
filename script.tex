@@ -84,7 +84,6 @@
 \DeclareMathOperator{\Mat}{Mat}
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\GL}{GL}
-\DeclareMathOperator{\En}{En}
 \DeclareMathOperator{\M}{M}
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\sign}{sign}
@@ -92,6 +91,10 @@
 \DeclareMathOperator{\adj}{adj}
 \DeclareMathOperator{\vol}{vol}
 \DeclareMathOperator{\PE}{PE}
+\DeclareMathOperator{\MM}{M}
+\DeclareMathOperator{\TR}{Tr}
+
+\newcommand{\En}{\mathrm{E}_n}
 
 % increase line height
 \renewcommand{\baselinestretch}{1.2}
@@ -110,6 +113,16 @@
 { \\[.125cm] }% punctuation between head and body
 { }           % space after theorem head; " " = normal interword space
 {\thmname{#1}\thmnumber{ #2} {\normalfont\thmnote{ -- \hspace{1pt}  \defemph{#3}}}}
+
+\newtheoremstyle{customenv} % name of the style to be used
+{12pt}        % measure of space to leave above the theorem. E.g.: 3pt
+{12pt}        % measure of space to leave below the theorem. E.g.: 3pt
+{\normalfont\addtolength{\@totalleftmargin}{7pt}\addtolength{\linewidth}{-7pt}\parshape 1 7pt\linewidth} % name of font to use in the body of the theorem
+{-7pt}        % measure of space to indent
+{\bfseries}   % name of head font
+{ \\[.125cm] }% punctuation between head and body
+{ }           % space after theorem head; " " = normal interword space
+{#3}
 \makeatother
 
 % define side environment used for remarks
@@ -140,6 +153,8 @@
 \newtheorem{satz}[definition]{Satz}
 \newtheorem*{satz*}{Satz} % without numbering
 \renewenvironment{proof}{\paragraph{Beweis: }}{\qed}
+\theoremstyle{customenv}
+\newtheorem*{customenv}{customenv} % weird
 
 % define definition emphasis
 \newcommand{\defemph}[1]{\textsc{#1}}
@@ -205,6 +220,13 @@
 }
 
 \def\ll@korrolar{%
+	\protect\thmtopatch@numbernametext
+	\ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
+	{\csname the\thmt@envname\endcsname}%
+	{\thmt@thmname}%
+}
+
+\def\ll@customenv{%
 	\protect\thmtopatch@numbernametext
 	\ifx\@empty\thmt@shortoptarg\else[\thmt@shortoptarg]\fi
 	{\csname the\thmt@envname\endcsname}%
@@ -321,7 +343,7 @@
 	\chapter[Lineare Gleichungssysteme und der n-dimensionale reelle Raum]{Lineare Gleichungssysteme und der \\ n-dimensionale reelle Raum}
 	
 	\begin{itemize}
-		\item Descartes führte ``Koordinaten'' ein in der Geometrie ein, also Zahlensysteme. Das führte dazu, das man nun leichter rechnen kann.
+		\item Descartes führte "`Koordinaten"' in der Geometrie ein, also Zahlensysteme. Das führte dazu, das man nun leichter rechnen kann.
 		\item Wir benutzen hier die reellen Zahlen (mit den üblichen Rechenregeln für die Addition):
 		\begin{itemize}
 			\item \((x + y) + z = x + (y + z)\) 
@@ -349,9 +371,9 @@
 	
 	Mit \(\R^0\) bezeichnen wir die Menge \(\{0\}\), welche nur das Nullelement enthält. Allgemein übertragen sich die Rechenregeln von \mR. Wir schreiben:
 	
-	\begin{align*}
-	x + y =& (x_1 + y_1, \dots, x_n + y_n)\text{ für } x, y \in \Rn\qquad \tag*{Vektoraddition}\\
-	\lb x = &(\lb x_1, \dots, \lb x_n)\qquad \tag*{Skalarmultiplikation}
+	\begin{align*}\hspace{1cm}
+		x + y =&\ (x_1 + y_1, \dots, x_n + y_n)\text{ für } x, y \in \Rn\qquad \tag*{Vektoraddition}\\
+		\lb x =&\ (\lb x_1, \dots, \lb x_n)\qquad \tag*{Skalarmultiplikation}
 	\end{align*}
 	
 	\vspace{.2cm}
@@ -364,16 +386,16 @@
 		Ein lineares Gleichungssystem G ist ein System der Form
 		
 		\begin{alignat*}{4}
-		a_{11} x_1 &+ a_{12}x_2 &+\ \dots\ +\ & a_{1n} x_n &= b_1\\
-		a_{21} x_1 &+ a_{22}x_2 &+\ \dots\ +\ & a_{2n} x_n &= b_2\\
-		\vdots\quad & \qquad\vdots&\ddots\quad \ \ &\quad\vdots & \vdots\  \\
-		a_{m1} x_1 &+ a_{m2} x_2  &+\ \dots\ +\ & a_{mn} x_n &= b_m\\
+			a_{11} x_1	&+ a_{12}x_2	&+\ \dots\ +\	& a_{1n} x_n	&= b_1\\
+			a_{21} x_1 	&+ a_{22}x_2 	&+\ \dots\ +\	& a_{2n} x_n	&= b_2\\
+			\vdots\quad & \qquad\vdots	& &\quad\vdots	& \vdots\ \\
+			a_{m1} x_1 	&+ a_{m2} x_2  	&+\ \dots\ +\	& a_{mn} x_n	&= b_m\\
 		\end{alignat*}
 		
 		 Die einzelnen Komponenten lassen sich auch zusammenfassen als \[\sum_{j=1}^n a_{i,j} x_j = b_i \quad i\in\{1,\dots,m\}\]
 		oder, noch kürzer, in Matrixschreibweise:
 		\[Ax=b\]\\
-		Dabei bezeichnet \(A\) eine sog. \defemph{Matrix} mit den Einträgen \(a_{i,j},\ i\in[0,\ \dots\ , m],\ j\in[0,\ \dots\ , n]\), wir schreiben\\
+		Dabei bezeichnet \(A\) eine sog. \defemph{Matrix} mit den Einträgen \(a_{i,j},\ i\in\{1, \dots , m\},\ j\in\{1, \dots, n\}\), wir schreiben\\
 		\[A =
 		\begin{pmatrix}
 		a_{11} & \dots  & a_{1n}\\
@@ -459,13 +481,10 @@
 		Wir nennen \(k\) den Rang der Matrix \(A\) (bzw. des Gleichungssystems). Es gilt \(0 \le k \le \min(m, n) \).
 		Ein Gleichungssystem ist genau dann lösbar,  wenn gilt: \(b_{k+1} = b_{k+2} = \ldots = b_m = 0\). 
 		In diesem Fall lässt sich eine Lösung \(\xi \in \Rn\) bestimmen,  indem man \(\xi_{k+1}, \dots, \xi_n\) beliebig wählt, und danach \(\xi_i = b_i -  \sum_{j=k+1}^n a_{i,j} \xi_j, \ i\in\{1,\dots,n\}\) wählt. Wir sagen die Lösungsmenge ist \\
-		\[\mathbb{L} =\left\{\left(b_1 - \sum_{j=k+1}^na_{1j}\xi_j\right), \dots,  \left(b_k - \sum_{j=k+1}^{n}a_{kj}\xi_j\right), \xi_{k+1}, \dots, \xi_n \Big| \xi_{k+1}, \dots, \xi_n \in \R\right\}\]
-		Wir nennen eine solche Menge \((n-k)\)-parametrig.\\
+		\[\mathbb{L} =\left\{\left.\left(b_1 - \sum_{j=k+1}^na_{1j}\xi_j\right), \dots,  \left(b_k - \sum_{j=k+1}^{n}a_{kj}\xi_j\right), \xi_{k+1}, \dots, \xi_n \right| \xi_{k+1}, \dots, \xi_n \in \R\right\}\]
 		
-		%Denn für Zeile \(i, i=k+1, \dots, n\) lautet das Gleichungssystem \(0x_1 + \dots + 0x_n = b_i = 0\) und \\
-		%Für Zeile \(i, i =1, \dots, k\) 
-		%\[a_{i, i} x_i + \sum_{j=k+1}^n a_{i,j} x_j = b_i\]
-		 Beispiel:
+		Wir nennen eine solche Menge \((n-k)\)-parametrig.\\
+		\textbf{Beispiel:}
 		\[
 		\begin{pmatrix}
 		1 & 0 & 3\\
@@ -543,11 +562,11 @@
 			Wir vertauschen die \(i\)-te Zeile mit der zweiten Zeile, und die \(j\)-te Spalte mit der zweiten Spalte. Damit ist \(a_{2,2} \neq 0\). Nun wenden wir \(Z_{2}^{\frac{1}{a_{2,2}}}\) an. Damit ist \(a_{2,2} = 1\). Jetzt wenden wir \(Z_{2,1}^{-a_{1,2}}, \dots, Z_{2,m}^{-a_{m,2}}\) an und erhalten die Form:
 			\[
 			\begin{pmatrix}[ccccc|c]
-			1 & 0 & a_{1, 3} & \dots & a_{1, n} & b_1\\
-			0 & 1 & a_{2, 3} & \dots & a_{1, n} & b_2\\
-			0 & 0 & \ddots	 &		 & 			& b_3\\
-			\vdots&&		 & \ddots&			& \vdots\\
-			0 & 0 & a_{m, 3} & \dots & a_{m, n} & b_m
+			1 		& 0 	& a_{1, 3}	& \dots	& a_{1, n} 	& b_1\\
+			0 		& 1 	& a_{2, 3}	& \dots & a_{2, n} 	& b_2\\
+			0 		& 0 	& a_{3, 3}	& \dots & a_{3, n}	& b_3\\
+			\vdots	&\vdots	&\vdots		& 		& \vdots	& \vdots\\
+			0 		& 0		& a_{m, 3} 	& \dots & a_{m, n} 	& b_m
 			\end{pmatrix}
 			\]\\
 			Wir verwandeln damit der Reihe nach die Spalten der Matrix in Spalten, in welchen nur der Diagonaleintrag von \(0\) verschieden ist (dieser Eintrag ist gleich 1).
@@ -564,7 +583,7 @@
 	\vspace{.2cm}
 	\begin{korrolar}
 		\label{kor5}
-		Ein homogenes Gleichungssystem mit weniger Gleichungen als Variablen hat mindestens eine nicht triviale Lösung.
+		Ein homogenes Gleichungssystem mit weniger Gleichungen als Variablen hat mindestens eine nicht-triviale Lösung.
 		\begin{proof}
 			Es gibt für homogene Gleichungssysteme immer die triviale Lösung. Der Rang der Matrix des Gleichungssystems in Normalform sei k. Damit existiert ein \((n-k)\)-parametriges Lösungssystem, aber \(k \le \min(n, m) \le m \le (n-1)\). Somit existiert mindestens eine weitere Lösung.
 		\end{proof}
@@ -1148,7 +1167,7 @@
 	\begin{definition}[Relationen]
 		\IN{Relation}
 		Noch nützlicher ist das direkte Produkt, um eine sogenannte \defemph{Relation} zu definieren.
-		Eine Relation \(R\) auf einer Menge \(X\) ist eine Teilmenge von \(X \times X\). Wir sagen für \(x, y \in X\), dass \(x \sim y\) genau dann, wenn \((x, y) \in R\).\\
+		Eine Relation \(R\) auf einer Menge \(X\) ist eine Teilmenge von \(X \times X\). Wir sagen für \(x, y \in X\), dass \(x \sim y\) genau dann, wenn \((x, y) \in R\).\pagebreak[2]
 		
 		\textbf{Beispiel:}
 		\begin{alignat*}{3}\hspace{2.15cm}
@@ -1171,7 +1190,7 @@
 		\textbf{Beispiele:}
 		\begin{enumerate}
 			\item "`\(=\)"' auf Zahlensystemen
-			\item Sei \(X = 2^N \). Für \(x, y \in X\) gelte \(x \sim y\), falls endliche Teilmengen \(A\subset x\) und \(B\subset y\) mit \(x \setminus A = y \setminus B \).
+			\item Sei \(X = 2^N \). Für \(x, y \in X\) gelte \(x \sim y\), falls endliche Teilmengen \(A\subset x\) und \(B\subset y\) existieren und es gilt: \(x \setminus A = y \setminus B \).
 		\end{enumerate}
 	\end{definition}
 	
@@ -1365,9 +1384,9 @@
 		\IN{Isomorphismus}
 		Seien \((G, \cdot), (H, *)\) Gruppen, und \(\varphi : G \to H\) eine Abbildung.
 		\begin{enumerate}
-			\item Die Abbildung \(\varphi\) heißt Homomorphismus, falls gilt:
+			\item Die Abbildung \(\varphi\) heißt \defemph{Homomorphismus}, falls gilt:
 			\[\varphi(a \cdot b) = \varphi(a) * \varphi(b)\text{ für alle }a, b \in G\]
-			\item \(\varphi\) heißt Isomorphismus, falls \(\varphi\) zusätzlich bijektiv ist.
+			\item \(\varphi\) heißt \defemph{Isomorphismus}, falls \(\varphi\) zusätzlich bijektiv ist.
 		\end{enumerate}
 	\end{definition}
 	
@@ -3576,6 +3595,148 @@ Für \(a_1,\ldots, a_n\in\R\) sei \(\vol(a_1,\ldots, a_n)\) das Volumen des Obje
 			Aus der Induktion folgt \(v_j=0, j=i, v=0\).
 		\end{proof}
 	\end{bemerkung}
+	\pagebreak[2]
+	\begin{definitionn}[Diagonalisierbarkeit]
+		Sei \(V\) ein \(n\)-dimensionaler Vektorraum und \(A\) eine \(n\times n\)-Matrix und \(F\) die entsprechende lineare Abbildung. \(A\) ist \defemph{diagonalisierbar}, wenn 
+		\[
+		V= \bigoplus_{\substack{\lb\text{ Eigenwert}\\\text{von }F\hfill}}V(\lb).
+		\]
+	\end{definitionn}
+	
+	\begin{bemerkung}
+		\begin{gather*}
+			\text{\(A\) ist diagonalisierbar}\\
+			\iff\\
+			\text{\(V\) besitzt eine Basis von Eigenvektoren}\\
+			\iff\\
+			\text{In einer Basis \(B\) von \(V\) hat \(A\) die Form} \\
+			\begin{pmatrix}
+				\lb_1	&		&\\
+						&\ddots	&\\
+						&		&\lb_n
+			\end{pmatrix}
+		\end{gather*}
+		\begin{proof}
+			\begin{description}
+				\item[\(\implies\)\normalfont:] Sei \(B=(v_1,\ldots, v_n)\) eine Basis von Eigenvektoren. 
+				\[{\setlength\arraycolsep{2pt}
+					A(v_i)=\lb_iv_i \implies A = \raise.25cm\hbox{$
+					\begin{matrix}
+						\left(
+						\phantom{\begin{matrix}
+							A(v_1)	& A(v_2)& \cdots& A(v_n)\\
+							0		& \lb_2	& 		& \vdots\\
+							\vdots	& 		& \ddots& 0\\
+							0		& \dots & 0		& \lb_n
+							\end{matrix}}\right)\kern-3.85cm
+						\raise.25cm\hbox{$
+						\begin{matrix}
+							A(v_1)	& A(v_2)& \dots & A(v_n)\\
+							\lb_1	&	0	& \dots	& 0\\
+							0		& \lb_2	& 		& \vdots\\
+							\vdots	& 		& \ddots& 0\\
+							0		& \dots & 0		& \lb_n
+						\end{matrix}$}
+					\end{matrix}$}\hphantom{A(v_i)=\lb_iv_i \implies A }}
+				\]
+				\item[\(\impliedby\)\normalfont:] Sei \(B\) eine Basis von \(V\), sodass \(A\) bezüglich \(B\) in Diagonalform ist: \(\rightarrow A(v_i) )\lb_iv_i\implies v_i\) ist ein Eigenvektor.
+			\end{description}
+		\end{proof}
+	\end{bemerkung}
+	
+	\begin{customenv}[Korollar]
+		\(A\in\MM_{n\times n}(K)\) ist diagonalisierbar, falls es eine invertierbare Matrix \(C\) gibt, sodass \(C^{-1}\cdot A\cdot C\) in Diagonalform ist.
+	\end{customenv}
+	
+	\begin{satz*}
+		\(A\in\MM_{n\times n}(K)\), \(\lb\in K\). Folgende Aussagen sind äquivalent:
+		\begin{enumerate}
+			\item \(\lb\) ist ein Eigenwert von \(A\)
+			\item \(\det(\lb\cdot\En-A)=0\)
+		\end{enumerate}
+	
+		\begin{proof}
+			\begin{description}
+				\item[\(1\implies 2\)\normalfont:] Es gibt einen Eigenvektor zu \(\lb\): \(A(v)=\lb v\), \((\lb\En-A)\cdot v=0 \implies \det(\lb\En-A)=0\)
+				\item[\(2\implies 1\)\normalfont:] \(\det(\lb\En-A) = 0\implies\) \(A\) ist nicht regulär \(\implies \mathrm{Rg}(\lb\En-A)<n \implies\ker(\lb\En-A)\) muss positive Dimension haben. Sei \(v\in\ker(\lb\En-A)\) nicht-trivialer Vektor \(\implies \lb v=A(v)\)
+			\end{description}
+		\end{proof}
+	\end{satz*}
+	
+	\begin{definitionn}
+		Sei \(A\in\MM_{n\times n}(K)\). Das charakteristische Polynom der Matrix \(A\) ist \(\chi_A(T) = \det(T\cdot \En-A)\). \(T\) ist ein Polynom, d.h. ein Ausdruck der Form \(\sum_{i=1}^n\tikzmark{marker22}\al_iT^i\), \(\al_m\) ist der Leitkoeffizient.\\
+		
+		\begin{align*}
+			\chi_A(T) &= \det{\def\arraystretch{2.2} \begin{pmatrix}
+				T-a_{1,1}	&  -a_{1,2}	& \dots 	& -a_{1,n}\\
+				 -a_{2,1}	& T-a_{2,2}	& \ddots	& \vdots\\
+				 \vdots		& \ddots	&\ddots 	& -a_{n-1,n}\\
+				 -a_{n,1}	& \dots 	& -a_{n,n-1}&  T-a_{n,n}
+			\end{pmatrix}}\\
+			&= \sum_{\pi\in\mathrm{S}_n}(-1)^{\sign(\pi)}\cdot b_{\pi(1),1}\cdot\ldots\cdot b_{\pi(n), n}\\
+			&= \prod_{i=1}^{n}(T-a_{ii}) + \begin{smallmatrix}\text{Polynom \(T\) eines}\\\text{Grades \(\leq n-2\)}\hfill\end{smallmatrix}
+		\end{align*}
+		Jede Permutation, welche nicht die Identität ist, muss zunächst zwei Einträge \(i\) und \(j\) nicht fixieren: \(\pi(i)\neq i,\ \pi(j)\neq j\). Sei \(\pi\) eine Permutation derart, dass \(\pi(i) = i\ \forall 1\leq i\leq n, i\neq j_0\). Zu zeigen: \(\pi(j_0) = j_0\implies \pi \) Identität. Sind \(\pi(j_0)=i\neq j\implies \tikzmark{marker23}i=j_0\).\\[.1cm]
+		
+		\begin{tikzpicture}[remember picture,overlay]
+			\draw ([shift={(4pt, -5pt)}] pic cs:marker22) node[rotate = 270] {$\in$};
+			\draw ([shift={(4pt, -13pt)}] pic cs:marker22) node {$K$};
+			\draw ([shift={(2pt, -5pt)}] pic cs:marker23) node[rotate = 270] {$=$};
+			\draw ([shift={(3pt, -15pt)}] pic cs:marker23) node {$\pi(i)$};
+		\end{tikzpicture}
+		Insbesondere hat \(\chi_A(T)\) Grad \(n\) und es ist ist monisch normiert (Leitkoeffizient 1):
+		\[\chi_A(T)=T^n+c_{n-1}T^{n-1}+\ldots+c_0\]
+		\[c_0 = \chi_A(0)=(-1)^n\det(A)\qquad c_{n-1} = ? = -\tikzmark{marker24}\sum_{i=1}^{n}a_{ii}\tikzmark{marker25}\]
+		
+		\begin{tikzpicture}[remember picture,overlay]
+			\draw[decorate,decoration={brace,mirror}]
+			([yshift=-12pt, xshift=1pt] pic cs:marker24) -- node (temp) {} ([yshift=-12pt, xshift=-1pt]pic cs:marker25);
+			\draw[->,>=latex] (temp) |- ++(-15pt,-10pt) node[left, text width=2.2cm] {$\TR(A)$: Spur der Matrix $A$}; 
+		\end{tikzpicture}
+		
+		\vspace{1cm}
+		\textbf{Aufgabe:} \(A,B\) sind \(n\times n\)-Matrizen, \(\TR(A\cdot B) = \TR(B\cdot A)\).
+		\begin{proof}
+			\(A=(a_{ij}),\ B=(b_{ij}), A\cdot B = (\al_{ij}),\ B\cdot A = (\be_{ij})\). \(\al_{ij} = \sum_{k=1}^{n}a_{ik}b_{kj},\ \al_{ii} = \sum_{k=1}^{n}a_{ik}b_{ki},\linebreak \be_{ij} = \sum_{k=1}^{n}b_{ik}a_{kj}\).
+			
+			\begin{align*}
+				\TR(A\cdot B) 	&= \sum_{i=1}^{n}\al_{ii}\\
+								&= \sum_{i=1}^{n}\sum_{k=1}^{n}a_{ik}b_{ki}\\
+								&= \sum_{k=1}^{n}\underbrace{\sum_{i=1}^{n}a_{ik}b_{ki}}_{\be_{kk}}
+			\end{align*}
+		\end{proof}
+	\end{definitionn}
+	\newpage
+	\begin{customenv}[Korollar]
+		Sei \(B\) eine invertierbare Matrix. Dann ist \(\TR(A) = \tikzmark{marker26}\TR(B^{-1}\cdot A\cdot B)\).
+		\begin{tikzpicture}[remember picture,overlay]
+			\draw ([shift={(35pt, -8pt)}] pic cs:marker26) node[rotate = 270] {$=$};
+			\draw ([shift={(36pt, -35pt)}] pic cs:marker26) node {$\TR(\underbrace{A\cdot \underbrace{B\cdot B^{-1}}_{\En}}_{A})$};
+		\end{tikzpicture}
+	\end{customenv}
+	\vspace{2cm}
+	\begin{bemerkung}
+		Ist \(C\) eine invertierbare Matrix und \(A'= C^{-1}\cdot A\cdot C \implies \chi_A(T) = \chi_{A'}(T)\).
+		\begin{proof}
+			\begin{align*}
+				\chi_{A'}(T)	&= \det(\lb\En-A')\\
+								&= \det(\lb\En\cdot C^{-1}\cdot C-C^{-1}\cdot A\cdot C)\\
+								&= \det(C^{-1}\cdot \lb\En\cdot C-C^{-1}\cdot A\cdot C)\\
+								&= \det(C^{-1}\cdot(\lb\En-A)\cdot C)\\
+								&= \det(C^{-1})\cdot  \underbrace{\det(\lb\En-A)}_{\chi_A(T)}\cdot \det(C)
+			\end{align*}
+		\end{proof}
+	\end{bemerkung}
+	
+	\begin{customenv}[Korollar/Definition]
+		Gegeben ein Endomorphismus \(F:V\to V\), \(\dim(V)=n\), ist das charakteristische Polynom von \(F\) das charakteristische Polynom einer Matrixdarstellung von \(F\) bezüglich einer Basis von \(V\).
+	\end{customenv}
+	
+	\begin{customenv}[Korollar]
+		\(\lb\in K\) ist ein Eigenwert von \(F\) \(\iff\) \(\chi_F(\lb) = 0\). \(\lb\) ist eine Nullstelle vom charakteristischen Polynom von \(F\).\linebreak
+	\end{customenv}
+	
+	
 \newpage
 \renewcommand{\listtheoremname}{Satz- und Definitionsverzeichnis}
 \listoftheorems[ignoreall, show={definition}, show={satz}, show={lemma}, show={definitionn}, show={korrolar}, show={altdefinition}]
