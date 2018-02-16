@@ -336,7 +336,7 @@
 	p(\delta_2) = \frac{1-d}{N} + d\left(\frac{p(\delta_1)}{3}, \frac{p(\delta_5)}{4}\right)\]\[
 	\vdots
 	\]\\
-	Zur Berechnung von \(p(\delta_j), j \in \{1..5\}\) gibt es Methoden aus der linearen Algebra.
+	Zur Berechnung von \(p(\delta_j), j \in \{1, \ldots, 5\}\) gibt es Methoden aus der linearen Algebra.
 	\newpage
 	\tableofcontents
 	\newpage
@@ -388,7 +388,7 @@
 		\begin{alignat*}{4}
 			a_{11} x_1	&+ a_{12}x_2	&+\ \dots\ +\	& a_{1n} x_n	&= b_1\\
 			a_{21} x_1 	&+ a_{22}x_2 	&+\ \dots\ +\	& a_{2n} x_n	&= b_2\\
-			\vdots\quad & \qquad\vdots	& &\quad\vdots	& \vdots\ \\
+			\vdots\quad & \qquad\vdots	& 				&\quad\vdots	& \vdots\ \\
 			a_{m1} x_1 	&+ a_{m2} x_2  	&+\ \dots\ +\	& a_{mn} x_n	&= b_m\\
 		\end{alignat*}
 		
@@ -397,12 +397,12 @@
 		\[Ax=b\]\\
 		Dabei bezeichnet \(A\) eine sog. \defemph{Matrix} mit den Einträgen \(a_{i,j},\ i\in\{1, \dots , m\},\ j\in\{1, \dots, n\}\), wir schreiben\\
 		\[A =
-		\begin{pmatrix}
-		a_{11} & \dots  & a_{1n}\\
-		\vdots & \ddots & \vdots\\
-		a_{m1} & \dots  & a_{mn}
-		\end{pmatrix}
-		\]\\
+			\begin{pmatrix}
+				a_{11} & \dots  & a_{1n}\\
+				\vdots & \ddots & \vdots\\
+				a_{m1} & \dots  & a_{mn}
+			\end{pmatrix}
+		\]
 		\(Ax\) für \(x \in \Rn\) ist dann eine Kurzform für \(\sum_{i=1}^na_{ij}x_j\) mit einem Vektor \(x = (x_1, \dots, x_n) \in \Rn\). Das Ergebnis ist ein Vektor \(b = (b_1, \dots, b_m) \in \R^m\) für eine Matrix \(A\) mit \(m\) Zeilen und \(n\) Spalten.\\
 		Der Vektor \(b\) heißt rechte Seite des linearen Gleichungssystems, \(A\) heißt Koeffizientenmatrix des linearen Gleichungssystems. Eine Spalte, bzw. Zeile von \(A\) kann mit einem Vektor im \(\R^m\) bzw. im \(\R^n\) identifiziert werden. Wir sprechen von Spalten-, bzw. Zeilenvektoren der Matrix \(A\).\\
 		
@@ -418,28 +418,28 @@
 		\begin{matrix}
 		\text{\scriptsize \(k\)}\left\{\vphantom{
 			\begin{matrix}
-			1 & 0 & 0 & \ \cdots \ & 0\\
-			0 & 1 & 0 & \ \cdots \ & 0\\
-			0 & 0 & 1 & \ \cdots \ & 0 \\
-			\vdots & \vdots & \vdots&\ddots & \vdots\\
-			0 & 0 & 0 & \ \cdots \ & 1\\
+				1		& 0			& 0 		& \ \cdots\ & 0\\
+				0		& 1 		& 0 		& \ \cdots\ & 0\\
+				0		& 0 		& 1 		& \ \cdots\ & 0 \\
+				\vdots	& \vdots	& \vdots	& \ddots	& \vdots\\
+				0		& 0 		& 0 		& \ \cdot \ & 1\\
 			\end{matrix}}\right.\kern-2\nulldelimiterspace
 		\underbrace{
 			\begin{matrix}
-			1 & 0 & 0 & \ \cdots \ & 0\\
-			0 & 1 & 0 & \ \cdots \ & 0\\
-			0 & 0 & 1 & \ \cdots \ & 0 \\
-			\vdots & \vdots & \vdots&\ddots & \vdots\\
-			0 & 0 & 0 & \ \cdots \ & 1\\
+				1		& 0			& 0 		& \ \cdots\ & 0\\
+				0		& 1 		& 0 		& \ \cdots\ & 0\\
+				0		& 0 		& 1 		& \ \cdots\ & 0 \\
+				\vdots	& \vdots	& \vdots	& \ddots	& \vdots\\
+				0		& 0 		& 0 		& \ \cdot \ & 1\\
 			\end{matrix}}_{k}
 		&
-		\begin{matrix}
-		a_{1, k+1} & \ \cdots \ & a_{1, n}\\
-		a_{2, k+1} & \ \cdots \ & a_{2, n}\\
-		a_{3, k+1} & \ \cdots \ & a_{3, n}\\
-		\vdots & \ \ddots \ & \vdots\\
-		a_{k, k+1} & \ \cdots \ & a_{k, n}\\
-		\end{matrix} \\
+			\begin{matrix}
+				a_{1, k+1}	& \ \cdots \ 	& a_{1, n}\\
+				a_{2, k+1}	& \ \cdots \ 	& a_{2, n}\\
+				a_{3, k+1}	& \ \cdots \ 	& a_{3, n}\\
+				\vdots		& \ \ddots \ 	& \vdots\\
+				a_{k, k+1}	& \ \cdots \ 	& a_{k, n}\\
+			\end{matrix} \\
 		\hspace{.5cm}
 		\begin{matrix}
 		0 &\hspace{.25cm}  & \cdots & \hspace{.25cm}& 0\\
@@ -484,6 +484,7 @@
 		\[\mathbb{L} =\left\{\left.\left(b_1 - \sum_{j=k+1}^na_{1j}\xi_j\right), \dots,  \left(b_k - \sum_{j=k+1}^{n}a_{kj}\xi_j\right), \xi_{k+1}, \dots, \xi_n \right| \xi_{k+1}, \dots, \xi_n \in \R\right\}\]
 		
 		Wir nennen eine solche Menge \((n-k)\)-parametrig.\\
+		
 		\textbf{Beispiel:}
 		\[
 		\begin{pmatrix}
@@ -520,7 +521,7 @@
 		\label{lem02}
 		Ein Gleichungssystem \(G'\), welches aus einem Gleichungssystem \(G\) durch Zeilenoperationen hervorgeht, besitzt die gleichen Lösungen wie \(G\).
 		\begin{proof}
-			Für \(Z_I^\lb: \) betrachten wir nur die \(i\)-te Zeile:
+			Für \(Z_i^\lb: \) betrachten wir nur die \(i\)-te Zeile:
 			\[a_{i,1}x_1 + \dots + a_{i,n}x_n = b_i\]
 			Nach \(Z_i^\lb\):
 			\[\lb a_{i,1}x_1 + \dots + \lb a_{i,n}x_n = \lb b_i\]
@@ -613,7 +614,7 @@
 	
 	\begin{lemma}
 		\label{lem11}
-		Es seien \(a_1, \dots, a_n \in \R^m\)  linear unabhängig und es gelte \(b = \lb_1a_1 + \dots + \lb_n a_n\), mit \(\lb_1, \dots, \lb_n \in \R\). Dann ist diese Linearkombination eindeutig.
+		Es seien \(a_1, \dots, a_n \in \R^m\)  linear unabhängig und es gelte \(b = \lb_1a_1 + \ldots + \lb_n a_n\), mit \(\lb_1, \dots, \lb_n \in \R\). Dann ist diese Linearkombination eindeutig.
 		
 		\begin{proof}
 			Es sei auch \(b = \mu_1 a_1 + \dots + \mu_n a_n\). Für Eindeutigkeit ist nun zu zeigen, dass \(\mu_i = \lb_i, 1 \le i \le n\).
@@ -1798,7 +1799,7 @@
 		\begin{enumerate}
 			\item Für jedes \(e \in E\) sei \(\lb_e \in K\), so dass nur endlich viele \(\lb_e \neq 0\) sind. Dann schreiben wir 
 			\[
-			\sum_{e \in E}\lb_e \cdot e = \sum_{e\in E, \lb_e \neq 0} \lb_e \cdot e \in V\ \text{ und }\ \sum_{e \in V} \lb_e \cdot e
+			\sum_{e \in E}\lb_e \cdot e = \sum_{\substack{e\in E\\\lb_e \neq 0}} \lb_e \cdot e \in V\ \text{ und }\ \sum_{e \in V} \lb_e \cdot e
 			\]
 			heißt \defemph{Linearkombination} der \(e \in E\)
 			\item Ein beliebiges \(x \in V\) heißt darstellbar als Linearkombination der \(e \in E\), falls \(\lb_e \in k\) existieren, mit \(\lb_e \neq 0\) für endlich viele \(e \in E\) und es gilt \(x = \sum_{e \in E}\lb_e \cdot e\).
@@ -1831,8 +1832,8 @@
 	\end{lemma}
 	
 \section{Basis und Dimension}
-	\textbf{Ziel:} finde möglichst kleine Erzeugendensysteme für Vektorräume.\\
-	\textbf{Beispiel:}Wir betrachten \(\R^2, e_1=(1, 0), e_2 = (0,1)\). Dann gilt
+	\textbf{Ziel:} Finde möglichst kleine Erzeugendensysteme für Vektorräume.\\
+	\textbf{Beispiel:} Wir betrachten \(\R^2, e_1=(1, 0), e_2 = (0,1)\). Dann gilt
 	 \[
 	 \Span(\{e_1, e_2\}) = \{x \in \R^2 : x = (x_1, x_2),\ x_1 = \lb_1 e_1,\ x_2 = \lb_2 e_2,\ \lb_1,\ \lb_2 \in \R\} = \R^2.
 	 \] 
@@ -1906,7 +1907,7 @@
 		\begin{proof}
 			Zu zeigen ist \(1. \implies 2. \implies 3. \implies 4. \implies 1.\) (Zirkelschluss).
 			\begin{enumerate}[leftmargin=1.9cm]
-				\item[1. \(\implies\) 2. ] Wir zeigen \(\neg1.\ \implies\ \neg 2.\)
+				\item[1. \(\implies\) 2. ] Wir zeigen \(\neg2.\ \implies\ \neg 1.\)
 				
 				Sei \((v_i)_{i\in I}\) ein Erzeugendensystem, aber nicht linear unabhängig. Laut \hyperref[lem210]{Lemma \ref*{lem210}.5} existiert ein \(j_0\in I\), sodass \(v_{j_0} = \sum_{i\in I\setminus\{j_0\}} \lb_i v_i\) mit \(\lb_i\in K\), nur endlich viele \(\lb_i\not=0\). 
 				
@@ -1942,8 +1943,9 @@
 		Eine Familie \((v_i)_{i\in I}\) mit \(v_i \in V\) für alle \(i \in I\) heißt \defemph{Basis} von \(V\), falls \((v_i)_{i\in I}\) ein linear unabhängiges Erzeugendensystem von \(V\) ist.\\
 		
 		
-		\textbf{Beispiel: } \(V = K^n\), Eine Basis ist gegeben durch \(e_i = (0, \ldots, 0, 1, 0, \ldots, 0)^\top\), wobei der \(i\)-te Eintrag 1 beträgt.
-		Diese \((e_i)_{i \in \{1, \dots, n\}}\) heißt kanonische (oder Standard-) Basis von \(K^n\).
+		\textbf{Beispiel: } \(V = K^n\), Eine Basis ist gegeben durch \(\ee_i = (0, \ldots, 0, 1, 0, \ldots, 0)^\top\), wobei der \(i\)-te Eintrag 1 beträgt.
+		Diese \((\ee_i)_{i \in \{1, \dots, n\}}\) heißt kanonische (oder Standard-) Basis von \(K^n\).\\
+		
 		\begin{bemerkung}
 			Die kanonische Basis wurde hier aus Platzgründen zeilenweise statt vektoriell geschrieben.
 		\end{bemerkung}
@@ -1952,7 +1954,7 @@
 	\begin{satz}[Basisauswahlsatz]
 		\IN{Basisauswahlsatz}
 		\label{satz213}
-		Es sei \(N \in \N \cup \{0\}\), \(v_1, \dots, v_N \in V\) und \(v = \Span(\{v_1, \dots, v_N\})\). Dann existieren \(i_1, \dots, i_n \in \{1, \dots, N\}\), sodass \((v_{i_1}, \dots, v_{i_n})\) eine Basis von \(V\) bilden.\\
+		Es sei \(N \in \N \cup \{0\}\), \(v_1, \dots, v_N \in V\). Dann existieren \(i_1, \dots, i_n \in \{1, \dots, N\}\), sodass \((v_{i_1}, \dots, v_{i_n})\) eine Basis von \(\Span(v_1,\ldots, v_N)\) bilden.\\
 		
 		\begin{proof}
 			Wir verkleinern die Familie \((v_i)_{i \in \{1, \dots, N\}}\) schrittweise:
@@ -1983,7 +1985,7 @@
 				und \((w, v_2, \dots, v_n)\) ist ein Erzeugendensystem von \(V\).
 				\item Sei \(0 = \mu_1 w + \mu_2 v_2 + \ldots + \mu_n v_n\). Wir setzen \(w\) ein, und erhalten
 				\[0 = \mu_1 \lb_1 v_1 + (\mu_2  + \mu_1 \lb_2) v_2 + \ldots + (\mu_n + \mu_1 \lb_n)v_n\]
-				Nun ist aber nach Annahme \((v_1, \ldots, v_n)\) eine Basis von \(V\). Also gilt \(\mu_1\lb_1 = 0\), \(\mu_2  + \mu_1 \lb_2=0\), \(\ldots\) , \(\mu_n + \mu_1 \lb_n\) = 0. 
+				Nun ist aber nach Annahme \((v_1, \ldots, v_n)\) eine Basis von \(V\). Also gilt: \[\mu_1\lb_1 = 0,\ \mu_2  + \mu_1 \lb_2=0,\ \ldots ,\ \mu_n + \mu_1 \lb_n = 0.\]  
 				
 				Damit folgt \((\lb_1 \neq 0) \implies \mu_1 = 0\ \implies \ \mu_2=0,\ \mu_3=0,\ \ldots ,\ \mu_n=0\). Also sind \((w, v_2, \dots, v_n)\) linear unabhängig und somit eine Basis von \(V\).
 			\end{enumerate}
@@ -1997,7 +1999,7 @@
 		\begin{enumerate}
 			\itemsep0cm
 			\item \(m \leq n\)
-			\item \((v_1, \dots, v_n)\) kann so umnummeriert werden, dass \((w_1, \ldots, _m, v_{m + 1}, \ldots, v_n)\) eine Basis ist.
+			\item \((v_1, \dots, v_n)\) kann so umnummeriert werden, dass \((w_1, \ldots, w_m, v_{m + 1}, \ldots, v_n)\) eine Basis ist.
 		\end{enumerate}
 		
 		\begin{proof} Erfolgt durch Induktion über \(m\):
@@ -2028,7 +2030,7 @@
 		\(V\) besitze eine Basis \((v_1, \dots, v_n)\) mit \(n \in \N \cup \{0\}\). Dann hat jede Basis von \(V\) genau \(n\) Elemente.
 		
 		\begin{proof}
-			Sei \((w_i)_{i \in I}\) eine weitere Basis. Es folgt sofort, dass die Anzahl der Elemente \(\le n\) ist. Insbesondere ist \(I\) endlich. Falls \(m = \#I < n\) liefert das selbe Argument mit \((v_I)\) und \((w_i)\) vertauscht wieder einen Widerspruch \Lightning
+			Sei \((w_i)_{i \in I}\) eine weitere Basis. Es folgt sofort, dass die Anzahl der Elemente \(\le n\) ist. Insbesondere ist \(I\) endlich. Falls \(m = \#I < n\) liefert das selbe Argument mit \((v_i)\) und \((w_i)\) vertauscht wieder einen Widerspruch \Lightning
 		\end{proof}
 	\end{korrolar}
 	\vspace{.25cm}
@@ -2044,12 +2046,12 @@
 		Falls \(V\) endlich erzeugt ist, und \((w_i)_{i \in I}\) eine linear unabhängige Familie von Vektoren ist, dann existiert eine Basis von \(V\), die alle \(w_i\) enthält. Insbesondere besitzt jeder endlich erzeugte Vektorraum eine Basis.\\
 		
 		\begin{proof}
-			Es seien \(\{v_1, \dots, v_n\} \subset V\) mit \(n \in \N \setminus\{0\}\), mit \(\Span(\{v_1, \dots, v_n\}) = V\). Aus dem \hyperref[satz213]{Basisauswahlsatz} folgt sofort Existenz einer Basis. Der Rest folgt mit Basisergänzungssatz.\(^{\text{ [Angabe benötigt]}}\)\\
+			Es seien \(\{v_1, \dots, v_n\} \subset V\) mit \(n \in \N \setminus\{0\}\), mit \(\Span(\{v_1, \dots, v_n\}) = V\). Aus dem \hyperref[satz213]{Basisauswahlsatz} folgt sofort Existenz einer Basis. Der Rest folgt mit \hyperref[satz215]{Basisaustauschsatz}.\\
 		\end{proof}
 	\end{satz}
 	
 	\begin{lemma}
-		Falls \(\dim_k(v) = n\) mit \(n \in \N \cup \{0\}\), dann gilt:
+		Falls \(\dim_K(V) = n\) mit \(n \in \N \cup \{0\}\), dann gilt:
 		\begin{enumerate}
 			\item Falls \((v_1, \dots, v_n)\) linear unabhängig ist, dann ist \((v_1, \ldots, v_n)\) bereits eine Basis
 			\item Falls \(W \subset V\) ein Untervektorraum ist, so gilt
@@ -2071,9 +2073,9 @@
 		\begin{minipage}{\textwidth}
 			\textbf{Beispiele: }
 			\begin{enumerate}
-				\item \(\R^\N\), also \((x_1, x_2, \ldots)\) mit eintragsweiser Addition (d.h. für \(x = (x_1, \ldots), y = (y_1, y_2, \ldots)\) schreiben wir \(x + y = (x_1 + y_2. x_2 + y_2, \ldots)\) und eintragsweiser Skalarmultiplikation (d.h. \(\lb x = (\lb x_1, \lb x_2, \ldots)\)) ist ein \mR -Vektorraum. Es gilt \(\dim_K(V) = \infty\), denn, angenommen \(\dim_K(V) = n\), für \(n \in \N_0\) kann man leicht \(n + 1\) linear unabhängige Vektoren finden (z.B. \((1, 0, \ldots), (0, 1, 0, \ldots), \dots, (0, \ldots, 0, 1, 0, \ldots)\)) was einen Widerspruch darstellt \Lightning
+				\item \(\R^\N\), also \((x_1, x_2, \ldots)\) mit eintragsweiser Addition (d.h. für \(x = (x_1, x_2, \ldots), y = (y_1, y_2, \ldots)\) schreiben wir \(x + y = (x_1 + y_1, x_2 + y_2, \ldots)\) und eintragsweiser Skalarmultiplikation (d.h. \(\lb x = (\lb x_1, \lb x_2, \ldots)\)) ist ein \mR -Vektorraum. Es gilt \(\dim_K(V) = \infty\), denn, angenommen \(\dim_K(V) = n\) für \(n \in \N_0\), kann man leicht \(n + 1\) linear unabhängige Vektoren finden (z.B. \((1, 0, \ldots), (0, 1, 0, \ldots), \dots, (0, \ldots, 0, 1, 0, \ldots)\)) was einen Widerspruch darstellt. \Lightning
 				
-				Die Vektoren \((1, 0, \dots), (0, 1, 0, \dots), \dots)\) stellen auch keine Basis dar, insbesondere gibt es keine abzählbare Basis für \(V\).
+				Die Vektoren \(((1, 0, \dots),\ (0, 1, 0, \dots),\ \dots)\) stellen auch keine Basis dar (der Vektor \((1, 1, 1, \ldots)\) wird von keiner \textit{endlichen} Linearkombination erzeugt), insbesondere gibt es keine abzählbare Basis für \(V\).
 				\item Die Menge konvergenter Folgen
 				\item \(\abb(\R, \R)\)
 				\item Die Menge der stetigen reellen Funktionen
@@ -2162,8 +2164,8 @@
 			\item Matrizen induzieren lineare Abbildungen
 			\item 
 			\begin{align*}
-			V &= \{f \in \abb(\R, \R) : f \text{ stetig differenzierbar}\}\\
-			W &= \{f \in \abb(\R, \R) : f \text{ stetig}\}
+				V	&= \{f \in \abb(\R, \R) : f \text{ stetig differenzierbar}\}\\
+				W	&= \{f \in \abb(\R, \R) : f \text{ stetig}\}
 			\end{align*}
 			Dann ist \(D : V \to W\), \(f \mapsto f'\) eine lineare Abbildung.
 		\end{enumerate}
@@ -2197,7 +2199,7 @@
 		\end{bemerkung}
 	\end{lemma}
 	
-	\begin{satz}[Definition linearer Abbildung durch Basis]
+	\begin{satz}
 		\label{satz33}
 		Es seien \(V, W\) \(K\)-Vektorräume, \(I\) eine Indexmenge, \((v_i)_{i \in I}\) eine Basis von \(V\). Weiterhin sei \((w_j)_{j \in I} \in W^I\) eine Familie von Vektoren in \(W\). Dann existiert genau eine \(K\)-lineare Abbildung \(F : V \to W\) mit \(f(v_j) = w_j\) für alle \(j \in I\).\\
 		
@@ -2239,9 +2241,9 @@
 			Wurde bereits im Beweis von \hyperref[satz33]{Satz \ref*{satz33}} gezeigt. 
 		\end{proof}
 	\end{proposition}
-	\vspace{.25cm}
+	
 	\begin{korrolar}
-		Es sei \(V\) ein \(K\)-Vektorraum mit \(\dim_K(V)=n<\infty\). Dann gilt \(V\cong K^n\). Weiterhin sei \(W\) ein \(K\)-Vektorraum mit \(\dim_K(W)=n\), dann gilt auch \(V\cong W\).\\
+		Es sei \(V\) ein \(K\)-Vektorraum mit \(\dim_K(V)=n<\infty\). Dann gilt \(V\cong K^n\). Weiterhin sei \(W\) ein \(K\)-Vektorraum mit \(\dim_K(W)=n\), dann gilt auch \(V\cong W\).
 		
 		\begin{proof}
 			Nach dem \hyperref[satz218]{Basisergänzungssatz} existiert eine Basis \((v_1,\ldots, v_n)\) von \(V\). Weiterhin sei \((e_1, \ldots, e_n)\) die Standardbasis von \(K^n\). Dann gilt nach \hyperref[satz33]{Satz \ref*{satz33}}, dass für genau eine \(K\)-lineare Abbildung ein \(F\) existiert mit \(F(v_i)=e_i\) für \(i=1, \ldots, n\). \(F\) ist surjektiv, denn \(\Ima(F)=F(V)=\Span(\{e_1, \ldots, e_n\})=K^n\). \\
@@ -2261,10 +2263,10 @@
 		\IN{Rang}
 		Seien \(V\), \(W\) \(K\)-Vektorräume, \(F\in\Hom_K(V, W)\). Dann heißt \[\rg(F)=\dim_K(F(V)) = \dim_K(\Ima(F))\] der \defemph{Rang} von \(F\).\\
 		\begin{bemerkung}
-			Falls \(G\), \(\widetilde{G}\) Isomorphismen sind, so gilt \(\rg(F) = \rg(F\cong G) = \rg(\widetilde{G}\cong F)\) mit \(F:V\to W,\ G:\widetilde{V}\to V,\ \widetilde{G}: W\to\widetilde{W}\). Die Reihenfolge von Isomorphismenschaltungen ändert also den Rang nicht.\\
+			Falls \(G\), \(\widetilde{G}\) Isomorphismen sind, so gilt \(\rg(F) = \rg(F\circ G) = \rg(\widetilde{G}\circ F)\) mit \(F:V\to W,\ G:\widetilde{V}\to V,\ \widetilde{G}: W\to\widetilde{W}\). Die Reihenfolge von Isomorphismenschaltungen ändert also den Rang nicht.\\
 		\end{bemerkung}
 	\end{definition}
-	
+	\pagebreak[2]
 	\begin{satz}[Dimensionsformel]
 		\IN{Dimensionsformel}
 		\label{satz37}
@@ -2371,9 +2373,9 @@
 	
 	\begin{definition}[Quotientenvektorraum]
 		\IN{Quotientenvektorraum}
-		Sei \(\widetilde{V}\) wie in \hyperref[satz313]{Satz \ref*{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt \defemph{Quotientenvektorraum} \(\widetilde{V} = \bigslant{V}{W}\).\\
+		Sei \(\widetilde{V}\) wie in \hyperref[satz313]{Satz \ref*{satz313}} festgelegt. Dies, zusammen mit der dortigen Vektorraumstruktur, heißt \defemph{Quotienten-vektorraum} \(\widetilde{V} = \bigslant{V}{W}\).\\
 		\begin{bemerkung}
-			Es sei \(F:V\to W\) linear, \(V_1 = \ker(F)\). Dann wurde im Beweis der \hyperref[satz37]{Dimensionsformel} ein Untervektorraum \(V_2\subset V\) konstruiert mit \(V_2 \cong \Ima(F)\), sodass \(V = V_1\oplus V_2\). Wir zeigen im neuen Jahr, dass gilt \(\Ima(F)\cong \bigslant{V}{V_2}\).
+			Es sei \(F:V\to W\) linear, \(V_1 = \ker(F)\). Dann wurde im Beweis der \hyperref[satz37]{Dimensionsformel} ein Untervektorraum \(V_2\subset V\) konstruiert mit \(V_2 \cong \Ima(F)\), sodass \(V = V_1\oplus V_2\). Wir zeigen im neuen Jahr, dass gilt: \(\Ima(F)\cong \bigslant{V}{V_2}\).
 		\end{bemerkung}
 		\vspace{.25cm}
 		\textbf{Beispiel: } \(V=\R^2\)
@@ -2398,7 +2400,7 @@
 				\draw node[dot=$x$, right] at (axis cs: 3, .5) {};
 				\draw node[anchor=center, text width=3.5cm, right] at (axis cs: 3.20, .6) { $=u+w$, $u\in U$\\[0cm]\vspace{-.15cm} \hspace{1.5cm}$v\in V$};
 				\end{axis}
-				\end{tikzpicture}
+				\end{tikzpicture} %TODO: make the schmutzfleck go away (move to lower left of "`x"')
 			\end{center}
 		\end{figure}
 		 Jeden Vektor in \(U\) kann man folgendermaßen mit einem Vektor in \(\bigslant{V}{W}\) identifizieren: \[p(x) = p(u+w) = p(u)+p(w) = p(u) + 0 = p(u)\] Für \(p(x)\) ist dann nur der Anteil von \(W\) ausschlaggebend. \(p\big|_V\) ist dann auch injektiv, denn \(p(u)=0\iff u=0\), denn \(p(y)=0\iff y\in W\) und \(W\cap U=\{0\}\).
@@ -2662,11 +2664,11 @@ Wir verallgemeinern dies folgendermaßen:
 		\begin{bemerkung}
 			Wir kennen die kanonischen Isomorphismen \(I_\basea:V\to K^n, v_i\mapsto e_i\in K^n\) und \(I_\baseb:V\mapsto K^m, v_j\mapsto e_j\in K^m\) mit \(i=1, \ldots, n\), \(j=1,\ldots, m\). Dann gilt 
 			\begin{align*}
-				I_\baseb\circ F\circ I_\basea^{-1}(e_i) &= I_\baseb(F(v_i))\\
-																  &= I_\baseb\left(\sum_{i=1}^{m}a_{ji}w_j\right) \\
-																  &= \sum_{j=1}^{m}a_{ji}e_j
+				I_\baseb\circ F\circ I_\basea^{-1}(e_i)	&= I_\baseb(F(v_i))\\
+														&= I_\baseb\left(\sum_{i=1}^{m}a_{ji}w_j\right) \\
+														&= \sum_{j=1}^{m}a_{ji}e_j
 			\end{align*}
-			Dies ist die \(j\)-te Spalte von \(A=(a_{ij})=\M(\baseb, F, \basea)\), also \[I_\baseb\circ F\circ \basea=F_{M(\baseb, F, \basea)}.\] Wieder gilt: Die Spalten von \(\M(\baseb, F, \basea)\) sind die Bilder der Basisvektoren, allerdings nun geschrieben durch Koeffizienten in der Basis \(\baseb\). Nachdem \(I_\basea, I_\baseb\) Isomorphismen sind, gilt \(\rg(F)=\rg(F_{\M(\baseb, F, \basea)})=\rg(\M(\baseb, F, \basea))\) (ebenso für \(\dim(\ker(F))\)). \\
+			Dies ist die \(j\)-te Spalte von \(A=(a_{ij})=\M(\baseb, F, \basea)\), also \[I_\baseb\circ F\circ \basea=F_{\M(\baseb, F, \basea)}.\] Wieder gilt: Die Spalten von \(\M(\baseb, F, \basea)\) sind die Bilder der Basisvektoren, allerdings nun geschrieben durch Koeffizienten in der Basis \(\baseb\). Nachdem \(I_\basea, I_\baseb\) Isomorphismen sind, gilt \(\rg(F)=\rg(F_{\M(\baseb, F, \basea)})=\rg(\M(\baseb, F, \basea))\) (ebenso für \(\dim(\ker(F))\)). \\
 			
 			Für \(V=K^n\), \(W=K^m\), \(\basea=(e_i)_{i=1,\ldots n}\), \(\baseb=(e_j)_{j=1, \ldots, m}\) Standardbasen von \(V, W\), \(B\in\Mat_K(m\times n)\) gilt: \(\M(\baseb, F, A)=B\). Als Diagramm:
 			
@@ -2848,7 +2850,7 @@ Es ist leicht zu sehen, dass \(V_j^\ast\in\Hom_K(V, K)\). Weiterhin ist \((v_1^\
 		\vspace{.2cm}
 		\textbf{Beispiele:}
 		\begin{enumerate}[label=\roman*)]
-			\item \(V=\R^n\). Dann ist \(\al=(\al_1,\ldots, \al_n)\in\Mat_\R(1\times n)\) eine Linearform, denn \(\al(x)=(\al_1,\ldots, \al_n)\cdot(x_1,\ldots, x_n)^\top = \sum_{j=1}^{n}\al_jx_j\in\R\). Nach Satz \hyperref[satz52]{Satz \ref*{satz52}} sehen alle Linearformen in \((\R^n)^\ast\) so aus.
+			\item \(V=\R^n\). Dann ist \(\al=(\al_1,\ldots, \al_n)\in\Mat_\R(1\times n)\) eine Linearform, denn \[\al(x)=(\al_1,\ldots, \al_n)\cdot(x_1,\ldots, x_n)^\top = \sum_{j=1}^{n}\al_jx_j\in\R.\] Nach Satz \hyperref[satz52]{Satz \ref*{satz52}} sehen alle Linearformen in \((\R^n)^\ast\) so aus.
 			\item \(K^n\) ebenso.
 			\item \(V=\R^\R=\abb(\R, \R)\), dann ist \(\al_1(f)=f(1)\) eine Linearform.
 			\item \(V=\mathcal{C}^0(\R, \R)\) der Raum der 0-mal stetig differenzierbaren Funktionen, dann ist \(\al_2(f)=\int_0^1f(t)\mathrm{d}t\) eine Linearform.
@@ -3110,7 +3112,7 @@ Es ist leicht zu sehen, dass \(V_j^\ast\in\Hom_K(V, K)\). Weiterhin ist \((v_1^\
 	\end{lemma}
 	
 	\begin{korrolar}
-		Sei \(\mu\) eine \(k\)-Form auf \(V\), \(\tau:\{1,\ldots, k\}\to\{1,\ldots, k\}\) und \(x_1,\ldots, x_k\in V\), dann gilt: \[\mu(x_{\tau(1)},\ldots, x_{\tau(k)}) = \sign(\tau)\cdot \mu(x_1,\ldots, x_k), \] wobei \(\sign(\tau)=0\), falls \(\tau\notin\Sym(\{1,\ldots, k\})\).
+		Sei \(\mu\) eine \(k\)-Form auf \(V\), \(\tau:\{1,\ldots, k\}\to\{1,\ldots, k\}\) eine Permutation und \(x_1,\ldots, x_k\in V\), dann gilt: \[\mu(x_{\tau(1)},\ldots, x_{\tau(k)}) = \sign(\tau)\cdot \mu(x_1,\ldots, x_k), \] wobei \(\sign(\tau)=0\), falls \(\tau\notin\Sym(\{1,\ldots, k\})\).
 		\begin{proof}
 			Ist \(\tau\) nicht bijektiv, so existiert ein \(i\neq j\) mit \(\tau(i)=\tau(j)\), also \(\mu(x_{\tau(1)},\ldots, x_{\tau(k)}) = 0\). Sonst ist \(\tau\) ein Produkt von Transpositionen, von welchen jede ein Vorzeichen \(-1\) abgibt.
 		\end{proof}
