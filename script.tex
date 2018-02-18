@@ -2664,11 +2664,11 @@ Wir verallgemeinern dies folgendermaßen:
 		\end{enumerate}
 		
 		\begin{bemerkung}
-			Wir kennen die kanonischen Isomorphismen \(I_\basea:V\to K^n, v_i\mapsto e_i\in K^n\) und \(I_\baseb:V\mapsto K^m, v_j\mapsto e_j\in K^m\) mit \(i=1, \ldots, n\), \(j=1,\ldots, m\). Dann gilt 
+			Wir kennen die kanonischen Isomorphismen \(I_\basea:V\to K^n, v_i\mapsto \ee_i\in K^n\) und \(I_\baseb:V\to K^m, v_j\mapsto \ee_j\in K^m\) mit \(i=1, \ldots, n\), \(j=1,\ldots, m\). Dann gilt 
 			\begin{align*}
-				I_\baseb\circ F\circ I_\basea^{-1}(e_i)	&= I_\baseb(F(v_i))\\
-														&= I_\baseb\left(\sum_{i=1}^{m}a_{ji}w_j\right) \\
-														&= \sum_{j=1}^{m}a_{ji}e_j
+				I_\baseb\circ F\circ I_\basea^{-1}(\ee_i)	&= I_\baseb(F(v_i))\\
+															&= I_\baseb\left(\sum_{i=1}^{m}a_{ji}w_j\right)\\
+															&= \sum_{j=1}^{m}a_{ji}\ee_j
 			\end{align*}
 			Dies ist die \(j\)-te Spalte von \(A=(a_{ij})=\M(\baseb, F, \basea)\), also \[I_\baseb\circ F\circ \basea=F_{\M(\baseb, F, \basea)}.\] Wieder gilt: Die Spalten von \(\M(\baseb, F, \basea)\) sind die Bilder der Basisvektoren, allerdings nun geschrieben durch Koeffizienten in der Basis \(\baseb\). Nachdem \(I_\basea, I_\baseb\) Isomorphismen sind, gilt \(\rg(F)=\rg(F_{\M(\baseb, F, \basea)})=\rg(\M(\baseb, F, \basea))\) (ebenso für \(\dim(\ker(F))\)). \\
 			
