@@ -2381,26 +2381,28 @@
 		\textbf{Beispiel: } \(V=\R^2\)
 		\begin{figure}[H]
 			\begin{center}
-				\begin{tikzpicture}[dot/.style={circle,	inner sep=1pt, fill, label={#1}, name=#1, color=gray},>=latex, axes/.style={thick,=>}, scale=1]
-				\begin{axis}[axis x line=center,
-				axis y line=center,
-				xmin = -3,
-				xmax = 7,
-				ymin = -1,
-				ymax = 5,
-				xlabel={$x_1$},
-				ylabel={$x_2$},
-				xlabel style={below right},
-				ylabel style={above left},
-				ticks=none]
-				\draw[color = red!75!black]  (axis cs: -2, -1) to (axis cs: 6,  3) node[above, color=black]{$W$};
-				\draw[color = blue!75!black] (axis cs:-4, 2) to (axis cs:1.5, -.75) node[above, color=black]{$U$};
-				\draw node[below] at (axis cs:-.15, 0) {$0$};
-				\draw node at (axis cs: 5, 4.5) {$U+W=V$};
-				\draw node[dot=$x$, right] at (axis cs: 3, .5) {};
-				\draw node[anchor=center, text width=3.5cm, right] at (axis cs: 3.20, .6) { $=u+w$, $u\in U$\\[0cm]\vspace{-.15cm} \hspace{1.5cm}$v\in V$};
-				\end{axis}
-				\end{tikzpicture} %TODO: make the schmutzfleck go away (move to lower left of "`x"')
+				\begin{tikzpicture}[dot/.style={circle,	inner sep=.75pt, fill, label={#1}, name=#1, color=black},>=latex, axes/.style={thick,=>}, scale=1]
+					\begin{axis}[axis x line=center,
+							axis y line=center,
+							xmin = -3,
+							xmax = 7,
+							ymin = -1,
+							ymax = 5,
+							xlabel={$x_1$},
+							ylabel={$x_2$},
+							xlabel style={below right},
+							ylabel style={above left},
+							ticks=none
+						]
+						\draw[color = red!75!black]  (axis cs: -2, -1) to (axis cs: 6,  3) node[above, color=black]{$W$};
+						\draw[color = blue!75!black] (axis cs:-4, 2) to (axis cs:1.5, -.75) node[above, color=black]{$U$};
+						\draw node[below] at (axis cs:-.15, 0) {$0$};
+						\draw node at (axis cs: 5, 4.5) {$U+W=V$};
+						\draw node[dot] at (axis cs: 2.75, .5) {};
+						\draw node at (axis cs: 3, .75) {$x$};
+						\draw node[anchor=center, text width=3.5cm, right] at (axis cs: 3.20, .6) { $=u+w$, $u\in U$\\[0cm]\vspace{-.15cm} \hspace{1.5cm}$v\in V$};
+					\end{axis}
+				\end{tikzpicture}
 			\end{center}
 		\end{figure}
 		 Jeden Vektor in \(U\) kann man folgendermaßen mit einem Vektor in \(\bigslant{V}{W}\) identifizieren: \[p(x) = p(u+w) = p(u)+p(w) = p(u) + 0 = p(u)\] Für \(p(x)\) ist dann nur der Anteil von \(W\) ausschlaggebend. \(p\big|_V\) ist dann auch injektiv, denn \(p(u)=0\iff u=0\), denn \(p(y)=0\iff y\in W\) und \(W\cap U=\{0\}\).
@@ -2499,7 +2501,7 @@
         		\item Die Spaltenvektoren von \(A\) sind die Bilder der Basisvektoren \(e_i\) des \(K^n\)
         		\item Die Nacheinanderausführung linearer Abbildung entspricht der Matrixmultiplikation: Seien \(F_A: K^n \to K^m\), \(F_B: K^m \to K^l\) linear. Dann ist durch \(F_B\circ F_A\) eine lineare Abbildung \(K^n\to K^l\) definiert. Es gilt \[F_B\circ F_A = F_C\quad\text{mit}\quad C=c_{ij} = \sum_{s=1}^{n}a_{is}b_{sj}.\] Wir schreiben \(C=B\cdot A\). Die Formel für das Matrixprodukt wurde in den Übungen hergeleitet.
         		\item Mit der Nacheinanderausführung bilden die Endomorphismen von \(K^n \to K^n\) einen Ring, also gilt dass ebenso für \(n\times n\)-Matrizen mit dem Matrixprodukt.
-        		\item Die Falksche Regel bietet eine Möglichkeit, Matrizen übersichtlich miteinander zu multiplizieren\footnote{Quelle (modifiziert): \href{http://www.texample.net/tikz/examples/matrix-multiplication/}{texample.net}}:
+        		\item Die Falksche Regel bietet eine Möglichkeit, Matrizen übersichtlich miteinander zu multiplizieren:
 
         		\begin{figure}[H]
         			\begin{center}
@@ -2556,14 +2558,14 @@
         		
         		\item Matrixmultiplikation von \(A\) und \(B\) ist nur möglich, wenn \(A\) genauso viele Spalten besitzt wie \(B\) Zeilen. Insbesondere ist nur dann \(F_A\circ F_B\) definiert.
 				\item Spezialfall: \(\Mat_K(n\times 1) = K^n\). Für \(x\in\Mat_K(n\times 1)\), \(A\in \Mat_K(m\times n)\) ist \(A\cdot x = F_A(x)\).
-				\item Die Matrix \[\En \quad = \quad
+				\item Die Matrix \[\En \quad = \quad\left.
 				\begin{pmatrix} 
-				1      & 0      & \cdots & 0\\
-				0      & 1      & \ddots & \vdots\\ 
-				\vdots & \ddots & \ddots & 0\\ 
-				0      & \cdots & 0      & 1 
-				\end{pmatrix}
-        		\]
+					1      & 0      & \cdots & 0\\
+					0      & 1      & \ddots & \vdots\\ 
+					\vdots & \ddots & \ddots & 0\\ 
+					0      & \cdots & 0      & 1 
+				\end{pmatrix} \right\} n
+				\]
         		heißt Einheitsmatrix (manchmal auch mit \(\mathcal{I}\) bezeichnet) und es gilt \(F_{\En} = \Id_{K^n}\).
         	\end{enumerate}
         \end{bemerkungen}
@@ -2662,11 +2664,11 @@ Wir verallgemeinern dies folgendermaßen:
 		\end{enumerate}
 		
 		\begin{bemerkung}
-			Wir kennen die kanonischen Isomorphismen \(I_\basea:V\to K^n, v_i\mapsto e_i\in K^n\) und \(I_\baseb:V\mapsto K^m, v_j\mapsto e_j\in K^m\) mit \(i=1, \ldots, n\), \(j=1,\ldots, m\). Dann gilt 
+			Wir kennen die kanonischen Isomorphismen \(I_\basea:V\to K^n, v_i\mapsto \ee_i\in K^n\) und \(I_\baseb:V\to K^m, v_j\mapsto \ee_j\in K^m\) mit \(i=1, \ldots, n\), \(j=1,\ldots, m\). Dann gilt 
 			\begin{align*}
-				I_\baseb\circ F\circ I_\basea^{-1}(e_i)	&= I_\baseb(F(v_i))\\
-														&= I_\baseb\left(\sum_{i=1}^{m}a_{ji}w_j\right) \\
-														&= \sum_{j=1}^{m}a_{ji}e_j
+				I_\baseb\circ F\circ I_\basea^{-1}(\ee_i)	&= I_\baseb(F(v_i))\\
+															&= I_\baseb\left(\sum_{i=1}^{m}a_{ji}w_j\right)\\
+															&= \sum_{j=1}^{m}a_{ji}\ee_j
 			\end{align*}
 			Dies ist die \(j\)-te Spalte von \(A=(a_{ij})=\M(\baseb, F, \basea)\), also \[I_\baseb\circ F\circ \basea=F_{\M(\baseb, F, \basea)}.\] Wieder gilt: Die Spalten von \(\M(\baseb, F, \basea)\) sind die Bilder der Basisvektoren, allerdings nun geschrieben durch Koeffizienten in der Basis \(\baseb\). Nachdem \(I_\basea, I_\baseb\) Isomorphismen sind, gilt \(\rg(F)=\rg(F_{\M(\baseb, F, \basea)})=\rg(\M(\baseb, F, \basea))\) (ebenso für \(\dim(\ker(F))\)). \\
 			
@@ -2681,8 +2683,8 @@ Wir verallgemeinern dies folgendermaßen:
 							K^n & K^m \\};
 						\matrix (m2) [matrix of math nodes,row sep=5em,column sep=11em,minimum width=2em]
 						{
-							v_j & w_i\\
-							e_j & e_i \\};
+							v_j		& w_i\\
+							\ee_j	& \ee_i \\};
 						\path[-stealth]
 						(m-1-1) edge[->] node [left] {$I_\basea$} (m-2-1)
 						edge[->] node [above] {$F$} node [below] {\tiny$v_j\mapsto\sum_{i=1}^ma_{ij}w_i$} (m-1-2)
